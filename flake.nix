@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-24.05";
+      url = "github:nixos/nixpkgs/release-24.05";
     };
 
     # Core tools: home manager, secrets, disk partitioning, deployment
@@ -37,7 +37,6 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
@@ -45,13 +44,20 @@
       self,
       nixpkgs,
       deploy-rs,
+      home-manager,
       agenix,
       ...
     }@inputs:
     let
+      lib = nixpkgs.lib // home-manager.lib;
+
       vars = import "./vars.nix";
+
     in
     {
+      inherit lib;
+
+      devShells = import ./shell.nix { pkgs = nixpkgs; };
 
       nixosConfigurations = {
         svalbard = nixpkgs.lib.nixosSystem {
