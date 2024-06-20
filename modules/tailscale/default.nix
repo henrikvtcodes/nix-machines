@@ -8,7 +8,7 @@
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   services.tailscale = {
-    extraUpFlags = [ "--hostname ${config.networking.hostName}-tailscale" ];
+    extraUpFlags = [ "--hostname ${config.networking.hostName}" ];
     enable = true;
   };
 
@@ -31,7 +31,6 @@
     };
 
     script = with pkgs; ''
-
       # wait for tailscaled to settle
       echo "Waiting for tailscale.service start completion ..." 
       sleep 5
