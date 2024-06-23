@@ -16,17 +16,49 @@
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "weekly" ];
 
+  # Config sudo/doas commands
   security = {
-    doas.enable = lib.mkDefault false;
+    doas.enable = false;
     sudo = {
-      enable = lib.mkDefault true;
-      wheelNeedsPassword = lib.mkDefault true;
+      enable = true;
+      wheelNeedsPassword = true;
     };
   };
 
+  # Default networking/firewall settings
+  networking = {
+    enableIPv6 = true;
+    useDHCP = true;
+    firewall = {
+      enable = true;
+      allowPing = true;
+    };
+  };
+
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "no";
+  };
+
+  # Hey, what does `with pkgs;` do?
+  # It's a nixpkgs feature that allows you to use the pkgs variable without prefixing it with pkgs. 
+  # ie, instead of `pkgs.git`, you can just write `git`
   environment.systemPackages = with pkgs; [
+    # provides lspci, lsusb, lsblk
+    pciutils
+    usbutils
+    util-linux
+
+    # perf testing/viewing
     iperf3
-    rsync
+    btop
+
+    # dev tools
+    git
+    vim
+    neovim
+
+    # vanity
     neofetch
   ];
 }
