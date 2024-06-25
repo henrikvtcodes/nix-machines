@@ -51,13 +51,23 @@
     let
       lib = nixpkgs.lib // home-manager.lib;
 
+      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+
+      pkgsFor = lib.genAttrs (import systems) (
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+      );
+
       vars = import "./vars.nix";
 
     in
     {
       inherit lib;
 
-      devShells = import ./shell.nix { pkgs = nixpkgs; };
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       nixosConfigurations = {
         svalbard = nixpkgs.lib.nixosSystem {
