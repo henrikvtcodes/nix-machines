@@ -44,6 +44,7 @@ Useful findings and resources as I fall down the wormhole
 ## other
 
 - https://mynixos.com
+- https://garnix.io/
 
 ## blog posts
 
@@ -62,6 +63,7 @@ Useful findings and resources as I fall down the wormhole
 - https://github.com/IogaMaster/dotfiles
 - https://github.com/hlissner/dotfiles
 - https://github.com/librephoenix/nixos-config
+- https://gitlab.com/Zaney/zaneyos
 
 ### useful libraries/repos
 
@@ -72,4 +74,4 @@ Useful findings and resources as I fall down the wormhole
 - https://github.com/nix-community/disko
 - https://github.com/serokell/deploy-rs
 - https://github.com/nix-community/haumea
-- https://gitlab.com/Zaney/zaneyos
+- https://github.com/rust-motd/rust-motd (not strictly nix related, but useful nonetheless)
