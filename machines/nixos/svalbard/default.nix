@@ -10,7 +10,6 @@
   environment.systemPackages = with pkgs; [
     iperf3
     rsync
-    neofetch
   ];
 
   # This value determines the NixOS release from which the default
