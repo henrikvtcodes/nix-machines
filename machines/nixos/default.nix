@@ -7,6 +7,11 @@
 }:
 {
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # Clean up nix store + old generations automatically
   nix.gc = {
     automatic = true;
@@ -37,17 +42,33 @@
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
   };
+
+  # General Settings
+  time.timeZone = lib.mkDefault "America/New_York";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # Dont error on unfree (ie proprietary) packages
+  nixpkgs.config.allowUnfree = true;
 
   # Hey, what does `with pkgs;` do?
   # It's a nixpkgs feature that allows you to use the pkgs variable without prefixing it with pkgs. 
   # ie, instead of `pkgs.git`, you can just write `git`
   environment.systemPackages = with pkgs; [
-    # provides lspci, lsusb, lsblk
+    # general system utilities
     pciutils
     usbutils
     util-linux
+    dnsutils
+    iotop
+    iftop
+    ethtool
+    sysstat
+    lm_sensors
 
     # perf testing/viewing
     iperf3
