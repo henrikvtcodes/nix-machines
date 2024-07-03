@@ -2,10 +2,8 @@
 
 this contains configurations for my nixos machines.
 
-inspiration/credits:
-
-- https://github.com/dustinlyons/nixos-config
-- https://github.com/notthebee/nix-config
+> ![WARNING]
+> I am very new to Nix and NixOS. This config is not a good reference to learn from.
 
 ## Docs
 
