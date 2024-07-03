@@ -2,7 +2,7 @@
 
 this contains configurations for my nixos machines.
 
-> ![WARNING]
+> [!WARNING]
 > I am very new to Nix and NixOS. This config is not a good reference to learn from.
 
 ## Docs
