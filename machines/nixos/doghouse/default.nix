@@ -6,6 +6,8 @@
   ...
 }:
 {
+  imports = [ ./disko/boot.nix ];
+
   environment.systemPackages = with pkgs; [
 
   ];
