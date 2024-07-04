@@ -6,7 +6,14 @@
   ...
 }:
 {
-  imports = [ ./disko/boot.nix ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-config.nix
+    ./disk-config.nix
+  ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   environment.systemPackages = with pkgs; [
 

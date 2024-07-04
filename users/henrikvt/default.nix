@@ -6,43 +6,41 @@
   ...
 }:
 {
-  # nix.settings.trusted-users = [ "henrikvt" ];
+  nix.settings.trusted-users = [ "henrikvt" ];
 
   # NixOS User Config
-  # users = {
-  #   users.henrikvt = {
-  #     uid = 1000;
-  #     group = "henrikvt";
-  #     isNormalUser = true;
-  #     extraGroups = [
-  #       "wheel"
-  #       "networkmanager"
-  #     ];
+  users = {
+    users.henrikvt = {
+      uid = 1000;
+      group = "henrikvt";
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
 
-  #     shell = pkgs.zsh;
-  #   };
+      shell = pkgs.zsh;
+      packages = with pkgs; [
+        # stuff
+        neofetch
+        neovim
+        btop
 
-  #   groups.henrikvt = {
-  #     gid = 1000;
-  #   };
-  # };
+        bat
+        fzf
+        jq
+        yq
 
-  imports = [
-    ./editor.nix
-    ./zsh.nix
-    ./git.nix
-  ];
+        # fun
+        cowsay
+        fortune
+      ];
+    };
 
-  programs.home-manager.enable = true;
-
-  # home-manager user config
-  home = {
-    username = "henrikvt";
-    homeDirectory = "/home/henrikvt";
-    # stateVersion = system.stateVersion;
-    packages = with pkgs; [
-      ffmpeg
-      yt-dlp
-    ];
+    groups.henrikvt = {
+      gid = 1000;
+    };
   };
+
+  programs.zsh.enable = true;
 }
