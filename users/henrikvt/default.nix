@@ -35,6 +35,10 @@
         cowsay
         fortune
       ];
+
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINimhbJZN+MLdXbtk3Mrb5dca7P+LKy399OqqYZ122Ml"
+      ];
     };
 
     groups.henrikvt = {
