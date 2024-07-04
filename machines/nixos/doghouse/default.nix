@@ -12,12 +12,16 @@
     ./disk-config.nix
   ];
 
+  networking.hostName = "doghouse";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.systemPackages = with pkgs; [
+  networking.firewall.enable = false;
+  networking.wireless.enable = false;
+  networking.networkmanager.enable = false;
 
-  ];
+  services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
