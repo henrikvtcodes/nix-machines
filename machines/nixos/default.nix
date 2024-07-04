@@ -26,18 +26,19 @@
     doas.enable = false;
     sudo = {
       enable = true;
-      wheelNeedsPassword = true;
+      wheelNeedsPassword = lib.mkDefault true;
     };
   };
 
   # Default networking/firewall settings
   networking = {
     enableIPv6 = true;
-    useDHCP = true;
+    useDHCP = lib.mkDefault true;
     firewall = {
-      enable = true;
+      enable = lib.mkDefault true;
       allowPing = true;
     };
+    wireless.enable = lib.mkDefault false;
   };
 
   services.openssh = {
