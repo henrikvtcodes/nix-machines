@@ -2,6 +2,13 @@
 
 Useful findings and resources as I fall down the wormhole
 
+# Tips
+
+**Nix cant find file?**
+`nix flake check --repair`
+
+# Links
+
 ## secrets (agenix)
 
 - useful tutorial: https://blog.sekun.net/posts/manage-secrets-in-nixos/  
@@ -50,6 +57,7 @@ Useful findings and resources as I fall down the wormhole
 
 - https://grahamc.com/blog/erase-your-darlings/
 - https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
+- https://www.return12.net/posts/bootstrapping-nixos/
 
 ## configs to reference
 
