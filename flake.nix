@@ -14,11 +14,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # agenix = {
-    #   # agenix-compatible but in rust, for stability
-    #   url = "github:yaxitech/ragenix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    agenix = {
+      # agenix-compatible but in rust, for stability
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       url = "github:nix-community/disko";
@@ -47,7 +47,12 @@
   };
 
   outputs =
-    { nixpkgs, disko, ... }@inputs:
+    {
+      nixpkgs,
+      disko,
+      agenix,
+      ...
+    }@inputs:
     {
 
       # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
@@ -64,6 +69,13 @@
           ./machines/nixos
           ./machines/nixos/doghouse
           disko.nixosModules.disko
+
+          ./modules/tailscale
+
+          # Secrets
+          ./secrets
+          agenix.nixosModules.age
+
           # User config
           ./users/henrikvt
         ];
