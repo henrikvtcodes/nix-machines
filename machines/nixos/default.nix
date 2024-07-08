@@ -5,6 +5,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.systemFeatures = [ "recursive-nix" ];
 
   # Clean up nix store + old generations automatically
   nix.gc = {
