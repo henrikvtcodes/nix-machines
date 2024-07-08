@@ -14,6 +14,8 @@
 
       ssh-to-age
       age
+      ragenix
+      deploy-rs
     ];
   };
 }
