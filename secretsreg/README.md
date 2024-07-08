@@ -1,0 +1,2 @@
+# nixos-secrets
+secrets repo
