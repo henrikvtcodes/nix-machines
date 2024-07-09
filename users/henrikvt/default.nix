@@ -44,4 +44,9 @@
   programs.zsh.enable = true;
 
   programs.ssh.startAgent = true;
+
+  age.identityPaths = [
+    /home/henrikvt/.ssh/id_ed25519
+    /home/henrikvt/.ssh/homelab
+  ];
 }
