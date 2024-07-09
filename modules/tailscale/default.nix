@@ -7,9 +7,10 @@
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
-  services.tailscale.enable = true;
-
-  extraUpFlags = [ "--hostname ${config.networking.hostName}" ];
+  services.tailscale = {
+    enable = true;
+    extraUpFlags = [ "--hostname ${config.networking.hostName}" ];
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
