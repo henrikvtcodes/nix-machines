@@ -1,11 +1,14 @@
 { pkgs, lib, ... }:
 {
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.systemFeatures = [ "recursive-nix" ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    system-features = [ "recursive-nix" ];
+  };
 
   # Clean up nix store + old generations automatically
   nix.gc = {

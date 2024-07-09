@@ -2,6 +2,12 @@
   description = "nix configuration for my servers + other stuff";
 
   inputs = {
+    # Required for nix to recognize the git submodule as a valid nix module
+    # secrets = {
+    #   url = "path:secrets"; # the submodule is in the ./subproject dir
+    #   flake = false;
+    # };
+
     nixpkgs = {
       url = "github:nixos/nixpkgs/release-24.05";
     };
@@ -68,13 +74,13 @@
           # Machine config
           ./machines/nixos
           ./machines/nixos/doghouse
-          disko.nixosModules.disko
+          disko.nixosModules.default
 
           ./modules/tailscale
 
           # Secrets
           ./secrets
-          agenix.nixosModules.age
+          agenix.nixosModules.default
 
           # User config
           ./users/henrikvt

@@ -5,6 +5,6 @@
   ...
 }:
 {
-  age.secrets.tailscaleAuthKey.file = "tailscaleAuthKey.age";
-  age.secrets.henrikUserPassword.file = "henrikUserPassword.age";
+  age.secrets.tailscaleAuthKey.file = ./tailscaleAuthKey.age;
+  age.secrets.henrikUserPassword.file = ./henrikUserPassword.age;
 }
