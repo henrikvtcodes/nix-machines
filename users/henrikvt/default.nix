@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   nix.settings.trusted-users = [ "henrikvt" ];
 
@@ -8,6 +8,7 @@
       uid = 1000;
       group = "henrikvt";
       isNormalUser = true;
+      passwordFile = config.age.secrets.henrikUserPassword.path;
       extraGroups = [
         "wheel"
         "networkmanager"
