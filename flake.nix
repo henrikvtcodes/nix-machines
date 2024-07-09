@@ -77,6 +77,7 @@
           disko.nixosModules.default
 
           ./modules/tailscale
+          ./modules/boot-disk
 
           # Secrets
           ./secrets

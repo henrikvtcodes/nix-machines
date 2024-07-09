@@ -3,7 +3,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
-    ./disk-config.nix
+    # ./disk-config.nix
   ];
 
   networking.hostName = "doghouse";
@@ -16,6 +16,11 @@
   networking.networkmanager.enable = false;
 
   services.openssh.enable = true;
+
+  bootDisk = {
+    enable = true;
+    diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_NVMe_TOSHIBA_256GB_687F729NFANP";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
