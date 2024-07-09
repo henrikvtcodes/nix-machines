@@ -44,7 +44,7 @@ in
   # a user of this "hello.nix" module ENABLED this module 
   # by setting "services.hello.enable = true;".
   config = mkIf cfg.enable {
-    disko.devices.disk.boot = {
+    disko.devices.disk.main = {
       type = "disk";
       device = cfg.diskPath;
       content = {
