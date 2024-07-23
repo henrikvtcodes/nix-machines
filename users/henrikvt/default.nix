@@ -23,6 +23,7 @@
 
         bat
         fzf
+        zoxide
         jq
         yq
 
