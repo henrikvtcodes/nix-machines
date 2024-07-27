@@ -100,7 +100,7 @@
           modules = [
             # Machine config
             ./machines/nixos
-            ./machines/nixos/doghouse
+            ./machines/nixos/svalbard
             disko.nixosModules.default
 
             ./modules/tailscale
