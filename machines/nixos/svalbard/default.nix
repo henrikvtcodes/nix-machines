@@ -17,6 +17,8 @@
     diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_TOSHIBA_Y7UF724WF6FS";
   };
 
+  networking.hostName = "svalbard";
+
   networking.firewall.enable = false;
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
