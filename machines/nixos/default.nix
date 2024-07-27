@@ -10,7 +10,7 @@
     system-features = [ "recursive-nix" ];
   };
 
-  system.hostname = lib.mkDefault "nixos";
+  networking.hostName = lib.mkDefault "nixos";
 
   # Clean up nix store + old generations automatically
   nix.gc = {
