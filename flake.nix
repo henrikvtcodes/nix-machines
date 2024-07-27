@@ -114,6 +114,30 @@
             ./users/henrikvt
           ];
         };
+        marstrand = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/marstrand
+            disko.nixosModules.default
+
+            ./modules/tailscale
+            ./modules/boot-disk
+
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
+
+            # User config
+            ./users/henrikvt
+          ];
+        };
       };
 
       deploy = {
