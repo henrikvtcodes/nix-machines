@@ -16,11 +16,12 @@ svalbard is my primary server box at the moment. it contains two ssds and two 4t
 
 ### drives & partitions
 
-| Drive                  | ID  | Capacity | Purpose                          |
-| ---------------------- | --- | -------- | -------------------------------- |
-| SanDisk SATA3 SSD      |     | 120GB    | Boot drive                       |
-| Toshiba M.2 PCIe NVMe  |     | 256GB    | ARC cache + higher speed storage |
-| Toshiba Enterprise HDD |     | 4TB      | (x2 drives) Mass storage         |
+| Drive                  | ID `/dev/disk/by-id`                          | Capacity | Purpose                          |
+| ---------------------- | --------------------------------------------- | -------- | -------------------------------- |
+| SanDisk SATA3 SSD      | `ata-KINGSTON_SKC400S37128G_50026B7267043399` | 120GB    | Boot drive                       |
+| Toshiba M.2 PCIe NVMe  | `nvme-KXG50ZNV256G_TOSHIBA_Y7UF724WF6FS`      | 256GB    | ARC cache + higher speed storage |
+| Toshiba Enterprise HDD | `ata-TOSHIBA_MG04ACA400N_38CXK3V5FSYC`        | 4TB      | (x2 drives) Mass storage         |
+| Toshiba Enterprise HDD | `ata-TOSHIBA_MG04ACA400N_38DEK8WVFSYC`        | 4TB      | (x2 drives) Mass storage         |
 
 These drives are configured as follows. The boot ssd contains only the boot partition and 4GB swap.
 It only stores config stuff, nix store, system logs, etc.

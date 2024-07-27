@@ -6,11 +6,20 @@
   ...
 }:
 {
-
-  environment.systemPackages = with pkgs; [
-    iperf3
-    rsync
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-config.nix
+    ./disk-config.nix
   ];
+
+  bootDisk = {
+    enable = true;
+    diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_TOSHIBA_Y7UF724WF6FS";
+  };
+
+  networking.firewall.enable = false;
+  networking.wireless.enable = false;
+  networking.networkmanager.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

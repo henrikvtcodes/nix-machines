@@ -31,10 +31,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # deploy-rs = {
-    #   url = "github:serokell/deploy-rs";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # impermanence = {
     #   url = "github:nix-community/impermanence";
@@ -54,39 +54,85 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       disko,
       agenix,
+      deploy-rs,
       ...
     }@inputs:
     {
 
       # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
-      nixosConfigurations.doghouse = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      nixosConfigurations = {
+        doghouse = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        specialArgs = {
-          inherit inputs;
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/doghouse
+            disko.nixosModules.default
+
+            ./modules/tailscale
+            ./modules/boot-disk
+
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
+
+            # User config
+            ./users/henrikvt
+          ];
         };
+        svalbard = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        modules = [
-          # Machine config
-          ./machines/nixos
-          ./machines/nixos/doghouse
-          disko.nixosModules.default
+          specialArgs = {
+            inherit inputs;
+          };
 
-          ./modules/tailscale
-          ./modules/boot-disk
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/doghouse
+            disko.nixosModules.default
 
-          # Secrets
-          ./secrets
-          agenix.nixosModules.default
+            ./modules/tailscale
+            ./modules/boot-disk
 
-          # User config
-          ./users/henrikvt
-        ];
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
+
+            # User config
+            ./users/henrikvt
+          ];
+        };
       };
 
+      deploy = {
+        fastConnection = true;
+        remoteBuild = true;
+        user = "root";
+        sshUser = "henrikvt";
+
+        # nodes config
+        nodes = {
+          doghouse = {
+            hostName = "doghouse";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.doghouse;
+          };
+        };
+      };
+
+      # Enables nix flake check to ensure that the deploy-rs config is correct
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
+
 }
