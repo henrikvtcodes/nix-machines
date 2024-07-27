@@ -14,8 +14,10 @@
 
   bootDisk = {
     enable = true;
-    diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_TOSHIBA_Y7UF724WF6FS";
+    diskPath = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
   };
+
+  environment.systemPackages = with pkgs; [ zfs ];
 
   networking.hostName = "svalbard";
 
