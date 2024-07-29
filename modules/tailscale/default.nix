@@ -28,7 +28,7 @@ in
       enable = true;
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       extraUpFlags =
-        [ "--hostname ${config.networking.hostName}" ]
+        [ ]
         ++ optional cfg.advertiseExitNode [ "--advertise-exit-node" ]
         ++ optional ((builtins.length cfg.advertiseRoutes) != 0) [
           "--advertise-routes ${lib.concatStringsSep " " cfg.advertiseRoutes}"
