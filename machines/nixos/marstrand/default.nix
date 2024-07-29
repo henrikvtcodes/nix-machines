@@ -12,6 +12,9 @@
     # ./disk-config.nix
   ];
 
+  networking.hostName = "marstrand";
+  # networking.hostId = "";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -19,9 +22,6 @@
     enable = true;
     diskPath = "/dev/disk/by-id/ata-Timetec_35TTM8SSATA-128G_PL220927YSC128G0103";
   };
-
-  networking.hostName = "marstrand";
-  # networking.hostId = "738195cd"; # for ZFS
 
   networking.firewall.enable = false;
   networking.wireless.enable = false;
