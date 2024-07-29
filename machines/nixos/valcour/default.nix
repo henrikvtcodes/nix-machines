@@ -6,7 +6,7 @@
   ];
 
   networking.hostName = "valcour";
-  networking.hostId = "5af035d87d";
+  networking.hostId = "5af035d8";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

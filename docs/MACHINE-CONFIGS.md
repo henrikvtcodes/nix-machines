@@ -14,4 +14,4 @@
 
 #### Generating a hostId
 
-Run `head -c 12 /etc/machine-id`
+Run `head -c 8 /etc/machine-id`
