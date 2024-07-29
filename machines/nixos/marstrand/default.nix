@@ -12,9 +12,12 @@
     # ./disk-config.nix
   ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   bootDisk = {
-    enable = false;
-    # diskPath = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
+    enable = true;
+    diskPath = "/dev/disk/by-id/ata-Timetec_35TTM8SSATA-128G_PL220927YSC128G0103";
   };
 
   networking.hostName = "marstrand";
@@ -30,5 +33,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  # system.stateVersion = "24.05";
+  system.stateVersion = "24.05";
 }
