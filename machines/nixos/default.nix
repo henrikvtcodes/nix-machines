@@ -48,6 +48,7 @@
     wireless.enable = lib.mkDefault false;
   };
   networking.hostName = lib.mkDefault "nixos";
+  svcs.tailscale.enable = lib.mkDefault true;
 
   # Enable SSH server
   services.openssh = {
@@ -79,6 +80,7 @@
     ethtool
     sysstat
     lm_sensors
+    smartmontools
 
     # perf testing/viewing
     iperf3
