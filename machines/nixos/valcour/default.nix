@@ -9,7 +9,7 @@
   networking.hostId = "5af035d8";
 
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.bootCounting = true;
+  # boot.loader.systemd-boot.bootCounting = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.firewall.enable = false;
