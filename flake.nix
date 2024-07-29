@@ -138,7 +138,7 @@
             ./users/henrikvt
           ];
         };
-        snoopy = nixpkgs.lib.nixosSystem {
+        valcour = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
           specialArgs = {
@@ -148,7 +148,7 @@
           modules = [
             # Machine config
             ./machines/nixos
-            ./machines/nixos/snoopy
+            ./machines/nixos/valcour
             disko.nixosModules.default
 
             # Secrets

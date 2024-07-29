@@ -5,7 +5,7 @@
     ./hardware-config.nix
   ];
 
-  networking.hostName = "snoopy";
+  networking.hostName = "valcour";
   networking.hostId = "5af035d87d";
 
   boot.loader.systemd-boot.enable = true;
