@@ -2,8 +2,8 @@
 {
 
   imports = [
-    ../modules/tailscale
-    ../modules/boot-disk
+    ../../modules/tailscale
+    ../../modules/boot-disk
   ];
 
   nix.settings = {
