@@ -14,8 +14,6 @@
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
 
-  services.openssh.enable = true;
-
   bootDisk = {
     enable = true;
     diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_NVMe_TOSHIBA_256GB_687F729NFANP";

@@ -13,13 +13,17 @@
   networking.hostName = lib.mkDefault "nixos";
 
   # Clean up nix store + old generations automatically
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
   };
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "weekly" ];
 
   # Config sudo/doas commands
   security = {
