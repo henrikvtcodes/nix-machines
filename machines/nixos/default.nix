@@ -1,6 +1,11 @@
 { pkgs, lib, ... }:
 {
 
+  imports = [
+    ../modules/tailscale
+    ../modules/boot-disk
+  ];
+
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -9,8 +14,6 @@
 
     system-features = [ "recursive-nix" ];
   };
-
-  networking.hostName = lib.mkDefault "nixos";
 
   # Clean up nix store + old generations automatically
   nix = {
@@ -44,7 +47,9 @@
     };
     wireless.enable = lib.mkDefault false;
   };
+  networking.hostName = lib.mkDefault "nixos";
 
+  # Enable SSH server
   services.openssh = {
     enable = true;
     settings = {
