@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 with lib;
 let
@@ -20,8 +15,8 @@ in
       '';
     };
     advertiseRoutes = mkOption {
-      type = types.nullOr types.listOf types.str;
-      default = null;
+      type = types.listOf types.str;
+      default = [ ];
       description = ''
         Advertise these routes.
       '';
@@ -29,13 +24,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    service.tailscale = {
+    services.tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       extraUpFlags =
         [ "--hostname ${config.networking.hostName}" ]
         ++ optional cfg.advertiseExitNode [ "--advertise-exit-node" ]
-        ++ optional cfg.advertiseRoutes [
+        ++ optional ((builtins.length cfg.advertiseRoutes) != 0) [
           "--advertise-routes ${lib.concatStringsSep " " cfg.advertiseRoutes}"
         ];
     };
