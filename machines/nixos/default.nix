@@ -71,16 +71,16 @@
   # ie, instead of `pkgs.git`, you can just write `git`
   environment.systemPackages = with pkgs; [
     # general system utilities
-    pciutils
-    usbutils
-    util-linux
-    dnsutils
-    iotop
-    iftop
-    ethtool
-    sysstat
-    lm_sensors
-    smartmontools
+    pciutils # setpci lspci pcilmr
+    usbutils # usbhid-dump lsusb lsusb.py usb-devices
+    util-linux # nsenter isosize utmpdump wall fincore prlimit namei uuidparse blkpr write swapoff mount rename logger ipcmk taskset swapon blockdev umount swaplabel scriptreplay resizepart script findfs mountpoint fstrim ipcs sulogin mesg wipefs fsfreeze ldattach fdisk readprofile setpriv rev login colrm choom setterm cal lastb kill zramctl scriptlive addpart lsblk linux32 irqtop nologin ctrlaltdel lsmem waitpid getopt lscpu col chmem partx mkfs.minix fsck.minix pivot_root setarch column chrt eject lslocks lslogins blkzone linux64 x86_64 fallocate pipesz fsck whereis rfkill last unshare renice ionice chsh cfdisk lsirq more losetup hexdump switch_root runuser uclampset wdctl flock look hardlink fadvise blkid hwclock delpart chcpu lsns mkswap agetty chfn rtcwake mkfs sfdisk lsfd ipcrm mkfs.bfs colcrt mkfs.cramfs lsipc fsck.cramfs i386 setsid uname26 blkdiscard uuidd ul dmesg uuidgen findmnt mcookie
+    iotop # iotop
+    iftop # iftop
+    ethtool # ethtool
+    sysstat # iostat tapestat mpstat sar sadf pidstat cifsiostat
+    lm_sensors # sensors pwmconfig sensors-conf-convert isaset fancontrol sensors-detect isadump
+    smartmontools # smartd smartctl
+    dhcpcd # dhcpcd
 
     # perf testing/viewing
     iperf3
