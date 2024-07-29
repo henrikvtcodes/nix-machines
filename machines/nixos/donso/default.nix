@@ -20,7 +20,7 @@
 
   bootDisk = {
     enable = true;
-    # diskPath = "";
+    diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
   };
 
   networking.firewall.enable = false;
