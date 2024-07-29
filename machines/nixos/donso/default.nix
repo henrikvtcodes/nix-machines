@@ -12,7 +12,7 @@
     # ./disk-config.nix
   ];
 
-  networking.hostName = "doghouse";
+  networking.hostName = "donso";
   # networking.hostId = "";
 
   boot.loader.systemd-boot.enable = true;

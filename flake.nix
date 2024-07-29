@@ -66,30 +66,30 @@
       # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       nixosConfigurations = {
-        # doghouse = nixpkgs.lib.nixosSystem {
-        #   system = "x86_64-linux";
+        donso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        #   specialArgs = {
-        #     inherit inputs;
-        #   };
+          specialArgs = {
+            inherit inputs;
+          };
 
-        #   modules = [
-        #     # Machine config
-        #     ./machines/nixos
-        #     ./machines/nixos/doghouse
-        #     disko.nixosModules.default
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/donso
+            disko.nixosModules.default
 
-        #     ./modules/tailscale
-        #     ./modules/boot-disk
+            ./modules/tailscale
+            ./modules/boot-disk
 
-        #     # Secrets
-        #     ./secrets
-        #     agenix.nixosModules.default
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
 
-        #     # User config
-        #     ./users/henrikvt
-        #   ];
-        # };
+            # User config
+            ./users/henrikvt
+          ];
+        };
         svalbard = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
