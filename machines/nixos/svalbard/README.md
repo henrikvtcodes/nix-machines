@@ -1,6 +1,6 @@
 # svalbard
 
-svalbard is my primary server box at the moment. it contains two ssds and two 4tb drives - more detailed specs below.
+svalbard is my primary server box at the moment. it contains two ssds and two 4tb drives - more detailed specs below. the name is inspired by the svalbard seed vault.
 
 **I also wrote a blog post abt this machine:** https://blog.henrikvt.com/building-a-sub-200-4tb-nas
 

@@ -1,6 +1,6 @@
-# doghouse
+# valcour
 
-doghouse is one of my many micro-nodes; ie a 1L (or smaller) size pc with a low power CPU.
+valcour is one of my many micro-nodes; ie a 1L (or smaller) size pc with a low power CPU. The name is drawn from Valcour Island, a small island on Lake Champlain, off the coast of Plattsburgh, NY.
 
 ## the system
 
