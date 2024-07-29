@@ -3,10 +3,9 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
-    # ./disk-config.nix
   ];
 
-  networking.hostName = "doghouse";
+  networking.hostName = "snoopy";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
