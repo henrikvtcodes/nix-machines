@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 with lib;
 let
@@ -40,6 +35,7 @@ in
     disko.devices.disk.main = {
       type = "disk";
       device = cfg.diskPath;
+      name = "main";
       content = {
         type = "gpt";
         partitions = {

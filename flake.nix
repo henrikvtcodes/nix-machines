@@ -169,10 +169,10 @@
 
         # nodes config
         nodes = {
-          doghouse = {
-            hostName = "doghouse";
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.doghouse;
-          };
+          # doghouse = {
+          #   hostName = "doghouse";
+          #   profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.doghouse;
+          # };
         };
       };
 
