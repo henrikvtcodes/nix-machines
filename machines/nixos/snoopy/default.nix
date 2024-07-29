@@ -6,6 +6,7 @@
   ];
 
   networking.hostName = "snoopy";
+  networking.hostId = "5af035d87d";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
