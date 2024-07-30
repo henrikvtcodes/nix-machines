@@ -25,7 +25,7 @@ Host github.com
 2. _On the machine:_ Set password using `passwd`ls /
 3. _On the machine:_ Find IP address using `ip a`
 4. _On your laptop:_ Log into the machine `ssh nixos@<ip here>`
-5. _via SSH_: Generate the base config `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | sudo bash`
+5. _via SSH_: Generate the base config `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | bash`
 
 ## Deploy a config
 
