@@ -6,6 +6,7 @@ sudo mkdir -p /mnt/etc/nixos
 sudo nixos-generate-config --no-filesystems --root /mnt
 
 # Download the disko configuration to /mnt/etc/nixos
+rm -vf /mnt/etc/nixos/disk-config.nix
 sudo curl -o /mnt/etc/nixos/disk-config.nix https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/disk-config.nix
 
 # Prompt the user for which drive to install to:
@@ -16,6 +17,7 @@ read -p "Drive: " DRIVE
 sudo sed -i "s|to-be-filled-during-installation|$DRIVE|" /mnt/etc/nixos/disk-config.nix
 
 # Overwrite the configuration.nix with the provided configuration
+rm -vf /mnt/etc/nixos/configuration.nix
 sudo curl -o /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/configuration.nix
 
 # Finish by letting the user know what to do next
