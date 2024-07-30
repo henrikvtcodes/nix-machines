@@ -22,9 +22,10 @@ Host github.com
 **_NOT DONE_**
 
 1. _On the machine:_ Get the latest minimal ISO from https://nixos.org/download/ and boot into it
-2. _On the machine:_ Set password using `passwd`
+2. _On the machine:_ Set password using `passwd`ls /
 3. _On the machine:_ Find IP address using `ip a`
 4. _On your laptop:_ Log into the machine `ssh nixos@<ip here>`
+5. _via SSH_: Generate the base config `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | sudo bash`
 
 ## Deploy a config
 

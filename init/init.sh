@@ -9,7 +9,7 @@ curl -o /mnt/etc/nixos/disk-config.nix https://raw.githubusercontent.com/henrikv
 # Prompt the user for which drive to install to
 echo "Which drive would you like to install to?"
 lsblk
-read -r DRIVE
+read -p DRIVE
 
 # Set the drive in the configuration
 sed -i "s|to-be-filled-during-installation|/dev/$DRIVE|" /mnt/etc/nixos/disk-config.nix
