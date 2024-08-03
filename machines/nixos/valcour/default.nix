@@ -3,6 +3,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
+    ./prometheus.nix
   ];
 
   networking.hostName = "valcour";
