@@ -21,9 +21,16 @@
       }
 
       {
-        job_name = "Local Node Exporter";
+        job_name = "Node Exporter";
         scrape_interval = "15s";
-        static_configs = [ { targets = [ "localhost:9100" ]; } ];
+        static_configs = [
+          {
+            targets = [
+              "localhost:9100"
+              "marstrand:9100"
+            ];
+          }
+        ];
       }
 
       # {
