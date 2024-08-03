@@ -21,6 +21,7 @@
         viewers_can_edit = false;
         allow_sign_up = true;
       };
+      server.http_addr = "0.0.0.0";
     };
     provision.datasources.path = ./datasources.yml;
   };
