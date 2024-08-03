@@ -12,4 +12,16 @@
       }
     ];
   };
+
+  services.grafana = {
+    enable = true;
+    settings = {
+      users = {
+        editors_can_admin = true;
+        viewers_can_edit = false;
+        allow_sign_up = true;
+      };
+    };
+    provision.datasources.path = ./datasources.yml;
+  };
 }
