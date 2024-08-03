@@ -6,7 +6,7 @@
     exporters.unifi = {
       enable = true;
       # User details are local access only, no need for encryption
-      unifiUser = "local-data";
+      unifiUsername = "local-data";
       unifiPassword = "promDataExport1";
       unifiInsecure = true;
       unifiAddress = "http://10.205.0.1:8443";
