@@ -3,14 +3,14 @@
   services.prometheus = {
     enable = true;
     exporters.node.enable = true;
-    exporters.unifi = {
-      enable = true;
-      # User details are local access only, no need for encryption
-      unifiUsername = "local-data";
-      unifiPassword = "promDataExport1";
-      unifiInsecure = true;
-      unifiAddress = "http://10.205.0.1:8443";
-    };
+    # exporters.unifi = {
+    #   enable = true;
+    #   # User details are local access only, no need for encryption
+    #   unifiUsername = "local-data";
+    #   unifiPassword = "promDataExport1";
+    #   unifiInsecure = true;
+    #   unifiAddress = "http://10.205.0.1:8443";
+    # };
     scrapeConfigs = [
       {
         job_name = "BGP.Tools - AS215207";
@@ -26,11 +26,11 @@
         static_configs = [ { targets = [ "localhost:9100" ]; } ];
       }
 
-      {
-        job_name = "Local Unifi Exporter";
-        scrape_interval = "1m";
-        static_configs = [ { targets = [ "localhost:9130" ]; } ];
-      }
+      # {
+      #   job_name = "Local Unifi Exporter";
+      #   scrape_interval = "1m";
+      #   static_configs = [ { targets = [ "localhost:9130" ]; } ];
+      # }
     ];
 
   };
