@@ -25,6 +25,12 @@
         scrape_interval = "15s";
         static_configs = [ { targets = [ "localhost:9100" ]; } ];
       }
+
+      {
+        job_name = "Local Unifi Exporter";
+        scrape_interval = "1m";
+        static_configs = [ { targets = [ "localhost:9130" ]; } ];
+      }
     ];
 
   };
