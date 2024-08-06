@@ -19,6 +19,8 @@ Host github.com
 
 ## Installing a new machine
 
+https://nixos.asia/en/nixos-install-disko
+
 **_NOT DONE_**
 
 1. _On the machine:_ Get the latest minimal ISO from https://nixos.org/download/ and boot into it
