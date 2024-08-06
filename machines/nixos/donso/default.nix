@@ -18,7 +18,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  bootDisk = {
+  bootDiskGB = {
     enable = true;
     diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
   };
