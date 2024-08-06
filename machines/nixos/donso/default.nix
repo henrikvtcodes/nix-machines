@@ -18,10 +18,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  bootDisk = {
-    enable = true;
-    diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
-  };
+  # bootDisk = {
+  #   enable = true;
+  #   diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
+  # };
 
   networking.firewall.enable = false;
   networking.wireless.enable = false;
