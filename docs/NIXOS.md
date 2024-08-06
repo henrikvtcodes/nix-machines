@@ -24,9 +24,9 @@ https://nixos.asia/en/nixos-install-disko
 **_NOT DONE_**
 
 1. _On the machine:_ Get the latest minimal ISO from https://nixos.org/download/ and boot into it
-2. _On the machine:_ Set password using `passwd`ls /
+2. _On the machine:_ Set password using `passwd`
 3. _On the machine:_ Find IP address using `ip a`
-4. _On your laptop:_ Log into the machine `ssh nixos@<ip here>`
+4. _On your laptop:_ Log into the machine `ssh nixos@<ip>`
 5. _via SSH_: Generate the base config `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | bash`
 
 ## Deploy a config
@@ -36,3 +36,21 @@ sudo nixos-rebuild test --flake github:henrikvtcodes/nix-machines#<hostname>
 ```
 
 where `<hostname>` is the hostname of the machine to deploy
+
+## Manually checking and cleaning up old generations
+
+#### List generations
+
+```sh
+nix profile history --profile /nix/var/nix/profiles/system
+# Docs
+man nix3-profile-history
+```
+
+#### Delete Generations
+
+```sh
+sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 14d
+# Docs
+man nix3-profle-wipe-history
+```
