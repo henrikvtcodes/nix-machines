@@ -80,7 +80,8 @@
             disko.nixosModules.default
 
             ./modules/tailscale
-            ./modules/boot-disk
+            # ./modules/boot-disk See notes in boot-disk-gb for why this is like this
+            ./modules/boot-disk-gb
 
             # Secrets
             ./secrets
