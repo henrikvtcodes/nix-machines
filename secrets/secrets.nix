@@ -12,7 +12,7 @@ let
 
   valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q root@nixos";
 
-  donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL7mee8J7n3mxPJqkkNoKwMeez9ezUSEa0+a2h3WDGAD";
+  donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLNjGDW9Uzr/O5aGLipFJPFTPLsaj5UVxk1cd54dQ05";
 
   henrik = [
     henrik_public_pubkey
@@ -31,5 +31,5 @@ in
 {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
-  "henrikUserPassword.age".publicKeys = henrik ++ [ donso ];
+  "henrikUserPassword.age".publicKeys = henrik;
 }
