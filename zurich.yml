@@ -1,0 +1,70 @@
+asn: 215207
+router-id: 192.168.69.42
+source6: 2a0c:9a40:2510:1001::10f5
+prefixes:
+  - 2602:fbcf:d0::/44
+  - 2a0f:85c1:3aa::/48
+
+# hello!
+
+add-on-export: ["215207:140:756"]
+add-on-import: ["215207:140:756"]
+local-communities: ["215207:0:100"]
+
+templates:
+  upstream:
+    allow-local-as: true
+    announce: ["215207:100:200"]
+    remove-all-communities: 215207
+    local-pref: 80
+    import-limit4: 1500000
+    import-limit6: 500000
+    add-on-import: ["215207:100:80"]
+
+  routeserver:
+    filter-transit-asns: true
+    auto-import-limits: true
+    enforce-peer-nexthop: false
+    enforce-first-as: false
+    announce: ["215207:100:200"]
+    remove-all-communities: 215207
+    local-pref: 90
+    add-on-import: ["215207:100:90"]
+
+  peer:
+    filter-irr: true
+    filter-transit-asns: true
+    auto-import-limits: true
+    auto-as-set: true
+    announce: ["215207:100:200"]
+    remove-all-communities: 215207
+    local-pref: 100
+    add-on-import: ["215207:100:100"]
+
+  downstream:
+    filter-irr: true
+    allow-blackhole-community: true
+    filter-transit-asns: true
+    auto-import-limits: true
+    auto-as-set: true
+    announce: ["215207:100:200"]
+    remove-all-communities: 215207
+    local-pref: 200
+    add-on-import: ["215207:100:200"]
+
+peers:
+  iFog:
+    asn: 34927
+    template: upstream
+    add-on-export: ["215207:120:34927"] # iFog action communities
+    neighbors:
+      - 2a0c:9a40:2510:1001::1
+
+  FogIXP Route Servers:
+    asn: 47498
+    template: routeserver
+    add-on-import: ["215207:160:47498"]
+    add-on-export: ["215207:160:47498"]
+    neighbors:
+      - 2001:7f8:ca:1::111
+      - 2001:7f8:ca:1::222
