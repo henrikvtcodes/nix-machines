@@ -30,7 +30,7 @@ https://nixos.asia/en/nixos-install-disko
 5. _On your laptop:_ Log into the machine `ssh root@<ip>` (entering password as necessary)
 6. _via SSH_: Download the base disko config: `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/disk-config.nix -o /tmp/disk-config.nix`
 7. (Install vim if necessary: `nix-env -iA nixos.vim`) Edit disk config to add the correct disk: `vi /tmp/disk-config.nix`
-8. Run the init script: `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/disk-config.nix | bash`
+8. Run the init script: `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | bash`
 
 ## Deploy a config
 
