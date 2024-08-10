@@ -32,6 +32,15 @@ https://nixos.asia/en/nixos-install-disko
 7. (Install vim if necessary: `nix-env -iA nixos.vim`) Edit disk config to add the correct disk: `vi /tmp/disk-config.nix`
 8. Run the init script: `curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/init.sh | bash`
 
+## ZFS Storage
+
+_Follow install steps above_
+
+1. Copy the disko config _for the ZFS disks only_ to /etc/nixos/zfsdisks.nix
+2. Run `nix run github:nix-community/disko -- --mode disko /etc/nixos/zfsdisks.nix` (This wipes, reformats, and mounts the disks)
+3. Check pools: `zpool list` and then export them: `zpool export -a`
+4. Reboot!
+
 ## Deploy a config
 
 ```sh

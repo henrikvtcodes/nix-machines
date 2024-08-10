@@ -12,6 +12,23 @@
 
 ### ZFS
 
+Required options:
+
+```nix
+{
+boot.supportedFilesystems = [ "zfs" ];
+boot.zfs.forceImportRoot = false;
+}
+```
+
 #### Generating a hostId
 
 Run `head -c 8 /etc/machine-id`
+
+Set the option:
+
+```nix
+{
+networking.hostId = "8charid";
+}
+```
