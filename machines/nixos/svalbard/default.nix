@@ -31,7 +31,17 @@
   # ZFS Settings
   environment.systemPackages = with pkgs; [ zfs ];
 
-  services.zfs.autoScrub = true;
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+      interval = "weekly";
+      pools = [ "zstorage" ];
+    };
+    trim = {
+      enable = true;
+      interval = "monthly";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
