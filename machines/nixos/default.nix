@@ -28,9 +28,6 @@
     };
   };
 
-  boot.supportedFilesystems = lib.mkDefault [ "zfs" ];
-  boot.zfs.forceImportRoot = lib.mkDefault false;
-
   # Config sudo/doas commands
   security = {
     doas.enable = false;
