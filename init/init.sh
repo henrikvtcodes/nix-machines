@@ -1,7 +1,13 @@
 # !/bin/bash
 sleep 2
 
-nix-env -iA nixos.gum
+gum
+
+if [ $? -eq 0 ]; then
+  gum log --level="debug" "Gum installed."
+else
+  nix-env -iA nixos.gum
+fi
 
 # Check if the user is root
 if [ "$EUID" -ne 0 ]; then
@@ -67,4 +73,10 @@ function dontInstall () {
   exit 1
 }
 
-gum confirm "Run Install?" && install() || dontInstall()
+gum confirm "Run Install?"
+
+if [ $? -eq 0 ]; then
+  install
+else
+  dontInstall
+fi
