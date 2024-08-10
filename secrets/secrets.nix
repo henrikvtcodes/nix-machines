@@ -8,9 +8,9 @@ let
   henrik_homelab_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmZEhaLdiFJ6TdyhdBC5fvCiY5c7drQK2EVHGPCPHei";
 
   # --------- Systems ---------
-  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApAfSOQUWsDCYUKaPHxO8j4Wo9xGBSlvASMRIrNLYtD";
+  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuHUL/e1rSBsUYXxmNGOS9ryvvmDZWlgntO+7OyK9az";
 
-  valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q root@nixos";
+  valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q";
 
   donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLNjGDW9Uzr/O5aGLipFJPFTPLsaj5UVxk1cd54dQ05";
 
