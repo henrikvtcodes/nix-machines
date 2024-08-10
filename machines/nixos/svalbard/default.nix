@@ -41,6 +41,7 @@
   boot.zfs.forceImportRoot = false;
 
   # Healthcheck Ping
+  age.secrets.svalbardHealthcheckUrl.file = ../../../secrets/svalbardHealthcheckUrl.age;
   systemd = {
     timers."healthcheck-uptime" = {
       description = "Healthcheck Ping";

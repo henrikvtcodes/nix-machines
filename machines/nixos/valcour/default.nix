@@ -23,6 +23,7 @@
   };
 
   # Healthcheck Ping
+  age.secrets.valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
   systemd = {
     timers."healthcheck-uptime" = {
       description = "Healthcheck Ping";

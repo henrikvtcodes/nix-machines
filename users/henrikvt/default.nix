@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   nix.settings.trusted-users = [ "henrikvt" ];
+  age.secrets.henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
 
   # NixOS User Config
   users = {
