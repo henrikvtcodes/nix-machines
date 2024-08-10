@@ -13,7 +13,7 @@
   ];
 
   networking.hostName = "donso";
-  # networking.hostId = "";
+  networking.hostId = "bcf61aa3";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,6 +26,8 @@
   networking.firewall.enable = false;
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
+
+  services.prometheus.exporters.node.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
