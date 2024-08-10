@@ -167,15 +167,16 @@
         remoteBuild = true;
         user = "root";
         sshUser = "henrikvt";
+        interactiveSudo = true;
 
         # nodes config
         nodes = {
           svalbard = {
-            hostName = "svalbard";
+            hostname = "svalbard";
             profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.svalbard;
           };
           valcour = {
-            hostName = "valcour";
+            hostname = "valcour";
             profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.valcour;
           };
         };
