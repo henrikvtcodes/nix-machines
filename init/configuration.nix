@@ -46,6 +46,14 @@
     ];
   };
 
+  security = {
+    doas.enable = false;
+    sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
+  };
+
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
