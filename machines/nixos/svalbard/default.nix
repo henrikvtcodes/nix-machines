@@ -14,6 +14,8 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
 
   bootDiskGB = {
     enable = true;
@@ -23,7 +25,7 @@
   environment.systemPackages = with pkgs; [ zfs ];
 
   networking.hostName = "svalbard";
-  networking.hostId = "738195cd"; # for ZFS
+  networking.hostId = "8dcb1748"; # for ZFS
 
   networking.firewall.enable = false;
   networking.wireless.enable = false;
