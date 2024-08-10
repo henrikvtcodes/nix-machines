@@ -58,7 +58,7 @@
       zstorage = {
         type = "zpool";
         mode = "mirror";
-        mountpoint = "/mnt/storage";
+        mountpoint = "/data/storage";
         rootFsOptions = {
           compression = "zstd";
         };
@@ -66,15 +66,15 @@
         datasets = {
           backup = {
             type = "zfs_fs";
-            mountpoint = "/mnt/storage/backup";
+            mountpoint = "/data/storage/backup";
           };
           media = {
             type = "zfs_fs";
-            mountpoint = "/mnt/storage/media";
+            mountpoint = "/data/storage/media";
           };
           apps = {
             type = "zfs_fs";
-            mountpoint = "/mnt/storage/apps";
+            mountpoint = "/data/storage/apps";
           };
         };
       };
@@ -82,7 +82,7 @@
       zapps = {
         type = "zpool";
         mode = "";
-        mountpoint = "/mnt/apps";
+        mountpoint = "/data/apps";
         rootFsOptions = {
           compression = "zstd";
         };
@@ -90,11 +90,11 @@
         datasets = {
           main = {
             type = "zfs_fs";
-            mountpoint = "/mnt/apps/main";
+            mountpoint = "/data/apps/main";
           };
           scratch = {
             type = "zfs_fs";
-            mountpoint = "/mnt/apps/scratch";
+            mountpoint = "/data/apps/scratch";
           };
         };
       };

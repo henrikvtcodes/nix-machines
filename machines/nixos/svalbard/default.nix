@@ -25,7 +25,7 @@
   environment.systemPackages = with pkgs; [ zfs ];
 
   networking.hostName = "svalbard";
-  networking.hostId = "8dcb1748"; # for ZFS
+  networking.hostId = "08680d59"; # for ZFS
 
   networking.firewall.enable = false;
   networking.wireless.enable = false;
