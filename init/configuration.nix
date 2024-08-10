@@ -23,6 +23,8 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -66,6 +68,7 @@
     # dev tools
     git
     vim
+    zfs
   ];
 
   networking = {
