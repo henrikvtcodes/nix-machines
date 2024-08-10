@@ -66,15 +66,15 @@
         datasets = {
           backup = {
             type = "zfs_fs";
-            mountpoint = "/data/storage/backup";
+            options.mountpoint = "/data/storage/backup";
           };
           media = {
             type = "zfs_fs";
-            mountpoint = "/data/storage/media";
+            options.mountpoint = "/data/storage/media";
           };
           apps = {
             type = "zfs_fs";
-            mountpoint = "/data/storage/apps";
+            options.mountpoint = "/data/storage/apps";
           };
         };
       };
@@ -90,11 +90,11 @@
         datasets = {
           main = {
             type = "zfs_fs";
-            mountpoint = "/data/apps/main";
+            options.mountpoint = "/data/apps/main";
           };
           scratch = {
             type = "zfs_fs";
-            mountpoint = "/data/apps/scratch";
+            options.mountpoint = "/data/apps/scratch";
           };
         };
       };

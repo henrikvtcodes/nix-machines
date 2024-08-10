@@ -20,14 +20,18 @@
     diskPath = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
   };
 
+  networking = {
+    hostName = "svalbard";
+    hostId = "08680d59"; # for ZFS
+    firewall.enable = false;
+    wireless.enable = false;
+    networkmanager.enable = false;
+  };
+
+  # ZFS Settings
   environment.systemPackages = with pkgs; [ zfs ];
 
-  networking.hostName = "svalbard";
-  networking.hostId = "08680d59"; # for ZFS
-
-  networking.firewall.enable = false;
-  networking.wireless.enable = false;
-  networking.networkmanager.enable = false;
+  services.zfs.autoScrub = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
