@@ -8,8 +8,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    # ./hardware-config.nix
-    # ./disk-config.nix
+    ./hardware-config.nix
   ];
 
   networking.hostName = "marstrand";
@@ -18,7 +17,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  bootDisk = {
+  bootDiskGB = {
     enable = true;
     diskPath = "/dev/disk/by-id/ata-Timetec_35TTM8SSATA-128G_PL220927YSC128G0103";
   };
