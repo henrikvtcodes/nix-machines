@@ -3,6 +3,7 @@
   services.prometheus = {
     enable = true;
     exporters.node.enable = true;
+    retentionTime = "90d";
     # exporters.unifi = {
     #   enable = true;
     #   # User details are local access only, no need for encryption
