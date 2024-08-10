@@ -170,10 +170,14 @@
 
         # nodes config
         nodes = {
-          # doghouse = {
-          #   hostName = "doghouse";
-          #   profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.doghouse;
-          # };
+          svalbard = {
+            hostName = "svalbard";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.svalbard;
+          };
+          valcour = {
+            hostName = "valcour";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.valcour;
+          };
         };
       };
 

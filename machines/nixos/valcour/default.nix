@@ -36,7 +36,7 @@
     services."betteruptime" = {
       description = "Better Uptime Healthcheck";
       script = ''
-        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.secrets.valcourHealthcheckUrl.path})
+        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.age.secrets.valcourHealthcheckUrl.path})
       '';
       serviceConfig = {
         Type = "oneshot";
