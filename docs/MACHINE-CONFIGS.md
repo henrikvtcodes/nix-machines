@@ -11,7 +11,8 @@
 ### First install of a config
 
 1. Add private key under `/home/henrikvt/.ssh/id_ed25519`
-2. Ensure the machine's host key (`cat /etc/ssh/ssh)
+2. Ensure the machine's host public key (`cat /etc/ssh/ssh_host_ed25519_key.pub`) is present as an identity in secrets
+3. Build the config: `sudo nixos-rebuild switch --flake github:henrikvtcodes/nix-machines#host`
 
 ### ZFS
 

@@ -9,10 +9,9 @@ let
 
   # --------- Systems ---------
   svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLF2ymnhVA2fZy9bW3AvittJllvdIhpEEJeNE1JtZ4z";
-
   valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q";
-
   donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLNjGDW9Uzr/O5aGLipFJPFTPLsaj5UVxk1cd54dQ05";
+  marstrand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcHEGMX9Oxd+0J5sZNKtq7LHKBNxFw525NPnhh5Ewr2";
 
   henrik = [
     henrik_public_pubkey
@@ -26,6 +25,7 @@ let
     svalbard
     valcour
     donso
+    marstrand
   ];
 in
 {
