@@ -13,7 +13,7 @@ fi
 nix \
   --experimental-features "nix-command flakes" \
   run github:nix-community/disko -- \
-  --mode disko /tmp/disko-config.nix
+  --mode disko /tmp/disk-config.nix
 
 if [ $? -eq 0 ]; then
   gum log --level="info" "Disko partitioning successful."
