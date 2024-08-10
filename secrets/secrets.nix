@@ -32,4 +32,7 @@ in
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
   "henrikUserPassword.age".publicKeys = henrik;
+
+  "svalbardHealthcheckUrl.age".publicKeys = [ svalbard ];
+  "valcourHealthcheckUrl.age".publicKeys = [ valcour ];
 }

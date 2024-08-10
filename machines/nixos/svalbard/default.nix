@@ -1,10 +1,4 @@
-{
-  inputs,
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -45,6 +39,29 @@
 
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
+
+  # Healthcheck Ping
+  systemd = {
+    timers."healthcheck-uptime" = {
+      description = "Healthcheck Ping";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "5m";
+        OnUnitActiveSec = "5m";
+        Unit = "betteruptime.service";
+      };
+    };
+    services."betteruptime" = {
+      description = "Better Uptime Healthcheck";
+      script = ''
+        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.secrets.svalbardHealthcheckUrl.path})
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
+      };
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -20,6 +20,29 @@
   bootDisk = {
     enable = true;
     diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_NVMe_TOSHIBA_256GB_687F729NFANP";
+  };
+
+  # Healthcheck Ping
+  systemd = {
+    timers."healthcheck-uptime" = {
+      description = "Healthcheck Ping";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "5m";
+        OnUnitActiveSec = "5m";
+        Unit = "betteruptime.service";
+      };
+    };
+    services."betteruptime" = {
+      description = "Better Uptime Healthcheck";
+      script = ''
+        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.secrets.valcourHealthcheckUrl.path})
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
