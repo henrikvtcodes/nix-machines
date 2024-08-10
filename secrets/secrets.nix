@@ -8,7 +8,7 @@ let
   henrik_homelab_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmZEhaLdiFJ6TdyhdBC5fvCiY5c7drQK2EVHGPCPHei";
 
   # --------- Systems ---------
-  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuHUL/e1rSBsUYXxmNGOS9ryvvmDZWlgntO+7OyK9az";
+  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLF2ymnhVA2fZy9bW3AvittJllvdIhpEEJeNE1JtZ4z";
 
   valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q";
 
