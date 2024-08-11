@@ -33,6 +33,6 @@ in
 
   "henrikUserPassword.age".publicKeys = henrik;
 
-  "svalbardHealthcheckUrl.age".publicKeys = [ svalbard ];
-  "valcourHealthcheckUrl.age".publicKeys = [ valcour ];
+  "svalbardHealthcheckUrl.age".publicKeys = [ svalbard ] ++ henrik;
+  "valcourHealthcheckUrl.age".publicKeys = [ valcour ] ++ henrik;
 }
