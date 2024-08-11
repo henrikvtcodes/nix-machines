@@ -4,6 +4,7 @@
   imports = [
     ../../modules/tailscale
     ../../modules/boot-disk
+    ../../modules/betteruptime
   ];
 
   nix.settings = {

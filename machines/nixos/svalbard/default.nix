@@ -42,26 +42,9 @@
 
   # Healthcheck Ping
   age.secrets.svalbardHealthcheckUrl.file = ../../../secrets/svalbardHealthcheckUrl.age;
-  systemd = {
-    timers."healthcheck-uptime" = {
-      description = "Healthcheck Ping";
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnBootSec = "5m";
-        OnUnitActiveSec = "5m";
-        Unit = "betteruptime.service";
-      };
-    };
-    services."betteruptime" = {
-      description = "Better Uptime Healthcheck";
-      script = ''
-        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.age.secrets.svalbardHealthcheckUrl.path})
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
-      };
-    };
+  svcs.betteruptime = {
+    enable = true;
+    healthcheckUrlFile = config.age.secrets.svalbardHealthcheckUrl.path;
   };
 
   # This value determines the NixOS release from which the default
