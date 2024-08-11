@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -24,26 +24,9 @@
 
   # Healthcheck Ping
   age.secrets.valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
-  systemd = {
-    timers."healthcheck-uptime" = {
-      description = "Healthcheck Ping";
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnBootSec = "5m";
-        OnUnitActiveSec = "5m";
-        Unit = "betteruptime.service";
-      };
-    };
-    services."betteruptime" = {
-      description = "Better Uptime Healthcheck";
-      script = ''
-        ${pkgs.curl}/bin/curl -fsSL $(cat ${config.age.secrets.valcourHealthcheckUrl.path})
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
-      };
-    };
+  svcs.betteruptime = {
+    enable = true;
+    healthcheckUrlFile = config.age.secrets.valcourHealthcheckUrl.path;
   };
 
   # This value determines the NixOS release from which the default
