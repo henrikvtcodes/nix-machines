@@ -25,6 +25,7 @@
   networking.firewall.enable = false;
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
+  svcs.tailscale.advertiseExitNode = true;
 
   services.prometheus.exporters.node.enable = true;
 
