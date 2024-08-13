@@ -28,6 +28,7 @@ in
 
     services.tailscale = {
       enable = true;
+      useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       extraUpFlags =
         [ "--reset" ]
