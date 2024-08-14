@@ -12,12 +12,12 @@
     # ./disk-config.nix
   ];
 
-  networking.hostName = "donso";
-  networking.hostId = "bcf61aa3";
+  networking.hostName = "barnegat";
+  # networking.hostId = "bcf61aa3";
 
   boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/disk/by-uuid/329f650e-3fca-4a2c-b086-8eada365a7f8";
+  boot.loader.grub.device = "/dev/vda";
 
   networking.firewall.enable = false;
   networking.wireless.enable = false;
