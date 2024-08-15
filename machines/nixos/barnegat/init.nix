@@ -84,7 +84,7 @@
     # sysstat # iostat tapestat mpstat sar sadf pidstat cifsiostat
     # lm_sensors # sensors pwmconfig sensors-conf-convert isaset fancontrol sensors-detect isadump
     # smartmontools # smartd smartctl
-    dhcpcd # dhcpcd
+    # dhcpcd # dhcpcd
 
     # perf testing/viewing
     # iperf3
@@ -98,7 +98,7 @@
 
   networking = {
     enableIPv6 = true;
-    useDHCP = lib.mkDefault true;
+    useDHCP = lib.mkDefault false;
     firewall = {
       enable = false;
       allowPing = true;
