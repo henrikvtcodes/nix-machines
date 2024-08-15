@@ -11,19 +11,21 @@
   ];
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
+  # boot.loader.grub.enable = true;
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  # boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "barnegat"; # Define your hostname.
 
   networking.interfaces.ens3.ipv4.addresses = [
     {
       address = "162.120.71.172";
-      prefixLength = 32;
+      prefixLength = 24;
     }
   ];
   networking.interfaces.ens3.ipv6.addresses = [
