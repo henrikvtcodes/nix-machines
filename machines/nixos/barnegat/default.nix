@@ -16,11 +16,9 @@
   # networking.hostId = "bcf61aa3";
   services.qemuGuest.enable = true;
 
-  # boot.loader.grub.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.grub.device = "/dev/vda";
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.device = "/dev/vda";
 
   networking = {
     firewall.enable = false;

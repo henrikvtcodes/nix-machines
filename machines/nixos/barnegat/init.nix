@@ -8,16 +8,13 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./disk-config.nix
   ];
 
   # Use the GRUB 2 boot loader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub.enable = true;
   # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "barnegat"; # Define your hostname.
@@ -131,6 +128,6 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

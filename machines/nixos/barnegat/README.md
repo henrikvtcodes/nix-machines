@@ -6,7 +6,6 @@ ip a
 fdisk /dev/vda
 sudo mkfs.fat -F 32 /dev/vda1
 fatlabel /dev/vda1 NIXBOOT
-mkfs.ext4 /dev/vda2 -L NIXROOTmount /dev/
 mkfs.ext4 /dev/vda2 -L NIXROOT
 mount /dev/disk/by-label/NIXROOT /mnt
 mkdir -p /mnt/boot
@@ -28,26 +27,18 @@ nixos-rebuild test
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 ping github.com
 ping 1.1.1.1
-systemctl
-systemctl
 systemctl status resolvconf.service
-systemctl status resolvd.service
-ls /etc
 vi /etc/resolv.conf
-ls /etc
-vi /etc/resolvconf.conf
 ```
 
 ```sh
 systemctl stop dhcpcd
-ip a
 ip address add 162.120.71.172/24 broadcast 162.120.71.255 dev ens3
 ip route add default via 162.120.71.1 dev ens3 proto static metric 100
 ping -c 10 9.9.9.9
 vi /etc/resolv.conf
 rm -f /etc/resolv.conf
-echo "nameserver 9.9.9.10\nnameserver 149.112.112.10" >> /etc/resolv.conf
-systemctl status resolvd.service
+echo -e "nameserver 9.9.9.10\nnameserver 149.112.112.10" >> /etc/resolv.conf
 systemctl status resolvconf.service
 systemctl restart resolvconf.service
 systemctl status resolvconf.service
@@ -56,7 +47,6 @@ passwd
 ip a
 curl https://henrikvt.com/id_ed25519.pub >> ~/.ssh/authorized_keys
 mkdir ~/.ssh
-curl https://henrikvt.com/id_ed25519.pub >> ~/.ssh/authorized_keys
 echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINimhbJZN+MLdXbtk3Mrb5dca7P+LKy399OqqYZ122Ml" >> ~/.ssh/authorized_keys
 history
 history >> /history.txt
