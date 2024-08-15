@@ -30,7 +30,7 @@ https://nixos.asia/en/nixos-install-disko
 5. _On your laptop:_ Log into the machine `ssh root@<ip>` (entering password as necessary)
 6. _via SSH_: Download the base disko config: `curl https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/disk-config.nix -o /tmp/disk-config.nix`
 7. Edit disk config to add the correct disk: `vi /tmp/disk-config.nix`
-8. Mount the boot disk: `nix --experimental-features "nix-command flakes" run github:nix-community/disko --mode disko /tmp/disk-config.nix`
+8. Mount the boot disk: `nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disk-config.nix`
 9. Generate config and move disk config into the nixos config directory: `nixos-generate-config --no-filesystems --root /mnt  && cp /tmp/disk-config.nix /mnt/etc/nixos/disk-config.nix`
 10. Replace generated config with our config: `curl -o /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/configuration.nix`
 11. Install the system: `nixos-install --root /mnt` (Set the root password as necessary)
