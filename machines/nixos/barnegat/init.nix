@@ -20,6 +20,35 @@
 
   networking.hostName = "barnegat"; # Define your hostname.
 
+  networking.interfaces.ens3.ipv4.addresses = [
+    {
+      address = "162.120.71.172";
+      prefixLength = 32;
+    }
+  ];
+  networking.interfaces.ens3.ipv6.addresses = [
+    {
+      address = "2a0a:8dc0:2000:a5::2";
+      prefixLength = 126;
+    }
+  ];
+
+  networking.defaultGateway = {
+    address = "162.120.71.1";
+    interface = "ens3";
+  };
+  networking.defaultGateway6 = {
+    address = "2a0a:8dc0:2000:a5::1";
+    interface = "ens3";
+  };
+
+  networking.nameservers = [
+    "9.9.9.10"
+    "149.112.112.10"
+    "2620:fe::10"
+    "2620:fe::fe:10"
+  ];
+
   users.users.henrikvt = {
     isNormalUser = true;
     extraGroups = [
