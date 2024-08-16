@@ -9,28 +9,27 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
-    # ./disk-config.nix
+    ./disk-config.nix
   ];
 
   networking.hostName = "barnegat";
-  # networking.hostId = "bcf61aa3";
-  services.qemuGuest.enable = true;
+  networking.hostId = "57e3eb57";
 
   boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.device = "nodev";
+  services.qemuGuest.enable = true;
 
   networking = {
     firewall.enable = false;
     networkmanager.enable = false;
-    useDHCP = false;
     interfaces.ens3 = {
+      useDHCP = false;
       ipv4.addresses = [
         {
           address = "162.120.71.172";
           prefixLength = 24;
         }
-
       ];
       ipv6.addresses = [
         {
@@ -47,12 +46,6 @@
       address = "2a0a:8dc0:2000:a5::1";
       interface = "ens3";
     };
-    nameservers = [
-      "9.9.9.10"
-      "149.112.112.10"
-      "2620:fe::10"
-      "2620:fe::fe:10"
-    ];
   };
 
   services.prometheus.exporters.node.enable = true;

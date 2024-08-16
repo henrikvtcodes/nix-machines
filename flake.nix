@@ -91,6 +91,29 @@
             ./users/henrikvt
           ];
         };
+        barnegat = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/barnegat
+            disko.nixosModules.default
+
+            ./modules/tailscale
+
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
+
+            # User config
+            ./users/henrikvt
+          ];
+        };
         svalbard = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 

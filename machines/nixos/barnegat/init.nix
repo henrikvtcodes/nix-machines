@@ -14,7 +14,7 @@
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "barnegat"; # Define your hostname.
