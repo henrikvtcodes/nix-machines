@@ -50,6 +50,12 @@
       allowPing = true;
     };
     wireless.enable = lib.mkDefault false;
+    nameservers = [
+      "9.9.9.10"
+      "149.112.112.10"
+      "2620:fe::10"
+      "2620:fe::fe:10"
+    ];
   };
   networking.hostName = lib.mkDefault "nixos";
   svcs.tailscale.enable = lib.mkDefault true;
