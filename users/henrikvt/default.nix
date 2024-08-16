@@ -43,7 +43,21 @@
     };
   };
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableLsColors = true;
+    enableCompletion = true;
+    ohMyZsh = {
+      enable = true;
+      theme = "josh";
+      plugins = [
+        "git"
+        "common-aliases"
+        "sudo"
+        "command-not-found"
+      ];
+    };
+  };
 
   programs.ssh.startAgent = true;
 
