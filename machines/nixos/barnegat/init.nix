@@ -8,12 +8,12 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
     ./disk-config.nix
   ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
   boot.loader.efi.canTouchEfiVariables = true;
 
