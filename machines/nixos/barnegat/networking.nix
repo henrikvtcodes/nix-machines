@@ -14,6 +14,7 @@
   # Static interfaces configuration
   networking = {
     networkmanager.enable = false;
+    dhcpcd.enable = false;
     interfaces.ens3 = {
       useDHCP = false;
       ipv4.addresses = [
