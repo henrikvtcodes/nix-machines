@@ -1,5 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [ prometheus ];
+
   services.prometheus = {
     enable = true;
     exporters.node.enable = true;
