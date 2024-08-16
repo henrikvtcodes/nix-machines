@@ -88,6 +88,7 @@
     lm_sensors # sensors pwmconfig sensors-conf-convert isaset fancontrol sensors-detect isadump
     smartmontools # smartd smartctl
     dhcpcd # dhcpcd
+    inetutils
 
     # perf testing/viewing
     iperf3
