@@ -29,9 +29,6 @@
     };
   };
 
-  # Copies the current config to /run/current-system/configuration.nix
-  system.copySystemConfiguration = true;
-
   # Config sudo/doas commands
   security = {
     doas.enable = false;
