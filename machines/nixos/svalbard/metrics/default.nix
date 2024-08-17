@@ -13,7 +13,8 @@
   services.prometheus = {
     enable = true;
     retentionTime = "60d";
-    extraFlags = [ "--storage.tsdb.path=/data/apps/main/metrics" ];
+    extraFlags = [ ];
+    workingDir = "prometheus"; # /var/lib/prometheus (See disk config)
     scrapeConfigs = [ ];
   };
 }

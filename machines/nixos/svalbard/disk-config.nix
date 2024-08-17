@@ -96,6 +96,10 @@
             type = "zfs_fs";
             options.mountpoint = "/data/apps/scratch";
           };
+          prometheus = {
+            type = "zfs_fs";
+            options.mountpoint = "/var/lib/prometheus";
+          };
         };
       };
     };
