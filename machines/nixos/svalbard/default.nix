@@ -4,6 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-config.nix
     ./disk-config.nix
+    ./metrics
   ];
 
   boot.loader.systemd-boot.enable = true;
