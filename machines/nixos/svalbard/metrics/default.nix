@@ -14,7 +14,7 @@
     enable = true;
     retentionTime = "60d";
     extraFlags = [ ];
-    workingDir = "prometheus"; # /var/lib/prometheus (See disk config)
+    stateDir = "prometheus"; # /var/lib/prometheus (See disk config)
     scrapeConfigs = [ ];
   };
 }
