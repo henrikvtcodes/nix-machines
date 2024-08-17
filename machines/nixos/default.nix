@@ -70,6 +70,8 @@
   time.timeZone = lib.mkDefault "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  users.mutableUsers = false;
+
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
 
