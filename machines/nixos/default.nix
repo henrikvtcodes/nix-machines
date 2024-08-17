@@ -71,7 +71,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   users.mutableUsers = false;
-  virtualisation.graphics = false;
 
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
