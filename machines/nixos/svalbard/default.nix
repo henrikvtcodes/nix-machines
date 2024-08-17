@@ -10,8 +10,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  virtualisation.graphics = false;
-
   bootDiskGB = {
     enable = true;
     diskPath = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
