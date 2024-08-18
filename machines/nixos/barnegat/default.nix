@@ -20,6 +20,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.device = "nodev";
   services.qemuGuest.enable = true;
+  security.sudo.wheelNeedsPassword = true;
 
   services.prometheus.exporters.node.enable = true;
 

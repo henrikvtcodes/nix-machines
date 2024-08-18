@@ -34,7 +34,7 @@
     doas.enable = false;
     sudo = {
       enable = true;
-      wheelNeedsPassword = lib.mkDefault true;
+      wheelNeedsPassword = lib.mkDefault false;
     };
   };
 
