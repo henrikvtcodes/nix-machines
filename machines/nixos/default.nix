@@ -90,11 +90,12 @@
     lm_sensors # sensors pwmconfig sensors-conf-convert isaset fancontrol sensors-detect isadump
     smartmontools # smartd smartctl
     dhcpcd # dhcpcd
-    inetutils
+    inetutils # logger rlogin rcp tftp ping talk ping6 rexec ifconfig dnsdomainname ftp whois rsh hostname telnet traceroute
 
     # perf testing/viewing
     iperf3
     btop
+    speedtest-cli # speedtest speedtest-cli
 
     # dev tools
     git
