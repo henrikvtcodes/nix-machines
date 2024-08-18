@@ -69,3 +69,13 @@ sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-tha
 # Docs
 man nix3-profle-wipe-history
 ```
+
+## `chroot`-ing
+
+1. Boot into the NixOS minimal image on a flashdrive and switch to root `sudo su`
+2. Download the disk config from the init folder (`curl -o /tmp/disk-config.nix https://raw.githubusercontent.com/henrikvtcodes/nix-machines/main/init/disk-config.nix`) to `/tmp/disk-config.nix`. Ensure that the device path is correct.
+   _If the system has a non-standard config, make sure to download that one!_
+3. Run `nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode mount /tmp/disk-config.nix`. This will **_mount_** the disk - not format or wipe it, importantly.
+4. Run `nixos-enter`. Now you're free to do whatever you need as root!
+
+https://nixos.wiki/wiki/Change_root
