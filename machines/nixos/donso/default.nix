@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -24,6 +24,20 @@
   networking.networkmanager.enable = false;
 
   services.prometheus.exporters.node.enable = true;
+
+  # ZFS Stuff
+  environment.systemPackages = with pkgs; [ zfs ];
+
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+      interval = "weekly";
+    };
+    trim = {
+      enable = true;
+      interval = "monthly";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
