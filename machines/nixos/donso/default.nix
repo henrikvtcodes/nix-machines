@@ -3,7 +3,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
-    # ./disk-config.nix
+    ./disk-config.nix
   ];
 
   networking.hostName = "donso";
