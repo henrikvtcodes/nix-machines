@@ -11,7 +11,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "zapps";
+                pool = "zdata";
               };
             };
           };
@@ -20,8 +20,7 @@
     };
     # --------- ZFS Pools ---------
     zpool = {
-      # Application (ie high speed) storage "pool"
-      zapps = {
+      zdata = {
         type = "zpool";
         mode = "";
         rootFsOptions = {
@@ -31,7 +30,7 @@
         datasets = {
           main = {
             type = "zfs_fs";
-            options.mountpoint = "/data/apps/main";
+            options.mountpoint = "/data/main";
           };
           # prometheus = {
           #   type = "zfs_fs";
