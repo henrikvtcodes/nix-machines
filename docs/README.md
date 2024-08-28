@@ -2,7 +2,7 @@
 
 How to do stuff in this repo.
 
-> [!INFO]
+> [!NOTE]
 > This docs are subject to change as I slowly figure out how to apply DRY principles via automations and modules.
 
 _While these are mostly instructions for me, I have it public so that others can understand my processes and apply them to their own nix config things._
