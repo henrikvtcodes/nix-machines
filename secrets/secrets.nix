@@ -37,4 +37,6 @@ in
 
   "svalbardHealthcheckUrl.age".publicKeys = [ svalbard ] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [ valcour ] ++ henrik;
+
+  "cfDnsApiToken.age".publicKeys = [ barnegat ] ++ henrik;
 }
