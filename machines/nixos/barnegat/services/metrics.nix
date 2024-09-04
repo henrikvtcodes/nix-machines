@@ -10,6 +10,7 @@
       };
       server.http_addr = "0.0.0.0";
       server.domain = "metrics.unicycl.ing";
+      server.root_url = "https://metrics.unicycl.ing";
       server.enable_gzip = true;
     };
     provision.datasources.path = ./datasources.yml;
