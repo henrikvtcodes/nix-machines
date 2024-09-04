@@ -5,10 +5,22 @@
     ./metrics.nix
   ];
 
+  # security.acme = {
+  #   acceptTerms = true;
+  #   defaults.email = "acme@henrikvt.com";
+  #   certs."domain.com" = {
+  #     domain = "unicycl.ing";
+  #     extraDomainNames = [ "*.domain.com" ];
+  #     dnsProvider = "cloudflare";
+  #     dnsPropagationCheck = true;
+  #     credentialsFile = "/etc/nixos/credentials.txt";
+  #   };
+  # };
+
   services.traefik = {
     enable = true;
     # Contains cloudflare API key for ACME DNS-01 Challenge
-    environmentFiles = [ config.age.secrets.tailscaleAuthKey.path ];
+    environmentFiles = [ config.age.secrets.cfDnsApiToken.path ];
     staticConfigOptions = {
       entrypoints = {
         http.address = ":80";
