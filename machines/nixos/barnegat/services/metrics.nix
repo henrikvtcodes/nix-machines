@@ -21,10 +21,10 @@
         rule = "Host(`metrics.unicycl.ing`)";
         service = "grafana";
         entryPoints = [
-          # "https"
+          "https"
           "http"
         ];
-        # tls.certResolver = "lecf";
+        tls.certResolver = "lecf";
       };
       services.grafana = {
         loadBalancer = {
