@@ -9,6 +9,8 @@
         allow_sign_up = false;
       };
       server.http_addr = "0.0.0.0";
+      server.domain = "metrics.unicycl.ing";
+      server.enable_gzip = true;
     };
     provision.datasources.path = ./datasources.yml;
   };
