@@ -29,6 +29,7 @@
       certificatesResolvers = {
         # Let's Encrypt via Cloudflare
         lecf = {
+          acme.storage = "${config.services.traefik.dataDir}/acme-lecf.json";
           acme.dnsChallenge = {
             provider = "cloudflare";
             delayBeforeCheck = 10;
