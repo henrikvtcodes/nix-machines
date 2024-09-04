@@ -20,7 +20,10 @@
       routers.grafana = {
         rule = "Host(`metrics.unicycl.ing`)";
         service = "grafana";
-        entryPoints = [ "https" ];
+        entryPoints = [
+          "https"
+          "http"
+        ];
       };
       services.grafana = {
         loadBalancer = {
