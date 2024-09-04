@@ -11,6 +11,7 @@
     ./hardware-config.nix
     ./disk-config.nix
     ./networking.nix
+    ./services
   ];
 
   networking.hostName = "barnegat";
@@ -20,9 +21,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.device = "nodev";
   services.qemuGuest.enable = true;
-  security.sudo.wheelNeedsPassword = true;
+  security.sudo.wheelNeedsPassword = false;
 
   services.prometheus.exporters.node.enable = true;
+
+  age.secrets.cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

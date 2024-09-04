@@ -21,8 +21,6 @@ Host github.com
 
 https://nixos.asia/en/nixos-install-disko
 
-**_NOT DONE_**
-
 1. _On the machine:_ Get the latest minimal ISO from https://nixos.org/download/ and boot into it
 2. _On the machine:_ Login as root `sudo su root`
 3. _On the machine:_ Set password using `passwd`
