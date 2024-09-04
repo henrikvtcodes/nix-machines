@@ -28,6 +28,10 @@
         insecure = true;
         dashboard = true;
       };
+      log = {
+        level = "INFO";
+        noColor = false;
+      };
     };
   };
   users.users.traefik.extraGroups = [ "acme" ];

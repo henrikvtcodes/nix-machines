@@ -24,6 +24,7 @@
           "https"
           "http"
         ];
+        tls.certResolver = "lecf";
       };
       services.grafana = {
         loadBalancer = {
