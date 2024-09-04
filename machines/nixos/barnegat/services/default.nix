@@ -13,6 +13,7 @@
       entrypoints = {
         http.address = ":80";
         https.address = ":443";
+        metrics.address = ":9180";
       };
       certificatesResolvers = {
         # Let's Encrypt via Cloudflare
@@ -32,6 +33,17 @@
       log = {
         level = "INFO";
         noColor = false;
+      };
+      metrics.prometheus = {
+        entryPoint = "metrics";
+        addEntryPointsLabels = true;
+        addServicesLabels = true;
+        buckets = [
+          0.1
+          0.3
+          1.2
+          5.0
+        ];
       };
     };
   };

@@ -34,4 +34,18 @@
       };
     };
   };
+
+  services.prometheus.exporters.node.enable = true;
+
+  services.prometheus = {
+    enable = true;
+    retentionTime = "90d";
+    scrapeConfigs = [
+      {
+        job_name = "Traefik";
+        scrape_interval = "15s";
+        static_configs = [ { targets = [ "localhost:9180" ]; } ];
+      }
+    ];
+  };
 }
