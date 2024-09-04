@@ -35,7 +35,7 @@
     };
   };
   users.users.traefik.extraGroups = [ "acme" ];
-  networking.interfaces.ens3.allowedTCPPorts = [
+  networking.firewall.interfaces.ens3.allowedTCPPorts = [
     22
     80
     443
