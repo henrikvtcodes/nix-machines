@@ -6,21 +6,30 @@ let
 
   advertiseRoutes =
     if cfg.advertiseRoutes.enable then
-      "--advertise-routes ${lib.concatStringsSep " " cfg.advertiseRoutes.routes}"
+      "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes.routes}"
     else
       "";
 
   acceptRoutes =
     if cfg.acceptRoutes.enable then
-      "--accept-routes ${lib.concatStringsSep " " cfg.acceptRoutes.routes}"
+      "--accept-routes=${lib.concatStringsSep "," cfg.acceptRoutes.routes}"
+    else
+      "";
+
+  advertiseTags =
+    if cfg.advertiseTags.enable then
+      "--advertise-tags=${lib.concatStringsSep "," cfg.advertiseTags.tags}"
     else
       "";
 
   upFlags = [
     "--reset "
+    # reset flag means that if any of the above settings change, 
+    # old routes/tags will not be accepted or advertised; as those settins will be reset
     advertiseRoutes
     acceptRoutes
-  ] ++ optional cfg.advertiseExitNode [ "--advertise-exit-node" ];
+    advertiseTags
+  ] ++ optional cfg.advertiseExitNode "--advertise-exit-node";
 
 in
 {
@@ -50,6 +59,16 @@ in
         default = [ ];
         description = ''
           Accept these routes.
+        '';
+      };
+    };
+    advertiseTags = {
+      enable = mkEnableOption "Advertise tags";
+      tags = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = ''
+          Advertise these tags.
         '';
       };
     };
