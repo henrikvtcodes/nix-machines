@@ -12,7 +12,15 @@
     staticConfigOptions = {
       entrypoints = {
         http.address = ":80";
-        https.address = ":443";
+        https = {
+          address = ":443";
+          http.tls = {
+            certResolver = "lecf";
+            "domains[0]".main = "unicycl.ing";
+            "domains[0]".sans = "*.unicycl.ing";
+          };
+        };
+
         metrics.address = ":9180";
       };
       certificatesResolvers = {
