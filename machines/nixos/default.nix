@@ -66,6 +66,14 @@
     };
   };
 
+  # Enable containers
+  virtualisation.podman = {
+    enable = lib.mkDefault true;
+    dockerCompat = true;
+  };
+  virtualisation.oci-containers.backend = "podman";
+  networking.firewall.interfaces.podman0.allowedUDPPorts = [ 53 ];
+
   # General Settings
   time.timeZone = lib.mkDefault "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";

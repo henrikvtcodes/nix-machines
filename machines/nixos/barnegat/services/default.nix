@@ -23,6 +23,12 @@
 
         metrics.address = ":9180";
       };
+
+      providers.docker = {
+        endpoint = "unix:///var/run/podman/podman.sock";
+        exposedByDefault = false;
+      };
+
       certificatesResolvers = {
         # Let's Encrypt via Cloudflare
         lecf = {
@@ -55,7 +61,10 @@
       };
     };
   };
-  users.users.traefik.extraGroups = [ "acme" ];
+  users.users.traefik.extraGroups = [
+    "acme"
+    "docker"
+  ];
   networking.firewall.interfaces.ens3.allowedTCPPorts = [
     22
     80
