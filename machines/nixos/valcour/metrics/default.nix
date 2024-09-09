@@ -37,6 +37,19 @@
         ];
       }
 
+      {
+        job_name = "BIRD Exporter";
+        scrape_interval = "1m";
+        static_configs = [
+          {
+            targets = [
+              "pete.as215207.net:9324"
+              "maple.as215207.net:9324"
+            ];
+          }
+        ];
+      }
+
       # {
       #   job_name = "Local Unifi Exporter";
       #   scrape_interval = "1m";
