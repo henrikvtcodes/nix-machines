@@ -10,7 +10,7 @@ datasources:
       manageAlerts: false
       prometheusType: Prometheus
       prometheusVersion: 2.53.1
-      cacheLevel: "High"
+      cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
   - name: Prometheus (barnegat)
@@ -22,6 +22,6 @@ datasources:
       manageAlerts: false
       prometheusType: Prometheus
       prometheusVersion: 2.53.1
-      cacheLevel: "High"
+      cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
