@@ -190,7 +190,6 @@
         remoteBuild = true;
         user = "root";
         sshUser = "henrikvt";
-        interactiveSudo = true;
 
         # nodes config
         nodes = {
@@ -201,6 +200,18 @@
           valcour = {
             hostname = "valcour";
             profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.valcour;
+          };
+          marstrand = {
+            hostname = "marstrand";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.marstrand;
+          };
+          barnegat = {
+            hostname = "barnegat";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.barnegat;
+          };
+          donso = {
+            hostname = "donso";
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.donso;
           };
         };
       };
