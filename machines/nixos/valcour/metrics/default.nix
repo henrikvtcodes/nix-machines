@@ -40,6 +40,7 @@
       {
         job_name = "BIRD Exporter";
         scrape_interval = "1m";
+        scrape_timeout = "30s";
         static_configs = [
           {
             targets = [
