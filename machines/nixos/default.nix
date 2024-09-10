@@ -47,7 +47,7 @@
       allowPing = true;
     };
     wireless.enable = lib.mkDefault false;
-    nameservers = [
+    nameservers = lib.mkDefault [
       "9.9.9.10"
       "149.112.112.10"
       "2620:fe::10"
