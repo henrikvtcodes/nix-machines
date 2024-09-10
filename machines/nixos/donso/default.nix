@@ -22,6 +22,7 @@
   networking.firewall.enable = false;
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
+  networking.dhcpcd.IPv6rs = false;
 
   services.prometheus.exporters.node.enable = true;
 

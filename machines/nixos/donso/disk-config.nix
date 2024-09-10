@@ -3,7 +3,7 @@
     disk = {
       nvme1 = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-35TTFP6PCIE-256G_TTA21B256060061";
+        device = "/dev/disk/by-id/nvme-KLEVV_CRAS_C710_M.2_NVMe_SSD_256GB_2023103001001506";
         content = {
           type = "gpt";
           partitions = {
