@@ -22,10 +22,7 @@ let
     else
       "";
 
-  upFlags = [
-    "--reset "
-    # reset flag means that if any of the above settings change, 
-    # old routes/tags will not be accepted or advertised; as those settins will be reset
+  setFlags = [
     advertiseRoutes
     acceptRoutes
     advertiseTags
@@ -81,7 +78,12 @@ in
       enable = true;
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      extraUpFlags = upFlags;
+      extraUpFlags = [
+        " --reset "
+        # reset flag means that if any of the above settings change, 
+        # old routes/tags will not be accepted or advertised; as those settins will be reset
+      ];
+      extraSetFlags = setFlags;
     };
   };
 }
