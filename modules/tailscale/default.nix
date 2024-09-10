@@ -8,19 +8,19 @@ let
     if cfg.advertiseRoutes.enable then
       "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes.routes}"
     else
-      "";
+      "--advertise-routes=\"\"";
 
   acceptRoutes =
     if cfg.acceptRoutes.enable then
       "--accept-routes=${lib.concatStringsSep "," cfg.acceptRoutes.routes}"
     else
-      "";
+      "--accept-routes=\"\"";
 
   advertiseTags =
     if cfg.advertiseTags.enable then
       "--advertise-tags=${lib.concatStringsSep "," cfg.advertiseTags.tags}"
     else
-      "";
+      "--advertise-tags=\"\"";
 
   setFlags = [
     advertiseRoutes
