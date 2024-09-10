@@ -79,7 +79,7 @@ in
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       extraUpFlags = [
-        " --reset "
+        "--reset"
         # reset flag means that if any of the above settings change, 
         # old routes/tags will not be accepted or advertised; as those settins will be reset
       ];
