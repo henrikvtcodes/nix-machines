@@ -26,6 +26,8 @@
 
   services.prometheus.exporters.node.enable = true;
 
+  svcs.tailscale.advertiseExitNode = true;
+
   # ZFS Stuff
   environment.systemPackages = with pkgs; [ zfs ];
 
