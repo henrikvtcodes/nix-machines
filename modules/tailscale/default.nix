@@ -23,8 +23,14 @@ let
       "--advertise-tags=\"\"";
 
   setFlags = [
+    optional
+    cfg.advertiseRoutes.enable
     advertiseRoutes
+    optional
+    cfg.advertiseRoutes.enable
     acceptRoutes
+    optional
+    cfg.advertiseTags.enable
     advertiseTags
   ] ++ optional cfg.advertiseExitNode "--advertise-exit-node";
 
