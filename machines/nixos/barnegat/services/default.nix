@@ -16,8 +16,6 @@
           address = ":443";
           http.tls = {
             certResolver = "lecf";
-            "domains[0]".main = "unicycl.ing";
-            "domains[0]".sans = "*.unicycl.ing";
           };
         };
 
@@ -64,6 +62,7 @@
   users.users.traefik.extraGroups = [
     "acme"
     "docker"
+    "podman"
   ];
   networking.firewall.interfaces.ens3.allowedTCPPorts = [
     22
