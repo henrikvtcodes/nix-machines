@@ -4,35 +4,56 @@ with lib;
 let
   cfg = config.svcs.tailscale;
 
-  advertiseRoutes =
-    if cfg.advertiseRoutes.enable then
-      "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes.routes}"
-    else
-      "--advertise-routes=\"\"";
+  formatOptions =
+    {
+      advertiseExitNode,
+      advertiseTags,
+      advertiseRoutes,
+    }:
+    let
+      exitNodeFlag = if advertiseExitNode then [ "--advertise-exit-node" ] else [ ];
+      tagFlags =
+        if advertiseTags.enable && (length advertiseTags.tags > 0) then
+          [ "--advertise-tags=${concatStringsSep "," advertiseTags.tags}" ]
+        else
+          [ ];
+      routeFlags =
+        if advertiseRoutes.enable && (length advertiseRoutes.routes > 0) then
+          [ "--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}" ]
+        else
+          [ ];
+    in
+    exitNodeFlag ++ tagFlags ++ routeFlags;
 
-  acceptRoutes =
-    if cfg.acceptRoutes.enable then
-      "--accept-routes=${lib.concatStringsSep "," cfg.acceptRoutes.routes}"
-    else
-      "--accept-routes=\"\"";
+  # advertiseRoutes =
+  #   if cfg.advertiseRoutes.enable then
+  #     "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes.routes}"
+  #   else
+  #     "--advertise-routes=\"\"";
 
-  advertiseTags =
-    if cfg.advertiseTags.enable then
-      "--advertise-tags=${lib.concatStringsSep "," cfg.advertiseTags.tags}"
-    else
-      "--advertise-tags=\"\"";
+  # acceptRoutes =
+  #   if cfg.acceptRoutes.enable then
+  #     "--accept-routes=${lib.concatStringsSep "," cfg.acceptRoutes.routes}"
+  #   else
+  #     "--accept-routes=\"\"";
 
-  setFlags = [
-    optional
-    cfg.advertiseRoutes.enable
-    advertiseRoutes
-    optional
-    cfg.advertiseRoutes.enable
-    acceptRoutes
-    optional
-    cfg.advertiseTags.enable
-    advertiseTags
-  ] ++ optional cfg.advertiseExitNode "--advertise-exit-node";
+  # advertiseTags =
+  #   if cfg.advertiseTags.enable then
+  #     "--advertise-tags=${lib.concatStringsSep "," cfg.advertiseTags.tags}"
+  #   else
+  #     "--advertise-tags=\"\"";
+
+  # setFlags = [
+  #   optional
+  #   cfg.advertiseRoutes.enable
+  #   advertiseRoutes
+  #   optional
+  #   cfg.advertiseRoutes.enable
+  #   acceptRoutes
+  #   optional
+  #   cfg.advertiseTags.enable
+  #   advertiseTags
+  # ] ++ optional cfg.advertiseExitNode "--advertise-exit-node";
 
 in
 {
@@ -89,7 +110,11 @@ in
         # reset flag means that if any of the above settings change, 
         # old routes/tags will not be accepted or advertised; as those settins will be reset
       ];
-      extraSetFlags = setFlags;
+      extraSetFlags = formatOptions {
+        advertiseExitNode = cfg.advertiseExitNode;
+        advertiseTags = cfg.advertiseTags;
+        advertiseRoutes = cfg.advertiseRoutes;
+      };
     };
   };
 }
