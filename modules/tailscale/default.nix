@@ -25,36 +25,6 @@ let
     in
     exitNodeFlag ++ tagFlags ++ routeFlags;
 
-  # advertiseRoutes =
-  #   if cfg.advertiseRoutes.enable then
-  #     "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes.routes}"
-  #   else
-  #     "--advertise-routes=\"\"";
-
-  # acceptRoutes =
-  #   if cfg.acceptRoutes.enable then
-  #     "--accept-routes=${lib.concatStringsSep "," cfg.acceptRoutes.routes}"
-  #   else
-  #     "--accept-routes=\"\"";
-
-  # advertiseTags =
-  #   if cfg.advertiseTags.enable then
-  #     "--advertise-tags=${lib.concatStringsSep "," cfg.advertiseTags.tags}"
-  #   else
-  #     "--advertise-tags=\"\"";
-
-  # setFlags = [
-  #   optional
-  #   cfg.advertiseRoutes.enable
-  #   advertiseRoutes
-  #   optional
-  #   cfg.advertiseRoutes.enable
-  #   acceptRoutes
-  #   optional
-  #   cfg.advertiseTags.enable
-  #   advertiseTags
-  # ] ++ optional cfg.advertiseExitNode "--advertise-exit-node";
-
 in
 {
   options.svcs.tailscale = {
