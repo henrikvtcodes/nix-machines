@@ -24,7 +24,9 @@
   networking.networkmanager.enable = false;
   networking.dhcpcd.IPv6rs = false;
 
-  services.prometheus.exporters.node.enable = true;
+  services.prometheus.exporters.node = {
+    enable = true;
+  };
 
   svcs.tailscale.advertiseExitNode = true;
 

@@ -32,6 +32,8 @@
               "localhost:9100"
               "marstrand:9100"
               "barnegat:9100"
+              "valcour:9100"
+              "donso:9100"
             ];
           }
         ];

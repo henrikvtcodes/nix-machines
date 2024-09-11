@@ -66,6 +66,14 @@
     };
   };
 
+  services.prometheus.exporters.node = {
+    enable = lib.mkDefault true;
+    enabledCollectors = lib.mkDefault [
+      "zfs"
+      "systemd"
+    ];
+  };
+
   # Enable containers
   virtualisation.podman = {
     enable = lib.mkDefault true;
