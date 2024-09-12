@@ -4,6 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-config.nix
     ./disk-config.nix
+    ./services
   ];
 
   networking.hostName = "donso";
@@ -19,7 +20,8 @@
     diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
   };
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 ];
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
   # networking.dhcpcd.IPv6rs = true;

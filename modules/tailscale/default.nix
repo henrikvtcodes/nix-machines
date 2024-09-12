@@ -73,6 +73,8 @@ in
   config = mkIf cfg.enable {
     age.secrets.tailscaleAuthKey.file = ../../secrets/tailscaleAuthKey.age;
 
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
     services.tailscale = {
       enable = true;
       useRoutingFeatures = "both";
