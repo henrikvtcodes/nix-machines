@@ -23,7 +23,7 @@ let
         else
           [ ];
     in
-    exitNodeFlag ++ tagFlags ++ routeFlags;
+    [ "--reset=true" ] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
 
 in
 {
@@ -75,16 +75,21 @@ in
       enable = true;
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      extraUpFlags = [
-        "--reset"
-        # reset flag means that if any of the above settings change, 
-        # old routes/tags will not be accepted or advertised; as those settins will be reset
-      ];
-      extraSetFlags = formatOptions {
+      # extraUpFlags = [
+      #   "--reset"
+      #   # reset flag means that if any of the above settings change, 
+      #   # old routes/tags will not be accepted or advertised; as those settins will be reset
+      # ];
+      extraUpFlags = formatOptions {
         advertiseExitNode = cfg.advertiseExitNode;
         advertiseTags = cfg.advertiseTags;
         advertiseRoutes = cfg.advertiseRoutes;
       };
+      # extraSetFlags = formatOptions {
+      #   advertiseExitNode = cfg.advertiseExitNode;
+      #   advertiseTags = cfg.advertiseTags;
+      #   advertiseRoutes = cfg.advertiseRoutes;
+      # };
     };
   };
 }
