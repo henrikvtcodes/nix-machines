@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ prometheus ];
-
+  environment.systemPackages = with pkgs; [ prometheus.cli ];
   services.prometheus = {
     enable = true;
     exporters.node.enable = true;
