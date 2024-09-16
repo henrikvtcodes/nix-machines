@@ -29,23 +29,28 @@
     groups.woodpecker = { };
   };
 
-  systemd.services.ci-agent-config = {
-    wantedBy = [ "woodpecker-agent-docker.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "woodpecker";
-      Group = "woodpecker";
-    };
-
-    script = ''
-      #!/bin/sh
-      set -e
-      mkdir -p /etc/woodpecker
-      if [ ! -f /etc/woodpecker/agent.conf ]; then
-        touch /etc/woodpecker/agent.conf
-      fi
-    '';
+  systemd.services."woodpecker-agent-docker".serviceConfig = {
+    User = "woodpecker";
+    Group = "woodpecker";
   };
+
+  # systemd.services.ci-agent-config = {
+  #   wantedBy = [ "woodpecker-agent-docker.service" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     User = "woodpecker";
+  #     Group = "woodpecker";
+  #   };
+
+  #   script = ''
+  #     #!/bin/sh
+  #     set -e
+  #     mkdir -p /etc/woodpecker
+  #     if [ ! -f /etc/woodpecker/agent.conf ]; then
+  #       touch /etc/woodpecker/agent.conf
+  #     fi
+  #   '';
+  # };
 
   virtualisation.podman = {
     enable = true;
