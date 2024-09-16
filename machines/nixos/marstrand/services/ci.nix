@@ -5,6 +5,10 @@
     users.woodpecker = {
       isSystemUser = true;
       group = "woodpecker";
+      extraGroups = [
+        "docker"
+        "podman"
+      ];
       createHome = true;
       home = "/etc/woodpecker";
       homeMode = "764";
