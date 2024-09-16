@@ -20,10 +20,7 @@
   services.woodpecker-agents.agents."docker" = {
     enable = true;
     # We need this to talk to the podman socket
-    extraGroups = [
-      "podman"
-      "woodpecker"
-    ];
+    extraGroups = [ "podman" ];
     environment = {
       WOODPECKER_SERVER = "barnegat:3006";
       WOODPECKER_MAX_WORKFLOWS = "4";
@@ -38,6 +35,7 @@
   systemd.services."woodpecker-agent-docker".serviceConfig = {
     User = "woodpecker";
     Group = "woodpecker";
+    WorkingDirectory = "/etc/woodpecker";
   };
 
   # systemd.services.ci-agent-config = {
