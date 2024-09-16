@@ -39,4 +39,5 @@ in
   "valcourHealthcheckUrl.age".publicKeys = [ valcour ] ++ henrik;
 
   "cfDnsApiToken.age".publicKeys = [ barnegat ] ++ henrik;
+  "ciServerSecrets.age".publicKeys = [ barnegat ] ++ henrik;
 }

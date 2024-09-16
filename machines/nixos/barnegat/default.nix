@@ -20,6 +20,7 @@
   services.prometheus.exporters.node.enable = true;
 
   age.secrets.cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
+  age.secrets.ciSecrets.file = ../../../secrets/ciServerSecrets.age;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
