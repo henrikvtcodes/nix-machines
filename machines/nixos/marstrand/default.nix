@@ -1,14 +1,9 @@
-{
-  inputs,
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ ... }:
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
+    ./services
   ];
 
   networking.hostName = "marstrand";
@@ -29,6 +24,7 @@
   svcs.tailscale.advertiseExitNode = true;
 
   services.prometheus.exporters.node.enable = true;
+  age.secrets.ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

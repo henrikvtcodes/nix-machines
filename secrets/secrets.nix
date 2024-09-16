@@ -40,4 +40,8 @@ in
 
   "cfDnsApiToken.age".publicKeys = [ barnegat ] ++ henrik;
   "ciServerSecrets.age".publicKeys = [ barnegat ] ++ henrik;
+  "ciAgentSecrets.age".publicKeys = [
+    marstrand
+    barnegat
+  ] ++ henrik;
 }

@@ -3,19 +3,25 @@ let
   domain = "ci.unicycl.ing";
 in
 {
-  environment.systemPackages = with pkgs; [ woodpecker-cli ];
+  environment.systemPackages = with pkgs; [
+    woodpecker-cli
+    woodpecker-server
+  ];
 
   services.woodpecker-server = {
     enable = true;
     environment = {
       WOODPECKER_HOST = "https://${domain}";
       WOODPECKER_SERVER_ADDR = ":3007";
-      WOODPECKER_OPEN = "false";
+      WOODPECKER_OPEN = "true";
       WOODPECKER_ADMIN = "henrikvtcodes";
       WOODPECKER_ORGS = "orangeunilabs";
       WOODPECKER_METRICS_SERVER_ADDR = ":3008";
     };
-    environmentFile = [ config.age.secrets.ciSecrets.path ];
+    environmentFile = [
+      config.age.secrets.ciSecrets.path
+      config.age.secrets.ciAgentSecrets.path
+    ];
   };
 
   services.traefik.dynamicConfigOptions = {
