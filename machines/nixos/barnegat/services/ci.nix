@@ -13,7 +13,8 @@ in
     environment = {
       WOODPECKER_HOST = "https://${domain}";
       WOODPECKER_SERVER_ADDR = ":3007";
-      WOODPECKER_OPEN = "true";
+      WOODPECKER_GRPC_ADDR = "0.0.0.0:3006";
+      WOODPECKER_OPEN = "false";
       WOODPECKER_ADMIN = "henrikvtcodes";
       WOODPECKER_ORGS = "orangeunilabs";
       WOODPECKER_METRICS_SERVER_ADDR = ":3008";
