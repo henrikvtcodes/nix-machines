@@ -3,14 +3,14 @@ let
   domain = "ci.unicycl.ing";
 in
 {
-  environement.systemPackages = with pkgs; [ woodpecker-cli ];
+  environment.systemPackages = with pkgs; [ woodpecker-cli ];
 
   services.woodpecker-server = {
     enable = true;
     environment = {
       WOODPECKER_HOST = "https://${domain}";
       WOODPECKER_SERVER_ADDR = ":3007";
-      WOODPECKER_OPEN = false;
+      WOODPECKER_OPEN = "false";
       WOODPECKER_ADMIN = "henrikvtcodes";
       WOODPECKER_ORGS = "orangeunilabs";
       WOODPECKER_METRICS_SERVER_ADDR = ":3008";
@@ -22,7 +22,7 @@ in
     http = {
       routers.woodpecker = {
         rule = "Host(`${domain}`)";
-        service = "grafana";
+        service = "woodpecker";
         entryPoints = [
           "https"
           "http"
