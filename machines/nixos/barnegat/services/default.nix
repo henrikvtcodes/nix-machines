@@ -3,6 +3,7 @@
   imports = [
     # ./auth.nix
     ./metrics.nix
+    ./ci.nix
   ];
 
   services.traefik = {
