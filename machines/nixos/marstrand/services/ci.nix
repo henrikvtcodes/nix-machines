@@ -38,6 +38,7 @@
   systemd.services."woodpecker-agent-docker".serviceConfig = {
     User = "woodpecker";
     Group = "woodpecker";
+    WorkingDirectory = "/etc/woodpecker";
   };
 
   # systemd.services.ci-agent-config = {
