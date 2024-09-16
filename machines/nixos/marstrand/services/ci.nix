@@ -1,5 +1,17 @@
 { config, ... }:
 {
+
+  users = {
+    users.woodpecker = {
+      isSystemUser = true;
+      group = "woodpecker";
+      createHome = true;
+      home = "/etc/woodpecker";
+      homeMode = "764";
+    };
+    groups.woodpecker = { };
+  };
+
   # This sets up a woodpecker agent
   services.woodpecker-agents.agents."docker" = {
     enable = true;
@@ -17,16 +29,6 @@
       WOODPECKER_HEALTHCHECK_ADDR = "0.0.0.0:3007";
     };
     environmentFile = [ config.age.secrets.ciAgentSecrets.path ];
-  };
-
-  users = {
-    users.woodpecker = {
-      isSystemUser = true;
-      group = "woodpecker";
-      createHome = true;
-      home = "/etc/woodpecker";
-    };
-    groups.woodpecker = { };
   };
 
   systemd.services."woodpecker-agent-docker".serviceConfig = {
