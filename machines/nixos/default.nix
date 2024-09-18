@@ -78,6 +78,7 @@
   virtualisation.podman = {
     enable = lib.mkDefault true;
     dockerCompat = true;
+    dockerSocket.enable = true;
   };
   virtualisation.oci-containers.backend = "podman";
   networking.firewall.interfaces.podman0.allowedUDPPorts = [ 53 ];
