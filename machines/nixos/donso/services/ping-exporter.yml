@@ -1,0 +1,22 @@
+targets:
+  - 1.1.1.1
+  - 8.8.8.8
+  - 2001:4860:4860::8888
+  - 9.9.9.9
+  - 2620:fe::fe
+  - barnegat.unicycl.ing
+  - uvm.edu
+  - discord.com
+
+dns:
+  refresh: 2m15s
+  nameserver: 132.198.201.10
+
+ping:
+  interval: 2s
+  timeout: 10s
+  history-size: 42
+  payload-size: 120
+
+options:
+  disableIPv6: false

@@ -1,0 +1,16 @@
+{
+  "targets": [
+    "1.1.1.1",
+    "8.8.8.8",
+    "2001:4860:4860::8888",
+    "9.9.9.9",
+    "2620:fe::fe",
+    "barnegat.unicycl.ing",
+    "uvm.edu",
+    "discord.com",
+    "vl207-wat-mann-c9600.aa.uvm.edu"
+  ],
+  "dns": {
+    "nameserver": "132.198.201.10"
+  }
+}
