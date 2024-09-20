@@ -33,7 +33,10 @@
   svcs.tailscale.advertiseExitNode = true;
 
   # ZFS Stuff
-  environment.systemPackages = with pkgs; [ zfs ];
+  environment.systemPackages = with pkgs; [
+    zfs
+    trippy
+  ];
 
   services.zfs = {
     autoScrub = {
