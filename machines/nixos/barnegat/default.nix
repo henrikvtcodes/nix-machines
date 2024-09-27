@@ -19,6 +19,37 @@
 
   services.prometheus.exporters.node.enable = true;
 
+  services.fail2ban = {
+    enable = true;
+    ignoreIP = [
+      # Whitelist RFC1918 addresses
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+      # CGNAT (ie Tailscale)
+      "100.64.0.0/10"
+      # UVM
+      "132.198.0.0/16"
+    ];
+  };
+  services.openssh = {
+    # Use nonstandard SSH port for public server
+    listenAddresses = [
+      {
+        addr = "0.0.0.0";
+        port = 69;
+      }
+      {
+        addr = "100.68.43.124";
+        port = 22;
+      }
+      {
+        addr = "fd7a:115c:a1e0::5c01:2b7e";
+        port = 22;
+      }
+    ];
+  };
+
   age.secrets.cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
   age.secrets.ciSecrets.file = ../../../secrets/ciServerSecrets.age;
   age.secrets.ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;

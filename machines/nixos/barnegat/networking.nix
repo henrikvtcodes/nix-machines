@@ -3,9 +3,10 @@
   # Firewall config
   networking.firewall = {
     allowedTCPPorts = [
-      22
+
       80
       443
+      69
     ];
     allowedUDPPorts = [ 53 ];
     enable = true;
