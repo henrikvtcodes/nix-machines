@@ -46,14 +46,14 @@ in
       image = "stonith404/pocket-id:latest";
       ports = [ "${toString cfg.frontendApiPort}:${toString cfg.frontendApiPort}" ];
       volumes = [
-        "${cfg.dataPath}/data:/app/data"
-        "${cfg.dataPath}/uploads:/app/uploads"
+        "${cfg.dataPath}:/app/backend/data"
+        # "${cfg.dataPath}/uploads:/app/uploads"
       ];
       environment = {
         PUBLIC_APP_URL = "https://${cfg.domainName}";
         TRUST_PROXY = "true";
-        DB_PATH = "${cfg.dataPath}/pocket-id.db";
-        UPLOAD_PATH = "${cfg.dataPath}/uploads";
+        # DB_PATH = "/app/pocket-id.db";
+        # UPLOAD_PATH = "/app/uploads";
         INTERNAL_BACKEND_URL = "http://localhost:${toString cfg.adminApiPort}";
         PORT = toString cfg.frontendApiPort;
         BACKEND_PORT = toString cfg.adminApiPort;

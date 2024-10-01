@@ -1,8 +1,4 @@
 { pkgs, lib, ... }:
-
-let
-  moduleDir = ../../modules;
-in
 {
 
   imports = [
