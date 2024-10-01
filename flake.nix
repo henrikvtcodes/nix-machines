@@ -59,11 +59,31 @@
       disko,
       agenix,
       deploy-rs,
+      systems,
       ...
     }@inputs:
+    let
+      lib = nixpkgs.lib;
+
+      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+
+      pkgsFor = lib.genAttrs (import systems) (
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+      );
+
+    in
     {
 
       # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+
+      formatter = {
+        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      };
 
       nixosConfigurations = {
         donso = nixpkgs.lib.nixosSystem {
@@ -207,6 +227,10 @@
           };
           barnegat = {
             hostname = "barnegat";
+            sshOpts = [
+              "-p"
+              "69"
+            ];
             profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.barnegat;
           };
           donso = {
