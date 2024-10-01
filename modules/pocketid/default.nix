@@ -63,7 +63,7 @@ in
     services.traefik.dynamicConfigOptions = lib.mkIf cfg.traefikProxy {
       http = {
         routers.pocketid = {
-          rule = "Host(`${cfg.domain}`)";
+          rule = "Host(`${cfg.domainName}`)";
           service = "pocketid";
           entryPoints = [
             "https"
