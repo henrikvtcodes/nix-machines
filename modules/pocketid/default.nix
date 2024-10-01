@@ -73,7 +73,7 @@ in
         };
         services.woodpecker = {
           loadBalancer = {
-            servers = [ { url = "http://localhost:${cfg.frontendApiPort}"; } ];
+            servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
           };
         };
       };
