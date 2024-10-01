@@ -62,18 +62,36 @@ in
 
     services.traefik.dynamicConfigOptions = lib.mkIf cfg.traefikProxy {
       http = {
-        routers.pocketid = {
-          rule = "Host(`${cfg.domainName}`)";
-          service = "pocketid";
-          entryPoints = [
-            "https"
-            "http"
-          ];
-          tls.certResolver = "lecf";
+        routers = {
+          pocketid-fe = {
+            rule = "Host(`${cfg.domainName}`)";
+            service = "pocketid-frontend";
+            entryPoints = [
+              "https"
+              "http"
+            ];
+            tls.certResolver = "lecf";
+          };
+          pocketid-api = {
+            rule = "Host(`${cfg.domainName}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`))";
+            service = "pocketid-backend";
+            entryPoints = [
+              "https"
+              "http"
+            ];
+            tls.certResolver = "lecf";
+          };
         };
-        services.pocketid = {
-          loadBalancer = {
-            servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
+        services = {
+          pocketid-frontend = {
+            loadBalancer = {
+              servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
+            };
+          };
+          pocketid-backend = {
+            loadBalancer = {
+              servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
+            };
           };
         };
       };
