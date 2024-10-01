@@ -71,7 +71,7 @@ in
           ];
           tls.certResolver = "lecf";
         };
-        services.woodpecker = {
+        services.pocketid = {
           loadBalancer = {
             servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
           };
