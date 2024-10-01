@@ -6,6 +6,14 @@
     ./ci.nix
   ];
 
+  svcs.pocketid = {
+    enable = true;
+    domainName = "oidc.unicycl.ing";
+    frontendApiPort = 7000;
+    adminApiPort = 7070;
+    traefikProxy = true;
+  };
+
   services.traefik = {
     enable = true;
     # Contains cloudflare API key for ACME DNS-01 Challenge

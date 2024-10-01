@@ -10,7 +10,7 @@ in
     ../../modules/boot-disk
     ../../modules/betteruptime
     ../../modules/netcheck
-
+    ../../modules/pocketid
   ];
 
   nix.settings = {
