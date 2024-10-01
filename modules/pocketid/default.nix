@@ -15,14 +15,19 @@ in
       type = types.str;
       description = "Domain name for PocketID";
     };
+    serviceHttpPort = mkOption {
+      type = types.int;
+      default = 7007;
+      description = "Port for PocketID public API";
+    };
     frontendApiPort = mkOption {
       type = types.int;
-      default = 3000;
+      default = 7070;
       description = "Port for PocketID public API";
     };
     adminApiPort = mkOption {
       type = types.int;
-      default = 3030;
+      default = 7777;
       description = "Port for PocketID admin API";
     };
     dataPath = mkOption {
@@ -64,13 +69,14 @@ in
       http = {
         routers = {
           pocketid-fe = {
-            rule = "Host(`${cfg.domainName}`)";
+            rule = "(Host(`${cfg.domainName}`) && !PathPrefix(`/api`)) || (Host(`${cfg.domainName}`) && !PathPrefix(`/.well-known`))";
             service = "pocketid-frontend";
             entryPoints = [
               "https"
               "http"
             ];
             tls.certResolver = "lecf";
+            # priority = 2;
           };
           pocketid-api = {
             rule = "Host(`${cfg.domainName}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`))";
@@ -80,6 +86,7 @@ in
               "http"
             ];
             tls.certResolver = "lecf";
+            # priority = 1;
           };
         };
         services = {
