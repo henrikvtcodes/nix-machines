@@ -34,7 +34,7 @@ in
         autoStart = true;
         image = "oryd/kratos:v1.2.0";
         ports = [
-          
+
           "${cfg.publicApiPort}:4433"
           "${cfg.adminApiPort}:4434"
         ];
