@@ -26,7 +26,7 @@ in
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
-        Unit = "betteruptime.service";
+        Unit = "netcheck.service";
       };
     };
 
@@ -36,7 +36,12 @@ in
         ${pkgs.inetutils}/bin/ping -c 5 1.1.1.1 > /dev/null
 
         if [ $? -ne 0 ]; then
-          dhcpcd --rebind ${cfg.interface}
+          ${pkgs.dhcpcd}/bin/dhcpcd --rebind ${cfg.interface}
+          echo "DHCP rebound"
+          systemctl restart tailscaled-autoconnect.service
+          echo "Tailscale restarted"
+        else
+          echo "Internet is up"
         fi
       '';
       serviceConfig = {
