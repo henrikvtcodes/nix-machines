@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.ci-agent;
+  cfg = config.svcs.ci-agent;
 in
 {
 
-  options.ci-agent = with lib; {
+  options.svcs.ci-agent = with lib; {
     enable = mkEnableOption "ci-agent";
     serverAddress = mkOption {
       type = types.str;
