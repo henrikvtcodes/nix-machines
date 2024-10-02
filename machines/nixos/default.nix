@@ -2,11 +2,7 @@
 {
 
   imports = [
-    ../../modules/tailscale
-    ../../modules/boot-disk
-    ../../modules/betteruptime
-    ../../modules/netcheck
-    ../../modules/pocketid
+    ../../modules
   ];
 
   nix.settings = {
