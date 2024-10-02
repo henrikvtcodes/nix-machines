@@ -65,6 +65,7 @@
   };
 
   services.prometheus.exporters.node = {
+    # Enable node-exporter by default
     enable = lib.mkDefault true;
     enabledCollectors = lib.mkDefault [
       "zfs"

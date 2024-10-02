@@ -41,8 +41,6 @@
     };
   };
 
-  services.prometheus.exporters.node.enable = true;
-
   services.prometheus = {
     enable = true;
     retentionTime = "90d";
