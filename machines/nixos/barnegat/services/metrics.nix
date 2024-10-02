@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   services.grafana = {
     enable = true;
@@ -12,6 +12,12 @@
       server.domain = "metrics.unicycl.ing";
       server.root_url = "https://metrics.unicycl.ing";
       server.enable_gzip = true;
+      feature_toggles = {
+        enable = [ "ssoSettingsApi" ];
+      };
+      feature_management = {
+        allow_editing = true;
+      };
     };
     provision.datasources.path = ./datasources.yml;
   };

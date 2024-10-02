@@ -49,7 +49,12 @@ in
 
     virtualisation.oci-containers.containers.pocketid = {
       image = "stonith404/pocket-id:latest";
-      ports = [ "${toString cfg.frontendApiPort}:${toString cfg.frontendApiPort}" ];
+      ports = [
+        "${toString cfg.frontendApiPort}:${toString cfg.frontendApiPort}"
+        "${toString cfg.adminApiPort}:${toString cfg.adminApiPort}"
+        # Map the caddy internal port (80) to serviceHttpPort externally
+        "${toString cfg.serviceHttpPort}:80"
+      ];
       volumes = [
         "${cfg.dataPath}:/app/backend/data"
         # "${cfg.dataPath}/uploads:/app/uploads"
@@ -68,38 +73,44 @@ in
     services.traefik.dynamicConfigOptions = lib.mkIf cfg.traefikProxy {
       http = {
         routers = {
-          pocketid-fe = {
-            rule = "(Host(`${cfg.domainName}`) && !PathPrefix(`/api`)) || (Host(`${cfg.domainName}`) && !PathPrefix(`/.well-known`))";
-            service = "pocketid-frontend";
+          pocketid = {
+            # rule = "(Host(`${cfg.domainName}`) && !PathPrefix(`/api`)) || (Host(`${cfg.domainName}`) && !PathPrefix(`/.well-known`))";
+            rule = "Host(`${cfg.domainName}`)";
+            service = "pocketid";
             entryPoints = [
               "https"
               "http"
             ];
             tls.certResolver = "lecf";
-            # priority = 2;
+            priority = 2;
           };
-          pocketid-api = {
-            rule = "Host(`${cfg.domainName}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`))";
-            service = "pocketid-backend";
-            entryPoints = [
-              "https"
-              "http"
-            ];
-            tls.certResolver = "lecf";
-            # priority = 1;
-          };
+          # pocketid-api = {
+          #   rule = "Host(`${cfg.domainName}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`))";
+          #   service = "pocketid-backend";
+          #   entryPoints = [
+          #     "https"
+          #     "http"
+          #   ];
+          #   tls.certResolver = "lecf";
+          #   priority = 1;
+          # };
         };
         services = {
-          pocketid-frontend = {
+          pocketid = {
             loadBalancer = {
-              servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
+              servers = [ { url = "http://localhost:${toString cfg.serviceHttpPort}"; } ];
             };
           };
-          pocketid-backend = {
-            loadBalancer = {
-              servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
-            };
-          };
+          # pocketid-frontend = {
+          #   loadBalancer = {
+          #     servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
+          #   };
+          # };
+          # pocketid-backend = {
+          #   loadBalancer = {
+          #     servers = [ { url = "http://localhost:${toString cfg.adminApiPort}"; } ];
+          #   };
+          # };
         };
       };
     };
