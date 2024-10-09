@@ -61,5 +61,7 @@
     enable = true;
     databaseDir = "/data/main/couchdb";
     bindAddress = "0.0.0.0";
+    adminUser = "obsd";
+    adminPassword = "obsdLiveSync"; # DB is not publicly exposed, this is safe
   };
 }
