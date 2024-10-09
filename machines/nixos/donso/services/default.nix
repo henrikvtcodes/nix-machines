@@ -56,4 +56,10 @@
   #   "D /data/main/prometheus2 0751 prometheus prometheus - -"
   #   "L+ /var/lib/prometheus2 - - - - /data/main/prometheus2"
   # ];
+
+  services.couchdb = {
+    enable = true;
+    databaseDir = "/data/main/couchdb";
+    bindAddress = "0.0.0.0";
+  };
 }
