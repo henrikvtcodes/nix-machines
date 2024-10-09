@@ -62,6 +62,29 @@
     databaseDir = "/data/main/couchdb";
     bindAddress = "0.0.0.0";
     adminUser = "obsd";
-    adminPassword = "obsdLiveSync"; # DB is not publicly exposed, this is safe
+    adminPass = "obsdLiveSync"; # DB is not publicly exposed, this is safe
+    extraConfig = ''
+      [admins]
+      obsd = -pbkdf2-a232e66171a2e07484e1a84f4a1b1a8ed52fc71a,b7f54fee18dcc169cc2c3324b371037a,10
+
+      [couchdb]
+      uuid = 36b97a893ab871ed3c991964edee77cf
+      max_document_size = 50000000
+
+      [chttpd]
+      require_valid_user = true
+      max_http_request_size = 4294967296
+
+      [chttpd_auth]
+      require_valid_user = true
+
+      [httpd]
+      WWW-Authenticate = Basic realm="couchdb"
+      enable_cors = true
+
+      [cors]
+      credentials = true
+      origins = app://obsidian.md,capacitor://localhost,http://localhost
+    '';
   };
 }
