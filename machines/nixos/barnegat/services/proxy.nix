@@ -11,6 +11,12 @@
           address = ":443";
           http.tls = {
             certResolver = "lecf";
+            domains = [
+              {
+                main = "unicycl.ing";
+                sans = [ "*.unicycl.ing" ];
+              }
+            ];
           };
         };
 
