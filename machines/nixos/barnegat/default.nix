@@ -13,6 +13,7 @@
 
   boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.efiSupport = true;
   boot.loader.grub.device = "nodev";
   services.qemuGuest.enable = true;
   security.sudo.wheelNeedsPassword = false;

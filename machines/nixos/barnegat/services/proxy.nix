@@ -36,6 +36,7 @@
             provider = "cloudflare";
             delayBeforeCheck = 10;
             resolvers = [ "8.8.8.8:53" ];
+            # Let's Encrypt uses Google DNS to verify the challenge
           };
         };
       };
