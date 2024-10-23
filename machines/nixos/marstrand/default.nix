@@ -4,8 +4,6 @@
     # Include the results of the hardware scan.
     ./hardware-config.nix
     ./services.nix
-    ../modules/boot-disk
-
   ];
 
   networking.hostName = "marstrand";

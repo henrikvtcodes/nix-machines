@@ -182,6 +182,7 @@
             ./machines/nixos
             ./machines/nixos/valcour
             disko.nixosModules.default
+
             ./modules/boot-disk
 
             # Secrets
