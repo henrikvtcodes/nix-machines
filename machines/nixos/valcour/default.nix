@@ -4,6 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-config.nix
     ./metrics
+    ../modules/boot-disk
   ];
 
   networking.hostName = "valcour";

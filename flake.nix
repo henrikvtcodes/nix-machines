@@ -63,39 +63,6 @@
 
       ...
     }@inputs:
-    let
-      lib = nixpkgs.lib;
-
-      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-
-      pkgsFor = lib.genAttrs (import systems) (
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-      );
-
-      x86Pkgs = pkgsFor.x86_64-linux;
-
-      deployPkgs =
-        let
-          system = "x86_64-linux";
-        in
-        (import nixpkgs {
-          inherit system;
-          overlays = [
-            deploy-rs.overlay # or deploy-rs.overlays.default
-            (self: super: {
-              deploy-rs = {
-                inherit (pkgsFor) deploy-rs;
-                lib = super.deploy-rs.lib;
-              };
-            })
-          ];
-        });
-
-    in
     {
 
       # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
@@ -143,6 +110,7 @@
             ./machines/nixos
             ./machines/nixos/barnegat
             disko.nixosModules.default
+            # Custom disk config is in the machine config
 
             ./modules/tailscale
 
@@ -214,6 +182,7 @@
             ./machines/nixos
             ./machines/nixos/valcour
             disko.nixosModules.default
+            ./modules/boot-disk
 
             # Secrets
             ./secrets
@@ -251,7 +220,7 @@
               "-p"
               "69"
             ];
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.barnegat;
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.donso;
           };
           donso = {
             hostname = "donso";
