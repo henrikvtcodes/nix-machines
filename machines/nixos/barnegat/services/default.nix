@@ -2,6 +2,7 @@
 {
   imports = [
     ./metrics.nix
+    ./proxy.nix
   ];
 
   svcs.pocketid = {
