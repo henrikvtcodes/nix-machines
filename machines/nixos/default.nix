@@ -46,7 +46,6 @@
     };
     wireless.enable = lib.mkDefault false;
     nameservers = lib.mkDefault [
-      "100.100.100.100"
       "9.9.9.10"
       "149.112.112.10"
       "2620:fe::10"

@@ -24,7 +24,7 @@ let
           [ ];
     in
     [ "--reset=true" ] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
-  # reset flag means that if any of the above settings change, 
+  # reset flag means that if any of the above settings change,
   # old routes/tags will not be accepted or advertised; as those settins will be reset
 
 in
@@ -73,7 +73,16 @@ in
   config = mkIf cfg.enable {
     age.secrets.tailscaleAuthKey.file = ../../secrets/tailscaleAuthKey.age;
 
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+    networking = {
+      firewall.trustedInterfaces = [ "tailscale0" ];
+      search = [
+        "reindeer-porgy.ts.net"
+        "unicycl.ing"
+      ];
+      nameservers = [
+        "100.100.100.100"
+      ];
+    };
 
     services.tailscale = {
       enable = true;
