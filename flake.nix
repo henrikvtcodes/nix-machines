@@ -246,15 +246,15 @@
         nodes = {
           svalbard = {
             hostname = "svalbard";
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.svalbard;
+            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.svalbard;
           };
           valcour = {
             hostname = "valcour";
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.valcour;
+            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.valcour;
           };
           marstrand = {
             hostname = "marstrand";
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.marstrand;
+            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.marstrand;
           };
           barnegat = {
             hostname = "barnegat";
@@ -262,7 +262,7 @@
               "-p"
               "69"
             ];
-            profiles.system.path = deployPkgs."x86_64-linux".activate.nixos self.nixosConfigurations.donso;
+            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.donso;
           };
           donso = {
             hostname = "donso";
