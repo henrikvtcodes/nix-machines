@@ -12,8 +12,6 @@
       url = "github:nixos/nixpkgs/release-24.05";
     };
 
-    systems.url = "github:nix-systems/default";
-
     # Core tools: home manager, secrets, disk partitioning, deployment
     # home-manager = {
     #   url = "github:nix-community/home-manager";
@@ -63,14 +61,57 @@
 
       ...
     }@inputs:
+    let
+
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+        # "aarch64-linux"
+        # "x86_64-darwin"
+      ];
+      forEachSupportedSystem =
+        f: nixpkgs.lib.genAttrs supportedSystems (system: f { pkgs = import nixpkgs { inherit system; }; });
+
+      deployPkgs = forEachSupportedSystem (
+        { pkgs }:
+        import nixpkgs {
+          inherit (pkgs) system;
+          overlays = [
+            deploy-rs.overlay # or deploy-rs.overlays.default
+            (self: super: {
+              deploy-rs = {
+                inherit (pkgs) deploy-rs;
+                lib = super.deploy-rs.lib;
+              };
+            })
+          ];
+        }
+      );
+
+      # deployPkgs = import nixpkgs {
+      #   inherit system;
+      #   overlays = [
+      #     deploy-rs.overlay # or deploy-rs.overlays.default
+      #     (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+      #   ];
+      # };
+
+    in
     {
 
-      # devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+      devShells = forEachSupportedSystem (
+        { pkgs }:
+        ({
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              nil
+              git
+            ];
+          };
+        })
+      );
 
-      formatter = {
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
-      };
+      formatter = forEachSupportedSystem ({ pkgs }: pkgs.nixfmt-rfc-style);
 
       nixosConfigurations = {
         donso = nixpkgs.lib.nixosSystem {
@@ -221,11 +262,11 @@
               "-p"
               "69"
             ];
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.donso;
+            profiles.system.path = deployPkgs."x86_64-linux".activate.nixos self.nixosConfigurations.donso;
           };
           donso = {
             hostname = "donso";
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.donso;
+            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.donso;
           };
         };
       };
