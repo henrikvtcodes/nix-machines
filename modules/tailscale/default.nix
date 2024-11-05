@@ -79,9 +79,7 @@ in
         "reindeer-porgy.ts.net"
         "unicycl.ing"
       ];
-      nameservers = [
-        "100.100.100.100"
-      ];
+      # nameservers = [ "100.100.100.100" ];
     };
 
     services.tailscale = {
