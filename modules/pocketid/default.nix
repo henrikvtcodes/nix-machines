@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.svcs.pocketid;
 in
@@ -35,9 +30,7 @@ in
       default = "/var/lib/pocketid";
       description = "Path to store PocketID data";
     };
-    traefikProxy = mkEnableOption {
-      description = "Enable Traefik proxy for PocketID";
-    };
+    traefikProxy = mkEnableOption { description = "Enable Traefik proxy for PocketID"; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -74,7 +67,6 @@ in
       http = {
         routers = {
           pocketid = {
-            # rule = "(Host(`${cfg.domainName}`) && !PathPrefix(`/api`)) || (Host(`${cfg.domainName}`) && !PathPrefix(`/.well-known`))";
             rule = "Host(`${cfg.domainName}`)";
             service = "pocketid";
             entryPoints = [
@@ -84,16 +76,6 @@ in
             tls.certResolver = "lecf";
             priority = 2;
           };
-          # pocketid-api = {
-          #   rule = "Host(`${cfg.domainName}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`))";
-          #   service = "pocketid-backend";
-          #   entryPoints = [
-          #     "https"
-          #     "http"
-          #   ];
-          #   tls.certResolver = "lecf";
-          #   priority = 1;
-          # };
         };
         services = {
           pocketid = {
@@ -101,16 +83,6 @@ in
               servers = [ { url = "http://localhost:${toString cfg.serviceHttpPort}"; } ];
             };
           };
-          # pocketid-frontend = {
-          #   loadBalancer = {
-          #     servers = [ { url = "http://localhost:${toString cfg.frontendApiPort}"; } ];
-          #   };
-          # };
-          # pocketid-backend = {
-          #   loadBalancer = {
-          #     servers = [ { url = "http://localhost:${toString cfg.adminApiPort}"; } ];
-          #   };
-          # };
         };
       };
     };
