@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [ ../../modules ];
+  imports = [ ../../modules/nixos ];
 
   nix.settings = {
     experimental-features = [

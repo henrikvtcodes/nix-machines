@@ -91,6 +91,7 @@
     in
     {
 
+      # Dev shell for this flake (mostly for reference)
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
@@ -103,34 +104,10 @@
         }
       );
 
+      # Standard formatter for this flake
       formatter = forEachSupportedSystem ({ pkgs }: pkgs.nixfmt-rfc-style);
 
       nixosConfigurations = {
-        donso = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
-          specialArgs = {
-            inherit inputs;
-          };
-
-          modules = [
-            # Machine config
-            ./machines/nixos
-            ./machines/nixos/donso
-            disko.nixosModules.default
-
-            ./modules/tailscale
-            # ./modules/boot-disk See notes in boot-disk-gb for why this is like this
-            ./modules/boot-disk-gb
-
-            # Secrets
-            ./secrets
-            agenix.nixosModules.default
-
-            # User config
-            ./users/henrikvt
-          ];
-        };
         barnegat = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
@@ -145,7 +122,29 @@
             disko.nixosModules.default
             # Custom disk config is in the machine config
 
-            ./modules/tailscale
+            # Secrets
+            ./secrets
+            agenix.nixosModules.default
+
+            # User config
+            ./users/henrikvt
+          ];
+        };
+        donso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            # Machine config
+            ./machines/nixos
+            ./machines/nixos/donso
+            disko.nixosModules.default
+
+            # ./modules/boot-disk See notes in boot-disk-gb for why this is like this
+            ./modules/nixos/boot-disk-gb
 
             # Secrets
             ./secrets
@@ -168,8 +167,7 @@
             ./machines/nixos/svalbard
             disko.nixosModules.default
 
-            ./modules/tailscale
-            ./modules/boot-disk-gb
+            ./modules/nixos/boot-disk-gb
 
             # Secrets
             ./secrets
@@ -192,8 +190,7 @@
             ./machines/nixos/marstrand
             disko.nixosModules.default
 
-            ./modules/tailscale
-            ./modules/boot-disk-gb
+            ./modules/nixos/boot-disk-gb
 
             # Secrets
             ./secrets
@@ -216,7 +213,7 @@
             ./machines/nixos/valcour
             disko.nixosModules.default
 
-            ./modules/boot-disk
+            ./modules/nixos/boot-disk
 
             # Secrets
             ./secrets
@@ -236,24 +233,6 @@
 
         # nodes config
         nodes = {
-          svalbard = {
-            hostname = "svalbard";
-            profiles.system.path =
-              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
-                self.nixosConfigurations.svalbard;
-          };
-          valcour = {
-            hostname = "valcour";
-            profiles.system.path =
-              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
-                self.nixosConfigurations.valcour;
-          };
-          marstrand = {
-            hostname = "marstrand";
-            profiles.system.path =
-              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
-                self.nixosConfigurations.marstrand;
-          };
           barnegat = {
             hostname = "barnegat";
             sshOpts = [
@@ -269,6 +248,24 @@
             profiles.system.path =
               deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
                 self.nixosConfigurations.donso;
+          };
+          marstrand = {
+            hostname = "marstrand";
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.marstrand;
+          };
+          svalbard = {
+            hostname = "svalbard";
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.svalbard;
+          };
+          valcour = {
+            hostname = "valcour";
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.valcour;
           };
         };
       };
