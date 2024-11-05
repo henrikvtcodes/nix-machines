@@ -1,6 +1,4 @@
-{ ... }:
-{
-
+{...}: {
   # General Settings
   users.users.thanos = {
     isSystemUser = true;
@@ -16,5 +14,4 @@
       http-address = "0.0.0.0:10902";
     };
   };
-
 }

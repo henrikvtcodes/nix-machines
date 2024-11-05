@@ -1,9 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.svcs.ci-agent;
-in
 {
-
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.svcs.ci-agent;
+in {
   options.svcs.ci-agent = with lib; {
     enable = mkEnableOption "ci-agent";
     serverAddress = mkOption {
@@ -17,7 +18,7 @@ in
     };
     environmentFiles = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = "Files containing secrets necessary for the agents";
     };
   };
@@ -35,14 +36,14 @@ in
         home = "/etc/woodpecker";
         homeMode = "764";
       };
-      groups.woodpecker = { };
+      groups.woodpecker = {};
     };
 
     # This sets up a woodpecker agent
     services.woodpecker-agents.agents."docker" = {
       enable = true;
       # We need this to talk to the podman socket
-      extraGroups = [ "podman" ];
+      extraGroups = ["podman"];
       environment = {
         WOODPECKER_SERVER = "barnegat:3006";
         WOODPECKER_MAX_WORKFLOWS = "4";
@@ -51,7 +52,7 @@ in
         WOODPECKER_HEALTHCHECK = "true";
         WOODPECKER_HEALTHCHECK_ADDR = "0.0.0.0:${toString cfg.healthcheckPort}";
       };
-      environmentFile = [ config.age.secrets.ciAgentSecrets.path ];
+      environmentFile = [config.age.secrets.ciAgentSecrets.path];
     };
 
     systemd.services."woodpecker-agent-docker".serviceConfig = {
@@ -69,8 +70,8 @@ in
     };
 
     networking.firewall.interfaces."podman0" = lib.mkForce {
-      allowedUDPPorts = [ 53 ];
-      allowedTCPPorts = [ 53 ];
+      allowedUDPPorts = [53];
+      allowedTCPPorts = [53];
     };
   };
 }

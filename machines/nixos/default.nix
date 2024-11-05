@@ -1,7 +1,9 @@
-{ pkgs, lib, ... }:
 {
-
-  imports = [ ../../modules/nixos ];
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [../../modules/nixos];
 
   nix.settings = {
     experimental-features = [
@@ -9,7 +11,7 @@
       "flakes"
     ];
 
-    system-features = [ "recursive-nix" ];
+    system-features = ["recursive-nix"];
   };
 
   # Clean up nix store + old generations automatically
@@ -21,7 +23,7 @@
     };
     optimise = {
       automatic = true;
-      dates = [ "weekly" ];
+      dates = ["weekly"];
     };
   };
 
@@ -78,7 +80,7 @@
     dockerSocket.enable = true;
   };
   virtualisation.oci-containers.backend = "podman";
-  networking.firewall.interfaces.podman0.allowedUDPPorts = [ 53 ];
+  networking.firewall.interfaces.podman0.allowedUDPPorts = [53];
 
   # General Settings
   time.timeZone = lib.mkDefault "America/New_York";

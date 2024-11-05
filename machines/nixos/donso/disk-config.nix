@@ -1,5 +1,5 @@
 {
-  boot.zfs.extraPools = [ "zdata" ];
+  boot.zfs.extraPools = ["zdata"];
   disko.devices = {
     disk = {
       nvme1 = {
@@ -41,5 +41,4 @@
       };
     };
   };
-
 }

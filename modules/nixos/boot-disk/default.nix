@@ -1,10 +1,11 @@
-{ config, lib, ... }:
-
-with lib;
-let
-  cfg = config.bootDisk;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.bootDisk;
+in {
   options.bootDisk = {
     enable = mkEnableOption "Enable boot disk";
     diskPath = mkOption {

@@ -1,9 +1,8 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.traefik = {
     enable = true;
     # Contains cloudflare API key for ACME DNS-01 Challenge
-    environmentFiles = [ config.age.secrets.cfDnsApiToken.path ];
+    environmentFiles = [config.age.secrets.cfDnsApiToken.path];
     staticConfigOptions = {
       entrypoints = {
         http.address = ":80";
@@ -14,7 +13,7 @@
             domains = [
               {
                 main = "unicycl.ing";
-                sans = [ "*.unicycl.ing" ];
+                sans = ["*.unicycl.ing"];
               }
             ];
           };
@@ -35,7 +34,7 @@
           acme.dnsChallenge = {
             provider = "cloudflare";
             delayBeforeCheck = 10;
-            resolvers = [ "8.8.8.8:53" ];
+            resolvers = ["8.8.8.8:53"];
             # Let's Encrypt uses Google DNS to verify the challenge
           };
         };

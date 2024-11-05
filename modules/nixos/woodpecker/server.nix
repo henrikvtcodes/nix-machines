@@ -1,9 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.svcs.ci-server;
-in
-
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.svcs.ci-server;
+in {
   options.svcs.ci-server = {
     enable = lib.mkEnableOption "ci-server";
     httpPort = lib.mkOption {
@@ -23,7 +24,7 @@ in
     };
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = "Files containing secrets necessary for the server";
     };
     # environmentVars = lib.mkOption {
@@ -54,7 +55,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     services.woodpecker-server = {
       enable = true;
       environment = {
@@ -82,7 +82,7 @@ in
         };
         services.woodpecker = {
           loadBalancer = {
-            servers = [ { url = "http://localhost:${toString cfg.httpPort}"; } ];
+            servers = [{url = "http://localhost:${toString cfg.httpPort}";}];
           };
         };
       };

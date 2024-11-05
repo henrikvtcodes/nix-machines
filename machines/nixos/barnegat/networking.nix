@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   # Firewall config
   networking.firewall = {
     allowedTCPPorts = [
@@ -8,7 +7,7 @@
       69
       5201
     ];
-    allowedUDPPorts = [ 53 ];
+    allowedUDPPorts = [53];
     enable = true;
   };
 

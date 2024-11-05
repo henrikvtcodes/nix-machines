@@ -1,6 +1,9 @@
-{ pkgs, config, ... }:
 {
-  nix.settings.trusted-users = [ "henrikvt" ];
+  pkgs,
+  config,
+  ...
+}: {
+  nix.settings.trusted-users = ["henrikvt"];
   age.secrets.henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
 
   # NixOS User Config
@@ -61,5 +64,5 @@
 
   programs.ssh.startAgent = true;
 
-  age.identityPaths = [ "/home/henrikvt/.ssh/id_ed25519" ];
+  age.identityPaths = ["/home/henrikvt/.ssh/id_ed25519"];
 }

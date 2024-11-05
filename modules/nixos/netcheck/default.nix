@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.svcs.netcheck;
-
-in
-{
+in {
   options.svcs.netcheck = with lib; {
     enable = mkEnableOption "Enable netcheck";
     interface = mkOption {
@@ -22,7 +18,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.timers."netcheck" = {
       description = "Rebind DHCP interfaces and reload Tailscale if the network is down.";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";

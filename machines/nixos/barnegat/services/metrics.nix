@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.grafana = {
     enable = true;
     settings = {
@@ -13,7 +12,7 @@
       server.root_url = "https://metrics.unicycl.ing";
       server.enable_gzip = true;
       feature_toggles = {
-        enable = [ "ssoSettingsApi" ];
+        enable = ["ssoSettingsApi"];
       };
       feature_management = {
         allow_editing = true;
@@ -35,7 +34,7 @@
       };
       services.grafana = {
         loadBalancer = {
-          servers = [ { url = "http://localhost:3000"; } ];
+          servers = [{url = "http://localhost:3000";}];
         };
       };
     };
@@ -48,13 +47,13 @@
       {
         job_name = "Traefik";
         scrape_interval = "15s";
-        static_configs = [ { targets = [ "barnegat:9180" ]; } ];
+        static_configs = [{targets = ["barnegat:9180"];}];
       }
 
       {
         job_name = "Woodpecker";
         scrape_interval = "15s";
-        static_configs = [ { targets = [ "barnegat:3008" ]; } ];
+        static_configs = [{targets = ["barnegat:3008"];}];
       }
     ];
   };

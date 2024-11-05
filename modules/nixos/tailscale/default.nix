@@ -1,34 +1,33 @@
-{ config, lib, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.svcs.tailscale;
 
-  formatOptions =
-    {
-      advertiseExitNode,
-      advertiseTags,
-      advertiseRoutes,
-    }:
-    let
-      exitNodeFlag = if advertiseExitNode then [ "--advertise-exit-node" ] else [ ];
-      tagFlags =
-        if advertiseTags.enable && (length advertiseTags.tags > 0) then
-          [ "--advertise-tags=${concatStringsSep "," advertiseTags.tags}" ]
-        else
-          [ ];
-      routeFlags =
-        if advertiseRoutes.enable && (length advertiseRoutes.routes > 0) then
-          [ "--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}" ]
-        else
-          [ ];
-    in
-    [ "--reset=true" ] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
+  formatOptions = {
+    advertiseExitNode,
+    advertiseTags,
+    advertiseRoutes,
+  }: let
+    exitNodeFlag =
+      if advertiseExitNode
+      then ["--advertise-exit-node"]
+      else [];
+    tagFlags =
+      if advertiseTags.enable && (length advertiseTags.tags > 0)
+      then ["--advertise-tags=${concatStringsSep "," advertiseTags.tags}"]
+      else [];
+    routeFlags =
+      if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
+      then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
+      else [];
+  in
+    ["--reset=true"] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
   # reset flag means that if any of the above settings change,
   # old routes/tags will not be accepted or advertised; as those settins will be reset
-
-in
-{
+in {
   options.svcs.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
     advertiseExitNode = mkOption {
@@ -42,7 +41,7 @@ in
       enable = mkEnableOption "Advertise routes";
       routes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Advertise these routes.
         '';
@@ -52,7 +51,7 @@ in
       enable = mkEnableOption "Accept routes";
       routes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Accept these routes.
         '';
@@ -62,7 +61,7 @@ in
       enable = mkEnableOption "Advertise tags";
       tags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Advertise these tags.
         '';
@@ -74,7 +73,7 @@ in
     age.secrets.tailscaleAuthKey.file = ../../secrets/tailscaleAuthKey.age;
 
     networking = {
-      firewall.trustedInterfaces = [ "tailscale0" ];
+      firewall.trustedInterfaces = ["tailscale0"];
       search = [
         "reindeer-porgy.ts.net"
         "unicycl.ing"

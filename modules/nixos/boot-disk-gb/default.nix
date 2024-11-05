@@ -1,13 +1,13 @@
-{ config, lib, ... }:
-
-# This modules defines the same options (but in a diff namespace) as the other one, but it partions the disk without the grub MBR partition.
-# I don't know why I did that earlier. 
-
-with lib;
-let
-  cfg = config.bootDiskGB;
-in
 {
+  config,
+  lib,
+  ...
+}:
+# This modules defines the same options (but in a diff namespace) as the other one, but it partions the disk without the grub MBR partition.
+# I don't know why I did that earlier.
+with lib; let
+  cfg = config.bootDiskGB;
+in {
   options.bootDiskGB = {
     enable = mkEnableOption "Enable boot disk";
     diskPath = mkOption {

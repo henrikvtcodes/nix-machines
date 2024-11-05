@@ -1,5 +1,4 @@
 let
-
   # --------- Henrik's Public Keys ---------
   # Fetch public key from https://henrikvt.com/id_ed25519.pub
   henrik_public_pubkey = builtins.readFile (builtins.fetchurl "https://henrikvt.com/id_ed25519.pub");
@@ -20,7 +19,7 @@ let
     henrik_homelab_pubkey
   ];
 
-  users = [ ] ++ henrik;
+  users = [] ++ henrik;
 
   systems = [
     svalbard
@@ -29,19 +28,20 @@ let
     marstrand
     barnegat
   ];
-in
-{
+in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
   "henrikUserPassword.age".publicKeys = henrik;
 
-  "svalbardHealthcheckUrl.age".publicKeys = [ svalbard ] ++ henrik;
-  "valcourHealthcheckUrl.age".publicKeys = [ valcour ] ++ henrik;
+  "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
+  "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;
 
-  "cfDnsApiToken.age".publicKeys = [ barnegat ] ++ henrik;
-  "ciServerSecrets.age".publicKeys = [ barnegat ] ++ henrik;
-  "ciAgentSecrets.age".publicKeys = [
-    marstrand
-    barnegat
-  ] ++ henrik;
+  "cfDnsApiToken.age".publicKeys = [barnegat] ++ henrik;
+  "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
+  "ciAgentSecrets.age".publicKeys =
+    [
+      marstrand
+      barnegat
+    ]
+    ++ henrik;
 }

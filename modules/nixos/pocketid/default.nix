@@ -1,11 +1,12 @@
-{ config, lib, ... }:
-let
-  cfg = config.svcs.pocketid;
-in
 {
-
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.svcs.pocketid;
+in {
   options.svcs.pocketid = with lib; {
-    enable = mkEnableOption { description = "Enable PocketID"; };
+    enable = mkEnableOption {description = "Enable PocketID";};
     domainName = mkOption {
       type = types.str;
       description = "Domain name for PocketID";
@@ -30,7 +31,7 @@ in
       default = "/var/lib/pocketid";
       description = "Path to store PocketID data";
     };
-    traefikProxy = mkEnableOption { description = "Enable Traefik proxy for PocketID"; };
+    traefikProxy = mkEnableOption {description = "Enable Traefik proxy for PocketID";};
   };
 
   config = lib.mkIf cfg.enable {
@@ -80,7 +81,7 @@ in
         services = {
           pocketid = {
             loadBalancer = {
-              servers = [ { url = "http://localhost:${toString cfg.serviceHttpPort}"; } ];
+              servers = [{url = "http://localhost:${toString cfg.serviceHttpPort}";}];
             };
           };
         };

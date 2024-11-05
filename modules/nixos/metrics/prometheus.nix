@@ -3,11 +3,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.metrics.prometheus;
-in
-{
+in {
   options.metrics.prometheus = with lib; {
     enable = mkEnableOption "Enable Prometheus";
     retentionTime = mkOption {
@@ -19,7 +17,7 @@ in
     };
     scrapeConfigs = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       description = ''
         List of scrape configurations.
       '';
@@ -27,7 +25,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ prometheus ];
+    environment.systemPackages = with pkgs; [prometheus];
     services.prometheus = {
       enable = true;
       retentionTime = cfg.retentionTime;

@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -24,13 +27,13 @@
   };
 
   # ZFS Settings
-  environment.systemPackages = with pkgs; [ zfs ];
+  environment.systemPackages = with pkgs; [zfs];
 
   services.zfs = {
     autoScrub = {
       enable = true;
       interval = "weekly";
-      pools = [ "zstorage" ];
+      pools = ["zstorage"];
     };
     trim = {
       enable = true;
@@ -38,7 +41,7 @@
     };
   };
 
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = ["zfs"];
   boot.zfs.forceImportRoot = false;
 
   # Healthcheck Ping

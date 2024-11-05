@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   services.paperless = {
     enable = true;
     dataDir = "/data/main/paperless";
@@ -10,7 +9,7 @@
   virtualisation.oci-containers = {
     containers.dockge = {
       image = "louislam/dockge:1";
-      ports = [ "5001:5001" ];
+      ports = ["5001:5001"];
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock"
         "/var/lib/dockge/data:/app/data"
@@ -47,7 +46,7 @@
       {
         job_name = "Ping";
         scrape_interval = "10s";
-        static_configs = [ { targets = [ "donso:9427" ]; } ];
+        static_configs = [{targets = ["donso:9427"];}];
       }
     ];
   };

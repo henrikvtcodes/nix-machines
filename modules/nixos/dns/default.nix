@@ -1,9 +1,10 @@
-{ config, lib, ... }:
-let
-
-  cfg = config.svcs.dns;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.svcs.dns;
+in {
   options.svcs.dns = with lib; {
     enable = mkEnableOption "Enable the DNS service";
     enableMetrics = mkEnableOption "Enable the Prometheus Unbound Exporter";
@@ -55,6 +56,6 @@ in
       unbound.host = "unix://${config.services.unbound.localControlSocketPath}";
     };
 
-    users.groups.unbound = { };
+    users.groups.unbound = {};
   };
 }

@@ -4,13 +4,11 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.svcs.betteruptime;
-in
-{
+in {
   options.svcs.betteruptime = {
-    enable = mkEnableOption { description = "Enable Better Uptime Healthcheck"; };
+    enable = mkEnableOption {description = "Enable Better Uptime Healthcheck";};
     healthcheckUrlFile = mkOption {
       type = types.path;
       description = ''
@@ -22,7 +20,7 @@ in
   config = mkIf cfg.enable {
     systemd.timers."betteruptime" = {
       description = "Better Uptime Healthcheck";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
@@ -41,5 +39,4 @@ in
       };
     };
   };
-
 }
