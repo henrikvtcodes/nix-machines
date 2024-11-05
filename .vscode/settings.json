@@ -1,7 +1,7 @@
 {
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "nil",
-  "nix.formatterPath": ["nixfmt"],
+  "nix.serverPath": "nixd",
+  "nix.formatterPath": ["nix", "fmt", "--", "-"],
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
@@ -9,7 +9,24 @@
     // settings for 'nil' LSP
     "nil": {
       "formatting": {
-        "command": ["nixfmt"]
+        "command": ["nix", "fmt", "--", "-"]
+      }
+    },
+    "nixd": {
+      "formatting": {
+        // This is the default if ommited.
+        "command": ["nix", "fmt", "--", "-"]
+      },
+      "options": {
+        // By default, this entriy will be read from `import <nixpkgs> { }`
+        // You can write arbitary nix expression here, to produce valid "options" declaration result.
+        // Tip: for flake-based configuration, utilize `builtins.getFlake`
+        "nixos": {
+          "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").nixosConfigurations.<name>.options"
+        }
+        // "home-manager": {
+        //     "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
+        // }
       }
     }
   }

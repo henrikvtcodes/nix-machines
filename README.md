@@ -14,3 +14,9 @@ The docs do expand on this but: this is structured with the assumption that crea
 ## Things to know
 
 That namespace `svcs.` is all my custom services, as defined in `modules`
+
+## LSP
+
+```sh
+nix profile install github:nixos/nixpkgs#nixd
+```

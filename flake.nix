@@ -88,14 +88,6 @@
         }
       );
 
-      # deployPkgs = import nixpkgs {
-      #   inherit system;
-      #   overlays = [
-      #     deploy-rs.overlay # or deploy-rs.overlays.default
-      #     (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
-      #   ];
-      # };
-
     in
     {
 
@@ -104,7 +96,7 @@
         ({
           default = pkgs.mkShell {
             packages = with pkgs; [
-              nil
+              nixd
               git
             ];
           };
@@ -246,15 +238,21 @@
         nodes = {
           svalbard = {
             hostname = "svalbard";
-            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.svalbard;
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.svalbard;
           };
           valcour = {
             hostname = "valcour";
-            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.valcour;
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.valcour;
           };
           marstrand = {
             hostname = "marstrand";
-            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.marstrand;
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.marstrand;
           };
           barnegat = {
             hostname = "barnegat";
@@ -262,11 +260,15 @@
               "-p"
               "69"
             ];
-            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.donso;
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.donso;
           };
           donso = {
             hostname = "donso";
-            profiles.system.path = deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos self.nixosConfigurations.donso;
+            profiles.system.path =
+              deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+                self.nixosConfigurations.donso;
           };
         };
       };
