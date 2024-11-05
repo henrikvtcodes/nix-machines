@@ -1,9 +1,7 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [
-    ../../modules
-  ];
+  imports = [ ../../modules ];
 
   nix.settings = {
     experimental-features = [
