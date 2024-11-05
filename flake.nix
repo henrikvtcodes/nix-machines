@@ -93,14 +93,14 @@
 
       devShells = forEachSupportedSystem (
         { pkgs }:
-        ({
+        {
           default = pkgs.mkShell {
             packages = with pkgs; [
               nixd
               git
             ];
           };
-        })
+        }
       );
 
       formatter = forEachSupportedSystem ({ pkgs }: pkgs.nixfmt-rfc-style);

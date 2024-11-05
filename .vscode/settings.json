@@ -22,7 +22,7 @@
         // You can write arbitary nix expression here, to produce valid "options" declaration result.
         // Tip: for flake-based configuration, utilize `builtins.getFlake`
         "nixos": {
-          "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").nixosConfigurations.<name>.options"
+          "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").nixosConfigurations.svalbard.options"
         }
         // "home-manager": {
         //     "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
