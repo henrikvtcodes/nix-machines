@@ -104,7 +104,7 @@
     formatter = forEachSupportedSystem ({pkgs}: pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
-    darwinConfigurations."pepacton" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.pepacton = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [agenix.darwinModules.default];
     };
