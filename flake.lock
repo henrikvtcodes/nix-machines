@@ -184,6 +184,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730779758,
+        "narHash": "sha256-5WI9AnsBwhLzVRnQm3Qn9oAbROnuLDQTpaXeyZCK8qw=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "0e3f3f017c14467085f15d42343a3aaaacd89bcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1727907660,
@@ -205,8 +226,8 @@
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
-        "nixpkgs": "nixpkgs",
-        "systems": "systems_4"
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": "nixpkgs"
       }
     },
     "rust-overlay": {
@@ -273,20 +294,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "systems_4": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "id": "systems",
-        "type": "indirect"
       }
     },
     "utils": {

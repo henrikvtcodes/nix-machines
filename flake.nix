@@ -34,6 +34,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # impermanence = {
     #   url = "github:nix-community/impermanence";
     # };
@@ -57,8 +62,7 @@
       disko,
       agenix,
       deploy-rs,
-      systems,
-
+      nix-darwin,
       ...
     }@inputs:
     let
@@ -107,6 +111,13 @@
       # Standard formatter for this flake
       formatter = forEachSupportedSystem ({ pkgs }: pkgs.nixfmt-rfc-style);
 
+      # Config for my macbook (only used to set up my terminal)
+      darwinConfigurations."pepacton" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [ agenix.darwinModules.default ];
+      };
+
+      # Config for my servers
       nixosConfigurations = {
         barnegat = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
