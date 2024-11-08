@@ -11,9 +11,7 @@
   networking.hostId = "57e3eb57";
 
   boot.loader.grub.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.device = "nodev";
   services.qemuGuest.enable = true;
   security.sudo.wheelNeedsPassword = false;
