@@ -111,6 +111,28 @@
 
     # Config for my servers
     nixosConfigurations = {
+      ashokan = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/ashokan
+
+          # System was provisioned with nixos-infect, runs on Oracle Cloud
+
+          # Secrets
+          ./secrets
+          agenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+        ];
+      };
       barnegat = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
@@ -236,6 +258,16 @@
 
       # nodes config
       nodes = {
+        ashokan = {
+          hostname = "ashokan";
+          # sshOpts = [
+          #   "-p"
+          #   "69"
+          # ];
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.ashokan;
+        };
         barnegat = {
           hostname = "barnegat";
           sshOpts = [
