@@ -5,15 +5,6 @@
 }: {
   imports = [../../modules/nixos];
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-
-    system-features = ["recursive-nix"];
-  };
-
   # Clean up nix store + old generations automatically
   nix = {
     gc = {
@@ -24,6 +15,14 @@
     optimise = {
       automatic = true;
       dates = ["weekly"];
+    };
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "recursive-nix"
+      ];
+      system-features = ["recursive-nix"];
     };
   };
 
