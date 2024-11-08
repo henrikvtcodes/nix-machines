@@ -38,6 +38,7 @@
   # Default networking/firewall settings
   networking = {
     enableIPv6 = true;
+    hostName = lib.mkDefault "nixos";
     useDHCP = lib.mkDefault true;
     firewall = {
       enable = lib.mkDefault true;
@@ -51,7 +52,6 @@
       "2620:fe::fe:10"
     ];
   };
-  networking.hostName = lib.mkDefault "nixos";
   svcs.tailscale.enable = lib.mkDefault true;
 
   # Enable SSH server
@@ -73,12 +73,14 @@
   };
 
   # Enable containers
-  virtualisation.podman = {
-    enable = lib.mkDefault true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
+  virtualisation = {
+    podman = {
+      enable = lib.mkDefault true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+    };
+    oci-containers.backend = "podman";
   };
-  virtualisation.oci-containers.backend = "podman";
   networking.firewall.interfaces.podman0.allowedUDPPorts = [53];
 
   # General Settings
