@@ -11,9 +11,11 @@
 
   boot.loader.grub = {
     efiSupport = true;
-    efiInstallAsRemovable = true;
+    efiInstallAsRemovable = false;
     device = "nodev";
   };
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   services.fail2ban = {
     enable = true;
