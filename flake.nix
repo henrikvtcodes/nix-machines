@@ -260,10 +260,10 @@
       nodes = {
         ashokan = {
           hostname = "ashokan";
-          # sshOpts = [
-          #   "-p"
-          #   "69"
-          # ];
+          sshOpts = [
+            "-p"
+            "69"
+          ];
           profiles.system.path =
             deployPkgs."aarch64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.ashokan;
