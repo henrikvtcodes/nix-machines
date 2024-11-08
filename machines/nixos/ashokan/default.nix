@@ -6,6 +6,7 @@
   zramSwap.enable = true;
   networking = {
     hostName = "ashokan";
+    hostId = "808b3324";
     domain = "unicycl.ing";
     firewall = {
       allowedTCPPorts = [
