@@ -244,7 +244,7 @@
           ];
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
-            self.nixosConfigurations.donso;
+            self.nixosConfigurations.barnegat;
         };
         donso = {
           hostname = "donso";

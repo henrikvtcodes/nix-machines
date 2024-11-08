@@ -10,9 +10,14 @@
   networking.hostName = "barnegat";
   networking.hostId = "57e3eb57";
 
-  boot.loader.grub.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "nodev";
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev";
+  };
+  boot.loader.efi.canTouchEfiVariables = false;
+
   services.qemuGuest.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
