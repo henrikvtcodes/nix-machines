@@ -7,8 +7,11 @@
     ./services
   ];
 
-  networking.hostName = "barnegat";
-  networking.hostId = "57e3eb57";
+  networking = {
+    hostName = "barnegat";
+    domain = "unicycl.ing";
+    hostId = "57e3eb57";
+  };
 
   boot.loader.grub = {
     enable = true;
