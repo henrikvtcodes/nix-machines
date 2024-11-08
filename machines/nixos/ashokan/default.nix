@@ -28,14 +28,20 @@
       "132.198.0.0/16"
     ];
   };
+
   services.openssh = {
+    enable = true;
+    settings = {
+      # PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
     # Use nonstandard SSH port for public server
     listenAddresses = [
       {
         addr = "0.0.0.0";
         port = 69;
       }
-            {
+      {
         addr = "0.0.0.0";
         port = 22;
       }

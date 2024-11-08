@@ -67,7 +67,7 @@
     supportedSystems = [
       "x86_64-linux"
       "aarch64-darwin"
-      # "aarch64-linux"
+      "aarch64-linux"
       # "x86_64-darwin"
     ];
     forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {pkgs = import nixpkgs {inherit system;};});
@@ -112,7 +112,7 @@
     # Config for my servers
     nixosConfigurations = {
       ashokan = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
 
         specialArgs = {
           inherit inputs;
@@ -265,7 +265,7 @@
           #   "69"
           # ];
           profiles.system.path =
-            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            deployPkgs."aarch64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.ashokan;
         };
         barnegat = {
