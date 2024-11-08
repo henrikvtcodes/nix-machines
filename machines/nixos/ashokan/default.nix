@@ -49,7 +49,7 @@
       PasswordAuthentication = false;
     };
     # Use nonstandard SSH port for public server
-    ports = [22 69];
+    ports = [69];
   };
 
   # ======================== DO NOT CHANGE THIS ========================
