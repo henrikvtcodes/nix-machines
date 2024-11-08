@@ -68,6 +68,13 @@ sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-tha
 man nix3-profle-wipe-history
 ```
 
+#### No Space on Boot Partition  
+Run this command as root:  
+```sh
+nix-collect-garbage -d
+```
+https://discourse.nixos.org/t/no-space-left-on-boot/24019/7  
+
 ## `chroot`-ing
 
 1. Boot into the NixOS minimal image on a flashdrive and switch to root `sudo su`
