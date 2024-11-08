@@ -89,6 +89,9 @@
 
   # users.mutableUsers = false;
 
+  # Clean /tmp on reboot
+  boot.tmp.cleanOnBoot = true;
+
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
 
