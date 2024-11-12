@@ -5,5 +5,6 @@
     ./woodpecker
     ./betteruptime
     ./netcheck
+    ./traefik
   ];
 }
