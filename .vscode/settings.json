@@ -25,7 +25,7 @@
           "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").nixosConfigurations.svalbard.options"
         }
         // "home-manager": {
-        //     "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
+        //   "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").homeConfigurations.henrikvt.options"
         // }
       }
     }
