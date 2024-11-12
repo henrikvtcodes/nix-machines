@@ -35,6 +35,12 @@
     };
   };
 
+  # Agenix
+  age.identityPaths = [
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/etc/ssh/ssh_host_rsa_key"
+  ];
+
   # Default networking/firewall settings
   networking = {
     enableIPv6 = true;
