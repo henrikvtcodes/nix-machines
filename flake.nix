@@ -12,7 +12,7 @@
       url = "github:nixos/nixpkgs/release-24.05";
     };
 
-    nix-darwin = {
+    darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -61,7 +61,8 @@
     disko,
     agenix,
     deploy-rs,
-    nix-darwin,
+    darwin,
+    home-manager,
     ...
   } @ inputs: let
     supportedSystems = [
@@ -104,9 +105,12 @@
     formatter = forEachSupportedSystem ({pkgs}: pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
-    darwinConfigurations.pepacton = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.pepacton = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      modules = [agenix.darwinModules.default];
+      modules = [
+        agenix.darwinModules.default
+        home-manager.darwinModules.home-manager
+      ];
     };
 
     # Config for my servers
@@ -131,6 +135,8 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
+          ./home/henrikvt
         ];
       };
       barnegat = nixpkgs.lib.nixosSystem {
@@ -153,6 +159,7 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
         ];
       };
       donso = nixpkgs.lib.nixosSystem {
@@ -177,6 +184,7 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
         ];
       };
       svalbard = nixpkgs.lib.nixosSystem {
@@ -200,6 +208,7 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
         ];
       };
       marstrand = nixpkgs.lib.nixosSystem {
@@ -223,6 +232,7 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
         ];
       };
       valcour = nixpkgs.lib.nixosSystem {
@@ -246,6 +256,7 @@
 
           # User config
           ./users/henrikvt
+          home-manager.nixosModules.home-manager
         ];
       };
     };
