@@ -68,12 +68,17 @@ sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-tha
 man nix3-profle-wipe-history
 ```
 
-#### No Space on Boot Partition  
-Run this command as root:  
+### No Space on Boot Partition  
+Run this command as root: (this will clear space)  
 ```sh
 nix-collect-garbage -d
 ```
 https://discourse.nixos.org/t/no-space-left-on-boot/24019/7  
+
+#### Migrating to EFI with Grub  
+(see config example under machines/nixos/ashokan)  
+
+https://discourse.nixos.org/t/boot-partition-is-too-small-and-becoming-full/32194/9
 
 ## `chroot`-ing
 
