@@ -38,7 +38,7 @@ in {
   "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;
 
-  "cfDnsApiToken.age".publicKeys = [barnegat] ++ henrik;
+  "cfDnsApiToken.age".publicKeys = [barnegat ashokan] ++ henrik;
   "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
   "ciAgentSecrets.age".publicKeys =
     [
