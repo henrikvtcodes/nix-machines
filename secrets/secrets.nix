@@ -46,4 +46,6 @@ in {
       barnegat
     ]
     ++ henrik;
+
+  "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
 }

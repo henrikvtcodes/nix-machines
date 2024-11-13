@@ -52,6 +52,12 @@
     ports = [69];
   };
 
+  # Secrets
+  age.secrets = {
+    cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
+    mastodonSmtpPassword.file = ../../../secrets/mastodonSmtpPassword.age;
+  };
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
   # ======================== DO NOT CHANGE THIS ========================
