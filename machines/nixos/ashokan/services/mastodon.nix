@@ -6,6 +6,7 @@
 in {
   services.mastodon = {
     enable = true;
+    # enableUnixSocket = false;
     webPort = mastoHttpPort;
     localDomain = domain;
     extraConfig = {
@@ -18,6 +19,9 @@ in {
     streamingProcesses = 1;
     # streamingPort = mastoStreamPort;
 
+    # Connect to Postgres DB via Unix Sockets using Peer Authentication, all settings are default
+    database.createLocally = false;
+
     smtp = {
       host = "smtp.improvmx.com";
       port = 587;
@@ -28,6 +32,7 @@ in {
     };
   };
 
+  # Reverse Proxy
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
@@ -54,15 +59,28 @@ in {
       services = {
         masto-web = {
           loadBalancer = {
-            servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
+            servers = [{url = "unix:///run/mastodon-web/web.socket";}];
+            # servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
           };
         };
         masto-stream = {
           loadBalancer = {
-            servers = [{url = "unix://run/mastodon-streaming/streaming-1.socket";}];
+            servers = [{url = "unix:///run/mastodon-streaming/streaming-1.socket";}];
           };
         };
       };
     };
+  };
+
+  # Postgres
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = ["mastodon"];
+    ensureUsers = [
+      {
+        name = "mastodon";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 }
