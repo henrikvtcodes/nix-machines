@@ -71,7 +71,6 @@ in {
 
   config = mkIf cfg.enable {
     age.secrets.tailscaleAuthKey.file = ../../../secrets/tailscaleAuthKey.age;
-    TAILNET_ROOT_DOMAIN = "reindeer-porgy.ts.net";
 
     networking = {
       firewall.trustedInterfaces = ["tailscale0"];

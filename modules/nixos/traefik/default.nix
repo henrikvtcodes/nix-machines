@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.svcs.traefik;
+  tailnetRootDomain = "reindeer-porgy.ts.net";
 in {
   options.svcs.traefik = with lib; {
     enable = mkEnableOption "Enable Traefik web proxy service";
@@ -64,8 +65,8 @@ in {
                     cfg.domains
                     ++ [
                       {
-                        main = config.TAILNET_ROOT_DOMAIN;
-                        sans = "*.${config.TAILNET_ROOT_DOMAIN}";
+                        main = tailnetRootDomain;
+                        sans = "*.${tailnetRootDomain}";
                       }
                     ]
                   else cfg.domains;
