@@ -33,7 +33,12 @@ in {
     };
     domains = mkOption {
       type = types.listOf types.attrs;
-      default = ["unicycl.ing"];
+      default = [
+        {
+          main = "unicycl.ing";
+          sans = ["*.unicycl.ing"];
+        }
+      ];
       description = ''
         List of domains to serve with Traefik.
       '';
