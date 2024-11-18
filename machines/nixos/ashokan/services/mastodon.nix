@@ -2,7 +2,7 @@
   mastoHttpPort = 55443;
   mastoStreamPort = 55444;
   domain = "unicycl.ing";
-  interfaceDomain = "masto.${domain}";
+  interfaceDomain = "mstdn.${domain}";
 in {
   services.mastodon = {
     enable = true;
@@ -12,6 +12,7 @@ in {
       WEB_DOMAIN = interfaceDomain;
       SINGLE_USER_MODE = "true";
       DEFAULT_LOCALE = "en";
+      RAILS_SERVE_STATIC_FILES = "true";
     };
     configureNginx = false;
     streamingProcesses = 1;
@@ -45,6 +46,7 @@ in {
             "https"
             "http"
           ];
+          priority = 1;
           tls.certResolver = "lecf";
         };
       };
