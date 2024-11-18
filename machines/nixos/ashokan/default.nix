@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./hardware-config.nix
+    ./services
   ];
 
   zramSwap.enable = true;
