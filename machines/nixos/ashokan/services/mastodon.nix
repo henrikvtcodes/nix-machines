@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   mastoHttpPort = 55443;
@@ -55,16 +56,6 @@ in {
           ];
           tls.certResolver = "lecf";
         };
-        # masto-stream = {
-        #   rule = "Host(`${interfaceDomain}`) && PathPrefix(`/api/v1/streaming`)";
-        #   service = "masto-stream";
-        #   entryPoints = [
-        #     "https"
-        #     "http"
-        #   ];
-        #   priority = 1;
-        #   tls.certResolver = "lecf";
-        # };
       };
       services = {
         mastodon = {
@@ -73,11 +64,6 @@ in {
             servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
           };
         };
-        # masto-stream = {
-        #   loadBalancer = {
-        #     servers = [{url = "http://unix:/mastodon-streaming/streaming-1.socket";}];
-        #   };
-        # };
       };
     };
   };
@@ -85,8 +71,9 @@ in {
   # Internal Proxy
   services.nginx = {
     enable = true;
+    package = pkgs.nginxQuic;
     recommendedProxySettings = false;
-    logError = "stderr debug";
+    logError = "stderr info";
     proxyCachePath."" = {
       enable = true;
       levels = "1:2";
@@ -95,8 +82,8 @@ in {
       maxSize = "1g";
       inactive = "7d";
     };
-    virtualHosts.${mastoInternalDomain} = {
-      # serverName = "mastodon.localhost";
+    virtualHosts.${interfaceDomain} = {
+      # serverName = "localhost";
       listen = [
         {
           addr = "0.0.0.0";
@@ -110,12 +97,16 @@ in {
         }
       ];
 
+      enableACME = false;
+
       root = "${config.services.mastodon.package}/public";
 
       locations = {
         "/" = {
           tryFiles = "$uri @proxy";
         };
+
+        "/system/".alias = "/var/lib/mastodon/public-system/";
 
         "~ ^/assets/" = {
           extraConfig = ''
@@ -169,6 +160,15 @@ in {
             proxy_cache_valid 410 24h;
             proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
             add_header X-Cached $upstream_cache_status;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Proxy "";
+            proxy_pass_header Server;
+            proxy_buffering on;
+            proxy_redirect off;
+            proxy_http_version 1.1;
           '';
         };
       };
@@ -187,8 +187,16 @@ in {
     };
   };
 
+  users.users.mastodon.extraGroups = ["nginx"];
   users.users.nginx.extraGroups = ["mastodon"];
-  systemd.services.nginx.serviceConfig.ReadWriteDirectories = lib.mkForce ["/run/mastodon-web"];
+  systemd.services.nginx = {
+    wants = ["mastodon.target"];
+    # serviceConfig.ReadWriteDirectories = lib.mkForce ["/run/mastodon-web"];
+  };
+  # systemd.tmpfiles.rules = [
+  #   "d! /run/mastodon-web 0755 - nginx -"
+  #   "z /run/mastodon-web - - nginx -"
+  # ];
 
   # Postgres
   services.postgresql = {
