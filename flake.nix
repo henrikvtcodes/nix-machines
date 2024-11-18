@@ -130,7 +130,6 @@
           # System was provisioned with nixos-infect, runs on Oracle Cloud
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
@@ -154,7 +153,6 @@
           # Custom disk config is in the machine config
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
@@ -179,7 +177,6 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
@@ -203,7 +200,6 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
@@ -227,7 +223,6 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
@@ -251,7 +246,6 @@
           ./modules/nixos/boot-disk
 
           # Secrets
-          ./secrets
           agenix.nixosModules.default
 
           # User config
