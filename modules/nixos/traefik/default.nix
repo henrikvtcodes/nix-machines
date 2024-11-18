@@ -16,7 +16,7 @@ in {
       '';
     };
     tls = {
-      cloudflareDNS01 = mkOption {
+      cloudflareDNS01Challenge = mkOption {
         type = types.bool;
         default = true;
         description = ''
