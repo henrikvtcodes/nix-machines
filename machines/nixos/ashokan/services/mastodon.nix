@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  mastoProxyPort = 55080;
   mastoHttpPort = 55443;
   mastoInternalDomain = "mastodon.localhost";
   # mastoStreamPort = 55444;
@@ -61,7 +62,7 @@ in {
         mastodon = {
           loadBalancer = {
             # servers = [{url = "http://unix:/run/mastodon-web/web.socket";}];
-            servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
+            servers = [{url = "http://localhost:${toString mastoProxyPort}";}];
           };
         };
       };
@@ -69,116 +70,46 @@ in {
   };
 
   # Internal Proxy
-  services.nginx = {
+  services.caddy = {
     enable = true;
-    package = pkgs.nginxQuic;
-    recommendedProxySettings = false;
-    logError = "stderr info";
-    proxyCachePath."" = {
-      enable = true;
-      levels = "1:2";
-      keysZoneName = "CACHE";
-      keysZoneSize = "10m";
-      maxSize = "1g";
-      inactive = "7d";
-    };
-    virtualHosts.${interfaceDomain} = {
-      # serverName = "localhost";
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = mastoHttpPort;
-          ssl = false;
+    extraConfig = ''
+      :${mastoProxyPort} {
+        handle_path /system/* {
+            file_server * {
+                root /var/lib/mastodon/public-system
+            }
         }
-        {
-          addr = "[::]";
-          port = mastoHttpPort;
-          ssl = false;
+
+        handle /api/v1/streaming/* {
+            reverse_proxy  unix//run/mastodon-streaming/streaming-1.socket
         }
-      ];
 
-      root = "${config.services.mastodon.package}/public";
+        route * {
+            file_server * {
+            root ${config.services.mastodon.package}/public
+            pass_thru
+            }
+            reverse_proxy * unix//run/mastodon-web/web.socket
+        }
 
-      locations = {
-        "/" = {
-          tryFiles = "$uri @proxy";
-        };
+        handle_errors {
+            root * ${config.services.mastodon.package}/public
+            rewrite 500.html
+            file_server
+        }
 
-        "/system/".alias = "/var/lib/mastodon/public-system/";
+        encode gzip
 
-        # "~ ^/assets/" = {
-        #   extraConfig = ''
-        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
-        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-        #   '';
-        #   tryFiles = "$uri =404";
-        # };
+        header /* {
+            Strict-Transport-Security "max-age=31536000;"
+        }
 
-        # "~ ^/avatars/" = {
-        #   extraConfig = ''
-        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
-        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-        #   '';
-        #   tryFiles = "$uri =404";
-        # };
-
-        # "~ ^/emoji/" = {
-        #   extraConfig = ''
-        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
-        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-        #   '';
-        #   tryFiles = "$uri =404";
-        # };
-
-        # "~ ^/system/" = {
-        #   extraConfig = ''
-        #     add_header Cache-Control "public, max-age=2419200, immutable";
-        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-        #     add_header X-Content-Type-Options nosniff;
-        #     add_header Content-Security-Policy "default-src 'none'; form-action 'none'";
-        #   '';
-        #   tryFiles = "$uri =404";
-        # };
-
-        "^~ /api/v1/streaming" = {
-          proxyPass = "http://unix:/run/mastodon-streaming/streaming-1.socket";
-          proxyWebsockets = true;
-          extraConfig = ''
-            proxy_buffering off;
-            tcp_nodelay on;
-            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-          '';
-        };
-
-        "@proxy" = {
-          proxyPass = "http://unix:/run/mastodon-web/web.socket";
-          proxyWebsockets = true;
-          extraConfig = ''
-            # proxy_cache CACHE;
-            # proxy_cache_valid 200 7d;
-            # proxy_cache_valid 410 24h;
-            # proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
-            # add_header X-Cached $upstream_cache_status;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
-
-      # extraConfig = ''
-      #   error_page 404 500 501 502 503 504 /500.html;
-      #   gzip on;
-      #   gzip_disable "msie6";
-      #   gzip_vary on;
-      #   gzip_proxied any;
-      #   gzip_comp_level 6;
-      #   gzip_buffers 16 8k;
-      #   gzip_http_version 1.1;
-      #   gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/x-icon;
-      # '';
-    };
+        header /emoji/* Cache-Control "public, max-age=31536000, immutable"
+        header /packs/* Cache-Control "public, max-age=31536000, immutable"
+        header /system/accounts/avatars/* Cache-Control "public, max-age=31536000, immutable"
+        header /system/media_attachments/files/* Cache-Control "public, max-age=31536000, immutable"
+      }
+    '';
   };
 
   users.users.mastodon.extraGroups = ["nginx"];
