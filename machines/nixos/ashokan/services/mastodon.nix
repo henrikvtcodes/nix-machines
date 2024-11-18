@@ -73,7 +73,7 @@ in {
   services.caddy = {
     enable = true;
     extraConfig = ''
-      :${mastoProxyPort} {
+      :${toString mastoProxyPort} {
         handle_path /system/* {
             file_server * {
                 root /var/lib/mastodon/public-system
@@ -113,10 +113,10 @@ in {
   };
 
   users.users.mastodon.extraGroups = ["nginx"];
-  users.users.nginx.extraGroups = ["mastodon"];
-  systemd.services.nginx = {
+  users.users.caddy.extraGroups = ["mastodon"];
+  systemd.services.caddy = {
     wants = ["mastodon.target"];
-    # serviceConfig.ReadWriteDirectories = lib.mkForce ["/run/mastodon-web"];
+    serviceConfig.ReadWriteDirectories = lib.mkForce ["/var/lib/caddy" "/run/mastodon-web"];
   };
   # systemd.tmpfiles.rules = [
   #   "d! /run/mastodon-web 0755 - nginx -"
