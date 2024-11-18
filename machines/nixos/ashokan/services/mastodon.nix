@@ -54,7 +54,7 @@ in {
       services = {
         masto-web = {
           loadBalancer = {
-            servers = [{url = "http://localhost:${mastoHttpPort}";}];
+            servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
           };
         };
         masto-stream = {
