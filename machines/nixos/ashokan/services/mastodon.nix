@@ -20,7 +20,10 @@ in {
     # streamingPort = mastoStreamPort;
 
     # Connect to Postgres DB via Unix Sockets using Peer Authentication, all settings are default
-    database.createLocally = false;
+    database = {
+      host = "/run/postgresql";
+      createLocally = false;
+    };
 
     smtp = {
       host = "smtp.improvmx.com";
