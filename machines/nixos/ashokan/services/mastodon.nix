@@ -24,6 +24,7 @@ in {
       user = "mastodon@${domain}";
       passwordFile = config.age.secrets.mastodonSmtpPassword;
       createLocally = false;
+      fromAddress = "mastodon@${domain}";
     };
   };
 
