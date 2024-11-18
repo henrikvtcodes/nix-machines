@@ -1,6 +1,11 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   mastoHttpPort = 55443;
-  mastoStreamPort = 55444;
+  mastoInternalDomain = "mastodon.localhost";
+  # mastoStreamPort = 55444;
   domain = "unicycl.ing";
   interfaceDomain = "mstdn.${domain}";
 in {
@@ -13,7 +18,8 @@ in {
       WEB_DOMAIN = interfaceDomain;
       SINGLE_USER_MODE = "true";
       DEFAULT_LOCALE = "en";
-      RAILS_SERVE_STATIC_FILES = "true";
+      RAILS_LOG_LEVEL = "debug";
+      # RAILS_SERVE_STATIC_FILES = "true";
     };
     configureNginx = false;
     streamingProcesses = 1;
@@ -21,8 +27,9 @@ in {
 
     # Connect to Postgres DB via Unix Sockets using Peer Authentication, all settings are default
     database = {
-      host = "/run/postgresql";
-      createLocally = false;
+      # host = "localhost";
+      # port = 5432;
+      createLocally = true;
     };
 
     smtp = {
@@ -35,49 +42,159 @@ in {
     };
   };
 
-  # Reverse Proxy
+  # External Reverse Proxy
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
-        masto-web = {
+        mastodon = {
           rule = "Host(`${interfaceDomain}`)";
-          service = "masto-web";
+          service = "mastodon";
           entryPoints = [
             "https"
             "http"
           ];
           tls.certResolver = "lecf";
         };
-        masto-stream = {
-          rule = "Host(`${interfaceDomain}`) && PathPrefix(`/api/v1/streaming`)";
-          service = "masto-stream";
-          entryPoints = [
-            "https"
-            "http"
-          ];
-          priority = 1;
-          tls.certResolver = "lecf";
-        };
+        # masto-stream = {
+        #   rule = "Host(`${interfaceDomain}`) && PathPrefix(`/api/v1/streaming`)";
+        #   service = "masto-stream";
+        #   entryPoints = [
+        #     "https"
+        #     "http"
+        #   ];
+        #   priority = 1;
+        #   tls.certResolver = "lecf";
+        # };
       };
       services = {
-        masto-web = {
+        mastodon = {
           loadBalancer = {
-            servers = [{url = "unix:///run/mastodon-web/web.socket";}];
-            # servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
+            # servers = [{url = "http://unix:/run/mastodon-web/web.socket";}];
+            servers = [{url = "http://localhost:${toString mastoHttpPort}";}];
           };
         };
-        masto-stream = {
-          loadBalancer = {
-            servers = [{url = "unix:///run/mastodon-streaming/streaming-1.socket";}];
-          };
-        };
+        # masto-stream = {
+        #   loadBalancer = {
+        #     servers = [{url = "http://unix:/mastodon-streaming/streaming-1.socket";}];
+        #   };
+        # };
       };
     };
   };
 
+  # Internal Proxy
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = false;
+    logError = "stderr debug";
+    proxyCachePath."" = {
+      enable = true;
+      levels = "1:2";
+      keysZoneName = "CACHE";
+      keysZoneSize = "10m";
+      maxSize = "1g";
+      inactive = "7d";
+    };
+    virtualHosts.${mastoInternalDomain} = {
+      # serverName = "mastodon.localhost";
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = mastoHttpPort;
+          ssl = false;
+        }
+        {
+          addr = "[::]";
+          port = mastoHttpPort;
+          ssl = false;
+        }
+      ];
+
+      root = "${config.services.mastodon.package}/public";
+
+      locations = {
+        "/" = {
+          tryFiles = "$uri @proxy";
+        };
+
+        "~ ^/assets/" = {
+          extraConfig = ''
+            add_header Cache-Control "public, max-age=2419200, must-revalidate";
+            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+          '';
+          tryFiles = "$uri =404";
+        };
+
+        "~ ^/avatars/" = {
+          extraConfig = ''
+            add_header Cache-Control "public, max-age=2419200, must-revalidate";
+            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+          '';
+          tryFiles = "$uri =404";
+        };
+
+        "~ ^/emoji/" = {
+          extraConfig = ''
+            add_header Cache-Control "public, max-age=2419200, must-revalidate";
+            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+          '';
+          tryFiles = "$uri =404";
+        };
+
+        "~ ^/system/" = {
+          extraConfig = ''
+            add_header Cache-Control "public, max-age=2419200, immutable";
+            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+            add_header X-Content-Type-Options nosniff;
+            add_header Content-Security-Policy "default-src 'none'; form-action 'none'";
+          '';
+          tryFiles = "$uri =404";
+        };
+
+        "^~ /api/v1/streaming" = {
+          proxyPass = "http://unix:/run/mastodon-streaming/streaming-1.socket";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffering off;
+            tcp_nodelay on;
+            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+          '';
+        };
+
+        "@proxy" = {
+          proxyPass = "http://unix:/run/mastodon-web/web.socket";
+          extraConfig = ''
+            proxy_cache CACHE;
+            proxy_cache_valid 200 7d;
+            proxy_cache_valid 410 24h;
+            proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+            add_header X-Cached $upstream_cache_status;
+          '';
+        };
+      };
+
+      extraConfig = ''
+        error_page 404 500 501 502 503 504 /500.html;
+        gzip on;
+        gzip_disable "msie6";
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/x-icon;
+      '';
+    };
+  };
+
+  users.users.nginx.extraGroups = ["mastodon"];
+  systemd.services.nginx.serviceConfig.ReadWriteDirectories = lib.mkForce ["/run/mastodon-web"];
+
   # Postgres
   services.postgresql = {
     enable = true;
+    # enableTCPIP = true;
+    enableJIT = true;
     ensureDatabases = ["mastodon"];
     ensureUsers = [
       {
