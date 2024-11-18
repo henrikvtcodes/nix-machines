@@ -16,7 +16,7 @@ in {
     };
     configureNginx = false;
     streamingProcesses = 1;
-    streamingPort = mastoStreamPort;
+    # streamingPort = mastoStreamPort;
 
     smtp = {
       host = "smtp.improvmx.com";
@@ -58,7 +58,7 @@ in {
         };
         masto-stream = {
           loadBalancer = {
-            servers = [{url = "http://localhost:${mastoStreamPort}";}];
+            servers = [{url = "unix://run/mastodon-streaming/streaming-1.socket";}];
           };
         };
       };
