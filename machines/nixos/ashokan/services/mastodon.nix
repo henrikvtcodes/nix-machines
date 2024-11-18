@@ -97,8 +97,6 @@ in {
         }
       ];
 
-      enableACME = false;
-
       root = "${config.services.mastodon.package}/public";
 
       locations = {
@@ -108,39 +106,39 @@ in {
 
         "/system/".alias = "/var/lib/mastodon/public-system/";
 
-        "~ ^/assets/" = {
-          extraConfig = ''
-            add_header Cache-Control "public, max-age=2419200, must-revalidate";
-            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-          '';
-          tryFiles = "$uri =404";
-        };
+        # "~ ^/assets/" = {
+        #   extraConfig = ''
+        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
+        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        #   '';
+        #   tryFiles = "$uri =404";
+        # };
 
-        "~ ^/avatars/" = {
-          extraConfig = ''
-            add_header Cache-Control "public, max-age=2419200, must-revalidate";
-            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-          '';
-          tryFiles = "$uri =404";
-        };
+        # "~ ^/avatars/" = {
+        #   extraConfig = ''
+        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
+        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        #   '';
+        #   tryFiles = "$uri =404";
+        # };
 
-        "~ ^/emoji/" = {
-          extraConfig = ''
-            add_header Cache-Control "public, max-age=2419200, must-revalidate";
-            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-          '';
-          tryFiles = "$uri =404";
-        };
+        # "~ ^/emoji/" = {
+        #   extraConfig = ''
+        #     add_header Cache-Control "public, max-age=2419200, must-revalidate";
+        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        #   '';
+        #   tryFiles = "$uri =404";
+        # };
 
-        "~ ^/system/" = {
-          extraConfig = ''
-            add_header Cache-Control "public, max-age=2419200, immutable";
-            add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-            add_header X-Content-Type-Options nosniff;
-            add_header Content-Security-Policy "default-src 'none'; form-action 'none'";
-          '';
-          tryFiles = "$uri =404";
-        };
+        # "~ ^/system/" = {
+        #   extraConfig = ''
+        #     add_header Cache-Control "public, max-age=2419200, immutable";
+        #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        #     add_header X-Content-Type-Options nosniff;
+        #     add_header Content-Security-Policy "default-src 'none'; form-action 'none'";
+        #   '';
+        #   tryFiles = "$uri =404";
+        # };
 
         "^~ /api/v1/streaming" = {
           proxyPass = "http://unix:/run/mastodon-streaming/streaming-1.socket";
@@ -154,36 +152,32 @@ in {
 
         "@proxy" = {
           proxyPass = "http://unix:/run/mastodon-web/web.socket";
+          proxyWebsockets = true;
           extraConfig = ''
-            proxy_cache CACHE;
-            proxy_cache_valid 200 7d;
-            proxy_cache_valid 410 24h;
-            proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
-            add_header X-Cached $upstream_cache_status;
+            # proxy_cache CACHE;
+            # proxy_cache_valid 200 7d;
+            # proxy_cache_valid 410 24h;
+            # proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+            # add_header X-Cached $upstream_cache_status;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Proxy "";
-            proxy_pass_header Server;
-            proxy_buffering on;
-            proxy_redirect off;
-            proxy_http_version 1.1;
           '';
         };
       };
 
-      extraConfig = ''
-        error_page 404 500 501 502 503 504 /500.html;
-        gzip on;
-        gzip_disable "msie6";
-        gzip_vary on;
-        gzip_proxied any;
-        gzip_comp_level 6;
-        gzip_buffers 16 8k;
-        gzip_http_version 1.1;
-        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/x-icon;
-      '';
+      # extraConfig = ''
+      #   error_page 404 500 501 502 503 504 /500.html;
+      #   gzip on;
+      #   gzip_disable "msie6";
+      #   gzip_vary on;
+      #   gzip_proxied any;
+      #   gzip_comp_level 6;
+      #   gzip_buffers 16 8k;
+      #   gzip_http_version 1.1;
+      #   gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/x-icon;
+      # '';
     };
   };
 
