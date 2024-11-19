@@ -1,5 +1,5 @@
 {config, ...}: {
-  imports = [./mastodon.nix];
+  imports = [];
 
   svcs.traefik = {
     enable = true;

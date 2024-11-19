@@ -6,7 +6,7 @@
 }: let
   mastoProxyPort = 55080;
   mastoHttpPort = 55443;
-  mastoInternalDomain = "mastodon.localhost";
+  # mastoInternalDomain = "mastodon.localhost";
   # mastoStreamPort = 55444;
   domain = "unicycl.ing";
   interfaceDomain = "mstdn.${domain}";
