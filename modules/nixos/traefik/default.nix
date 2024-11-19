@@ -15,6 +15,13 @@ in {
         Allow traefik to proxy services running in podman containers.
       '';
     };
+    logLevel = mkOption {
+      type = types.str;
+      default = "WARN";
+      description = ''
+        Log level for Traefik.
+      '';
+    };
     tls = {
       cloudflareDNS01Challenge = mkOption {
         type = types.bool;
@@ -64,17 +71,7 @@ in {
               address = ":443";
               http.tls = {
                 certResolver = "lecf";
-                domains =
-                  if cfg.tls.tailscale
-                  then
-                    cfg.domains
-                    ++ [
-                      {
-                        main = tailnetRootDomain;
-                        sans = "*.${tailnetRootDomain}";
-                      }
-                    ]
-                  else cfg.domains;
+                domains = cfg.domains;
               };
             };
 
@@ -108,7 +105,7 @@ in {
             dashboard = true;
           };
           log = {
-            level = "INFO";
+            level = cfg.logLevel;
             noColor = false;
           };
           metrics.prometheus = {
