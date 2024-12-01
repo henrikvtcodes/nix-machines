@@ -21,8 +21,12 @@
     diskPath = "/dev/disk/by-id/nvme-KXG50ZNV256G_NVMe_TOSHIBA_256GB_687F729NFANP";
   };
 
+  age.secrets = {
+    valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
+    unpollerPassword.file = ../../../secrets/valcourUnpollerPassword.age;
+  };
+
   # Healthcheck Ping
-  age.secrets.valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
   svcs.betteruptime = {
     enable = true;
     healthcheckUrlFile = config.age.secrets.valcourHealthcheckUrl.path;

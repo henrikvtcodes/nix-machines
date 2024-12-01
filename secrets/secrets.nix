@@ -48,4 +48,6 @@ in {
     ++ henrik;
 
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
+
+  "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 }
