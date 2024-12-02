@@ -23,7 +23,10 @@
 
   age.secrets = {
     valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
-    unpollerPassword.file = ../../../secrets/valcourUnpollerPassword.age;
+    unpollerPassword = {
+      owner = "unifi-poller";
+      file = ../../../secrets/valcourUnpollerPassword.age;
+    };
   };
 
   # Healthcheck Ping
