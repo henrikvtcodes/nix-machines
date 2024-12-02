@@ -46,7 +46,8 @@
     enableIPv6 = true;
     hostName = lib.mkDefault "nixos";
     useDHCP = lib.mkDefault true;
-    tempAddresses = "disabled";
+    tempAddresses = lib.mkDefault "disabled";
+    networkmanager.enable = lib.mkDefault true;
     firewall = {
       enable = lib.mkDefault true;
       allowPing = true;

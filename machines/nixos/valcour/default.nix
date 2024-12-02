@@ -12,9 +12,10 @@
   # boot.loader.systemd-boot.bootCounting = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.firewall.enable = false;
-  networking.wireless.enable = false;
-  networking.networkmanager.enable = false;
+  networking = {
+    firewall.enable = false;
+    dhcpcd.IPv6rs = true;
+  };
 
   bootDisk = {
     enable = true;
