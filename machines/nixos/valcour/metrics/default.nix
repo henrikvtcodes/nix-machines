@@ -31,8 +31,8 @@
         static_configs = [
           {
             targets = [
-              "localhost:9100"
               "marstrand:9100"
+              "ashokan:9100"
               "barnegat:9100"
               "valcour:9100"
               "donso:9100"
@@ -50,6 +50,11 @@
             targets = [
               "pete.as215207.net:9324"
               "maple.as215207.net:9324"
+              "bay.as215207.net:9324"
+              "falaise.as215207.net:9324"
+              "strudel.as215207.net:9324"
+              "tulip.as215207.net:9324"
+              "yeehaw.as215207.net:9324"
             ];
           }
         ];
@@ -68,8 +73,8 @@
     influxdb.disable = true;
     unifi.controllers = [
       {
-        url = "http://172.16.0.1";
-        # url = "http://10.205.0.1:8443";
+        # url = "http://172.16.0.1";
+        url = "http://10.205.0.1:80";
         user = "unpoller";
         pass = config.age.secrets.unpollerPassword.path;
         verify_ssl = false;
