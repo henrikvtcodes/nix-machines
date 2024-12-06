@@ -47,7 +47,8 @@
     hostName = lib.mkDefault "nixos";
     useDHCP = lib.mkDefault true;
     tempAddresses = lib.mkDefault "disabled";
-    networkmanager.enable = lib.mkDefault true;
+    networkmanager.enable = lib.mkDefault false;
+    dhcpcd.persistent = lib.mkDefault true;
     firewall = {
       enable = lib.mkDefault true;
       allowPing = true;
