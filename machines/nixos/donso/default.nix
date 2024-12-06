@@ -24,9 +24,9 @@
     22
     5201
   ];
+
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
-  # networking.dhcpcd.IPv6rs = true;
 
   services.prometheus.exporters.node = {
     enable = true;
