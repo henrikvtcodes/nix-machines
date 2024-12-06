@@ -29,13 +29,33 @@ in {
     systemd.services."netcheck" = {
       description = "Check internet access and rebind DHCP if necessary";
       script = ''
-        ${pkgs.inetutils}/bin/ping -c 5 1.1.1.1 > /dev/null
+        ${pkgs.inetutils}/bin/ping -c 5 1.1.1.1
+
+        echo "Checked internet access"
 
         if [ $? -ne 0 ]; then
+          echo "Internet is down"
+          systemctl restart dhcpcd.service
           ${pkgs.dhcpcd}/bin/dhcpcd --rebind ${cfg.interface}
           echo "DHCP rebound"
+          systemctl restart tailscaled.service
           systemctl restart tailscaled-autoconnect.service
           echo "Tailscale restarted"
+
+          sleep 120s
+          echo "Rechecking internet access"
+
+          ${pkgs.inetutils}/bin/ping -c 5 1.1.1.1
+
+          if [ $? -ne 0 ]; then
+            echo "Internet is still down, rebooting"
+
+            shutdown -r now
+
+          else
+            echo "Internet is back up"
+          fi
+
         else
           echo "Internet is up"
         fi
