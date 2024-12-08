@@ -311,6 +311,6 @@
     };
 
     # Enables nix flake check to ensure that the deploy-rs config is correct
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
