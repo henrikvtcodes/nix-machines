@@ -311,6 +311,12 @@
     };
 
     # Enables nix flake check to ensure that the deploy-rs config is correct
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    checks = forEachSupportedSystem (
+      {pkgs}: deployLib:
+        deployLib.deployChecks self.deploy {
+          buildPlatform = pkgs.stdenv.hostPlatform;
+          hostPlatform = pkgs.stdenv.targetPlatform;
+        }
+    );
   };
 }
