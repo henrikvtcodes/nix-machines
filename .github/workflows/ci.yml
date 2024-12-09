@@ -18,4 +18,4 @@ jobs:
       - name: Check cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Run Checks
-        run: nix flake check
+        run: nix flake check --no-eval-cache --no-sandbox
