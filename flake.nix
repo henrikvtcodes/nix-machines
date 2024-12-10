@@ -9,7 +9,7 @@
     # };
 
     nixpkgs = {
-      url = "github:nixos/nixpkgs/release-24.11";
+      url = "github:nixos/nixpkgs/nixos-24.11";
     };
 
     darwin = {
