@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ./hardware-config.nix
     ./services
@@ -47,7 +47,7 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "yes";
+      PermitRootLogin = lib.mkForce "yes";
       PasswordAuthentication = false;
     };
     # Use nonstandard SSH port for public server
