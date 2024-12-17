@@ -11,10 +11,10 @@
     domain = "unicycl.ing";
     firewall = {
       allowedTCPPorts = [
-        80
-        443
         22
         69
+        80
+        443
         5201
       ];
       allowedUDPPorts = [53];
@@ -46,12 +46,8 @@
 
   services.openssh = {
     enable = true;
-    settings = {
-      PermitRootLogin = lib.mkForce "yes";
-      PasswordAuthentication = false;
-    };
     # Use nonstandard SSH port for public server
-    ports = [69 22];
+    ports = [22 69];
   };
 
   # Secrets
