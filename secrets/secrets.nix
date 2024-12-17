@@ -12,7 +12,7 @@ let
   donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0fAwr0mzV/YHFGxyc9Id5FzLE34GlVdXb4toYn0p8s";
   marstrand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcHEGMX9Oxd+0J5sZNKtq7LHKBNxFw525NPnhh5Ewr2";
   barnegat = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpfaMerK8+qEPKyuF5V0tCMhu797kmw3knLmXTkQtTT";
-  ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDC34CtI9ZTBPF8d01dCaQ8pj1fYnXpaZVT5IDv2w8KU";
+  ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p";
 
   henrik = [
     henrik_public_pubkey

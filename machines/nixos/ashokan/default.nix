@@ -50,7 +50,7 @@
       PasswordAuthentication = false;
     };
     # Use nonstandard SSH port for public server
-    ports = [69];
+    ports = [69 22];
   };
 
   # Secrets
