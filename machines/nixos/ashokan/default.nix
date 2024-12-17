@@ -13,6 +13,7 @@
       allowedTCPPorts = [
         80
         443
+        22
         69
         5201
       ];
@@ -46,7 +47,7 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "no";
+      PermitRootLogin = "yes";
       PasswordAuthentication = false;
     };
     # Use nonstandard SSH port for public server
