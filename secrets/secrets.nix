@@ -33,7 +33,7 @@ let
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
-  "henrikUserPassword.age".publicKeys = henrik ++ [ashokan];
+  "henrikUserPassword.age".publicKeys = henrik;
 
   "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;

@@ -11,7 +11,6 @@
     domain = "unicycl.ing";
     firewall = {
       allowedTCPPorts = [
-        22
         69
         80
         443
@@ -47,7 +46,7 @@
   services.openssh = {
     enable = true;
     # Use nonstandard SSH port for public server
-    ports = [22 69];
+    ports = [69];
   };
 
   # Secrets
