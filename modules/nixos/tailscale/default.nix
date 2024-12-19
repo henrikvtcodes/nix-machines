@@ -6,7 +6,7 @@
 with lib; let
   cfg = config.svcs.tailscale;
 
-  formatOptions = {
+  formatUpOptions = {
     advertiseExitNode,
     advertiseTags,
     advertiseRoutes,
@@ -27,6 +27,14 @@ with lib; let
     ["--reset=true"] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
   # reset flag means that if any of the above settings change,
   # old routes/tags will not be accepted or advertised; as those settins will be reset
+
+  formatSetOptions = {enableWebUI}: let
+    webUIFlag =
+      if enableWebUI
+      then ["--webclient=true"]
+      else ["--webclient=true"];
+  in
+    [] ++ webUIFlag;
 in {
   options.svcs.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
@@ -67,6 +75,13 @@ in {
         '';
       };
     };
+    enableWebUI = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Enable Tailscale Web UI on port 5252
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -85,10 +100,13 @@ in {
       enable = true;
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      extraUpFlags = formatOptions {
+      extraUpFlags = formatUpOptions {
         advertiseExitNode = cfg.advertiseExitNode;
         advertiseTags = cfg.advertiseTags;
         advertiseRoutes = cfg.advertiseRoutes;
+      };
+      extraSetFlags = formatSetOptions {
+        enableWebUI = cfg.enableWebUI;
       };
     };
   };
