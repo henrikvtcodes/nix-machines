@@ -21,7 +21,7 @@
       shell = pkgs.zsh;
       packages = with pkgs; [
         # stuff
-        neofetch
+        fastfetch
         neovim
         btop
 

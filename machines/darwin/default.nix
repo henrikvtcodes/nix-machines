@@ -20,6 +20,9 @@
     };
   };
 
+  # TouchID Prompt for sudo
+  security.pam.enableSudoTouchIdAuth = true;
+
   # Force the nix daemon to run
   services.nix-daemon.enable = lib.mkForce true;
 }
