@@ -8,6 +8,7 @@
       ffmpeg
       websocat
       trippy
+      podman
       podman-compose
       podman-tui
       jq
@@ -15,7 +16,6 @@
       hyperfine
       git-lfs
       fd
-      # wifi-password
       iperf3
       magic-wormhole
       glab

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+# Reference: https://daiderd.com/nix-darwin/manual/index.html
+{pkgs, config, ...}: {
   users.users.henrikvt = {
     home = "/Users/henrikvt";
     packages = with pkgs; [
@@ -9,7 +10,11 @@
     ];
   };
 
-  networking.hostname = "pepacton";
+  environment.shellAliases = {
+    rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
+  };
+
+  networking.hostName = "pepacton";
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   # ======================== DO NOT CHANGE THIS ========================
