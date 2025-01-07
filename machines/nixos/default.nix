@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  imports = [../../modules/nixos];
+  imports = [../../modules/nixos ../../home/henrikvt];
 
   # Clean up nix store + old generations automatically
   nix = {

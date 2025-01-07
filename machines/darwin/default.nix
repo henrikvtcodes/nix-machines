@@ -1,4 +1,9 @@
 {lib}: {
+  imports = [
+    ../../modules/darwin
+    ../../home/henrikvt
+  ];
+
   # Clean up nix store + old generations automatically
   nix = {
     gc = {
