@@ -105,11 +105,15 @@
     formatter = forEachSupportedSystem ({pkgs}: pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
-    darwinConfigurations.pepacton = darwin.lib.darwinSystem {
+    darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
       modules = [
         agenix.darwinModules.default
         home-manager.darwinModules.home-manager
+
+        {
+          environment.systemPackages = [agenix.packages.${system}.default deploy-rs.packages.${system}.default];
+        }
       ];
     };
 
