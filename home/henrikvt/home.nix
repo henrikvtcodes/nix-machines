@@ -15,7 +15,7 @@
       hyperfine
       git-lfs
       fd
-      wifi-password
+      # wifi-password
       iperf3
       magic-wormhole
       glab
