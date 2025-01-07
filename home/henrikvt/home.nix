@@ -22,6 +22,7 @@
       wifi-password
       iperf3
       magic-wormhole
+      glab
     ];
 
     shellAliases = {
@@ -86,5 +87,17 @@
 
     # Other tools
     bat.enable = true;
+    git = {
+      enable = true;
+      lfs.enable = true;
+      userName = "Henrik VT";
+      userEmail = "commits@henrikvt.com";
+    };
+    lazygit.enable = true;
+    gh = {
+      enable = true;
+      settings.git_protocol = "ssh";
+    };
+    gh-dash.enable = true;
   };
 }
