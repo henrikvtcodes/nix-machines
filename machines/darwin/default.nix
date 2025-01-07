@@ -1,4 +1,10 @@
-{lib}: {
+{lib, ...}: let
+  launchdWeekly = {
+    Hour = 3;
+    Minute = 0;
+    Day = 0;
+  };
+in {
   imports = [
     ../../modules/darwin
     ../../home/henrikvt
@@ -8,12 +14,12 @@
   nix = {
     gc = {
       automatic = true;
-      dates = "weekly";
+      interval = launchdWeekly;
       options = "--delete-older-than 7d";
     };
     optimise = {
       automatic = true;
-      dates = ["weekly"];
+      interval = launchdWeekly;
     };
     settings = {
       experimental-features = [
