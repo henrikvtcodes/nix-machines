@@ -2,7 +2,7 @@
   launchdWeekly = {
     Hour = 3;
     Minute = 0;
-    Day = 0;
+    Weekday = 0;
   };
 in {
   imports = [
@@ -33,6 +33,8 @@ in {
 
   # TouchID Prompt for sudo
   security.pam.enableSudoTouchIdAuth = true;
+
+  home.henrikvt.enable = true;
 
   # Force the nix daemon to run
   services.nix-daemon.enable = lib.mkForce true;
