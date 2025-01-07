@@ -1,7 +1,12 @@
 {pkgs, ...}: {
   users.users.henrikvt = {
     home = "/Users/henrikvt";
-    packages = [pkgs.nixd];
+    packages = with pkgs; [
+      nixd
+      wifi-password
+      just
+      kraft
+    ];
   };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
