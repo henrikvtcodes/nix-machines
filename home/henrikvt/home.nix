@@ -117,32 +117,51 @@
         s = "status -sb";
         l = "log --all --graph --decorate --oneline";
       };
-      extraConfig = ''
-        [init]
-          defaultBranch = main
+      # extraConfig = ''
+      #   [init]
+      #     defaultBranch = main
 
-        [color]
-          ui = auto
+      #   [color]
+      #     ui = auto
 
-        [color "diff"]
-          meta = white bold
-          frag = cyan bold
-          old = red bold
-          new = green bold
+      #   [color "diff"]
+      #     meta = white bold
+      #     frag = cyan bold
+      #     old = red bold
+      #     new = green bold
 
-        [core]
-          editor = vim
-          excludesfile = ~/.gitignore
-          attributesfile = ~/.gitattributes
-          ignorecase = false
-        	compression = 0
+      #   [core]
+      #     editor = vim
+      #     excludesfile = ~/.gitignore
+      #     attributesfile = ~/.gitattributes
+      #     ignorecase = false
+      #   	compression = 0
 
-        [pull]
-          rebase = false
+      #   [pull]
+      #     rebase = false
 
-        [protocol "file"]
-         allow = always
-      '';
+      #   [protocol "file"]
+      #    allow = always
+      # '';
+      extraConfig = {
+        init.defaultBranch = "main";
+        color.ui = "auto";
+        color.diff = {
+          meta = "white bold";
+          frag = "cyan bold";
+          old = "red bold";
+          new = "green bold";
+        };
+        core = {
+          editor = "vim";
+          excludesfile = "~/.gitignore";
+          attributesfile = "~/.gitattributes";
+          ignorecase = false;
+          compression = 0;
+        };
+        pull.rebase = false;
+        protocol.file.allow = "always";
+      };
     };
     lazygit.enable = true;
     gh = {
