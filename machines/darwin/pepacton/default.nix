@@ -9,6 +9,8 @@
     ];
   };
 
+  networking.hostname = "pepacton";
+
   nixpkgs.hostPlatform = "aarch64-darwin";
   # ======================== DO NOT CHANGE THIS ========================
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
