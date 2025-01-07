@@ -32,7 +32,7 @@
       enable = true;
       autocd = true;
       syntaxHighlighting.enable = true;
-      autosuggestions.enable = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
@@ -151,4 +151,8 @@
     };
     gh-dash.enable = true;
   };
+
+  # ======================== DO NOT CHANGE THIS ========================
+  home.stateVersion = "24.11";
+  # ======================== DO NOT CHANGE THIS ========================
 }
