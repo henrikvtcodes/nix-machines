@@ -19,6 +19,7 @@ in {
         inherit inputs;
         inherit homeCfg;
       };
+      backupFileExtension = "hmbak";
       users.henrikvt = import ./home.nix;
     };
   };
