@@ -58,12 +58,23 @@
           "command-not-found"
           "vscode"
           "nvm"
-          "history-substring-search"
           "tailscale"
           "bun"
           "fnm"
           "fzf"
           "zoxide"
+        ];
+      };
+
+      zplug = {
+        enable = true;
+        plugins = [
+          {
+            name = "djui/alias-tips";
+          }
+          {
+            name = "hlissner/zsh-autopair";
+          }
         ];
       };
     };
@@ -92,6 +103,50 @@
       lfs.enable = true;
       userName = "Henrik VT";
       userEmail = "commits@henrikvt.com";
+      aliases = {
+        a = "add";
+        ua = "reset HEAD";
+        p = "push";
+        c = "commit";
+        b = "branch";
+        co = "checkout";
+        cb = "checkout -b";
+        sw = "switch";
+        swc = "switch -c";
+        ap = "add -p";
+        ca = "commit -a";
+        cm = "commit -m";
+        cam = "commit -am";
+        amend = "commit --amend";
+        s = "status -sb";
+        l = "log --all --graph --decorate --oneline";
+      };
+      extraConfig = ''
+        [init]
+          defaultBranch = main
+
+        [color]
+          ui = auto
+
+        [color "diff"]
+          meta = white bold
+          frag = cyan bold
+          old = red bold
+          new = green bold
+
+        [core]
+          editor = vim
+          excludesfile = ~/.gitignore
+          attributesfile = ~/.gitattributes
+          ignorecase = false
+        	compression = 0
+
+        [pull]
+          rebase = false
+
+        [protocol "file"]
+         allow = always
+      '';
     };
     lazygit.enable = true;
     gh = {
