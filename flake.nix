@@ -111,6 +111,9 @@
         agenix.darwinModules.default
         home-manager.darwinModules.home-manager
 
+        ./machines/darwin
+        ./machines/darwin/pepacton
+
         {
           environment.systemPackages = [agenix.packages.${system}.default deploy-rs.packages.${system}.default];
         }
