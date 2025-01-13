@@ -4,28 +4,20 @@
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
+  "nix.serverPath": "nixd",
   "nix.serverSettings": {
-    // settings for 'nil' LSP
-    "nil": {
-      "formatting": {
-        "command": ["nix", "fmt", "--", "-"]
-      }
-    },
     "nixd": {
       "formatting": {
         // This is the default if ommited.
         "command": ["nix", "fmt", "--", "-"]
       },
       "options": {
-        // By default, this entriy will be read from `import <nixpkgs> { }`
-        // You can write arbitary nix expression here, to produce valid "options" declaration result.
-        // Tip: for flake-based configuration, utilize `builtins.getFlake`
         "nixos": {
-          "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").nixosConfigurations.svalbard.options"
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.svalbard.options"
+        },
+        "nix-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.pepacton.options"
         }
-        // "home-manager": {
-        //   "expr": "(builtins.getFlake \"/Users/henrikvt/Desktop/Code/projects/nixmachines\").homeConfigurations.henrikvt.options"
-        // }
       }
     }
   }

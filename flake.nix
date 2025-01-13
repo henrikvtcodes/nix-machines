@@ -43,6 +43,10 @@
       url = "github:oxalica/nil/2024-08-06";
     };
 
+    alejandra = {
+      url = "github:kamadorueda/alejandra";
+    };
+
     # impermanence = {
     #   url = "github:nix-community/impermanence";
     # };
@@ -68,6 +72,7 @@
     darwin,
     nil-lsp,
     home-manager,
+    alejandra,
     ...
   } @ inputs: let
     supportedSystems = [
@@ -76,10 +81,10 @@
       "aarch64-linux"
       # "x86_64-darwin"
     ];
-    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {pkgs = import nixpkgs {inherit system;};});
+    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {pkgs = import nixpkgs {inherit system;}; inherit system;});
 
     deployPkgs = forEachSupportedSystem (
-      {pkgs}:
+      {pkgs, ...}:
         import nixpkgs {
           inherit (pkgs) system;
           overlays = [
@@ -96,7 +101,7 @@
   in {
     # Dev shell for this flake (mostly for reference)
     devShells = forEachSupportedSystem (
-      {pkgs}: {
+      {pkgs, ...}: {
         default = pkgs.mkShell {
           packages = with pkgs; [
             nixd
@@ -107,7 +112,7 @@
     );
 
     # Standard formatter for this flake
-    formatter = forEachSupportedSystem ({pkgs}: pkgs.alejandra);
+    formatter = forEachSupportedSystem ({pkgs, system, ...}: alejandra.packages.${system}.default);
 
     # Config for my macbook (only used to set up my terminal)
     darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
@@ -124,6 +129,7 @@
             agenix.packages.${system}.default 
           deploy-rs.packages.${system}.default 
           nil-lsp.packages.${system}.default
+
           ];
         }
       ];
@@ -260,6 +266,12 @@
           disko.nixosModules.default
 
           ./modules/nixos/boot-disk
+
+
+
+
+
+
 
           # Secrets
           agenix.nixosModules.default
