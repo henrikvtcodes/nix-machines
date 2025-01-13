@@ -38,29 +38,6 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nil-lsp = {
-      url = "github:oxalica/nil/2024-08-06";
-    };
-
-    alejandra = {
-      url = "github:kamadorueda/alejandra";
-    };
-
-    # impermanence = {
-    #   url = "github:nix-community/impermanence";
-    # };
-
-    # https://docs.hercules-ci.com/arion/
-    # arion = {
-    #   url = "github:hercules-ci/arion";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # microvm = {
-    #   url = "github:astro/microvm.nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = {
@@ -81,7 +58,12 @@
       "aarch64-linux"
       # "x86_64-darwin"
     ];
-    forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {pkgs = import nixpkgs {inherit system;}; inherit system;});
+    forEachSupportedSystem = f:
+      nixpkgs.lib.genAttrs supportedSystems (system:
+        f {
+          pkgs = import nixpkgs {inherit system;};
+          inherit system;
+        });
 
     deployPkgs = forEachSupportedSystem (
       {pkgs, ...}:
@@ -112,7 +94,12 @@
     );
 
     # Standard formatter for this flake
-    formatter = forEachSupportedSystem ({pkgs, system, ...}: alejandra.packages.${system}.default);
+    formatter = forEachSupportedSystem ({
+      pkgs,
+      system,
+      ...
+    }:
+      pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
     darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
@@ -126,10 +113,9 @@
 
         {
           environment.systemPackages = [
-            agenix.packages.${system}.default 
-          deploy-rs.packages.${system}.default 
-          nil-lsp.packages.${system}.default
-
+            agenix.packages.${system}.default
+            deploy-rs.packages.${system}.default
+            nil-lsp.packages.${system}.default
           ];
         }
       ];
@@ -266,12 +252,6 @@
           disko.nixosModules.default
 
           ./modules/nixos/boot-disk
-
-
-
-
-
-
 
           # Secrets
           agenix.nixosModules.default
