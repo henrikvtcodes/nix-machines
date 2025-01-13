@@ -20,6 +20,7 @@
       magic-wormhole
       glab
       python3
+      fortune
     ];
 
     shellAliases = {

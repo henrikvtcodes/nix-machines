@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   launchdWeekly = {
     Hour = 3;
     Minute = 0;
@@ -12,6 +16,7 @@ in {
 
   # Clean up nix store + old generations automatically
   nix = {
+    package = pkgs.nix;
     gc = {
       automatic = true;
       interval = launchdWeekly;

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   nix.settings.trusted-users = ["henrikvt"];
@@ -48,9 +49,7 @@
 
   programs.zsh = {
     enable = true;
-    enableLsColors = true;
-    enableCompletion = true;
-    ohMyZsh = {
+    ohMyZsh = lib.mkIf (!config.home.henrikvt.enable) {
       enable = true;
       theme = "josh";
       plugins = [

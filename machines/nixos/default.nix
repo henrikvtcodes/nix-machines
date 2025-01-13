@@ -139,9 +139,5 @@
     # dev tools
     git
     vim
-    neovim
-
-    # vanity
-    neofetch
   ];
 }

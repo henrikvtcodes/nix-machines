@@ -39,6 +39,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nil-lsp = {
+      url = "github:oxalica/nil/2024-08-06";
+    };
+
     # impermanence = {
     #   url = "github:nix-community/impermanence";
     # };
@@ -62,6 +66,7 @@
     agenix,
     deploy-rs,
     darwin,
+    nil-lsp,
     home-manager,
     ...
   } @ inputs: let
@@ -115,7 +120,11 @@
         ./machines/darwin/pepacton
 
         {
-          environment.systemPackages = [agenix.packages.${system}.default deploy-rs.packages.${system}.default];
+          environment.systemPackages = [
+            agenix.packages.${system}.default 
+          deploy-rs.packages.${system}.default 
+          nil-lsp.packages.${system}.default
+          ];
         }
       ];
     };
