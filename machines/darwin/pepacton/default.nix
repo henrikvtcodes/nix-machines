@@ -7,6 +7,7 @@
       wifi-password
       just
       kraft
+      fortune
     ];
   };
 

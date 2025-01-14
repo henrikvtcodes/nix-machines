@@ -55,15 +55,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1733729059,
-        "narHash": "sha256-5xYai0KZirUX2EQpNMMCWoC27932n/i1E4KeVRIss7s=",
+        "lastModified": 1730688725,
+        "narHash": "sha256-g0SSfTWZ5mtMOpQic+eqq9sXMy1E/7yKxxfupZd9V4A=",
         "owner": "kamadorueda",
         "repo": "alejandra",
-        "rev": "6db88764334bd6a8b7a33cb312c318baad1d5e93",
+        "rev": "2bb91e309ca99656addff5c74545acbf5813636d",
         "type": "github"
       },
       "original": {
         "owner": "kamadorueda",
+        "ref": "3.1.0",
         "repo": "alejandra",
         "type": "github"
       }

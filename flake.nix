@@ -38,6 +38,14 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+        nil-lsp = {
+      url = "github:oxalica/nil/2024-08-06";
+    };
+
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.1.0";
+    };
   };
 
   outputs = {
