@@ -368,13 +368,13 @@
       "locked": {
         "lastModified": 1736041957,
         "narHash": "sha256-Kk/cVtkxwfHNoB6nINUarMLTtyAEvH+ohzxKBptMzzg=",
-        "owner": "zhaofengli-wip",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
         "rev": "a6d99cc7436fc18c097b3536d9c45c0548c694c8",
         "type": "github"
       },
       "original": {
-        "owner": "zhaofengli-wip",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
         "type": "github"
       }

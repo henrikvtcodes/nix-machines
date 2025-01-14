@@ -2,12 +2,6 @@
   description = "nix configuration for my servers + other stuff";
 
   inputs = {
-    # Required for nix to recognize the git submodule as a valid nix module
-    # secrets = {
-    #   url = "path:secrets"; # the submodule is in the ./subproject dir
-    #   flake = false;
-    # };
-
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-24.11";
     };
@@ -17,9 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
-    # Core tools: home manager, secrets, disk partitioning, deployment
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +39,8 @@
     alejandra = {
       url = "github:kamadorueda/alejandra/3.1.0";
     };
+
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
   outputs = {
@@ -59,7 +52,6 @@
     darwin,
     nil-lsp,
     home-manager,
-    alejandra,
     nix-homebrew,
     ...
   } @ inputs: let
@@ -77,9 +69,13 @@
         });
 
     deployPkgs = forEachSupportedSystem (
-      {pkgs, ...}:
+      {
+        pkgs,
+        system,
+        ...
+      }:
         import nixpkgs {
-          inherit (pkgs) system;
+          inherit system;
           overlays = [
             deploy-rs.overlay # or deploy-rs.overlays.default
             (self: super: {
@@ -105,12 +101,9 @@
     );
 
     # Standard formatter for this flake
-    formatter = forEachSupportedSystem ({
-      pkgs,
-      system,
-      ...
-    }:
-      pkgs.alejandra);
+    formatter =
+      forEachSupportedSystem ({pkgs, ...}:
+        pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
     darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {

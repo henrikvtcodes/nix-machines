@@ -121,32 +121,6 @@
         s = "status -sb";
         l = "log --all --graph --decorate --oneline";
       };
-      # extraConfig = ''
-      #   [init]
-      #     defaultBranch = main
-
-      #   [color]
-      #     ui = auto
-
-      #   [color "diff"]
-      #     meta = white bold
-      #     frag = cyan bold
-      #     old = red bold
-      #     new = green bold
-
-      #   [core]
-      #     editor = vim
-      #     excludesfile = ~/.gitignore
-      #     attributesfile = ~/.gitattributes
-      #     ignorecase = false
-      #   	compression = 0
-
-      #   [pull]
-      #     rebase = false
-
-      #   [protocol "file"]
-      #    allow = always
-      # '';
       extraConfig = {
         init.defaultBranch = "main";
         color.ui = "auto";
