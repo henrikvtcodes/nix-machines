@@ -17,6 +17,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
     # Core tools: home manager, secrets, disk partitioning, deployment
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -39,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-        nil-lsp = {
+    nil-lsp = {
       url = "github:oxalica/nil/2024-08-06";
     };
 
@@ -58,6 +60,7 @@
     nil-lsp,
     home-manager,
     alejandra,
+    nix-homebrew,
     ...
   } @ inputs: let
     supportedSystems = [
@@ -115,6 +118,7 @@
       modules = [
         agenix.darwinModules.default
         home-manager.darwinModules.home-manager
+        nix-homebrew.darwinModules.nix-homebrew
 
         ./machines/darwin
         ./machines/darwin/pepacton

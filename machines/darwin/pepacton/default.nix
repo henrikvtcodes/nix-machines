@@ -22,6 +22,20 @@
     commit.gpgsign = true;
   };
 
+  nix-homebrew = {
+    # Install Homebrew under the default prefix
+    enable = true;
+
+    # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+    enableRosetta = true;
+
+    # User owning the Homebrew prefix
+    user = "henrikvt";
+
+    # Automatically migrate existing Homebrew installations
+    autoMigrate = true;
+  };
+
   networking.hostName = "pepacton";
 
   nixpkgs.hostPlatform = "aarch64-darwin";

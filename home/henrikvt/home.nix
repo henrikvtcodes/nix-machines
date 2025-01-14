@@ -19,7 +19,7 @@
       iperf3
       magic-wormhole
       glab
-      python3      
+      python3
     ];
 
     shellAliases = {
@@ -60,8 +60,7 @@
           "fnm"
           "fzf"
           "zoxide"
-                  "lol"
-
+          "lol"
         ];
       };
 
@@ -89,10 +88,7 @@
     thefuck.enable = true;
     dircolors.enable = true;
 
-
-
-
-         direnv.enable = true;
+    direnv.enable = true;
     eza = {
       enable = true;
       git = true;
