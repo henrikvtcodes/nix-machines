@@ -1,4 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  homeCfg,
+  inputs,
+  ...
+}: {
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+    inputs.catppuccin.homeManagerModules.catppuccin
+
+    ./nixvim.nix
+  ];
+
   home = {
     packages = with pkgs; [
       fastfetch
