@@ -8,11 +8,13 @@
       just
       kraft
       fortune
+      uv
     ];
   };
 
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
+    ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
   };
 
   home-manager.users.henrikvt.programs.git.extraConfig = {
