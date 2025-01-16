@@ -97,6 +97,7 @@
     fzf.enable = true;
     thefuck.enable = true;
     dircolors.enable = true;
+    btop.enable = true;
 
     direnv.enable = true;
     eza = {
