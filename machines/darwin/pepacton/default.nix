@@ -9,6 +9,8 @@
       kraft
       fortune
       uv
+      gdu
+      diskus
     ];
   };
 
