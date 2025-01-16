@@ -159,6 +159,10 @@
     gh-dash.enable = true;
   };
 
+  catppuccin = {
+    enable = true;
+  };
+
   # ======================== DO NOT CHANGE THIS ========================
   home.stateVersion = "24.11";
   # ======================== DO NOT CHANGE THIS ========================
