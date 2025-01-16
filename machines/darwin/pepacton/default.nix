@@ -11,12 +11,16 @@
       uv
       gdu
       diskus
+      fnm
     ];
   };
 
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
     ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
+    ytdl = "ytdlp";
+    home = "cd ~";
+    nvm = "fnm";
   };
 
   home-manager.users.henrikvt.programs.git.extraConfig = {
