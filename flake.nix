@@ -7,7 +7,7 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -115,6 +115,9 @@
     # Config for my macbook (only used to set up my terminal)
     darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
+      specialArgs = {
+        inherit inputs;
+      };
       modules = [
         agenix.darwinModules.default
         home-manager.darwinModules.home-manager
