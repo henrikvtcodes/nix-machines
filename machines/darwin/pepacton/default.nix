@@ -12,6 +12,7 @@
       gdu
       diskus
       fnm
+      flyctl
     ];
   };
 
@@ -21,6 +22,11 @@
     ytdl = "ytdlp";
     home = "cd ~";
     nvm = "fnm";
+  };
+
+  environment.variables = {
+    _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
+    _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
   };
 
   home-manager.users.henrikvt.programs.git.extraConfig = {

@@ -1,6 +1,5 @@
 {
   pkgs,
-  homeCfg,
   inputs,
   ...
 }: {
@@ -16,7 +15,6 @@
       fastfetch
       tokei
       q
-      flyctl
       ffmpeg
       websocat
       trippy
