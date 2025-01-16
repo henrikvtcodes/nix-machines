@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:catppuccin/nix/release-1.x";
 
     agenix = {
       # agenix-compatible but in rust, for stability
@@ -41,10 +41,6 @@
 
     nil-lsp = {
       url = "github:oxalica/nil/2024-08-06";
-    };
-
-    alejandra = {
-      url = "github:kamadorueda/alejandra/3.1.0";
     };
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
