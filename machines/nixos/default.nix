@@ -140,4 +140,6 @@
     git
     vim
   ];
+
+  home.henrikvt.enable = true;
 }
