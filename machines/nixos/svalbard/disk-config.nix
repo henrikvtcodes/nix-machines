@@ -1,4 +1,5 @@
 {
+  boot.zfs.extraPools = ["zstorage" "zapps"];
   disko.devices = {
     disk = {
       # --------- ZFS Mass Storage Disks ---------
