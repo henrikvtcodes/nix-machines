@@ -55,7 +55,7 @@
     mastodonSmtpPassword.file = ../../../secrets/mastodonSmtpPassword.age;
   };
 
-  home.henrikvt.enable = true;
+  svcs.mastodon.enable = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
