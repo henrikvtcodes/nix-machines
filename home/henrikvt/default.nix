@@ -8,6 +8,8 @@
 in {
   options.home.henrikvt = with lib; {
     enable = mkEnableOption "Enable henrikvt's home configuration";
+    ghDash = mkEnableOption "Enable GitHub TUI Dashboard"; # Github TUI dashboard doesn't play nice on all systems
+    ghostty = mkEnableOption "Enable Ghostty Config";
     prompt = {
       dev = mkOption {
         type = types.bool;

@@ -1,6 +1,8 @@
 {
   pkgs,
   inputs,
+  homeCfg,
+  lib,
   ...
 }: {
   imports = [
@@ -85,6 +87,12 @@
           }
         ];
       };
+
+      shellAliases = {
+        "lzg" = "lazygit";
+      };
+
+      profileExtra = builtins.readFile ./.zprofile.zsh;
     };
 
     # Prompt
@@ -157,11 +165,16 @@
       enable = true;
       settings.git_protocol = "ssh";
     };
-    gh-dash.enable = true;
+    gh-dash.enable = homeCfg.ghDash;
   };
 
   catppuccin = {
     enable = true;
+  };
+
+  xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty {
+    enable = true;
+    source = ./ghostty.txt;
   };
 
   # ======================== DO NOT CHANGE THIS ========================

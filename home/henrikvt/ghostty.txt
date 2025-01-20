@@ -1,0 +1,11 @@
+font-family = "Liga SFMono Nerd Font"
+font-size = 14
+macos-titlebar-proxy-icon = hidden
+window-padding-x = 6
+window-inherit-font-size = false
+shell-integration = zsh
+theme = catppuccin-mocha
+window-inherit-working-directory = true
+working-directory = home
+keybind = cmd+r=reload_config
+term = xterm-256color
