@@ -32,7 +32,7 @@ jobs:
       - name: Check cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Format flake
-        run: nix fmt
+        run: nix fmt .
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
