@@ -37,6 +37,7 @@
     shellAliases = {
       cat = "bat -p";
       less = "bat --style plain --paging always";
+      lzg = "${pkgs.lazygit}/bin/lazygit";
     };
   };
 
@@ -86,10 +87,6 @@
             name = "hlissner/zsh-autopair";
           }
         ];
-      };
-
-      shellAliases = {
-        "lzg" = "lazygit";
       };
 
       profileExtra = builtins.readFile ./.zprofile.zsh;
