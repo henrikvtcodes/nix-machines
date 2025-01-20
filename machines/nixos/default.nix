@@ -102,6 +102,9 @@
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable henrikvt home configuration
+  home.henrikvt.enable = lib.mkDefault true;
+
   # Hey, what does `with pkgs;` do?
   # It's a nixpkgs feature that allows you to use the pkgs variable without prefixing it with pkgs.
   # ie, instead of `pkgs.git`, you can just write `git`
@@ -142,6 +145,4 @@
     git
     vim
   ];
-
-  home.henrikvt.enable = true;
 }
