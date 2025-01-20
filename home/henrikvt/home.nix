@@ -35,8 +35,8 @@
     ];
 
     shellAliases = {
-      cat = "bat -p";
-      less = "bat --style plain";
+      cat = "${pkgs.bat}/bin/bat -p";
+      less = "${pkgs.bat}/bin/bat --style plain";
       lzg = "${pkgs.lazygit}/bin/lazygit";
     };
   };

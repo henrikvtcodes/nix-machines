@@ -18,7 +18,7 @@
 
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
-    ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
+    ghostty = "$GHOSTTY_BIN_DIR/ghostty";
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     ytdl = "ytdlp";
     home = "cd ~";
