@@ -1,0 +1,12 @@
+sudo launchctl bootout system/org.nixos.darwin-store && sudo launchctl bootout system/org.nixos.nix-daemon
+sudo launchctl bootout system/org.nixos.nix-daemon
+sudo launchctl bootout system/org.nixos.darwin-store
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+nix --help
+_ rm -rf /etc/nix
+sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
+sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
+sudo launchctl bootout /Library/LaunchDaemon/org.nixos.nix-daemon.plist
+sudo launchctl bootout system/org.nixos.nix-daemon
+sudo launchctl bootout system/org.nixos.darwin-store
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
