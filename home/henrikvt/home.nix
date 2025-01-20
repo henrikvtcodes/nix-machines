@@ -36,7 +36,7 @@
 
     shellAliases = {
       cat = "bat -p";
-      less = "bat --style plain --paging always";
+      # less = "bat --style plain";
       lzg = "${pkgs.lazygit}/bin/lazygit";
     };
   };
