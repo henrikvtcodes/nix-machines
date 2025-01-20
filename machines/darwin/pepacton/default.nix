@@ -19,6 +19,7 @@
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
     ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
+    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     ytdl = "ytdlp";
     home = "cd ~";
     nvm = "fnm";
@@ -51,6 +52,9 @@
   };
 
   networking.hostName = "pepacton";
+
+  # Enable GitHub TUI Dashboard (doesn't work on some systems)
+  home.henrikvt.ghDash = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   # ======================== DO NOT CHANGE THIS ========================
