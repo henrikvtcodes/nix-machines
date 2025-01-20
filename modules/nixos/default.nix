@@ -6,5 +6,6 @@
     ./betteruptime
     ./netcheck
     ./traefik
+    ./mastodon
   ];
 }
