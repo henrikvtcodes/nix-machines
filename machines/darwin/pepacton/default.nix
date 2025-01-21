@@ -13,6 +13,9 @@
       diskus
       fnm
       flyctl
+      bastet
+      qrcp
+      ninvaders
     ];
   };
 
