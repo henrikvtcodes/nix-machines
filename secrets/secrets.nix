@@ -49,6 +49,8 @@ in {
 
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
+  "mastodonOtpSecret.age".publicKeys = [ashokan] ++ henrik;
+  "mastodonActiveRecordEncryptionVars.age".publicKeys = [ashokan] ++ henrik;
   "mastodonVapidPrivkey.age".publicKeys = [ashokan] ++ henrik;
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
