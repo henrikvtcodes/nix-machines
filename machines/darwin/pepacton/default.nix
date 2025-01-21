@@ -27,13 +27,16 @@
     nvm = "fnm";
   };
 
-  environment.variables = {
-    _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
-    _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
+  environment = {
+    systemPath = ["/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts" "$GHOSTTY_BIN_DIR"];
+    variables = {
+      _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
+      _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
+    };
   };
 
   home-manager.users.henrikvt = {
-    home.sessionPath = ["/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts" "$GHOSTTY_BIN_DIR"];
+    # home.sessionPath = ["/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts" "$GHOSTTY_BIN_DIR"];
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
       gpg.format = "ssh";
