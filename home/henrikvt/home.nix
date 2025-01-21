@@ -39,6 +39,11 @@
       less = "${pkgs.bat}/bin/bat --style plain";
       lzg = "${pkgs.lazygit}/bin/lazygit";
     };
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      # VISUAL = "nvim";
+    };
   };
 
   programs = {
