@@ -20,7 +20,7 @@
 
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
-    ghostty = "$GHOSTTY_BIN_DIR/ghostty";
+    # ghostty = "$GHOSTTY_BIN_DIR/ghostty";
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     ytdl = "ytdlp";
     home = "cd ~";
@@ -32,11 +32,14 @@
     _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
   };
 
-  home-manager.users.henrikvt.programs.git.extraConfig = {
-    user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
-    gpg.format = "ssh";
-    gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-    commit.gpgsign = true;
+  home-manager.users.henrikvt = {
+    home.sessionPath = ["/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts" "$GHOSTTY_BIN_DIR"];
+    programs.git.extraConfig = {
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
+      gpg.format = "ssh";
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      commit.gpgsign = true;
+    };
   };
 
   nix-homebrew = {
