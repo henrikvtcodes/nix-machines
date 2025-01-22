@@ -50,6 +50,7 @@ in {
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
   "mastodonOtpSecret.age".publicKeys = [ashokan] ++ henrik;
+  # Active Record DB Encryption
   "mastodonAREncryptionEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "mastodonVapidEnvVars.age".publicKeys = [ashokan] ++ henrik;
 

@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./hardware-config.nix
     ./services
@@ -50,12 +50,31 @@
   };
 
   # Secrets
-  age.secrets = {
-    cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
-    mastodonSmtpPassword.file = ../../../secrets/mastodonSmtpPassword.age;
+  age.secrets = let
+    secretsDir = ../../../secrets;
+  in {
+    cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
+    mastodonSmtpPassword.file = "${secretsDir}/mastodonSmtpPassword.age";
+    mastodonVapidKeys.file = "${secretsDir}/mastodonVapidKeys.age";
+    mastodonSecretKeyBase.file = "${secretsDir}/mastodonSecretKeyBase.age";
+    mastodonOtpSecret.file = "${secretsDir}/mastodonOtpSecret.age";
+    mastodonAREncryptionEnvVars.file = "${secretsDir}/mastodonAREncryptionEnvVars.age";
   };
 
-  svcs.mastodon.enable = true;
+  svcs.traefik = {
+    enable = true;
+    environmentFiles = [config.age.secrets.cfDnsApiToken.path];
+  };
+
+  svcs.mastodon = {
+    enable = true;
+    configureTraefik = true;
+    secretKeyBaseEnvFile = config.age.secrets.mastodonSecretKeyBase.path;
+    otpSecretEnvFile = config.age.secrets.mastodonOtpSecret.path;
+    vapidKeysEnvFile = config.age.secrets.mastodonVapidKeys.path;
+    smtpPasswordEnvFile = config.age.secrets.mastodonSmtpPassword.path;
+    activeRecordEncryptionEnvFile = config.age.secrets.mastodonAREncryptionEnvVars.path;
+  };
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";

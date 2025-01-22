@@ -17,8 +17,7 @@ in {
     localDomain = domain;
     extraConfig = {
       WEB_DOMAIN = interfaceDomain;
-      SINGLE_USER_MODE = "true";
-      DEFAULT_LOCALE = "en";
+
       RAILS_LOG_LEVEL = "debug";
       # RAILS_SERVE_STATIC_FILES = "true";
     };
