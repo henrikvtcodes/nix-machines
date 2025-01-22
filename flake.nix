@@ -58,14 +58,17 @@
     nix-homebrew,
     ...
   } @ inputs: let
+    lib = nixpkgs.lib // home-manager.lib;
+
     supportedSystems = [
       "x86_64-linux"
-      "aarch64-darwin"
       "aarch64-linux"
+      "aarch64-darwin"
       # "x86_64-darwin"
     ];
+
     forEachSupportedSystem = f:
-      nixpkgs.lib.genAttrs supportedSystems (system:
+      lib.genAttrs supportedSystems (system:
         f {
           pkgs = import nixpkgs {inherit system;};
           inherit system;
@@ -134,7 +137,7 @@
 
     # Config for my servers
     nixosConfigurations = {
-      ashokan = nixpkgs.lib.nixosSystem {
+      ashokan = lib.nixosSystem {
         system = "aarch64-linux";
 
         specialArgs = {
@@ -157,7 +160,7 @@
           ./home/henrikvt
         ];
       };
-      barnegat = nixpkgs.lib.nixosSystem {
+      barnegat = lib.nixosSystem {
         system = "x86_64-linux";
 
         specialArgs = {
@@ -203,7 +206,7 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      svalbard = nixpkgs.lib.nixosSystem {
+      svalbard = lib.nixosSystem {
         system = "x86_64-linux";
 
         specialArgs = {
@@ -226,7 +229,7 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      marstrand = nixpkgs.lib.nixosSystem {
+      marstrand = lib.nixosSystem {
         system = "x86_64-linux";
 
         specialArgs = {
@@ -249,7 +252,7 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      valcour = nixpkgs.lib.nixosSystem {
+      valcour = lib.nixosSystem {
         system = "x86_64-linux";
 
         specialArgs = {
