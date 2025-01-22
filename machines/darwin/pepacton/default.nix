@@ -19,7 +19,7 @@
   };
 
   environment.shellAliases = {
-    rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
+    rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
     # ghostty = "$GHOSTTY_BIN_DIR/ghostty";
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     ytdl = "ytdlp";
@@ -28,7 +28,6 @@
   };
 
   environment = {
-    systemPath = ["/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts" "$GHOSTTY_BIN_DIR"];
     variables = {
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
