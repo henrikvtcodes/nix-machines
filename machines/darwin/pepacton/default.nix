@@ -15,6 +15,7 @@
       flyctl
       qrcp
       ninvaders
+      statix
     ];
   };
 
@@ -30,6 +31,7 @@
   environment = {
     systemPath = ["\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"" "$GHOSTTY_BIN_DIR"];
     variables = {
+      EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
       JETBRAINS_BIN_DIR = "\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"";
