@@ -74,8 +74,6 @@ in {
               "https"
               "http"
             ];
-            tls.certResolver = "lecf";
-            priority = 2;
           };
         };
         services = {
