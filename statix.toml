@@ -1,0 +1,7 @@
+disabled = [
+  "empty_pattern",
+  "empty_inherit",
+  "manual_inherit_from",
+  "manual_inherit",
+  "empty_list_concat",
+]
