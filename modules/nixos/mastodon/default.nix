@@ -109,7 +109,7 @@ in {
           Group = "podman";
           Type = "oneshot";
           Restart = "on-failure";
-          StartLimitInterval = 5;
+
           ProtectSystem = "strict";
           ProtectHostname = true;
           ProtectClock = true;
@@ -125,6 +125,7 @@ in {
           ExecPaths = ["/nix/store"];
           NoExecPaths = ["/"];
         };
+        unitConfig = {StartLimitInterval = 5;};
         wantedBy = [
           # "multi-user.target"
           # "podman-mastodon-web.service"
@@ -134,46 +135,46 @@ in {
           # "podman-mastodon-sidekiq.service"
         ];
         path = [pkgs.podman];
-        preStart = "/usr/bin/env sleep 2";
+        preStart = "/usr/bin/env sleep 4";
         script = ''
           podman network exists mastodon || podman network create mastodon
         '';
       };
 
       virtualisation.oci-containers.containers = {
-        mastodon-db = {
-          image = "postgres:14-alpine";
-          user = "mastodon";
+        # mastodon-db = {
+        #   image = "postgres:14-alpine";
+        #   user = "mastodon";
 
-          autoStart = true;
-          extraOptions = [
-            "--network=mastodon"
-            "--shm-size=268435456"
-          ];
+        #   autoStart = true;
+        #   extraOptions = [
+        #     "--network=mastodon"
+        #     "--shm-size=268435456"
+        #   ];
 
-          environment = {
-            POSTGRES_HOST_AUTH_METHOD = "trust";
-          };
+        #   environment = {
+        #     POSTGRES_HOST_AUTH_METHOD = "trust";
+        #   };
 
-          volumes = [
-            "mastodon_postgresql-data:/var/lib/postgresql/data"
-          ];
-        };
+        #   volumes = [
+        #     "mastodon_postgresql-data:/var/lib/postgresql/data"
+        #   ];
+        # };
 
-        mastodon-redis = {
-          image = "redis:7-alpine";
+        # mastodon-redis = {
+        #   image = "redis:7-alpine";
 
-          user = "mastodon";
+        #   user = "mastodon";
 
-          autoStart = true;
-          extraOptions = [
-            "--network=mastodon"
-          ];
+        #   autoStart = true;
+        #   extraOptions = [
+        #     "--network=mastodon"
+        #   ];
 
-          volumes = [
-            "mastodon_redis-data:/data"
-          ];
-        };
+        #   volumes = [
+        #     "mastodon_redis-data:/data"
+        #   ];
+        # };
 
         # mastodon-web = {
         #   image = "ghcr.io/mastodon/mastodon:v${version}";
