@@ -169,6 +169,32 @@ in {
           ];
         };
 
+        mastodon-migrate = {
+          image = "ghcr.io/mastodon/mastodon:v${version}";
+          cmd = ["bundle" "exec" "rails" "db:migrate"];
+
+          autoStart = true;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+          ];
+
+          environment = env;
+          environmentFiles = secretEnvFiles;
+
+          volumes = [
+            "mastodon_system-data:/opt/mastodon/public/system"
+          ];
+
+          dependsOn = [
+            "mastodon-db"
+          ];
+
+          ports = [
+            "${toString cfg.mastodonWebPort}:3000"
+          ];
+        };
+
         mastodon-web = {
           image = "ghcr.io/mastodon/mastodon:v${version}";
           cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
@@ -189,6 +215,7 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
+            "mastodon-migrate"
           ];
 
           ports = [
@@ -216,6 +243,7 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
+            "mastodon-migrate"
           ];
         };
 
@@ -239,6 +267,7 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
+            "mastodon-migrate"
           ];
         };
       };
