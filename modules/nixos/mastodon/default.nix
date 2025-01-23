@@ -186,6 +186,7 @@ in {
             "--runtime=${pkgs.gvisor}/bin/runsc"
             "--network=mastodon"
             "--restart=on-failure"
+            "--detach=false"
           ];
 
           environment = env;
@@ -279,6 +280,12 @@ in {
         #     "mastodon-migrate"
         #   ];
         # };
+      };
+
+      systemd.services.podman-mastodon-migrate = {
+        serviceConfig = {
+          Restart = "on-failure";
+        };
       };
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {
