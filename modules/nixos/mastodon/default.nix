@@ -196,81 +196,81 @@ in {
           ];
         };
 
-        mastodon-web = {
-          image = "ghcr.io/mastodon/mastodon:v${version}";
-          cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
+        # mastodon-web = {
+        #   image = "ghcr.io/mastodon/mastodon:v${version}";
+        #   cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
 
-          autoStart = true;
-          extraOptions = [
-            "--runtime=${pkgs.gvisor}/bin/runsc"
-            "--network=mastodon"
-          ];
+        #   autoStart = true;
+        #   extraOptions = [
+        #     "--runtime=${pkgs.gvisor}/bin/runsc"
+        #     "--network=mastodon"
+        #   ];
 
-          environment = env;
-          environmentFiles = secretEnvFiles;
+        #   environment = env;
+        #   environmentFiles = secretEnvFiles;
 
-          volumes = [
-            "mastodon_system-data:/opt/mastodon/public/system"
-          ];
+        #   volumes = [
+        #     "mastodon_system-data:/opt/mastodon/public/system"
+        #   ];
 
-          dependsOn = [
-            "mastodon-db"
-            "mastodon-redis"
-            "mastodon-migrate"
-          ];
+        #   dependsOn = [
+        #     "mastodon-db"
+        #     "mastodon-redis"
+        #     "mastodon-migrate"
+        #   ];
 
-          ports = [
-            "${toString cfg.mastodonWebPort}:3000"
-          ];
-        };
+        #   ports = [
+        #     "${toString cfg.mastodonWebPort}:3000"
+        #   ];
+        # };
 
-        mastodon-streaming = {
-          image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
-          cmd = ["node" "./streaming/index.js"];
+        # mastodon-streaming = {
+        #   image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
+        #   cmd = ["node" "./streaming/index.js"];
 
-          autoStart = true;
-          extraOptions = [
-            "--runtime=${pkgs.gvisor}/bin/runsc"
-            "--network=mastodon"
-          ];
+        #   autoStart = true;
+        #   extraOptions = [
+        #     "--runtime=${pkgs.gvisor}/bin/runsc"
+        #     "--network=mastodon"
+        #   ];
 
-          environment = env;
-          environmentFiles = secretEnvFiles;
+        #   environment = env;
+        #   environmentFiles = secretEnvFiles;
 
-          ports = [
-            "${builtins.toString cfg.mastodonStreamPort}:4000"
-          ];
+        #   ports = [
+        #     "${builtins.toString cfg.mastodonStreamPort}:4000"
+        #   ];
 
-          dependsOn = [
-            "mastodon-db"
-            "mastodon-redis"
-            "mastodon-migrate"
-          ];
-        };
+        #   dependsOn = [
+        #     "mastodon-db"
+        #     "mastodon-redis"
+        #     "mastodon-migrate"
+        #   ];
+        # };
 
-        mastodon-sidekiq = {
-          image = "ghcr.io/mastodon/mastodon:v${version}";
-          cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
+        # mastodon-sidekiq = {
+        #   image = "ghcr.io/mastodon/mastodon:v${version}";
+        #   cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
 
-          autoStart = true;
-          extraOptions = [
-            "--network=mastodon"
-            "--cap-add=NET_BIND_SERVICE"
-          ];
+        #   autoStart = true;
+        #   extraOptions = [
+        #     "--network=mastodon"
+        #     "--cap-add=NET_BIND_SERVICE"
+        #   ];
 
-          environment = env;
-          environmentFiles = secretEnvFiles;
+        #   environment = env;
+        #   environmentFiles = secretEnvFiles;
 
-          volumes = [
-            "mastodon_system-data:/opt/mastodon/public/system"
-          ];
+        #   volumes = [
+        #     "mastodon_system-data:/opt/mastodon/public/system"
+        #   ];
 
-          dependsOn = [
-            "mastodon-db"
-            "mastodon-redis"
-            "mastodon-migrate"
-          ];
-        };
+        #   dependsOn = [
+        #     "mastodon-db"
+        #     "mastodon-redis"
+        #     "mastodon-migrate"
+        #   ];
+        # };
       };
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {
