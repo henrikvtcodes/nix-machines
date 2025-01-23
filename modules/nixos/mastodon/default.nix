@@ -144,7 +144,7 @@ in {
       virtualisation.oci-containers.containers = {
         mastodon-db = {
           image = "postgres:14-alpine";
-          user = "mastodon";
+          # user = "mastodon";
 
           autoStart = true;
           extraOptions = [
@@ -164,7 +164,7 @@ in {
         mastodon-redis = {
           image = "redis:7-alpine";
 
-          user = "mastodon";
+          # user = "mastodon";
 
           autoStart = true;
           extraOptions = [
