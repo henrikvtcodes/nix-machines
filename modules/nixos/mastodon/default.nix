@@ -17,7 +17,7 @@
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
     DEFAULT_LOCALE = "en";
-    SKIP_POST_DEPLOYMENT_MIGRATIONS = "true";
+    SKIP_POST_DEPLOYMENT_MIGRATIONS = "false";
     # Serve ui on mstdn.${domain}, but use ${domain} for my handle
     WEB_DOMAIN = interfaceDomain;
     LOCAL_DOMAIN = cfg.rootDomain;
