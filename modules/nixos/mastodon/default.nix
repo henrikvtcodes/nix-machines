@@ -142,39 +142,39 @@ in {
       };
 
       virtualisation.oci-containers.containers = {
-        # mastodon-db = {
-        #   image = "postgres:14-alpine";
-        #   user = "mastodon";
+        mastodon-db = {
+          image = "postgres:14-alpine";
+          user = "mastodon";
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--network=mastodon"
-        #     "--shm-size=268435456"
-        #   ];
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+            "--shm-size=268435456"
+          ];
 
-        #   environment = {
-        #     POSTGRES_HOST_AUTH_METHOD = "trust";
-        #   };
+          environment = {
+            POSTGRES_HOST_AUTH_METHOD = "trust";
+          };
 
-        #   volumes = [
-        #     "mastodon_postgresql-data:/var/lib/postgresql/data"
-        #   ];
-        # };
+          volumes = [
+            "mastodon_postgresql-data:/var/lib/postgresql/data"
+          ];
+        };
 
-        # mastodon-redis = {
-        #   image = "redis:7-alpine";
+        mastodon-redis = {
+          image = "redis:7-alpine";
 
-        #   user = "mastodon";
+          user = "mastodon";
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--network=mastodon"
-        #   ];
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+          ];
 
-        #   volumes = [
-        #     "mastodon_redis-data:/data"
-        #   ];
-        # };
+          volumes = [
+            "mastodon_redis-data:/data"
+          ];
+        };
 
         # mastodon-web = {
         #   image = "ghcr.io/mastodon/mastodon:v${version}";
