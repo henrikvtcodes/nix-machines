@@ -100,7 +100,7 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      systemd.services.podman-create-mastodon-net = {
+      systemd.services.podman-create-mastodon-stuff = {
         serviceConfig = {
           Group = "podman";
           Type = "oneshot";
@@ -133,7 +133,15 @@ in {
         path = [pkgs.podman];
         preStart = "/usr/bin/env sleep 4";
         script = ''
+          echo "Creating Mastodon network"
           podman network exists mastodon || podman network create mastodon
+
+          echo "Creating Mastodon volumes"
+          podman volume exists mastodon_pgdata || podman volume create mastodon_pgdata
+          podman volume exists mastodon_redisdata || podman volume create mastodon_redisdata
+          podman volume exists mastodon_sysdata || podman volume create mastodon_sysdata
+
+          echo "Init complete"
         '';
       };
 
@@ -152,7 +160,7 @@ in {
           };
 
           volumes = [
-            "mastodon_postgresql-data:/var/lib/postgresql/data"
+            "mastodon_pgdata:/var/lib/postgresql/data"
           ];
         };
 
@@ -165,7 +173,7 @@ in {
           ];
 
           volumes = [
-            "mastodon_redis-data:/data"
+            "mastodon_redisdata:/data"
           ];
         };
 
@@ -184,7 +192,7 @@ in {
           environmentFiles = secretEnvFiles;
 
           volumes = [
-            "mastodon_system-data:/opt/mastodon/public/system"
+            "mastodon_sysdata:/opt/mastodon/public/system"
           ];
 
           dependsOn = [
@@ -210,7 +218,7 @@ in {
         #   environmentFiles = secretEnvFiles;
 
         #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
+        #     "mastodon_sysdata:/opt/mastodon/public/system"
         #   ];
 
         #   dependsOn = [
@@ -262,7 +270,7 @@ in {
         #   environmentFiles = secretEnvFiles;
 
         #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
+        #     "mastodon_sysdata:/opt/mastodon/public/system"
         #   ];
 
         #   dependsOn = [
