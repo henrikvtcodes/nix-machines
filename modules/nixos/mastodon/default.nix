@@ -99,10 +99,10 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      users.users.mastodon = {
-        isSystemUser = true;
-        group = "podman";
-      };
+      # users.users.mastodon = {
+      #   isSystemUser = true;
+      #   group = "podman";
+      # };
 
       systemd.services.podman-create-mastodon-net = {
         serviceConfig = {
@@ -144,7 +144,6 @@ in {
       virtualisation.oci-containers.containers = {
         mastodon-db = {
           image = "postgres:14-alpine";
-          # user = "mastodon";
 
           autoStart = true;
           extraOptions = [
@@ -164,8 +163,6 @@ in {
         mastodon-redis = {
           image = "redis:7-alpine";
 
-          # user = "mastodon";
-
           autoStart = true;
           extraOptions = [
             "--network=mastodon"
@@ -176,85 +173,79 @@ in {
           ];
         };
 
-        # mastodon-web = {
-        #   image = "ghcr.io/mastodon/mastodon:v${version}";
-        #   cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
+        mastodon-web = {
+          image = "ghcr.io/mastodon/mastodon:v${version}";
+          cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
 
-        #   user = "mastodon";
+          autoStart = true;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+          ];
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--runtime=${pkgs.gvisor}/bin/runsc"
-        #     "--network=mastodon"
-        #   ];
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
+          volumes = [
+            "mastodon_system-data:/opt/mastodon/public/system"
+          ];
 
-        #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
-        #   ];
+          dependsOn = [
+            "mastodon-db"
+            "mastodon-redis"
+            # "mastodon-es"
+          ];
 
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #     # "mastodon-es"
-        #   ];
+          ports = [
+            "${toString cfg.mastodonWebPort}:3000"
+          ];
+        };
 
-        #   ports = [
-        #     "${toString cfg.mastodonWebPort}:3000"
-        #   ];
-        # };
+        mastodon-streaming = {
+          image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
+          cmd = ["node" "./streaming/index.js"];
 
-        # mastodon-streaming = {
-        #   image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
-        #   cmd = ["node" "./streaming/index.js"];
+          autoStart = true;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+          ];
 
-        #   user = "mastodon";
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--runtime=${pkgs.gvisor}/bin/runsc"
-        #     "--network=mastodon"
-        #   ];
+          ports = [
+            "${builtins.toString cfg.mastodonStreamPort}:4000"
+          ];
 
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
+          dependsOn = [
+            "mastodon-db"
+            "mastodon-redis"
+          ];
+        };
 
-        #   ports = [
-        #     "${builtins.toString cfg.mastodonStreamPort}:4000"
-        #   ];
+        mastodon-sidekiq = {
+          image = "ghcr.io/mastodon/mastodon:v${version}";
+          cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
 
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #   ];
-        # };
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+            "--cap-add=NET_BIND_SERVICE"
+          ];
 
-        # mastodon-sidekiq = {
-        #   image = "ghcr.io/mastodon/mastodon:v${version}";
-        #   cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        #   user = "mastodon";
+          volumes = [
+            "mastodon_system-data:/opt/mastodon/public/system"
+          ];
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--network=mastodon"
-        #     "--cap-add=NET_BIND_SERVICE"
-        #   ];
-
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
-
-        #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
-        #   ];
-
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #   ];
-        # };
+          dependsOn = [
+            "mastodon-db"
+            "mastodon-redis"
+          ];
+        };
       };
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {

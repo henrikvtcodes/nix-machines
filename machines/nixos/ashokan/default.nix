@@ -54,7 +54,6 @@
     secretsDir = ../../../secrets;
     chownPodman = file: {
       inherit file;
-      owner = "mastodon";
       group = "podman";
       mode = "0400";
     };
