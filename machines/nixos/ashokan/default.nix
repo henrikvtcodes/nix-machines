@@ -52,13 +52,19 @@
   # Secrets
   age.secrets = let
     secretsDir = ../../../secrets;
+    chownPodman = file: {
+      inherit file;
+      owner = "mastodon";
+      group = "podman";
+      mode = "0400";
+    };
   in {
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
-    mastodonSmtpPassword.file = "${secretsDir}/mastodonSmtpPassword.age";
-    mastodonVapidKeys.file = "${secretsDir}/mastodonVapidKeys.age";
-    mastodonSecretKeyBase.file = "${secretsDir}/mastodonSecretKeyBase.age";
-    mastodonOtpSecret.file = "${secretsDir}/mastodonOtpSecret.age";
-    mastodonAREncryptionEnvVars.file = "${secretsDir}/mastodonAREncryptionEnvVars.age";
+    mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
+    mastodonVapidKeys = chownPodman "${secretsDir}/mastodonVapidEnvVars.age";
+    mastodonSecretKeyBase = chownPodman "${secretsDir}/mastodonSecretKeyBase.age";
+    mastodonOtpSecret = chownPodman "${secretsDir}/mastodonOtpSecret.age";
+    mastodonAREncryptionEnvVars = chownPodman "${secretsDir}/mastodonAREncryptionEnvVars.age";
   };
 
   svcs.traefik = {
