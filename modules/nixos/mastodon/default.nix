@@ -54,6 +54,7 @@
     cfg.otpSecretEnvFile
     cfg.vapidKeysEnvFile
     cfg.smtpPasswordEnvFile
+    cfg.activeRecordEncryptionEnvFile
   ];
 in {
   options.svcs.mastodon = with lib; {
@@ -99,11 +100,6 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      # users.users.mastodon = {
-      #   isSystemUser = true;
-      #   group = "podman";
-      # };
-
       systemd.services.podman-create-mastodon-net = {
         serviceConfig = {
           Group = "podman";
@@ -193,7 +189,6 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
-            # "mastodon-es"
           ];
 
           ports = [
