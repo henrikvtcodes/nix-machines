@@ -108,6 +108,8 @@ in {
         serviceConfig = {
           Group = "podman";
           Type = "oneshot";
+          Restart = "on-failure";
+          StartLimitInterval = 5;
           ProtectSystem = "strict";
           ProtectHostname = true;
           ProtectClock = true;
@@ -125,14 +127,14 @@ in {
         };
         wantedBy = [
           # "multi-user.target"
-          "podman-mastodon-web.service"
+          # "podman-mastodon-web.service"
           "podman-mastodon-db.service"
           "podman-mastodon-redis.service"
-          # "podman-mastodon-es.service"
-          "podman-mastodon-streaming.service"
-          "podman-mastodon-sidekiq.service"
+          # "podman-mastodon-streaming.service"
+          # "podman-mastodon-sidekiq.service"
         ];
         path = [pkgs.podman];
+        preStart = "/usr/bin/env sleep 2";
         script = ''
           podman network exists mastodon || podman network create mastodon
         '';
