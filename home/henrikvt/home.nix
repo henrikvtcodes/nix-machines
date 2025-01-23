@@ -151,12 +151,17 @@
           old = "red bold";
           new = "green bold";
         };
+
         core = {
           editor = "vim";
           excludesfile = "~/.gitignore";
           attributesfile = "~/.gitattributes";
           ignorecase = false;
           compression = 0;
+        };
+        push = {
+          autoSetupRemote = true;
+          default = "current";
         };
         pull.rebase = false;
         protocol.file.allow = "always";
