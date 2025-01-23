@@ -29,7 +29,7 @@
   };
 
   environment = {
-    systemPath = ["\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"" "$GHOSTTY_BIN_DIR"];
+    systemPath = ["\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     variables = {
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
