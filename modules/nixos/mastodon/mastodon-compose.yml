@@ -14,6 +14,9 @@ services:
       - ./postgres14:/var/lib/postgresql/data
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "POSTGRES_DB=mastodon_production"
+      - "POSTGRES_USER=mastodon"
+      - "POSTGRES_PASSWORD=mastodon"
 
   redis:
     restart: always
