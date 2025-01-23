@@ -177,6 +177,7 @@ in {
           extraOptions = [
             "--runtime=${pkgs.gvisor}/bin/runsc"
             "--network=mastodon"
+            "--restart=on-failure"
           ];
 
           environment = env;
