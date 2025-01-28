@@ -99,6 +99,7 @@
       };
 
       profileExtra = builtins.readFile ./.zprofile.zsh;
+      initExtra = builtins.readFile ./.zshrc.zsh;
     };
 
     # Prompt
