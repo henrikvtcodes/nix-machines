@@ -34,6 +34,8 @@
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
       JETBRAINS_BIN_DIR = "$HOME/Library/Application\\ Support/JetBrains/Toolbox/scripts";
+      FNM_COREPACK_ENABLED = "true";
+      FNM_RESOLVE_ENGINES = "true";
     };
   };
 
