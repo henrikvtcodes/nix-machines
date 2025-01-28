@@ -32,6 +32,10 @@
       magic-wormhole
       glab
       python3
+      nyancat
+      moon-buggy
+      sl
+      cowsay
     ];
 
     shellAliases = {
