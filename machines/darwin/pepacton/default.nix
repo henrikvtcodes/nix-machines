@@ -16,6 +16,7 @@
       qrcp
       ninvaders
       statix
+      yt-dlp
     ];
   };
 
