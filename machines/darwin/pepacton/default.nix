@@ -34,7 +34,7 @@
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
-      JETBRAINS_BIN_DIR = "\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"";
+      JETBRAINS_BIN_DIR = "/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts";
     };
   };
 
