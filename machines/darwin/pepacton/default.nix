@@ -21,7 +21,6 @@
 
   environment.shellAliases = {
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
-    # ghostty = "$GHOSTTY_BIN_DIR/ghostty";
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     ytdl = "yt-dlp";
     home = "cd ~";
@@ -29,16 +28,17 @@
   };
 
   environment = {
-    systemPath = [ "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR"];
+    # systemPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     variables = {
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
-      JETBRAINS_BIN_DIR = "/Users/henrikvt/Library/Application\\ Support/JetBrains/Toolbox/scripts";
+      JETBRAINS_BIN_DIR = "$HOME/Library/Application\\ Support/JetBrains/Toolbox/scripts";
     };
   };
 
   home-manager.users.henrikvt = {
+    home.sessionPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
       gpg.format = "ssh";
