@@ -23,13 +23,13 @@
     rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
     # ghostty = "$GHOSTTY_BIN_DIR/ghostty";
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    ytdl = "ytdlp";
+    ytdl = "yt-dlp";
     home = "cd ~";
     nvm = "fnm";
   };
 
   environment = {
-    systemPath = ["\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
+    systemPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     variables = {
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
