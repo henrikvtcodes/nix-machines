@@ -64,9 +64,10 @@
   networking.hostName = "pepacton";
 
   # Enable GitHub TUI Dashboard (doesn't work on some systems)
-  home.henrikvt={
+  home.henrikvt = {
     ghDash = true;
-    ghostty = true;};
+    ghostty = true;
+  };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   # ======================== DO NOT CHANGE THIS ========================
