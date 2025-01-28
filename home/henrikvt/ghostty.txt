@@ -7,5 +7,7 @@ shell-integration = zsh
 theme = catppuccin-mocha
 window-inherit-working-directory = true
 working-directory = home
-keybind = cmd+r=reload_config
 term = xterm-256color
+keybind = cmd+r=reload_config
+keybind = cmd+q=quit
+keybind = cmd+w=close_surface
