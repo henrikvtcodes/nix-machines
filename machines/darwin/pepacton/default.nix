@@ -17,7 +17,6 @@
       ninvaders
       statix
       yt-dlp
-      rbenv
     ];
   };
 

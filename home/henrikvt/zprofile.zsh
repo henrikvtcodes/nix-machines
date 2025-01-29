@@ -27,3 +27,7 @@ if command -v "gh" &> /dev/null; then
 	  gh repo view --json sshUrl --jq .sshUrl $1 | cat
   }
 fi
+
+if command -v "rbenv" &> /dev/null; then
+	eval "$(rbenv init -)"
+fi
