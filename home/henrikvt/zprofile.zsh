@@ -21,8 +21,8 @@ alias pmid='ceiling_divide $LINES 2; clear_rows $ceiling_result'
 # Clear 3/4th
 alias pdown='ceiling_divide $((3*LINES)) 4; clear_rows $ceiling_result'
 
+# Get the git ssh url of a github repo using gh cli
 if command -v "gh" &> /dev/null; then
-  # alias ghurl='gh repo view --json sshUrl --jq .sshUrl $1 | cat'
   function ghurl() {
 	  gh repo view --json sshUrl --jq .sshUrl $1 | cat
   }
