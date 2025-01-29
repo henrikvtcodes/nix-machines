@@ -26,6 +26,7 @@
     ytdl = "yt-dlp";
     home = "cd ~";
     nvm = "fnm";
+    pn = "pnpm";
   };
 
   environment = {
