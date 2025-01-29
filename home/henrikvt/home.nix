@@ -40,13 +40,11 @@
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";
-      # less = "${pkgs.bat}/bin/bat --style plain";
       lzg = "${pkgs.lazygit}/bin/lazygit";
     };
 
     sessionVariables = {
       EDITOR = "nvim";
-      # VISUAL = "nvim";
     };
   };
 
@@ -98,8 +96,8 @@
         ];
       };
 
-      profileExtra = builtins.readFile ./.zprofile.zsh;
-      initExtra = builtins.readFile ./.zshrc.zsh;
+      profileExtra = builtins.readFile ./zprofile.zsh;
+      initExtra = builtins.readFile ./zshrc.zsh;
     };
 
     # Prompt
