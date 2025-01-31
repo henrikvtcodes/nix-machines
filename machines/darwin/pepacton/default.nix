@@ -18,6 +18,8 @@
       statix
       yt-dlp
       wrangler
+      pipes
+
     ];
   };
 
