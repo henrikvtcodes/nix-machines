@@ -74,6 +74,16 @@
       "reindeer-porgy.ts.net"
       "unicycl.ing"
     ];
+    knownNetworkServices = [
+      "USB 10/100/1G/2.5G LAN"
+      "USB 10/100/1000 LAN"
+      "Thunderbolt Bridge"
+      "Wi-Fi"
+      "iPhone USB"
+      "Tailscale"
+      "UniFi Teleport"
+      "Mullvad"
+    ];
   };
 
   # Enable GitHub TUI Dashboard (doesn't work on some systems)
