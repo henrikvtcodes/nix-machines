@@ -19,7 +19,6 @@
       yt-dlp
       wrangler
       pipes
-
     ];
   };
 
@@ -69,7 +68,13 @@
     autoMigrate = true;
   };
 
-  networking.hostName = "pepacton";
+  networking = {
+    hostName = "pepacton";
+    search = [
+      "reindeer-porgy.ts.net"
+      "unicycl.ing"
+    ];
+  };
 
   # Enable GitHub TUI Dashboard (doesn't work on some systems)
   home.henrikvt = {
