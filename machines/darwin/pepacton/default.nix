@@ -76,7 +76,6 @@
     ];
     knownNetworkServices = [
       "USB 10/100/1G/2.5G LAN"
-      "USB 10/100/1000 LAN"
       "Thunderbolt Bridge"
       "Wi-Fi"
       "iPhone USB"
