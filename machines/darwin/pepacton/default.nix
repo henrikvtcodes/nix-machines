@@ -22,17 +22,17 @@
     ];
   };
 
-  environment.shellAliases = {
-    rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
-    reload = "omz reload";
-    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    ytdl = "yt-dlp";
-    home = "cd ~";
-    nvm = "fnm";
-    pn = "pnpm";
-  };
-
   environment = {
+    shellAliases = {
+      rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
+      reload = "omz reload";
+      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      ytdl = "yt-dlp";
+      home = "cd ~";
+      nvm = "fnm";
+      pn = "pnpm";
+    };
+    systemPackages = with pkgs; [ncurses];
     # systemPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     variables = {
       EDITOR = "nvim";
