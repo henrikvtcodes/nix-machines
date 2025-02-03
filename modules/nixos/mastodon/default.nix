@@ -178,9 +178,9 @@ in {
           ];
         };
 
-        mastodon-migrate = {
-          image = "ghcr.io/mastodon/mastodon:v${version}";
-          cmd = ["bundle" "exec" "rails" "db:migrate"];
+        mastodon-prepare = {
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
+          cmd = ["bundle" "exec" "rails" "db:migrate" "&&" "bundle" "exec" "rails" "assets:precompile"];
 
           autoStart = true;
           extraOptions = [
@@ -203,7 +203,7 @@ in {
         };
 
         mastodon-web = {
-          image = "ghcr.io/mastodon/mastodon:v${version}";
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
           cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
 
           autoStart = true;
@@ -231,7 +231,7 @@ in {
         };
 
         mastodon-streaming = {
-          image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
+          image = "ghcr.io/glitch-soc/mastodon-streaming:v${version}";
           cmd = ["node" "./streaming/index.js"];
 
           autoStart = true;
@@ -255,7 +255,7 @@ in {
         };
 
         mastodon-sidekiq = {
-          image = "ghcr.io/mastodon/mastodon:v${version}";
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
           cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
 
           autoStart = true;
