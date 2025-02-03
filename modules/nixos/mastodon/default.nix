@@ -13,7 +13,7 @@
   env = {
     # General Config
     RAILS_ENV = "production";
-    RAILS_LOG_LEVEL = "debug";
+    RAILS_LOG_LEVEL = "warn";
     NODE_ENV = "production";
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
@@ -284,6 +284,8 @@ in {
           Restart = mkForce "on-failure";
         };
       };
+
+      environment.shellAliases = {mastodon = "podman exec mastodon-web";};
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {
         http = {

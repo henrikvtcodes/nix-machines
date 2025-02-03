@@ -3,7 +3,6 @@
 
   svcs.traefik = {
     enable = true;
-    logLevel = "DEBUG";
     environmentFiles = [config.age.secrets.cfDnsApiToken.path];
   };
 
