@@ -13,6 +13,7 @@
   env = {
     # General Config
     RAILS_ENV = "production";
+    RAILS_LOG_LEVEL = "debug";
     NODE_ENV = "production";
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
@@ -199,10 +200,6 @@ in {
           dependsOn = [
             "mastodon-db"
           ];
-
-          ports = [
-            "${toString cfg.mastodonWebPort}:3000"
-          ];
         };
 
         mastodon-web = {
@@ -227,6 +224,10 @@ in {
             "mastodon-redis"
             "mastodon-migrate"
           ];
+
+          ports = [
+            "127.0.0.1:${toString cfg.mastodonWebPort}:3000"
+          ];
         };
 
         mastodon-streaming = {
@@ -243,7 +244,7 @@ in {
           environmentFiles = secretEnvFiles;
 
           ports = [
-            "${builtins.toString cfg.mastodonStreamPort}:4000"
+            "127.0.0.1:${toString cfg.mastodonStreamPort}:4000"
           ];
 
           dependsOn = [
@@ -299,7 +300,7 @@ in {
           services = {
             mastodon = {
               loadBalancer = {
-                servers = [{url = "http://localhost:${toString cfg.mastodonWebPort}";}];
+                servers = [{url = "http://127.0.0.1:${toString cfg.mastodonWebPort}";}];
               };
             };
           };
