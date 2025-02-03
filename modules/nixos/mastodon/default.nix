@@ -227,10 +227,6 @@ in {
             "mastodon-redis"
             "mastodon-migrate"
           ];
-
-          ports = [
-            "${toString cfg.mastodonWebPort}:3000"
-          ];
         };
 
         mastodon-streaming = {
