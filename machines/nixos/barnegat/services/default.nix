@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs-unstable,
+  ...
+}: {
   imports = [
     ./metrics.nix
     ./proxy.nix
@@ -22,4 +26,6 @@
     enableTraefik = true;
     allowSignup = true;
   };
+
+  services.woodpecker-server.package = pkgs-unstable.woodpecker-server;
 }
