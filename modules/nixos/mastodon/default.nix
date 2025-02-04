@@ -24,8 +24,9 @@
     LOCAL_DOMAIN = cfg.rootDomain;
 
     # Performance/Scaling
-    MAX_THREADS = "5"; # Read: Puma Threads
-    WEB_CONCURRENCY = "1"; # Read: Puma Processes
+    MAX_THREADS = "5"; # Read: Puma/Web Threads
+    # Run Puma in single-mode (as this is a single user instance)
+    WEB_CONCURRENCY = "0"; # Read: Puma Processes
     SIDEKIQ_CONCURRENCY = "1"; # Read: Sidekiq Processes
     SIDEKIQ_THREADS = "15"; # This gets passed as a cli arg, but is here for consistency
 
@@ -240,7 +241,8 @@ in {
 
         mastodon-web = {
           image = "ghcr.io/glitch-soc/mastodon:v${version}";
-          cmd = ["bundle" "exec" "rails" "assets:precompile" "&&" "bundle" "exec" "puma" "-C" "config/puma.rb"];
+          # cmd = ["bundle" "exec" "rails" "assets:precompile" "&&" "bundle" "exec" "puma" "-C" "config/puma.rb"];
+          cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
 
           autoStart = true;
           extraOptions = [
@@ -293,7 +295,7 @@ in {
 
         mastodon-sidekiq = {
           image = "ghcr.io/glitch-soc/mastodon:v${version}";
-          cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
+          cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_THREADS}"];
 
           autoStart = true;
           extraOptions = [
