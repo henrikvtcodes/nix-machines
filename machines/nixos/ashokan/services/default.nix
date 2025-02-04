@@ -9,6 +9,7 @@
   svcs.mastodon = {
     enable = true;
     configureTraefik = true;
+
     secretKeyBaseEnvFile = config.age.secrets.mastodonSecretKeyBase.path;
     otpSecretEnvFile = config.age.secrets.mastodonOtpSecret.path;
     vapidKeysEnvFile = config.age.secrets.mastodonVapidKeys.path;
