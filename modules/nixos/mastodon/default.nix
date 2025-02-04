@@ -13,7 +13,7 @@
   env = {
     # General Config
     RAILS_ENV = "production";
-    RAILS_LOG_LEVEL = "debug";
+    RAILS_LOG_LEVEL = "info";
     NODE_ENV = "production";
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
@@ -28,7 +28,7 @@
     # Run Puma in single-mode (as this is a single user instance)
     WEB_CONCURRENCY = "0"; # Read: Puma Processes
     SIDEKIQ_CONCURRENCY = "1"; # Read: Sidekiq Processes
-    SIDEKIQ_THREADS = "15"; # This gets passed as a cli arg, but is here for consistency
+    SIDEKIQ_THREADS = "6"; # This gets passed as a cli arg, but is here for consistency
 
     # Mail
     SMTP_SERVER = "smtp.improvmx.com";
