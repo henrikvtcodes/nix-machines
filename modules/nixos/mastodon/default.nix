@@ -129,11 +129,13 @@ in {
         unitConfig = {StartLimitInterval = 5;};
         wantedBy = [
           # "multi-user.target"
-          # "podman-mastodon-web.service"
+          "podman-mastodon-web.service"
           "podman-mastodon-db.service"
           "podman-mastodon-redis.service"
-          # "podman-mastodon-streaming.service"
-          # "podman-mastodon-sidekiq.service"
+          "podman-mastodon-streaming.service"
+          "podman-mastodon-sidekiq.service"
+          "podman-mastodon-prepare.service"
+          "podman-mastodon-es.service"
         ];
         path = [pkgs.podman];
         preStart = "/usr/bin/env sleep 4";
@@ -213,7 +215,7 @@ in {
 
         mastodon-prepare = {
           image = "ghcr.io/glitch-soc/mastodon:v${version}";
-          cmd = ["bundle" "exec" "rails" "db:migrate" "&&" "bundle" "exec" "rails" "assets:precompile"];
+          cmd = ["bundle" "exec" "rails" "db:migrate"];
           # cmd = ["bundle" "exec" "rails" "db:migrate"];
 
           autoStart = true;
@@ -238,7 +240,7 @@ in {
 
         mastodon-web = {
           image = "ghcr.io/glitch-soc/mastodon:v${version}";
-          cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
+          cmd = ["bundle" "exec" "rails" "assets:precompile" "&&" "bundle" "exec" "puma" "-C" "config/puma.rb"];
 
           autoStart = true;
           extraOptions = [
@@ -257,6 +259,7 @@ in {
             "mastodon-db"
             "mastodon-redis"
             "mastodon-prepare"
+            "mastodon-es"
           ];
 
           ports = [
