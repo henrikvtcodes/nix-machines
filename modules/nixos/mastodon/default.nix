@@ -218,7 +218,7 @@ in {
           cmd = ["bundle" "exec" "rails" "db:migrate"];
           # cmd = ["bundle" "exec" "rails" "db:migrate"];
 
-          autoStart = true;
+          autoStart = false;
           extraOptions = [
             "--runtime=${pkgs.gvisor}/bin/runsc"
             "--network=mastodon"
@@ -318,11 +318,10 @@ in {
 
       systemd.services.podman-mastodon-prepare = {
         serviceConfig = {
+          Type = mkForce "oneshot";
           Restart = mkForce "on-failure";
         };
       };
-
-      environment.shellAliases = {mastodon = "podman exec mastodon-web";};
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {
         http = {
