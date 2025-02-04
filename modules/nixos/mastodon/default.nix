@@ -50,7 +50,7 @@
     REDIS_PASSWORD = "";
 
     # ElasticSearch
-    ES_ENABLED = "true";
+    ES_ENABLED = toString cfg.enableElasticSearch;
     ES_HOST = "mastodon-es";
     ES_PORT = "9200";
   };
@@ -71,6 +71,7 @@ in {
       default = "unicycl.ing";
       description = "Root domain for Mastodon";
     };
+    enableElasticSearch = mkEnableOption "Enable ElasticSearch";
     mastodonWebPort = mkOption {
       type = types.int;
       default = 55010;
@@ -128,16 +129,18 @@ in {
           NoExecPaths = ["/"];
         };
         unitConfig = {StartLimitInterval = 5;};
-        wantedBy = [
-          # "multi-user.target"
-          "podman-mastodon-web.service"
-          "podman-mastodon-db.service"
-          "podman-mastodon-redis.service"
-          "podman-mastodon-streaming.service"
-          "podman-mastodon-sidekiq.service"
-          "podman-mastodon-prepare.service"
-          "podman-mastodon-es.service"
-        ];
+        wantedBy =
+          [
+            # "multi-user.target"
+            "podman-mastodon-web.service"
+            "podman-mastodon-db.service"
+            "podman-mastodon-redis.service"
+            "podman-mastodon-streaming.service"
+            "podman-mastodon-sidekiq.service"
+            "podman-mastodon-prepare.service"
+          ]
+          ++ optional cfg.enableElasticSearch "podman-mastodon-es.service";
+
         path = [pkgs.podman];
         preStart = "/usr/bin/env sleep 4";
         script = ''
@@ -148,7 +151,11 @@ in {
           podman volume exists mastodon_pgdata || podman volume create mastodon_pgdata
           podman volume exists mastodon_redisdata || podman volume create mastodon_redisdata
           podman volume exists mastodon_sysdata || podman volume create mastodon_sysdata
-          podman volume exists mastodon_searchdata || podman volume create mastodon_searchdata
+          ${
+            if cfg.enableElasticSearch
+            then "podman volume exists mastodon_searchdata || podman volume create mastodon_searchdata"
+            else ""
+          }
 
           echo "Init complete"
         '';
@@ -186,7 +193,7 @@ in {
           ];
         };
 
-        mastodon-es = {
+        mastodon-es = mkIf cfg.enableElasticSearch {
           image = "docker.elastic.co/elasticsearch/elasticsearch:8.16.1";
 
           autoStart = true;
@@ -257,12 +264,13 @@ in {
             "mastodon_sysdata:/opt/mastodon/public/system"
           ];
 
-          dependsOn = [
-            "mastodon-db"
-            "mastodon-redis"
-            "mastodon-prepare"
-            "mastodon-es"
-          ];
+          dependsOn =
+            [
+              "mastodon-db"
+              "mastodon-redis"
+              "mastodon-prepare"
+            ]
+            ++ (optional cfg.enableElasticSearch "mastodon-es");
 
           ports = [
             "127.0.0.1:${toString cfg.mastodonWebPort}:3000"
