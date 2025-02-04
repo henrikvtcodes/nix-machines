@@ -1,25 +1,22 @@
-name: Flake Check
+name: Flake Format
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  check:
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, macos-14]
-    runs-on: ${{ matrix.os }}
+  format:
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Setup Nix
         uses: DeterminateSystems/nix-installer-action@v13
       - name: Check cache
         uses: DeterminateSystems/magic-nix-cache-action@main
-      - name: Run Checks
-        # run: nix flake check --no-build
-        run: nix flake check
+      - name: Format flake
+        run: nix fmt .
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Auto-format Flake
