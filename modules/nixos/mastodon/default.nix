@@ -13,7 +13,7 @@
   env = {
     # General Config
     RAILS_ENV = "production";
-    RAILS_LOG_LEVEL = "warn";
+    RAILS_LOG_LEVEL = "debug";
     NODE_ENV = "production";
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
@@ -24,8 +24,10 @@
     LOCAL_DOMAIN = cfg.rootDomain;
 
     # Performance/Scaling
-    MAX_THREADS = "2";
-    SIDEKIQ_CONCURRENCY = "2";
+    MAX_THREADS = "5"; # Read: Puma Threads
+    WEB_CONCURRENCY = "1"; # Read: Puma Processes
+    SIDEKIQ_CONCURRENCY = "1"; # Read: Sidekiq Processes
+    SIDEKIQ_THREADS = "15"; # This gets passed as a cli arg, but is here for consistency
 
     # Mail
     SMTP_SERVER = "smtp.improvmx.com";
@@ -46,8 +48,10 @@
     REDIS_PORT = "6379";
     REDIS_PASSWORD = "";
 
-    # Disable ElasticSearch
-    ES_ENABLED = "false";
+    # ElasticSearch
+    ES_ENABLED = "true";
+    ES_HOST = "mastodon-es";
+    ES_PORT = "9200";
   };
 
   secretEnvFiles = [
@@ -141,6 +145,7 @@ in {
           podman volume exists mastodon_pgdata || podman volume create mastodon_pgdata
           podman volume exists mastodon_redisdata || podman volume create mastodon_redisdata
           podman volume exists mastodon_sysdata || podman volume create mastodon_sysdata
+          podman volume exists mastodon_searchdata || podman volume create mastodon_searchdata
 
           echo "Init complete"
         '';
@@ -178,9 +183,38 @@ in {
           ];
         };
 
+        mastodon-es = {
+          image = "docker.elastic.co/elasticsearch/elasticsearch:8.16.1";
+
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+            "--ulimit=memlock=-1:-1"
+            "--ulimit=nofile=65536:65536"
+          ];
+
+          environment = {
+            ES_JAVA_OPTS = "-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true";
+            "xpack.license.self_generated.type" = "basic";
+            "xpack.security.enabled" = "false";
+            "xpack.watcher.enabled" = "false";
+            "xpack.graph.enabled" = "false";
+            "xpack.ml.enabled" = "false";
+            "bootstrap.memory_lock" = "true";
+            "cluster.name" = "es-mastodon";
+            "discovery.type" = "single-node";
+            "thread_pool.write.queue_size" = "1000";
+          };
+
+          volumes = [
+            "mastodon_searchdata:/usr/share/elasticsearch/data"
+          ];
+        };
+
         mastodon-prepare = {
           image = "ghcr.io/glitch-soc/mastodon:v${version}";
           cmd = ["bundle" "exec" "rails" "db:migrate" "&&" "bundle" "exec" "rails" "assets:precompile"];
+          # cmd = ["bundle" "exec" "rails" "db:migrate"];
 
           autoStart = true;
           extraOptions = [
@@ -222,7 +256,7 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
-            "mastodon-migrate"
+            "mastodon-prepare"
           ];
 
           ports = [
@@ -250,7 +284,7 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
-            "mastodon-migrate"
+            "mastodon-prepare"
           ];
         };
 
@@ -274,12 +308,12 @@ in {
           dependsOn = [
             "mastodon-db"
             "mastodon-redis"
-            "mastodon-migrate"
+            "mastodon-prepare"
           ];
         };
       };
 
-      systemd.services.podman-mastodon-migrate = {
+      systemd.services.podman-mastodon-prepare = {
         serviceConfig = {
           Restart = mkForce "on-failure";
         };
