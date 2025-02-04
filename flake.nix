@@ -2,9 +2,9 @@
   description = "nix configuration for my servers + other stuff";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-24.11";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-24.11";
@@ -56,6 +56,7 @@
     nil-lsp,
     home-manager,
     nix-homebrew,
+    nixpkgs-unstable,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -73,6 +74,12 @@
           pkgs = import nixpkgs {inherit system;};
           inherit system;
         });
+
+    importUnstable = system:
+      import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
     deployPkgs = forEachSupportedSystem (
       {
@@ -137,11 +144,12 @@
 
     # Config for my servers
     nixosConfigurations = {
-      ashokan = lib.nixosSystem {
+      ashokan = lib.nixosSystem rec {
         system = "aarch64-linux";
 
         specialArgs = {
           inherit inputs;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -160,11 +168,12 @@
           ./home/henrikvt
         ];
       };
-      barnegat = lib.nixosSystem {
+      barnegat = lib.nixosSystem rec {
         system = "x86_64-linux";
 
         specialArgs = {
           inherit inputs;
+          pkgs-unstable = importUnstable system;
         };
 
         modules = [

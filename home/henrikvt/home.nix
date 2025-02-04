@@ -32,17 +32,19 @@
       magic-wormhole
       glab
       python3
+      nyancat
+      moon-buggy
+      sl
+      cowsay
     ];
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";
-      less = "${pkgs.bat}/bin/bat --style plain";
       lzg = "${pkgs.lazygit}/bin/lazygit";
     };
 
     sessionVariables = {
       EDITOR = "nvim";
-      # VISUAL = "nvim";
     };
   };
 
@@ -94,7 +96,8 @@
         ];
       };
 
-      profileExtra = builtins.readFile ./.zprofile.zsh;
+      profileExtra = builtins.readFile ./zprofile.zsh;
+      initExtra = builtins.readFile ./zshrc.zsh;
     };
 
     # Prompt

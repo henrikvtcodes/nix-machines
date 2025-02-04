@@ -16,29 +16,36 @@
       qrcp
       ninvaders
       statix
+      yt-dlp
+      wrangler
+      pipes
     ];
   };
 
-  environment.shellAliases = {
-    rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
-    # ghostty = "$GHOSTTY_BIN_DIR/ghostty";
-    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    ytdl = "ytdlp";
-    home = "cd ~";
-    nvm = "fnm";
-  };
-
   environment = {
-    systemPath = ["\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
+    shellAliases = {
+      rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
+      reload = "omz reload";
+      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      ytdl = "yt-dlp";
+      home = "cd ~";
+      nvm = "fnm";
+      pn = "pnpm";
+    };
+    systemPackages = with pkgs; [ncurses];
+    # systemPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
     variables = {
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
-      JETBRAINS_BIN_DIR = "\"/Users/henrikvt/Library/Application Support/JetBrains/Toolbox/scripts\"";
+      JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
+      FNM_COREPACK_ENABLED = "true";
+      FNM_RESOLVE_ENGINES = "true";
     };
   };
 
   home-manager.users.henrikvt = {
+    home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR"];
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
       gpg.format = "ssh";
@@ -61,10 +68,28 @@
     autoMigrate = true;
   };
 
-  networking.hostName = "pepacton";
+  networking = {
+    hostName = "pepacton";
+    search = [
+      "reindeer-porgy.ts.net"
+      "unicycl.ing"
+    ];
+    knownNetworkServices = [
+      "USB 10/100/1G/2.5G LAN"
+      "Thunderbolt Bridge"
+      "Wi-Fi"
+      "iPhone USB"
+      "Tailscale"
+      "UniFi Teleport"
+      "Mullvad"
+    ];
+  };
 
   # Enable GitHub TUI Dashboard (doesn't work on some systems)
-  home.henrikvt.ghDash = true;
+  home.henrikvt = {
+    ghDash = true;
+    ghostty = true;
+  };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   # ======================== DO NOT CHANGE THIS ========================

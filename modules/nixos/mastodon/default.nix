@@ -13,18 +13,22 @@
   env = {
     # General Config
     RAILS_ENV = "production";
+    RAILS_LOG_LEVEL = "info";
     NODE_ENV = "production";
     RAILS_SERVE_STATIC_FILES = "true";
     SINGLE_USER_MODE = "true";
     DEFAULT_LOCALE = "en";
-    SKIP_POST_DEPLOYMENT_MIGRATIONS = "true";
+    SKIP_POST_DEPLOYMENT_MIGRATIONS = "false";
     # Serve ui on mstdn.${domain}, but use ${domain} for my handle
     WEB_DOMAIN = interfaceDomain;
     LOCAL_DOMAIN = cfg.rootDomain;
 
     # Performance/Scaling
-    MAX_THREADS = "2";
-    SIDEKIQ_CONCURRENCY = "2";
+    MAX_THREADS = "5"; # Read: Puma/Web Threads
+    # Run Puma in single-mode (as this is a single user instance)
+    WEB_CONCURRENCY = "0"; # Read: Puma Processes
+    SIDEKIQ_CONCURRENCY = "1"; # Read: Sidekiq Processes
+    SIDEKIQ_THREADS = "6"; # This gets passed as a cli arg, but is here for consistency
 
     # Mail
     SMTP_SERVER = "smtp.improvmx.com";
@@ -45,8 +49,10 @@
     REDIS_PORT = "6379";
     REDIS_PASSWORD = "";
 
-    # Disable ElasticSearch
-    ES_ENABLED = "false";
+    # ElasticSearch
+    ES_ENABLED = toString cfg.enableElasticSearch;
+    ES_HOST = "mastodon-es";
+    ES_PORT = "9200";
   };
 
   secretEnvFiles = [
@@ -54,6 +60,7 @@
     cfg.otpSecretEnvFile
     cfg.vapidKeysEnvFile
     cfg.smtpPasswordEnvFile
+    cfg.activeRecordEncryptionEnvFile
   ];
 in {
   options.svcs.mastodon = with lib; {
@@ -64,6 +71,7 @@ in {
       default = "unicycl.ing";
       description = "Root domain for Mastodon";
     };
+    enableElasticSearch = mkEnableOption "Enable ElasticSearch";
     mastodonWebPort = mkOption {
       type = types.int;
       default = 55010;
@@ -99,15 +107,12 @@ in {
 
   config = with lib;
     mkIf cfg.enable {
-      users.users.mastodon = {
-        isSystemUser = true;
-        group = "podman";
-      };
-
-      systemd.services.podman-create-mastodon-net = {
+      systemd.services.podman-create-mastodon-stuff = {
         serviceConfig = {
           Group = "podman";
           Type = "oneshot";
+          Restart = "on-failure";
+
           ProtectSystem = "strict";
           ProtectHostname = true;
           ProtectClock = true;
@@ -123,25 +128,42 @@ in {
           ExecPaths = ["/nix/store"];
           NoExecPaths = ["/"];
         };
-        wantedBy = [
-          # "multi-user.target"
-          "podman-mastodon-web.service"
-          "podman-mastodon-db.service"
-          "podman-mastodon-redis.service"
-          # "podman-mastodon-es.service"
-          "podman-mastodon-streaming.service"
-          "podman-mastodon-sidekiq.service"
-        ];
+        unitConfig = {StartLimitInterval = 5;};
+        wantedBy =
+          [
+            # "multi-user.target"
+            "podman-mastodon-web.service"
+            "podman-mastodon-db.service"
+            "podman-mastodon-redis.service"
+            "podman-mastodon-streaming.service"
+            "podman-mastodon-sidekiq.service"
+            "podman-mastodon-prepare.service"
+          ]
+          ++ optional cfg.enableElasticSearch "podman-mastodon-es.service";
+
         path = [pkgs.podman];
+        preStart = "/usr/bin/env sleep 4";
         script = ''
+          echo "Creating Mastodon network"
           podman network exists mastodon || podman network create mastodon
+
+          echo "Creating Mastodon volumes"
+          podman volume exists mastodon_pgdata || podman volume create mastodon_pgdata
+          podman volume exists mastodon_redisdata || podman volume create mastodon_redisdata
+          podman volume exists mastodon_sysdata || podman volume create mastodon_sysdata
+          ${
+            if cfg.enableElasticSearch
+            then "podman volume exists mastodon_searchdata || podman volume create mastodon_searchdata"
+            else ""
+          }
+
+          echo "Init complete"
         '';
       };
 
       virtualisation.oci-containers.containers = {
         mastodon-db = {
           image = "postgres:14-alpine";
-          user = "mastodon";
 
           autoStart = true;
           extraOptions = [
@@ -154,14 +176,12 @@ in {
           };
 
           volumes = [
-            "mastodon_postgresql-data:/var/lib/postgresql/data"
+            "mastodon_pgdata:/var/lib/postgresql/data"
           ];
         };
 
         mastodon-redis = {
           image = "redis:7-alpine";
-
-          user = "mastodon";
 
           autoStart = true;
           extraOptions = [
@@ -169,89 +189,148 @@ in {
           ];
 
           volumes = [
-            "mastodon_redis-data:/data"
+            "mastodon_redisdata:/data"
           ];
         };
 
-        # mastodon-web = {
-        #   image = "ghcr.io/mastodon/mastodon:v${version}";
-        #   cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
+        mastodon-es = mkIf cfg.enableElasticSearch {
+          image = "docker.elastic.co/elasticsearch/elasticsearch:8.16.1";
 
-        #   user = "mastodon";
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+            "--ulimit=memlock=-1:-1"
+            "--ulimit=nofile=65536:65536"
+          ];
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--runtime=${pkgs.gvisor}/bin/runsc"
-        #     "--network=mastodon"
-        #   ];
+          environment = {
+            ES_JAVA_OPTS = "-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true";
+            "xpack.license.self_generated.type" = "basic";
+            "xpack.security.enabled" = "false";
+            "xpack.watcher.enabled" = "false";
+            "xpack.graph.enabled" = "false";
+            "xpack.ml.enabled" = "false";
+            "bootstrap.memory_lock" = "true";
+            "cluster.name" = "es-mastodon";
+            "discovery.type" = "single-node";
+            "thread_pool.write.queue_size" = "1000";
+          };
 
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
+          volumes = [
+            "mastodon_searchdata:/usr/share/elasticsearch/data"
+          ];
+        };
 
-        #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
-        #   ];
+        mastodon-prepare = {
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
+          cmd = ["bundle" "exec" "rails" "db:migrate"];
+          # cmd = ["bundle" "exec" "rails" "db:migrate"];
 
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #     # "mastodon-es"
-        #   ];
+          autoStart = false;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+            "--restart=on-failure"
+            "--detach=false"
+          ];
 
-        #   ports = [
-        #     "${toString cfg.mastodonWebPort}:3000"
-        #   ];
-        # };
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        # mastodon-streaming = {
-        #   image = "ghcr.io/mastodon/mastodon-streaming:v${version}";
-        #   cmd = ["node" "./streaming/index.js"];
+          volumes = [
+            "mastodon_sysdata:/opt/mastodon/public/system"
+          ];
 
-        #   user = "mastodon";
+          dependsOn = [
+            "mastodon-db"
+          ];
+        };
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--runtime=${pkgs.gvisor}/bin/runsc"
-        #     "--network=mastodon"
-        #   ];
+        mastodon-web = {
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
+          # cmd = ["bundle" "exec" "rails" "assets:precompile" "&&" "bundle" "exec" "puma" "-C" "config/puma.rb"];
+          cmd = ["bundle" "exec" "puma" "-C" "config/puma.rb"];
 
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
+          autoStart = true;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+          ];
 
-        #   ports = [
-        #     "${builtins.toString cfg.mastodonStreamPort}:4000"
-        #   ];
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #   ];
-        # };
+          volumes = [
+            "mastodon_sysdata:/opt/mastodon/public/system"
+          ];
 
-        # mastodon-sidekiq = {
-        #   image = "ghcr.io/mastodon/mastodon:v${version}";
-        #   cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_CONCURRENCY}"];
+          dependsOn =
+            [
+              "mastodon-db"
+              "mastodon-redis"
+              "mastodon-prepare"
+            ]
+            ++ (optional cfg.enableElasticSearch "mastodon-es");
 
-        #   user = "mastodon";
+          ports = [
+            "127.0.0.1:${toString cfg.mastodonWebPort}:3000"
+          ];
+        };
 
-        #   autoStart = true;
-        #   extraOptions = [
-        #     "--network=mastodon"
-        #     "--cap-add=NET_BIND_SERVICE"
-        #   ];
+        mastodon-streaming = {
+          image = "ghcr.io/glitch-soc/mastodon-streaming:v${version}";
+          cmd = ["node" "./streaming/index.js"];
 
-        #   environment = env;
-        #   environmentFiles = secretEnvFiles;
+          autoStart = true;
+          extraOptions = [
+            "--runtime=${pkgs.gvisor}/bin/runsc"
+            "--network=mastodon"
+          ];
 
-        #   volumes = [
-        #     "mastodon_system-data:/opt/mastodon/public/system"
-        #   ];
+          environment = env;
+          environmentFiles = secretEnvFiles;
 
-        #   dependsOn = [
-        #     "mastodon-db"
-        #     "mastodon-redis"
-        #   ];
-        # };
+          ports = [
+            "127.0.0.1:${toString cfg.mastodonStreamPort}:4000"
+          ];
+
+          dependsOn = [
+            "mastodon-db"
+            "mastodon-redis"
+            "mastodon-prepare"
+          ];
+        };
+
+        mastodon-sidekiq = {
+          image = "ghcr.io/glitch-soc/mastodon:v${version}";
+          cmd = ["bundle" "exec" "sidekiq" "-c" "${env.SIDEKIQ_THREADS}"];
+
+          autoStart = true;
+          extraOptions = [
+            "--network=mastodon"
+            "--cap-add=NET_BIND_SERVICE"
+          ];
+
+          environment = env;
+          environmentFiles = secretEnvFiles;
+
+          volumes = [
+            "mastodon_sysdata:/opt/mastodon/public/system"
+          ];
+
+          dependsOn = [
+            "mastodon-db"
+            "mastodon-redis"
+            "mastodon-prepare"
+          ];
+        };
+      };
+
+      systemd.services.podman-mastodon-prepare = {
+        serviceConfig = {
+          Type = mkForce "oneshot";
+          Restart = mkForce "on-failure";
+        };
       };
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {
@@ -269,7 +348,7 @@ in {
           services = {
             mastodon = {
               loadBalancer = {
-                servers = [{url = "http://localhost:${toString cfg.mastodonWebPort}";}];
+                servers = [{url = "http://127.0.0.1:${toString cfg.mastodonWebPort}";}];
               };
             };
           };
