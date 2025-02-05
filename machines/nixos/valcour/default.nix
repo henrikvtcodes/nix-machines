@@ -38,7 +38,10 @@
 
   svcs.tailscale = {
     advertiseExitNode = true;
-    # advertiseRoutes = ["10.205.16.212/32"];
+    advertiseRoutes = {
+      enable = true;
+      routes = ["10.205.16.212/32"];
+      };
   };
 
   svcs.netcheck = {
