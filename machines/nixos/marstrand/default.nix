@@ -20,7 +20,7 @@
   networking.wireless.enable = false;
   networking.networkmanager.enable = false;
 
-  svcs.tailscale.advertiseExitNode = true;
+  my.services.tailscale.advertiseExitNode = true;
 
   services.prometheus.exporters.node.enable = true;
   age.secrets.ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;

@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.svcs.dns;
+  cfg = config.my.services.dns;
 in {
-  options.svcs.dns = with lib; {
+  options.my.services.dns = with lib; {
     enable = mkEnableOption "Enable the DNS service";
     enableMetrics = mkEnableOption "Enable the Prometheus Unbound Exporter";
     tailscale = {

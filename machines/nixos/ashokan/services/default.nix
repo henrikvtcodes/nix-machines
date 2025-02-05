@@ -1,12 +1,12 @@
 {config, ...}: {
   imports = [];
 
-  svcs.traefik = {
+  my.services.traefik = {
     enable = true;
     environmentFiles = [config.age.secrets.cfDnsApiToken.path];
   };
 
-  svcs.mastodon = {
+  my.services.mastodon = {
     enable = true;
     configureTraefik = true;
 

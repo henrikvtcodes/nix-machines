@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.svcs.ci-agent;
+  cfg = config.my.services.ci-agent;
 in {
-  options.svcs.ci-agent = with lib; {
+  options.my.services.ci-agent = with lib; {
     enable = mkEnableOption "ci-agent";
     serverAddress = mkOption {
       type = types.str;

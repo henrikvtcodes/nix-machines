@@ -31,20 +31,20 @@
   };
 
   # Healthcheck Ping
-  svcs.betteruptime = {
+  my.services.betteruptime = {
     enable = true;
     healthcheckUrlFile = config.age.secrets.valcourHealthcheckUrl.path;
   };
 
-  svcs.tailscale = {
+  my.services.tailscale = {
     advertiseExitNode = true;
     advertiseRoutes = {
       enable = true;
       routes = ["10.205.16.212/32"];
-      };
+    };
   };
 
-  svcs.netcheck = {
+  my.services.netcheck = {
     enable = true;
     interface = "eno1";
   };

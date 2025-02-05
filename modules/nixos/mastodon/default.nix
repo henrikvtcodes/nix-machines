@@ -6,7 +6,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.svcs.mastodon;
+  cfg = config.my.services.mastodon;
   version = "4.3.3";
   interfaceDomain = "mstdn.${cfg.rootDomain}";
 
@@ -63,7 +63,7 @@
     cfg.activeRecordEncryptionEnvFile
   ];
 in {
-  options.svcs.mastodon = with lib; {
+  options.my.services.mastodon = with lib; {
     enable = mkEnableOption "Enable Mastodon";
     configureTraefik = mkEnableOption "Add Traefik Config";
     rootDomain = mkOption {

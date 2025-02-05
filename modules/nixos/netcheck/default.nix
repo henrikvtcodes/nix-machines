@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.svcs.netcheck;
+  cfg = config.my.services.netcheck;
 in {
-  options.svcs.netcheck = with lib; {
+  options.my.services.netcheck = with lib; {
     enable = mkEnableOption "Enable netcheck";
     interface = mkOption {
       type = types.str;

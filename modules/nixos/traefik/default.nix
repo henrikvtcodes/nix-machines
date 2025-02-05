@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  cfg = config.svcs.traefik;
+  cfg = config.my.services.traefik;
   # tailnetRootDomain = "reindeer-porgy.ts.net";
 in {
-  options.svcs.traefik = with lib; {
+  options.my.services.traefik = with lib; {
     enable = mkEnableOption "Enable Traefik web proxy service";
     enablePodmanDockerProvider = mkOption {
       type = types.bool;

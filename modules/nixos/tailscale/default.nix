@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.svcs.tailscale;
+  cfg = config.my.services.tailscale;
 
   formatUpOptions = {
     advertiseExitNode,
@@ -36,7 +36,7 @@ with lib; let
   in
     [] ++ webUIFlag;
 in {
-  options.svcs.tailscale = {
+  options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
     advertiseExitNode = mkOption {
       type = types.bool;

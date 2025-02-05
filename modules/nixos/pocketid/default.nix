@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.svcs.pocketid;
+  cfg = config.my.services.pocketid;
 in {
-  options.svcs.pocketid = with lib; {
+  options.my.services.pocketid = with lib; {
     enable = mkEnableOption {description = "Enable PocketID";};
     domainName = mkOption {
       type = types.str;

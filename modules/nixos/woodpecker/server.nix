@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.svcs.ci-server;
+  cfg = config.my.services.ci-server;
 in {
-  options.svcs.ci-server = {
+  options.my.services.ci-server = {
     enable = lib.mkEnableOption "ci-server";
     httpPort = lib.mkOption {
       type = lib.types.int;

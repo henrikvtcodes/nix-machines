@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.svcs.betteruptime;
+  cfg = config.my.services.betteruptime;
 in {
-  options.svcs.betteruptime = {
+  options.my.services.betteruptime = {
     enable = mkEnableOption {description = "Enable Better Uptime Healthcheck";};
     healthcheckUrlFile = mkOption {
       type = types.path;

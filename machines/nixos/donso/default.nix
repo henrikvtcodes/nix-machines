@@ -32,7 +32,7 @@
     enable = true;
   };
 
-  svcs.tailscale.advertiseExitNode = true;
+  my.services.tailscale.advertiseExitNode = true;
 
   # ZFS Stuff
   environment.systemPackages = with pkgs; [

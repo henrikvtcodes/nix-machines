@@ -8,7 +8,7 @@
     ./proxy.nix
   ];
 
-  svcs.pocketid = {
+  my.services.pocketid = {
     enable = true;
     domainName = "oidc.unicycl.ing";
     frontendApiPort = 7000;
@@ -16,7 +16,7 @@
     traefikProxy = true;
   };
 
-  svcs.ci-server = {
+  my.services.ci-server = {
     enable = true;
     domain = "ci.unicycl.ing";
     environmentFiles = [

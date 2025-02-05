@@ -46,7 +46,7 @@
 
   # Healthcheck Ping
   age.secrets.svalbardHealthcheckUrl.file = ../../../secrets/svalbardHealthcheckUrl.age;
-  svcs.betteruptime = {
+  my.services.betteruptime = {
     enable = true;
     healthcheckUrlFile = config.age.secrets.svalbardHealthcheckUrl.path;
   };

@@ -61,7 +61,7 @@
       "2620:fe::fe:10"
     ];
   };
-  svcs.tailscale.enable = lib.mkDefault true;
+  my.services.tailscale.enable = lib.mkDefault true;
 
   # Enable SSH server
   services.openssh = {
