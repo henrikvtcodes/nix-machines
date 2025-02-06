@@ -176,6 +176,18 @@
       settings.git_protocol = "ssh";
     };
     gh-dash.enable = homeCfg.ghDash;
+
+    yazi = {
+      enable = true;
+      theme = "dark";
+      settings = {
+        manager = {
+          show_hidden = false;
+          sort_by = "alphabetical";
+          sort_dir_first = true;
+        };
+      };
+    };
   };
 
   catppuccin = {
