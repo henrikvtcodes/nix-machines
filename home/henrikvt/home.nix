@@ -117,9 +117,16 @@
         # Prompt section configs
         bun = {
           detect_files = ["bun.lock" "bun.lockb" "bunfig.toml"];
+          style = "bold white";
+        };
+        rust = {
+          style = "bold #CE412B";
         };
         nodejs = {
           detect_files = ["package.json" "!bun.lock" "!bun.lockb"];
+        };
+        sudo = {
+          disabled = false;
         };
       };
     };
