@@ -8,8 +8,6 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     inputs.catppuccin.homeManagerModules.catppuccin
-
-    ./nixvim.nix
   ];
 
   home = {
@@ -205,6 +203,10 @@
       settings.git_protocol = "ssh";
     };
     gh-dash.enable = homeCfg.ghDash;
+
+    nixvim = import ./nixvim.nix {
+      inherit pkgs;
+    };
 
     yazi = {
       enable = true;
