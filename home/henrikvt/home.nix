@@ -179,7 +179,6 @@
 
     yazi = {
       enable = true;
-      theme = "dark";
       settings = {
         manager = {
           show_hidden = false;
