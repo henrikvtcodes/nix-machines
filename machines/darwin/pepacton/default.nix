@@ -45,7 +45,7 @@
   };
 
   home-manager.users.henrikvt = {
-    home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR"];
+    home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
       gpg.format = "ssh";
