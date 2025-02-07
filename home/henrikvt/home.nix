@@ -40,7 +40,7 @@
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";
-      lzg = "${pkgs.lazygit}/bin/lazygit";
+      lzg = "lazygit";
     };
 
     sessionVariables = {
