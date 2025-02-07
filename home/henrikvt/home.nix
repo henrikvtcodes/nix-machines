@@ -113,6 +113,11 @@
           languages
           promptline
         ];
+        command_timeout = 2 * 1000;
+        # Prompt section configs
+        bun = {
+          detect_files = ["bun.lock" "bun.lockb" "bunfig.toml"];
+        };
         nodejs = {
           detect_files = ["package.json" "!bun.lock" "!bun.lockb"];
         };
