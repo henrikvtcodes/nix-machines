@@ -32,8 +32,9 @@
       nvm = "fnm";
       pn = "pnpm";
     };
+
     systemPackages = with pkgs; [ncurses];
-    # systemPath = ["$JETBRAINS_BIN_DIR" "$GHOSTTY_BIN_DIR" "$HOME/.bun/bin"];
+
     variables = {
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
