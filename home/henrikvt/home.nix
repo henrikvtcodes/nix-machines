@@ -122,6 +122,9 @@
         rust = {
           style = "bold #CE412B";
         };
+        java = {
+          style = "bold red";
+        };
         nodejs = {
           detect_files = ["package.json" "!bun.lock" "!bun.lockb"];
         };
