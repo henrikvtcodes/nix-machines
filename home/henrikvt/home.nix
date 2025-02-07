@@ -103,6 +103,20 @@
     # Prompt
     starship = {
       enable = true;
+      settings = let
+        startblock = "$username$hostname$directory$git_branch$git_state$git_status";
+        languages = "$bun$deno$nodejs$elixir$erlang$gleam$java$kotlin$scala$gradle$golang$python$rust$zig";
+        promptline = "$sudo$cmd_duration$line_break$battery$time$status$shell$character";
+      in {
+        format = lib.strings.concatStrings [
+          startblock
+          languages
+          promptline
+        ];
+        nodejs = {
+          detect_files = ["package.json" "!bun.lock" "!bun.lockb"];
+        };
+      };
     };
 
     # Shell-integrated tools
