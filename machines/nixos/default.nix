@@ -144,5 +144,8 @@
     # dev tools
     git
     vim
+
+    # other
+    bsdgames
   ];
 }
