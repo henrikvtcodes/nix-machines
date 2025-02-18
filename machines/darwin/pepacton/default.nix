@@ -19,6 +19,7 @@
       yt-dlp
       wrangler
       pipes
+      speedtest-cli
     ];
   };
 
