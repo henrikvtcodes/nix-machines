@@ -68,17 +68,17 @@
     ];
   };
 
-  services.unpoller = {
-    enable = true;
-    influxdb.disable = true;
-    unifi.controllers = [
-      {
-        # url = "http://172.16.0.1";
-        url = "http://10.205.0.1:80";
-        user = "unpoller";
-        pass = config.age.secrets.unpollerPassword.path;
-        verify_ssl = false;
-      }
-    ];
-  };
+  # services.unpoller = {
+  #   enable = true;
+  #   influxdb.disable = true;
+  #   unifi.controllers = [
+  #     {
+  #       # url = "http://172.16.0.1";
+  #       url = "http://10.205.0.1:80";
+  #       user = "unpoller";
+  #       pass = config.age.secrets.unpollerPassword.path;
+  #       verify_ssl = false;
+  #     }
+  #   ];
+  # };
 }
