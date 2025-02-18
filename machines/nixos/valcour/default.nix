@@ -44,6 +44,8 @@
     };
   };
 
+  home.henrikvt.enable = false;
+
   my.services.netcheck = {
     enable = true;
     interface = "eno1";

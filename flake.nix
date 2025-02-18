@@ -282,6 +282,7 @@
           # User config
           ./users/henrikvt
           home-manager.nixosModules.home-manager
+          ./home/henrikvt
         ];
       };
     };
