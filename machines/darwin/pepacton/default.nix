@@ -20,6 +20,7 @@
       wrangler
       pipes
       speedtest-cli
+      nmap
     ];
   };
 
