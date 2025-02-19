@@ -9,7 +9,7 @@ datasources:
       httpMethod: POST
       manageAlerts: false
       prometheusType: Prometheus
-      prometheusVersion: 2.53.1
+      prometheusVersion: 2.55.0
       cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
@@ -21,7 +21,7 @@ datasources:
       httpMethod: POST
       manageAlerts: false
       prometheusType: Prometheus
-      prometheusVersion: 2.53.1
+      prometheusVersion: 2.55.0
       cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
@@ -34,7 +34,7 @@ datasources:
       httpMethod: POST
       manageAlerts: false
       prometheusType: Prometheus
-      prometheusVersion: 2.53.1
+      prometheusVersion: 2.55.0
       cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
