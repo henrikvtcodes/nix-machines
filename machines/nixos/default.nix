@@ -153,5 +153,7 @@
 
     # other
     bsdgames
+
+    diskus
   ];
 }
