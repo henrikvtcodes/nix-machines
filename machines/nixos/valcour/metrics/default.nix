@@ -11,7 +11,7 @@
   services.prometheus = {
     enable = true;
     exporters.node.enable = true;
-    retentionTime = "90d";
+    retentionTime = "180d";
     globalConfig.external_labels = {
       collectorHostname = config.networking.hostName;
     };

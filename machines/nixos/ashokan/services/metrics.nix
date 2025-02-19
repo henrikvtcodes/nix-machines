@@ -9,7 +9,7 @@
   environment.systemPackages = with pkgs; [prometheus.cli];
   services.prometheus = {
     enable = true;
-    retentionTime = "90d";
+    retentionTime = "120d";
     globalConfig.external_labels = {
       collectorHostname = config.networking.hostName;
     };
