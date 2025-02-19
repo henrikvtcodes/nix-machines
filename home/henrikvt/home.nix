@@ -18,7 +18,6 @@
       ffmpeg
       websocat
       # trippy (this fucks with my mac and also it just doesn't work?)
-      trippy.trip
       podman
       podman-compose
       podman-tui
