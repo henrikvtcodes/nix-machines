@@ -1,4 +1,8 @@
-{...}: {
+{pkgs, ...}: {
+  services.thanos.sidecar = {
+    enable = true;
+  };
+  environment.systemPackages = with pkgs; [prometheus.cli];
   services.prometheus = {
     enable = true;
     retentionTime = "90d";
@@ -23,6 +27,7 @@
               "barnegat:9100"
               "valcour:9100"
               "donso:9100"
+              "svalbard:9100"
             ];
           }
         ];

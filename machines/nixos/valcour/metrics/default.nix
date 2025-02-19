@@ -3,6 +3,10 @@
   config,
   ...
 }: {
+  services.thanos.sidecar = {
+    enable = true;
+  };
+
   environment.systemPackages = with pkgs; [prometheus.cli];
   services.prometheus = {
     enable = true;

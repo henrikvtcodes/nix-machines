@@ -1,5 +1,7 @@
 {config, ...}: {
-  imports = [];
+  imports = [
+    ./metrics
+  ];
 
   my.services.traefik = {
     enable = true;
