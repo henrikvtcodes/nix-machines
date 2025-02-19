@@ -81,6 +81,12 @@
     ];
   };
 
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+    port = 42052;
+  };
+
   # Enable containers
   virtualisation = {
     podman = {
