@@ -46,13 +46,13 @@
         static_configs = [
           {
             targets = [
-              "pete.as215207.net:9324"
-              "maple.as215207.net:9324"
-              "bay.as215207.net:9324"
-              "falaise.as215207.net:9324"
-              "strudel.as215207.net:9324"
-              "tulip.as215207.net:9324"
-              "yeehaw.as215207.net:9324"
+              "pete.as215207.net:9100"
+              "maple.as215207.net:9100"
+              "bay.as215207.net:9100"
+              "falaise.as215207.net:9100"
+              "strudel.as215207.net:9100"
+              "tulip.as215207.net:9100"
+              "yeehaw.as215207.net:9100"
             ];
           }
         ];
