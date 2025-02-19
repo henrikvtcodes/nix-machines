@@ -8,14 +8,6 @@
     enable = true;
     exporters.node.enable = true;
     retentionTime = "90d";
-    # exporters.unifi = {
-    #   enable = true;
-    #   # User details are local access only, no need for encryption
-    #   unifiUsername = "local-data";
-    #   unifiPassword = "promDataExport1";
-    #   unifiInsecure = true;
-    #   unifiAddress = "http://10.205.0.1:8443";
-    # };
     scrapeConfigs = [
       {
         job_name = "BGP.Tools - AS215207";
