@@ -43,6 +43,9 @@
   services.prometheus = {
     enable = true;
     retentionTime = "90d";
+    globalConfig.external_labels = {
+      collectorHostname = config.networking.hostName;
+    };
     scrapeConfigs = [
       {
         job_name = "Traefik";
@@ -62,5 +65,17 @@
         static_configs = [{targets = ["raspi:9184"];}];
       }
     ];
+  };
+
+  services.thanos = {
+    sidecar.enable = true;
+    query = {
+      enable = true;
+      store.sd-files = [
+        ./thanos-targets.yml
+      ];
+      grpc-address = "0.0.0.0:10903";
+      http-address = "0.0.0.0:10904";
+    };
   };
 }
