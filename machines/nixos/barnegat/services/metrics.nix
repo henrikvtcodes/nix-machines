@@ -71,8 +71,10 @@
     sidecar.enable = true;
     query = {
       enable = true;
-      store.sd-files = [
-        ./thanos-targets.yml
+      endpoints = [
+        "ashokan:10901"
+        "barnegat:10901"
+        "valcour:10901"
       ];
       grpc-address = "0.0.0.0:10903";
       http-address = "0.0.0.0:10904";

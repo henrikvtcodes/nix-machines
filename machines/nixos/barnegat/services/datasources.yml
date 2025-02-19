@@ -25,3 +25,16 @@ datasources:
       cacheLevel: "Low"
       disableRecordingRules: false
       incrementalQueryOverlapWindow: 10m
+
+  - name: Thanos Query
+    type: prometheus
+    access: proxy
+    url: http://localhost:10904
+    jsonData:
+      httpMethod: POST
+      manageAlerts: false
+      prometheusType: Prometheus
+      prometheusVersion: 2.53.1
+      cacheLevel: "Low"
+      disableRecordingRules: false
+      incrementalQueryOverlapWindow: 10m
