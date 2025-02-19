@@ -12,6 +12,9 @@
     enable = true;
     exporters.node.enable = true;
     retentionTime = "90d";
+    globalConfig.external_labels = {
+      collectorHostname = config.networking.hostName;
+    };
     scrapeConfigs = [
       {
         job_name = "BGP.Tools - AS215207";
