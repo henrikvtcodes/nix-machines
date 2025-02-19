@@ -1,6 +1,6 @@
 {config, ...}: {
   imports = [
-    ./metrics
+    ./metrics.nix
   ];
 
   my.services.traefik = {
