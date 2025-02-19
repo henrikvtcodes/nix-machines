@@ -76,6 +76,12 @@
           }
         ];
       }
+
+      {
+        job_name = "Traefik";
+        scrape_interval = "15s";
+        static_configs = [{targets = ["ashokan:9180"];}];
+      }
     ];
   };
 }
