@@ -34,6 +34,7 @@
       home = "cd ~";
       nvm = "fnm";
       pn = "pnpm";
+      nsl = "doggo A AAAA MX TXT";
     };
 
     systemPackages = with pkgs; [ncurses];
