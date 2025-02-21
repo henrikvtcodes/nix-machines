@@ -21,6 +21,7 @@
       pipes
       speedtest-cli
       nmap
+      doggo
     ];
   };
 

@@ -142,6 +142,7 @@
     gdu
     diskus
 
+    doggo
     # perf testing/viewing
     iperf3
     btop
