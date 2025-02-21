@@ -58,12 +58,6 @@
         scrape_interval = "15s";
         static_configs = [{targets = ["barnegat:3008"];}];
       }
-
-      {
-        job_name = "CS2210 Aqidorm Project";
-        scrape_interval = "3s";
-        static_configs = [{targets = ["raspi:9184"];}];
-      }
     ];
   };
 
