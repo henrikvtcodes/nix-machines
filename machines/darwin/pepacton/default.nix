@@ -22,6 +22,7 @@
       speedtest-cli
       nmap
       doggo
+      lolcat
     ];
   };
 
