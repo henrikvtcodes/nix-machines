@@ -139,7 +139,15 @@
     dircolors.enable = true;
     btop.enable = true;
 
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      config = {
+        global = {
+          disable_stdin = true;
+          hide_env_diff = true;
+        };
+      };
+    };
     eza = {
       enable = true;
       git = true;
