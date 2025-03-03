@@ -81,14 +81,14 @@
       "reindeer-porgy.ts.net"
       "unicycl.ing"
     ];
+    # This must be set in order to set search domains above
+    # $ networksetup -listallnetworkservices
     knownNetworkServices = [
       "USB 10/100/1G/2.5G LAN"
       "Thunderbolt Bridge"
       "Wi-Fi"
       "iPhone USB"
       "Tailscale"
-      "UniFi Teleport"
-      "Mullvad"
     ];
   };
 
