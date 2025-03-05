@@ -1,5 +1,9 @@
 # Reference: https://daiderd.com/nix-darwin/manual/index.html
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   users.users.henrikvt = {
     home = "/Users/henrikvt";
     packages = with pkgs; [
@@ -26,6 +30,8 @@
     ];
   };
 
+  age.identityPaths = ["/Users/henrikvt/.ssh/id_ed25519"];
+
   environment = {
     shellAliases = {
       rebuild = "darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
@@ -47,7 +53,12 @@
       JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
       FNM_COREPACK_ENABLED = "true";
       FNM_RESOLVE_ENGINES = "true";
+      GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
     };
+  };
+
+  age.secrets = {
+    uvmGitlabToken.file = ../../../secrets/uvmGitlabToken.age;
   };
 
   home-manager.users.henrikvt = {
@@ -58,6 +69,32 @@
       gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       gpg.ssh.allowedSignersFile = toString ./signers.txt;
       commit.gpgsign = true;
+    };
+    xdg.configFile."glab-cli/config.yml" = let
+      yaml = pkgs.formats.yaml {};
+    in {
+      source = yaml.generate "config.yml" {
+        git_protocol = "ssh";
+        check_update = false;
+        host = "gitlab.uvm.edu";
+        editor = "nvim";
+        glamour_style = "dark";
+        no_prompt = false;
+        hosts = {
+          "gitlab.uvm.edu" = {
+            api_host = "gitlab.uvm.edu";
+            api_protocol = "https";
+            git_protocol = "ssh";
+            user = "henrikvtcodes";
+            # token = builtins.readFile config.age.secrets.uvmGitlabToken.path;
+          };
+          "gitlab.com" = {
+            api_host = "gitlab.com";
+            api_protocol = "https";
+            git_protocol = "ssh";
+          };
+        };
+      };
     };
   };
 

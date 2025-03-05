@@ -64,5 +64,5 @@
 
   programs.ssh.startAgent = true;
 
-  age.identityPaths = ["/home/henrikvt/.ssh/id_ed25519"];
+  # age.identityPaths = ["/home/henrikvt/.ssh/id_ed25519"];
 }
