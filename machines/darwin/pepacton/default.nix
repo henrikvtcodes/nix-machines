@@ -98,10 +98,10 @@
       };
 
       onChange = ''
-        rm -f ${config.xdg.configHome}/glab-cli/config-base.yml
-        cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
-        chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
-        echo "\n\n" > ${config.xdg.configHome}/glab-cli/config-base.yml
+        rm -f ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        cp ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config-base.yml ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        chmod 600 ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        echo "\n\n" > ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
       '';
     };
   };
