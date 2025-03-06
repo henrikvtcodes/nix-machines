@@ -71,7 +71,7 @@
       commit.gpgsign = true;
     };
 
-    xdg.configFile."glab-cli/config.yml" = let
+    xdg.configFile."glab-cli/config-base.yml" = let
       yaml = pkgs.formats.yaml {};
     in {
       source = yaml.generate "config.yml" {
@@ -96,6 +96,13 @@
           };
         };
       };
+
+      onChange = ''
+        rm -f ${config.xdg.configHome}/glab-cli/config-base.yml
+        cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
+        chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
+        echo "\n\n" > ${config.xdg.configHome}/glab-cli/config-base.yml
+      '';
     };
   };
 

@@ -31,7 +31,3 @@ fi
 if command -v "rbenv" &> /dev/null; then
 	eval "$(rbenv init -)"
 fi
-
-if [ -f ~/.config/glab-cli/config.yml ]; then 
-  chmod 600 ~/.config/glab-cli/config.yml
-fi
