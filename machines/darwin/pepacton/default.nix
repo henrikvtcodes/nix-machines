@@ -70,6 +70,7 @@
       gpg.ssh.allowedSignersFile = toString ./signers.txt;
       commit.gpgsign = true;
     };
+
     xdg.configFile."glab-cli/config.yml" = let
       yaml = pkgs.formats.yaml {};
     in {
