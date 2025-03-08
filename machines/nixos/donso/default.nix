@@ -37,7 +37,6 @@
   # ZFS Stuff
   environment.systemPackages = with pkgs; [
     zfs
-    trippy
   ];
 
   services.zfs = {
