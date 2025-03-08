@@ -54,11 +54,15 @@
       FNM_COREPACK_ENABLED = "true";
       FNM_RESOLVE_ENGINES = "true";
       GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
+      GITLAB_HOST = "gitlab.uvm.edu";
     };
   };
 
   age.secrets = {
-    uvmGitlabToken.file = ../../../secrets/uvmGitlabToken.age;
+    uvmGitlabToken = {
+      owner = "henrikvt";
+      file = ../../../secrets/uvmGitlabToken.age;
+    };
   };
 
   home-manager.users.henrikvt = {
