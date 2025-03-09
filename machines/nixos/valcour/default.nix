@@ -44,6 +44,11 @@
     };
   };
 
+  services.tftpd = {
+    enable = true;
+    # directory = "/srv/tftp";
+  };
+
   my.services.netcheck = {
     enable = true;
     interface = "eno1";
