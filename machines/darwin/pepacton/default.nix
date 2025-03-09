@@ -65,6 +65,10 @@
     };
   };
 
+  age.secrets = {
+    uvmGitlabToken.file = ../../../secrets/uvmGitlabToken.age;
+  };
+
   home-manager.users.henrikvt = {
     home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
     programs.git.extraConfig = {
