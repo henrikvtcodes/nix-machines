@@ -7,6 +7,10 @@
   nix.settings.trusted-users = ["henrikvt"];
   age.secrets.henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
 
+  options.users.henrikvt = {
+    enableNixosSpecific = lib.mkEnableOption "Enable NixOS specific options";
+  };
+
   # NixOS User Config
   users = {
     users.henrikvt = {
@@ -64,5 +68,5 @@
 
   programs.ssh.startAgent = true;
 
-  # age.identityPaths = ["/home/henrikvt/.ssh/id_ed25519"];
+  age.identityPaths = lib.mkIf config.users.henrikvt.enableNixosSpecific ["/home/henrikvt/.ssh/id_ed25519"];
 }

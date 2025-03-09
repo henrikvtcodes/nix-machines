@@ -108,8 +108,9 @@
   # Dont error on unfree (ie proprietary) packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable henrikvt home configuration
+  # Enable henrikvt home config and other options
   home.henrikvt.enable = lib.mkDefault true;
+  users.henrikvt.enableNixosSpecific = lib.mkDefault true;
 
   # Hey, what does `with pkgs;` do?
   # It's a nixpkgs feature that allows you to use the pkgs variable without prefixing it with pkgs.
