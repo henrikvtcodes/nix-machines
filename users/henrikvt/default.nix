@@ -29,7 +29,6 @@
         packages = with pkgs; [
           # stuff
           fastfetch
-          neovim
           btop
 
           bat
