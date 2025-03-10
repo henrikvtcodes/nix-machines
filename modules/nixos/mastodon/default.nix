@@ -37,6 +37,8 @@
     S3_HOSTNAME = "pool-api.jortage.com";
     S3_ENDPOINT = "https://pool-api.jortage.com";
     S3_SIGNATURE_VERSION = "v4";
+    S3_ALIAS_HOST = "pool.jortage.com/mstdnunicycling";
+    S3_CLOUDFRONT_HOST = "pool.jortage.com/mstdnunicycling";
     # For Glitch instances (they use a tighter Content-Security-Policy than mainline)
     EXTRA_DATA_HOSTS = "https://blob.jortage.com";
 
