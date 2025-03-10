@@ -129,6 +129,9 @@
         sudo = {
           disabled = false;
         };
+        nix_shell = {
+          disabled = false;
+        };
       };
     };
 
