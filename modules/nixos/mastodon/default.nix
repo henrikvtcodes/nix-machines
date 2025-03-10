@@ -31,7 +31,7 @@
     SIDEKIQ_THREADS = "6"; # This gets passed as a cli arg, but is here for consistency
 
     # S3 Media Storage (on Jortage)
-    S3_ENABLED = true;
+    S3_ENABLED = "true";
     S3_REGION = "jort";
     S3_PROTOCOL = "https";
     S3_HOSTNAME = "pool-api.jortage.com";
