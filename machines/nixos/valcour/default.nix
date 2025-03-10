@@ -49,6 +49,9 @@
     # root = "/srv/tftp";
   };
   users = {
+    users.henrikvt.extraGroups = [
+      "tftp"
+    ];
     users.tftp = {
       isSystemUser = true;
       group = "tftp";
