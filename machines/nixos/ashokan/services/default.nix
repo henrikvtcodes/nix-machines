@@ -17,5 +17,6 @@
     vapidKeysEnvFile = config.age.secrets.mastodonVapidKeys.path;
     smtpPasswordEnvFile = config.age.secrets.mastodonSmtpPassword.path;
     activeRecordEncryptionEnvFile = config.age.secrets.mastodonAREncryptionEnvVars.path;
+    s3SecretKeysEnvFile = config.age.secrets.mastodonJortageSecretEnvVars.path;
   };
 }

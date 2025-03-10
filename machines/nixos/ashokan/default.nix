@@ -64,6 +64,7 @@
     mastodonSecretKeyBase = chownPodman "${secretsDir}/mastodonSecretKeyBase.age";
     mastodonOtpSecret = chownPodman "${secretsDir}/mastodonOtpSecret.age";
     mastodonAREncryptionEnvVars = chownPodman "${secretsDir}/mastodonAREncryptionEnvVars.age";
+    mastodonJortageSecretEnvVars = chownPodman "${secretsDir}/jortageSecretEnvVars.age";
   };
 
   # ======================== DO NOT CHANGE THIS ========================
