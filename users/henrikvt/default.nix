@@ -22,6 +22,7 @@
           "wheel"
           "networkmanager"
           "podman"
+          "traefik"
         ];
 
         shell = pkgs.zsh;
