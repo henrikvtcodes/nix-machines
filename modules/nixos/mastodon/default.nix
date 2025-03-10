@@ -30,6 +30,16 @@
     SIDEKIQ_CONCURRENCY = "1"; # Read: Sidekiq Processes
     SIDEKIQ_THREADS = "6"; # This gets passed as a cli arg, but is here for consistency
 
+    # S3 Media Storage (on Jortage)
+    S3_ENABLED = true;
+    S3_REGION = "jort";
+    S3_PROTOCOL = "https";
+    S3_HOSTNAME = "pool-api.jortage.com";
+    S3_ENDPOINT = "https://pool-api.jortage.com";
+    S3_SIGNATURE_VERSION = "v4";
+    # For Glitch instances (they use a tighter Content-Security-Policy than mainline)
+    EXTRA_DATA_HOSTS = "https://blob.jortage.com";
+
     # Mail
     SMTP_SERVER = "smtp.improvmx.com";
     SMTP_PORT = "587";
@@ -61,6 +71,7 @@
     cfg.vapidKeysEnvFile
     cfg.smtpPasswordEnvFile
     cfg.activeRecordEncryptionEnvFile
+    cfg.s3SecretKeysEnvFile
   ];
 in {
   options.my.services.mastodon = with lib; {
@@ -102,6 +113,10 @@ in {
     activeRecordEncryptionEnvFile = mkOption {
       type = types.path;
       description = "Path to the Active Record encryption environment variables file";
+    };
+    s3SecretKeysEnvFile = mkOption {
+      type = types.path;
+      description = "Path to the S3 secret keys file";
     };
   };
 
