@@ -1,5 +1,12 @@
 # Home config
 
+## Gotchas
+
+### When Neovim wasn't picking up nixvim-based settings on some systems
+
+Namely, it couldn't find lua modules
+**The Answer:** there was a version of neovim installed via a different packages option that was different than nixvim
+
 ## Aliases
 
 ### `lol` plugin

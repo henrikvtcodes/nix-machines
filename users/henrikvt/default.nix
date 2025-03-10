@@ -26,21 +26,23 @@
         ];
 
         shell = pkgs.zsh;
-        packages = with pkgs; [
-          # stuff
-          fastfetch
-          btop
+        packages = with pkgs;
+          [
+            # stuff
+            fastfetch
+            btop
 
-          bat
-          fzf
-          zoxide
-          jq
-          yq
+            bat
+            fzf
+            zoxide
+            jq
+            yq
 
-          # fun
-          cowsay
-          fortune
-        ];
+            # fun
+            cowsay
+            fortune
+          ]
+          ++ lib.lists.optional (!config.home.henrikvt.enable) pkgs.neovim;
 
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINimhbJZN+MLdXbtk3Mrb5dca7P+LKy399OqqYZ122Ml"
