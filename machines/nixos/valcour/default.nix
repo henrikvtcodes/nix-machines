@@ -56,6 +56,8 @@
       isSystemUser = true;
       group = "tftp";
       home = "/srv/tftp";
+      createHome = true;
+      homeMode = "777";
     };
     groups.tftp = {};
   };
