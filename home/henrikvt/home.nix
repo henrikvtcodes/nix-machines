@@ -141,6 +141,7 @@
     thefuck.enable = true;
     dircolors.enable = true;
     btop.enable = true;
+    atuin.enable = true;
 
     direnv = {
       enable = true;
