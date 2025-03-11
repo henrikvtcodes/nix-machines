@@ -7,7 +7,7 @@
   ...
 }: let
   cfg = config.my.services.mastodon;
-  version = "4.3.3";
+  version = "4.3.5";
   interfaceDomain = "mstdn.${cfg.rootDomain}";
 
   cleanup = pkgs.writeShellScriptBin "mastodon-cleanup" (builtins.readFile ./cleanup.sh);
