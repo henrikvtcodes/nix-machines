@@ -10,6 +10,8 @@
   version = "4.3.3";
   interfaceDomain = "mstdn.${cfg.rootDomain}";
 
+  cleanup = pkgs.writeShellScriptBin "mastodon-cleanup" (builtins.readFile ./cleanup.sh);
+
   env = {
     # General Config
     RAILS_ENV = "production";
@@ -343,8 +345,34 @@ in {
         };
       };
 
-      systemd.services.podman-mastodon-prepare = {
-        serviceConfig = {
+      systemd.services = {
+        mastodon-cleanup = {
+          description = "Mastodon Cleanup Tasks";
+          path = with pkgs; [
+            podman
+          ];
+          startAt = "daily";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${cleanup}/bin/mastodon-cleanup";
+
+            ProtectSystem = "strict";
+            ProtectHostname = true;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectKernelTunables = true;
+            ProtectKernelModules = true;
+            PrivateDevices = true;
+
+            ReadWritePaths = [
+              "/var/lib/containers/storage"
+            ];
+
+            ExecPaths = ["/nix/store"];
+            NoExecPaths = ["/"];
+          };
+        };
+        podman-mastodon-prepare.serviceConfig = {
           Type = mkForce "oneshot";
           Restart = mkForce "on-failure";
         };
