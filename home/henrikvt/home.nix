@@ -141,7 +141,10 @@
     thefuck.enable = true;
     dircolors.enable = true;
     btop.enable = true;
-    atuin.enable = true;
+    atuin = {
+      enable = true;
+      flags = ["--disable-up-arrow"];
+    };
 
     direnv = {
       enable = true;
