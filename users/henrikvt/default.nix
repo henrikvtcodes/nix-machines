@@ -38,6 +38,8 @@
             jq
             yq
 
+            mtr
+
             # fun
             cowsay
             fortune
