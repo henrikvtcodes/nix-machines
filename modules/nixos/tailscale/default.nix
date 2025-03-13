@@ -31,7 +31,6 @@ with lib; let
   formatSetOptions = {
     enableWebUI,
     advertiseExitNode,
-    advertiseTags,
     advertiseRoutes,
   }: let
     webUIFlag =
@@ -42,16 +41,12 @@ with lib; let
       if advertiseExitNode
       then ["--advertise-exit-node"]
       else ["--advertise-exit-node=false"];
-    tagFlags =
-      if advertiseTags.enable && (length advertiseTags.tags > 0)
-      then ["--advertise-tags=${concatStringsSep "," advertiseTags.tags}"]
-      else ["--advertise-tags=\"\""];
     routeFlags =
       if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
       then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
       else ["--advertise-routes=\"\""];
   in
-    [] ++ webUIFlag ++ exitNodeFlag ++ tagFlags ++ routeFlags;
+    [] ++ webUIFlag ++ exitNodeFlag ++ routeFlags;
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
@@ -118,14 +113,13 @@ in {
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       # extraUpFlags = formatUpOptions {
-      #   advertiseExitNode = cfg.advertiseExitNode;
+      #   # advertiseExitNode = cfg.advertiseExitNode;
       #   advertiseTags = cfg.advertiseTags;
-      #   advertiseRoutes = cfg.advertiseRoutes;
+      #   # advertiseRoutes = cfg.advertiseRoutes;
       # };
       extraSetFlags = formatSetOptions {
         enableWebUI = cfg.enableWebUI;
         advertiseExitNode = cfg.advertiseExitNode;
-        advertiseTags = cfg.advertiseTags;
         advertiseRoutes = cfg.advertiseRoutes;
       };
     };
