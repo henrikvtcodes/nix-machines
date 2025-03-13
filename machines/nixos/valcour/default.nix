@@ -40,7 +40,7 @@
     advertiseExitNode = true;
     advertiseRoutes = {
       enable = true;
-      routes = ["10.205.16.212/32"];
+      routes = ["10.205.16.212/32" "10.205.16.59/32" "10.205.16.30/32"];
     };
   };
 
