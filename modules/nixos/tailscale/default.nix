@@ -28,13 +28,30 @@ with lib; let
   # reset flag means that if any of the above settings change,
   # old routes/tags will not be accepted or advertised; as those settins will be reset
 
-  formatSetOptions = {enableWebUI}: let
+  formatSetOptions = {
+    enableWebUI,
+    advertiseExitNode,
+    advertiseTags,
+    advertiseRoutes,
+  }: let
     webUIFlag =
       if enableWebUI
       then ["--webclient=true"]
-      else ["--webclient=true"];
+      else ["--webclient=false"];
+    exitNodeFlag =
+      if advertiseExitNode
+      then ["--advertise-exit-node"]
+      else ["--advertise-exit-node=false"];
+    tagFlags =
+      if advertiseTags.enable && (length advertiseTags.tags > 0)
+      then ["--advertise-tags=${concatStringsSep "," advertiseTags.tags}"]
+      else ["--advertise-tags=\"\""];
+    routeFlags =
+      if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
+      then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
+      else ["--advertise-routes=\"\""];
   in
-    [] ++ webUIFlag;
+    [] ++ webUIFlag ++ exitNodeFlag ++ tagFlags ++ routeFlags;
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
@@ -100,13 +117,16 @@ in {
       enable = true;
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      extraUpFlags = formatUpOptions {
+      # extraUpFlags = formatUpOptions {
+      #   advertiseExitNode = cfg.advertiseExitNode;
+      #   advertiseTags = cfg.advertiseTags;
+      #   advertiseRoutes = cfg.advertiseRoutes;
+      # };
+      extraSetFlags = formatSetOptions {
+        enableWebUI = cfg.enableWebUI;
         advertiseExitNode = cfg.advertiseExitNode;
         advertiseTags = cfg.advertiseTags;
         advertiseRoutes = cfg.advertiseRoutes;
-      };
-      extraSetFlags = formatSetOptions {
-        enableWebUI = cfg.enableWebUI;
       };
     };
   };
