@@ -39,6 +39,7 @@
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";
       lzg = "lazygit";
+      gib = "git pull";
     };
 
     sessionVariables = {
