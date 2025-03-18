@@ -30,6 +30,7 @@
       magic-wormhole
       glab
       python3
+      mtr
     ];
 
     shellAliases = {
