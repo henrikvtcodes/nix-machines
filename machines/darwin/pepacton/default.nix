@@ -27,6 +27,11 @@
       nmap
       doggo
       lolcat
+      cmake
+      nyancat
+      moon-buggy
+      sl
+      cowsay
     ];
   };
 
