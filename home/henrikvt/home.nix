@@ -37,6 +37,7 @@
       cat = "${pkgs.bat}/bin/bat -p";
       lzg = "lazygit";
       gib = "git pull";
+      nixsize = "${pkgs.diskus}/bin/diskus /nix/store";
     };
 
     sessionVariables = {
