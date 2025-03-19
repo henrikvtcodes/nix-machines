@@ -58,4 +58,6 @@ in {
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 
   "uvmGitlabToken.age".publicKeys = henrik;
+
+  "aristaEapiConf.age".publicKeys = [valcour] ++ henrik;
 }
