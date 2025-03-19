@@ -44,6 +44,11 @@
     };
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    eoxporter = {
+      url = "github:henrikvtcodes/eoxporter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -57,6 +62,7 @@
     home-manager,
     nix-homebrew,
     nixpkgs-unstable,
+    eoxporter,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -123,6 +129,7 @@
       system = "aarch64-darwin";
       specialArgs = {
         inherit inputs;
+        inherit system;
       };
       modules = [
         agenix.darwinModules.default
@@ -150,6 +157,7 @@
         specialArgs = {
           inherit inputs;
           unstable = importUnstable system;
+          inherit system;
         };
 
         modules = [
@@ -174,6 +182,7 @@
         specialArgs = {
           inherit inputs;
           pkgs-unstable = importUnstable system;
+          inherit system;
         };
 
         modules = [
@@ -191,11 +200,12 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      donso = nixpkgs.lib.nixosSystem {
+      donso = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
         specialArgs = {
           inherit inputs;
+          inherit system;
         };
 
         modules = [
@@ -215,11 +225,12 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      svalbard = lib.nixosSystem {
+      svalbard = lib.nixosSystem rec {
         system = "x86_64-linux";
 
         specialArgs = {
           inherit inputs;
+          inherit system;
         };
 
         modules = [
@@ -238,11 +249,12 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      marstrand = lib.nixosSystem {
+      marstrand = lib.nixosSystem rec {
         system = "x86_64-linux";
 
         specialArgs = {
           inherit inputs;
+          inherit system;
         };
 
         modules = [
@@ -261,11 +273,12 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      valcour = lib.nixosSystem {
+      valcour = lib.nixosSystem rec {
         system = "x86_64-linux";
 
         specialArgs = {
           inherit inputs;
+          inherit system;
         };
 
         modules = [

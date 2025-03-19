@@ -7,5 +7,6 @@
     ./netcheck
     ./traefik
     ./mastodon
+    ./eoxporter
   ];
 }
