@@ -49,35 +49,7 @@
     };
   };
 
-  services.atftpd = {
     enable = true;
-    # root = "/srv/tftp";
-  };
-  users = {
-    users.henrikvt.extraGroups = [
-      "tftp"
-    ];
-    users.tftp = {
-      isSystemUser = true;
-      group = "tftp";
-      home = "/srv/tftp";
-      createHome = true;
-      homeMode = "777";
-    };
-    groups.tftp = {};
-  };
-
-  systemd.services.atftpd.serviceConfig = let
-    caps = [
-      "CAP_NET_ADMIN"
-      "CAP_NET_BIND_SERVICE"
-      "CAP_NET_RAW"
-    ];
-  in {
-    User = "tftp";
-    Group = "tftp";
-    AmbientCapabilities = caps;
-    CapabilityBoundingSet = caps;
   };
 
   my.services.netcheck = {
