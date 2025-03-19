@@ -78,6 +78,57 @@
       }
 
       {
+        job_name = "Tailscale";
+        scrape_interval = "15s";
+        static_configs = [
+          {
+            targets = [
+              "marstrand:5252"
+              "ashokan:5252"
+              "barnegat:5252"
+              "valcour:5252"
+              "donso:5252"
+              "svalbard:5252"
+            ];
+          }
+        ];
+      }
+
+      {
+        job_name = "Arista EOS Status";
+        scrape_interval = "15s";
+
+        static_configs = [
+          {
+            targets = [
+              "valcour:9396"
+            ];
+            labels = {
+            };
+          }
+        ];
+
+        relabel_configs = [
+          {
+            source_labels = ["[__address__]"];
+            target_label = "__param_target";
+          }
+          {
+            source_labels = ["[__param_target]"];
+            target_label = "instance";
+          }
+          {
+            source_labels = ["[collectors]"];
+            target_label = "__param_collectors";
+          }
+          {
+            source_labels = ["__address__"];
+            target_label = "valcour:9396";
+          }
+        ];
+      }
+
+      {
         job_name = "Traefik";
         scrape_interval = "15s";
         static_configs = [{targets = ["ashokan:9180"];}];
