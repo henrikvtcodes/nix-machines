@@ -44,7 +44,7 @@ with lib; let
     routeFlags =
       if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
       then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
-      else ["--advertise-routes=\"\""];
+      else ["--advertise-routes="];
   in
     [] ++ webUIFlag ++ exitNodeFlag ++ routeFlags;
 in {
