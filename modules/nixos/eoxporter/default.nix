@@ -20,6 +20,9 @@ in {
     defaultCollectors = mkOption {
       type = types.listOf types.str;
       default = ["version" "power" "temperature" "cooling"];
+      description = ''
+        Default metrics collectors if the scraper does not specify any
+      '';
     };
     eAPIConfigFilePath = mkOption {
       type = types.str;
@@ -46,8 +49,8 @@ in {
         wants = ["network-online.target"];
         wantedBy = ["multi-user.target"];
         serviceConfig = {
-          Type = "exec";
-          ExecStart = "${pkg}/bin/eoxporter -listen-address ${cfg.listenAddress} -eapi-conf ${cfg.eAPIConfigFilePath} -default-collectors ${concatStringsSep "," cfg.defaultCollectors}";
+          Type = "simple";
+          ExecStart = "${pkg}/bin/eoxporter -listen-address ${cfg.listenAddress} -eapi-conf ${cfg.eAPIConfigFilePath} -collectors ${concatStringsSep "," cfg.defaultCollectors}";
           Restart = "on-failure";
           User = "eoxporter";
           Group = "eoxporter";
