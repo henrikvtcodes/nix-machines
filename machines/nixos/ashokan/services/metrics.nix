@@ -101,29 +101,30 @@
         static_configs = [
           {
             targets = [
-              "valcour:9396"
+              "hudson"
             ];
             labels = {
+              collectors = "version,power,temperature,cooling,interfaces";
             };
           }
         ];
 
         relabel_configs = [
-          # {
-          #   source_labels = ["[__address__]"];
-          #   target_label = "__param_target";
-          # }
           {
-            source_labels = ["[__param_target]"];
+            source_labels = ["__address__"];
+            target_label = "__param_target";
+          }
+          {
+            source_labels = ["__param_target"];
             target_label = "instance";
           }
           {
-            source_labels = ["[collectors]"];
+            source_labels = ["collectors"];
             target_label = "__param_collectors";
           }
           {
-            source_labels = ["__address__"];
-            target_label = "valcour:9396";
+            target_label = "__address__";
+            replacement = "valcour:9396";
           }
         ];
       }
