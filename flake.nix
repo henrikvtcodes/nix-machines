@@ -130,6 +130,7 @@
       specialArgs = {
         inherit inputs;
         inherit system;
+        unstable = importUnstable system;
       };
       modules = [
         agenix.darwinModules.default

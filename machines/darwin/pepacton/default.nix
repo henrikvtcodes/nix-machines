@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  unstable,
   ...
 }: {
   users.users.henrikvt = {
@@ -32,6 +33,8 @@
       moon-buggy
       sl
       cowsay
+      unstable.podman
+      unstable.podman-compose
     ];
   };
 
