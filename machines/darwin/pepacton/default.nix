@@ -33,8 +33,8 @@
       moon-buggy
       sl
       cowsay
-      unstable.podman
-      unstable.podman-compose
+      (lib.mkForce unstable.podman)
+      (lib.mkForce unstable.podman-compose)
     ];
   };
 
