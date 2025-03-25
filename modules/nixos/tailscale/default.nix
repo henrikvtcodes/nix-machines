@@ -89,15 +89,54 @@ in {
     };
     enableWebUI = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = ''
         Enable Tailscale Web UI on port 5252
       '';
+    };
+
+    web = {
+      enable = mkEnableOption "Enable Tailscale Web UI";
+      listenAddress = mkOption {
+        type = types.string;
+        default = "localhost:8088";
+        description = ''
+          Web UI Listen Address
+        '';
+      };
+      cgi = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Run as a CGI Script
+        '';
+      };
+      pathPrefix = mkOption {
+        type = types.nullOr types.string;
+        default = null;
+        description = ''
+          URL Path Prefix
+        '';
+      };
+      readOnly = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Run the web UI in Read-only mode
+        '';
+      };
     };
   };
 
   config = mkIf cfg.enable {
     age.secrets.tailscaleAuthKey.file = ../../../secrets/tailscaleAuthKey.age;
+
+    assertions = [
+      {
+        assertion = !((cfg.web.enable || cfg.enableWebUI) && cfg.web.enable == cfg.enableWebUI);
+        message = "Tailscale Web UI cannot be enabled both thru the set flag and web config options. Pick only one";
+      }
+    ];
 
     networking = {
       firewall.trustedInterfaces = ["tailscale0"];
@@ -122,6 +161,22 @@ in {
         advertiseExitNode = cfg.advertiseExitNode;
         advertiseRoutes = cfg.advertiseRoutes;
       };
+    };
+
+    systemd.services.tailscale-web = mkIf cfg.web.enable {
+      after = ["tailscaled.service"];
+      wantedBy = ["multi-user.target"];
+      wants = ["tailscaled.service"];
+      script = let
+        nonNullFlags = ["--listen=${cfg.web.listenAddress}" "--cgi=${toString cfg.web.cgi}" "--readonly=${toString cfg.web.readOnly}"];
+        pathFlag =
+          if cfg.web.pathPrefix != null
+          then ["--path-prefix=${cfg.web.pathPrefix}"]
+          else [];
+        flags = nonNullFlags ++ pathFlag;
+      in ''
+        ${config.services.tailscale.package}/bin/tailscale web ${escapeShellArgs flags}
+      '';
     };
   };
 }
