@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   imports = [../../modules/nixos ../../home/henrikvt];
@@ -61,7 +62,11 @@
       "2620:fe::fe:10"
     ];
   };
-  my.services.tailscale.enable = lib.mkDefault true;
+  my.services.tailscale = {
+    enable = lib.mkDefault true;
+    web.enable = true;
+    web.listenAddress = "${config.networking.hostName}:5252";
+  };
 
   # Enable SSH server
   services.openssh = {
