@@ -114,9 +114,9 @@ in {
         ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
 
       extraSetFlags = [
-        "--webclient=${toString cfg.enableWebUI}"
-        "--advertise-exit-node=${toString cfg.advertiseExitNode}"
-        "--advertise-routes=${concatStringsSep "," (optional cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
+        "--webclient=${boolToString cfg.enableWebUI}"
+        "--advertise-exit-node=${boolToString cfg.advertiseExitNode}"
+        "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
       ];
     };
 
