@@ -33,8 +33,7 @@
       moon-buggy
       sl
       cowsay
-      (lib.mkForce unstable.podman)
-      (lib.mkForce unstable.podman-compose)
+      safe-rm
     ];
   };
 
@@ -50,6 +49,7 @@
       nvm = "fnm";
       pn = "pnpm";
       nsl = "doggo A AAAA MX TXT";
+      rm = "safe-rm";
     };
 
     systemPackages = with pkgs; [ncurses];
