@@ -168,12 +168,11 @@ in {
       wantedBy = ["multi-user.target"];
       wants = ["tailscaled.service"];
       script = let
-        nonNullFlags = ["--listen=${cfg.web.listenAddress}" "--readonly=${toString cfg.web.readOnly}" "--cgi=${toString cfg.web.runAsCgi}"];
-        pathFlag =
-          if cfg.web.pathPrefix != null
-          then ["--path-prefix=${cfg.web.pathPrefix}"]
-          else [];
-        flags = nonNullFlags ++ pathFlag;
+        baseFlag = ["--listen=${cfg.web.listenAddress}"];
+        readOnly = optional cfg.web.readOnly "--readonly";
+        cgiFlag = optional cfg.web.runAsCgi "--cgi";
+        pathFlag = optional (cfg.web.pathPrefix != null) ["--path-prefix=${cfg.web.pathPrefix}"];
+        flags = baseFlag ++ readOnly ++ cgiFlag ++ pathFlag;
       in ''
         ${config.services.tailscale.package}/bin/tailscale web ${escapeShellArgs flags}
       '';
