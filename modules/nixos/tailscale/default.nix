@@ -104,7 +104,7 @@ in {
           Web UI Listen Address
         '';
       };
-      cgi = mkOption {
+      runAsCgi = mkOption {
         type = types.bool;
         default = false;
         description = ''
@@ -112,7 +112,7 @@ in {
         '';
       };
       pathPrefix = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           URL Path Prefix
@@ -168,7 +168,7 @@ in {
       wantedBy = ["multi-user.target"];
       wants = ["tailscaled.service"];
       script = let
-        nonNullFlags = ["--listen=${cfg.web.listenAddress}" "--cgi=${toString cfg.web.cgi}" "--readonly=${toString cfg.web.readOnly}"];
+        nonNullFlags = ["--listen=${cfg.web.listenAddress}" "--readonly=${toString cfg.web.readOnly}" "--cgi=${toString cfg.web.runAsCgi}"];
         pathFlag =
           if cfg.web.pathPrefix != null
           then ["--path-prefix=${cfg.web.pathPrefix}"]
