@@ -5,48 +5,6 @@
 }:
 with lib; let
   cfg = config.my.services.tailscale;
-
-  formatUpOptions = {
-    advertiseExitNode,
-    advertiseTags,
-    advertiseRoutes,
-  }: let
-    exitNodeFlag =
-      if advertiseExitNode
-      then ["--advertise-exit-node"]
-      else [];
-    tagFlags =
-      if advertiseTags.enable && (length advertiseTags.tags > 0)
-      then ["--advertise-tags=${concatStringsSep "," advertiseTags.tags}"]
-      else [];
-    routeFlags =
-      if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
-      then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
-      else [];
-  in
-    ["--reset=true"] ++ exitNodeFlag ++ tagFlags ++ routeFlags;
-  # reset flag means that if any of the above settings change,
-  # old routes/tags will not be accepted or advertised; as those settins will be reset
-
-  formatSetOptions = {
-    enableWebUI,
-    advertiseExitNode,
-    advertiseRoutes,
-  }: let
-    webUIFlag =
-      if enableWebUI
-      then ["--webclient=true"]
-      else ["--webclient=false"];
-    exitNodeFlag =
-      if advertiseExitNode
-      then ["--advertise-exit-node"]
-      else ["--advertise-exit-node=false"];
-    routeFlags =
-      if advertiseRoutes.enable && (length advertiseRoutes.routes > 0)
-      then ["--advertise-routes=${concatStringsSep "," advertiseRoutes.routes}"]
-      else ["--advertise-routes="];
-  in
-    [] ++ webUIFlag ++ exitNodeFlag ++ routeFlags;
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
@@ -98,7 +56,7 @@ in {
     web = {
       enable = mkEnableOption "Enable Tailscale Web UI";
       listenAddress = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost:8088";
         description = ''
           Web UI Listen Address
@@ -151,16 +109,15 @@ in {
       enable = true;
       useRoutingFeatures = "both";
       authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      # extraUpFlags = formatUpOptions {
-      #   # advertiseExitNode = cfg.advertiseExitNode;
-      #   advertiseTags = cfg.advertiseTags;
-      #   # advertiseRoutes = cfg.advertiseRoutes;
-      # };
-      extraSetFlags = formatSetOptions {
-        enableWebUI = cfg.enableWebUI;
-        advertiseExitNode = cfg.advertiseExitNode;
-        advertiseRoutes = cfg.advertiseRoutes;
-      };
+      extraUpFlags =
+        ["--reset=true"]
+        ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
+
+      extraSetFlags = [
+        "--webclient=${toString cfg.enableWebUI}"
+        "--advertise-exit-node=${toString cfg.advertiseExitNode}"
+        "--advertise-routes=${concatStringsSep "," (optional cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
+      ];
     };
 
     systemd.services.tailscale-web = mkIf cfg.web.enable {
