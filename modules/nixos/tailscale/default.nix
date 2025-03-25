@@ -5,6 +5,11 @@
 }:
 with lib; let
   cfg = config.my.services.tailscale;
+
+  tsBoolFlag = flag: bool:
+    if bool
+    then "--${flag}"
+    else "--${flag}=false";
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
@@ -114,8 +119,8 @@ in {
         ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
 
       extraSetFlags = [
-        "--webclient=${boolToString cfg.enableWebUI}"
-        "--advertise-exit-node=${boolToString cfg.advertiseExitNode}"
+        (tsBoolFlag "webclient" cfg.enableWebUI)
+        (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
         "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
       ];
     };
