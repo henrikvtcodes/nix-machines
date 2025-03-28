@@ -49,6 +49,11 @@
       url = "github:henrikvtcodes/eoxporter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -114,6 +119,7 @@
           packages = with pkgs; [
             nixd
             git
+            nixos-generators
           ];
         };
       }
@@ -297,6 +303,20 @@
           ./users/henrikvt
           home-manager.nixosModules.home-manager
           ./home/henrikvt
+        ];
+      };
+
+      # ISO Image Generators
+      iso-virt = lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+        };
+
+        modules = [
+          # Image config
+          ./images
         ];
       };
     };
