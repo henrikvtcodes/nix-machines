@@ -24,6 +24,7 @@
         "recursive-nix"
       ];
       system-features = ["recursive-nix"];
+      trusted-users = ["root" "@wheel"];
     };
   };
 
