@@ -50,7 +50,7 @@ in {
         wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkg}/bin/eoxporter -listen-address ${cfg.listenAddress} -eapi-conf ${cfg.eAPIConfigFilePath} -collectors ${concatStringsSep "," cfg.defaultCollectors}";
+          ExecStart = "${pkg}/bin/eoxporter --listen ${cfg.listenAddress} --eapiConf ${cfg.eAPIConfigFilePath} --collectors ${concatStringsSep "," cfg.defaultCollectors}";
           Restart = "on-failure";
           User = "eoxporter";
           Group = "eoxporter";

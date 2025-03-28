@@ -1,4 +1,4 @@
-# This module is imported into programs.nixvim
+# This module is imported into programs.nixvim, thus everthing exists in that scope
 {...}: {
   enable = true;
   defaultEditor = true;
