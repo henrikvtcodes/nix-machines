@@ -50,6 +50,7 @@
       pn = "pnpm";
       nsl = "doggo A AAAA MX TXT";
       rm = "safe-rm";
+      coder = "code . -r";
     };
 
     systemPackages = with pkgs; [ncurses];
