@@ -18,3 +18,4 @@ _While these are mostly instructions for me, I have it public so that others can
 - [Secrets Management](/docs/SECRETS.md)
 - [Writing Machine Configs](/docs/MACHINE-CONFIGS.md)
 - [Managing NixOS Machines](/docs/NIXOS.md)
+- [Other Resources](/docs/NOTES.md)

@@ -59,6 +59,7 @@ Useful findings and resources as I fall down the wormhole
 - https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 - https://www.return12.net/posts/bootstrapping-nixos/
 - https://klarasystems.com/articles/openzfs-all-about-l2arc/ **(ZFS L2 ARC)**
+- https://www.joshuamlee.com/nixos-proxmox-vm-images/ **nixos-generators**
 
 ## configs to reference
 
