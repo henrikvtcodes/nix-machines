@@ -57,6 +57,10 @@
     ];
   };
 
+  my.services.dns = {
+    enable = true;
+  };
+
   age.secrets = {
     cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
     ciSecrets.file = ../../../secrets/ciServerSecrets.age;
