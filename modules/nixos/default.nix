@@ -8,5 +8,6 @@
     ./traefik
     ./mastodon
     ./eoxporter
+    ./dns
   ];
 }
