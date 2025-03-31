@@ -25,5 +25,28 @@ in {
         package = inputs.coredns.packages.${system}.coredns;
         config = rootCorefile;
       };
+
+      users = {
+        users.coredns = {
+          isSystemUser = true;
+          group = "coredns";
+        };
+        groups.coredns = {};
+      };
+
+      systemd.services.coredns = let
+        caps = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_BIND_SERVICE"
+        ];
+      in {
+        description = mkForce "Coredns DNS server";
+        serviceConfig = {
+          CapabilityBoundingSet = mkForce caps;
+          AmbientCapabilities = mkForce caps;
+          User = "coredns";
+          Group = "coredns";
+        };
+      };
     };
 }
