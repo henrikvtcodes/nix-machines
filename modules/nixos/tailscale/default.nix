@@ -125,19 +125,56 @@ in {
       ];
     };
 
-    systemd.services.tailscale-web = mkIf cfg.web.enable {
-      after = ["tailscaled.service"];
-      wantedBy = ["multi-user.target"];
-      wants = ["tailscaled.service"];
-      script = let
-        baseFlag = ["--listen=${cfg.web.listenAddress}"];
-        readOnly = optional cfg.web.readOnly "--readonly";
-        cgiFlag = optional cfg.web.runAsCgi "--cgi";
-        pathFlag = optional (cfg.web.pathPrefix != null) ["--path-prefix=${cfg.web.pathPrefix}"];
-        flags = baseFlag ++ readOnly ++ cgiFlag ++ pathFlag;
-      in ''
-        ${config.services.tailscale.package}/bin/tailscale web ${escapeShellArgs flags}
-      '';
+    users = {
+      users.tailscale = {
+        isSystemUser = true;
+        group = "tailscale";
+      };
+      groups.tailscale = {};
+    };
+
+    systemd.services = {
+      tailscaled.serviceConfig = let
+        caps = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_BIND_SERVICE"
+          "CAP_NET_RAW"
+        ];
+      in {
+        User = "tailscale";
+        Group = "tailscale";
+        CapabilityBoundingSet = mkForce caps;
+        AmbientCapabilities = mkForce caps;
+      };
+
+      tailscaled-set.serviceConfig = {
+        User = "tailscale";
+        Group = "tailscale";
+      };
+
+      tailscaled-autoconnect.serviceConfig = {
+        User = "tailscale";
+        Group = "tailscale";
+      };
+
+      tailscale-web = mkIf cfg.web.enable {
+        after = ["tailscaled.service"];
+        wantedBy = ["multi-user.target"];
+        wants = ["tailscaled.service"];
+        # serviceConfig = {
+        #   User = "tailscale";
+        #   Group = "tailscale";
+        # };
+        script = let
+          baseFlag = ["--listen=${cfg.web.listenAddress}"];
+          readOnly = optional cfg.web.readOnly "--readonly";
+          cgiFlag = optional cfg.web.runAsCgi "--cgi";
+          pathFlag = optional (cfg.web.pathPrefix != null) ["--path-prefix=${cfg.web.pathPrefix}"];
+          flags = baseFlag ++ readOnly ++ cgiFlag ++ pathFlag;
+        in ''
+          ${config.services.tailscale.package}/bin/tailscale web ${escapeShellArgs flags}
+        '';
+      };
     };
   };
 }
