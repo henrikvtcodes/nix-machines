@@ -1,10 +1,11 @@
 (common) {
 	errors
+	prometheus
 }
 
 ts.unicycl.ing:53 {
 	import common
-	
+
 	bind tailscale0
 	tailscale ts.unicycl.ing
 	
