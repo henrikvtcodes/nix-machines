@@ -44,6 +44,8 @@ in {
         ];
       in {
         description = mkForce "Coredns DNS server";
+        wants = ["tailscaled.service"];
+        after = ["tailscaled.service"];
         serviceConfig = {
           CapabilityBoundingSet = mkForce caps;
           AmbientCapabilities = mkForce caps;
