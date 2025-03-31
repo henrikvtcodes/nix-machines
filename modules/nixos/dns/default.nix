@@ -30,6 +30,7 @@ in {
         users.coredns = {
           isSystemUser = true;
           group = "coredns";
+          extraGroups = ["tailscale"];
         };
         groups.coredns = {};
       };
@@ -38,6 +39,8 @@ in {
         caps = [
           "CAP_NET_ADMIN"
           "CAP_NET_BIND_SERVICE"
+          "CAP_NET_RAW"
+          "CAP_SYS_ADMIN"
         ];
       in {
         description = mkForce "Coredns DNS server";
@@ -46,6 +49,7 @@ in {
           AmbientCapabilities = mkForce caps;
           User = "coredns";
           Group = "coredns";
+          DynamicUser = mkForce false;
         };
       };
     };
