@@ -35,6 +35,10 @@ in {
         groups.coredns = {};
       };
 
+      networking.search = [
+        "ts.unicycl.ing"
+      ];
+
       systemd.services.coredns = let
         caps = [
           "CAP_NET_ADMIN"
@@ -49,8 +53,10 @@ in {
         serviceConfig = {
           CapabilityBoundingSet = mkForce caps;
           AmbientCapabilities = mkForce caps;
-          User = "coredns";
-          Group = "coredns";
+          User = "tailscale";
+          Group = "tailscale";
+          # User = "coredns";
+          # Group = "coredns";
           DynamicUser = mkForce false;
         };
       };
