@@ -8,5 +8,13 @@ ts.unicycl.ing:53 {
 
 	bind tailscale0
 	tailscale ts.unicycl.ing
-	
+}
+
+unicycl.ing:53 {
+	bind tailscale0
+	forward . 1.1.1.1 1.0.0.1
+}
+
+.:53 {
+	forward . 1.1.1.1 1.0.0.1
 }
