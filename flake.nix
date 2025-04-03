@@ -51,7 +51,7 @@
     };
 
     coredns = {
-      url = "github:henrikvtcodes/coredns/v1.12.0-nix1";
+      url = "github:henrikvtcodes/coredns";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
