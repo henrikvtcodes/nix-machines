@@ -1,20 +1,36 @@
 (common) {
-	errors
 	prometheus
+	errors
+	log . "{type} {class} {name} {proto} {>rflags} {rcode}" {
+		class all
+	}
+}
+
+(cf-forward) {
+	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111
+}
+
+.:53 {
+	import cf-forward
+
+	import common
 }
 
 ts.unicycl.ing:53 {
-	import common
-
 	bind tailscale0
 	tailscale ts.unicycl.ing
+
+	import common
 }
 
 unicycl.ing:53 {
 	bind tailscale0
-	forward . 1.1.1.1 1.0.0.1
-}
 
-.:53 {
-	forward . 1.1.1.1 1.0.0.1
+	records {
+		metrics 3600 IN CNAME barnegat.ts.unicycl.ing.
+	}
+
+	import cf-forward
+
+	import common
 }
