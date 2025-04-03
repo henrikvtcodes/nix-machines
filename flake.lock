@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743716725,
-        "narHash": "sha256-I7qbXcv6HFD5pe7bcfeY5jyDUckJy7ywHZbvlDjEjMs=",
+        "lastModified": 1743720073,
+        "narHash": "sha256-+kZXEQamkOFtyMv6NrsAg87NZChm8dvB0B6hl4LVeVQ=",
         "owner": "henrikvtcodes",
         "repo": "coredns",
-        "rev": "2bf9a2b65fd8a9240ea3c5aaba7436fc992b580f",
+        "rev": "0ac52c7c678350800f18b5268026c1cb78e0a347",
         "type": "github"
       },
       "original": {
