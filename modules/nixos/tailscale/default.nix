@@ -105,7 +105,6 @@ in {
       firewall.trustedInterfaces = ["tailscale0"];
       search = [
         "reindeer-porgy.ts.net"
-        "unicycl.ing"
       ];
       # nameservers = [ "100.100.100.100" ];
     };
