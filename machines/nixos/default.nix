@@ -84,13 +84,16 @@
     };
   };
 
-  services.prometheus.exporters.node = {
-    # Enable node-exporter by default
-    enable = lib.mkDefault true;
-    enabledCollectors = lib.mkDefault [
-      "zfs"
-      "systemd"
-    ];
+  services.prometheus = {
+    listenAddress = lib.mkDefault "[::]";
+    exporters.node = {
+      # Enable node-exporter by default
+      enable = lib.mkDefault true;
+      enabledCollectors = lib.mkDefault [
+        "zfs"
+        "systemd"
+      ];
+    };
   };
 
   services.iperf3 = {
