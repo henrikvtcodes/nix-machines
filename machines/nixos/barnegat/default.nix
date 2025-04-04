@@ -11,6 +11,8 @@
     hostName = "barnegat";
     domain = "unicycl.ing";
     hostId = "57e3eb57";
+    useDHCP = false;
+    dhcpcd.enable = false;
   };
 
   boot.loader.grub = {
