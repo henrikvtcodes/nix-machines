@@ -10,8 +10,9 @@
 	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111
 }
 
-.:53 {
-	import cf-forward
+. {
+	bind tailscale0
+	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111
 
 	import common
 }
@@ -28,9 +29,13 @@ unicycl.ing:53 {
 
 	records {
 		metrics 3600 IN CNAME barnegat.ts.unicycl.ing.
+		ashokan 3600 IN CNAME ashokan.ts.unicycl.ing.
+		barnegat 3600 IN CNAME barnegat.ts.unicycl.ing.
 	}
 
-	import cf-forward
+	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111 {
+		except metrics.unicycl.ing. ashokan.unicycl.ing. barnegat.unicycl.ing.
+	}
 
 	import common
 }
