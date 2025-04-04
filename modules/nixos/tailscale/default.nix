@@ -13,6 +13,13 @@ with lib; let
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Enable Tailscale";
+    runAsTSUser = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Run Tailscale as the Tailscale user
+      '';
+    };
     advertiseExitNode = mkOption {
       type = types.bool;
       default = false;
@@ -124,7 +131,7 @@ in {
       ];
     };
 
-    users = {
+    users = mkIf cfg.runAsTSUser {
       users.tailscale = {
         isSystemUser = true;
         group = "tailscale";
@@ -139,19 +146,20 @@ in {
           "CAP_NET_BIND_SERVICE"
           "CAP_NET_RAW"
         ];
-      in {
+      in
+        mkIf cfg.runAsTSUser {
+          User = "tailscale";
+          Group = "tailscale";
+          CapabilityBoundingSet = mkForce caps;
+          AmbientCapabilities = mkForce caps;
+        };
+
+      tailscaled-set.serviceConfig = mkIf cfg.runAsTSUser {
         User = "tailscale";
         Group = "tailscale";
-        CapabilityBoundingSet = mkForce caps;
-        AmbientCapabilities = mkForce caps;
       };
 
-      tailscaled-set.serviceConfig = {
-        User = "tailscale";
-        Group = "tailscale";
-      };
-
-      tailscaled-autoconnect.serviceConfig = {
+      tailscaled-autoconnect.serviceConfig = mkIf cfg.runAsTSUser {
         User = "tailscale";
         Group = "tailscale";
       };
@@ -160,10 +168,10 @@ in {
         after = ["tailscaled.service"];
         wantedBy = ["multi-user.target"];
         wants = ["tailscaled.service"];
-        # serviceConfig = {
-        #   User = "tailscale";
-        #   Group = "tailscale";
-        # };
+        serviceConfig = mkIf cfg.runAsTSUser {
+          User = "tailscale";
+          Group = "tailscale";
+        };
         script = let
           baseFlag = ["--listen=${cfg.web.listenAddress}"];
           readOnly = optional cfg.web.readOnly "--readonly";
