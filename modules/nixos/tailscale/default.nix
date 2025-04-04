@@ -103,9 +103,9 @@ in {
 
     networking = {
       firewall.trustedInterfaces = ["tailscale0"];
-      search = [
-        "reindeer-porgy.ts.net"
-      ];
+      # search = [
+      #   "reindeer-porgy.ts.net"
+      # ];
       # nameservers = [ "100.100.100.100" ];
     };
 
