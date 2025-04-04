@@ -14,7 +14,7 @@
 
   networking = {
     firewall.enable = false;
-    # dhcpcd.IPv6rs = true;
+    dhcpcd.IPv6rs = true;
   };
 
   bootDisk = {
