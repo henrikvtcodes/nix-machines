@@ -53,10 +53,8 @@ in {
         serviceConfig = {
           CapabilityBoundingSet = mkForce caps;
           AmbientCapabilities = mkForce caps;
-          User = "tailscale";
-          Group = "tailscale";
-          # User = "coredns";
-          # Group = "coredns";
+          User = "coredns";
+          Group = "coredns";
           DynamicUser = mkForce false;
         };
       };
