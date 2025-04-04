@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }: {
   imports = [../../modules/nixos ../../home/henrikvt];
