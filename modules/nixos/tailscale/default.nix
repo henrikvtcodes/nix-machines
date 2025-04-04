@@ -135,6 +135,7 @@ in {
       users.tailscale = {
         isSystemUser = true;
         group = "tailscale";
+        extraGroups = ["networkmanager" "resolvconf"];
       };
       groups.tailscale = {};
     };
