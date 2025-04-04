@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743726737,
-        "narHash": "sha256-DYYdiLXTF2spYCj8Nn1jNZESXm0Lqb8I7MEAWHzifjk=",
+        "lastModified": 1743798167,
+        "narHash": "sha256-+JnlkwwE2S2CLSx5Wm7LGpzBG6EVR3gGr6szOthK+qg=",
         "owner": "henrikvtcodes",
         "repo": "coredns",
-        "rev": "1fa70df1ae5eec32101cfb39bbd916e57ece14fe",
+        "rev": "cac850c2f9d1415456b20e3d3a63c14af586fb1d",
         "type": "github"
       },
       "original": {
@@ -857,11 +857,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1743576891,
-        "narHash": "sha256-vXiKURtntURybE6FMNFAVpRPr8+e8KoLPrYs9TGuAKc=",
+        "lastModified": 1743703532,
+        "narHash": "sha256-s1KLDALEeqy+ttrvqV3jx9mBZEvmthQErTVOAzbjHZs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "44a69ed688786e98a101f02b712c313f1ade37ab",
+        "rev": "bdb91860de2f719b57eef819b5617762f7120c70",
         "type": "github"
       },
       "original": {
