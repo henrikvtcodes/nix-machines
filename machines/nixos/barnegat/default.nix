@@ -41,24 +41,7 @@
   };
   services.openssh = {
     # Use nonstandard SSH port for public server
-    listenAddresses = [
-      {
-        addr = "0.0.0.0";
-        port = 69;
-      }
-      {
-        addr = "[::]";
-        port = 69;
-      }
-      {
-        addr = "100.68.43.124";
-        port = 22;
-      }
-      {
-        addr = "fd7a:115c:a1e0::5c01:2b7e";
-        port = 22;
-      }
-    ];
+    ports = [22 69];
   };
 
   my.services.dns = {
