@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   imports = [
     ./hardware-config.nix
     ./services
