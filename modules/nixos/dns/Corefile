@@ -29,12 +29,12 @@ unicycl.ing:53 {
 
 	records {
 		metrics 3600 IN CNAME barnegat.ts.unicycl.ing.
-		ashokan 3600 IN CNAME ashokan.ts.unicycl.ing.
-		barnegat 3600 IN CNAME barnegat.ts.unicycl.ing.
+		# ashokan 3600 IN CNAME ashokan.ts.unicycl.ing.
+		# barnegat 3600 IN CNAME barnegat.ts.unicycl.ing.
 	}
 
 	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111 {
-		except metrics.unicycl.ing. ashokan.unicycl.ing. barnegat.unicycl.ing.
+		except metrics.unicycl.ing. 
 	}
 
 	import common
