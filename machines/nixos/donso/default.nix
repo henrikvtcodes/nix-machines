@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -48,6 +52,13 @@
       enable = true;
       interval = "monthly";
     };
+  };
+
+  services.resolved = {
+    enable = true;
+    dnssec = "allow-downgrade";
+    dnsovertls = "opportunistic";
+    fallbackDns = config.networking.nameservers;
   };
 
   # This value determines the NixOS release from which the default
