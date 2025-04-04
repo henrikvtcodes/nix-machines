@@ -65,10 +65,11 @@
   };
   my.services.tailscale = {
     enable = lib.mkDefault true;
-    web.enable = true;
-    web.listenAddress = "${config.networking.hostName}:5252";
+    web.enable = lib.mkDefault true;
+    web.listenAddress = lib.mkDefault "${config.networking.hostName}:5252";
   };
 
+  # https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
