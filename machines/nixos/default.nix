@@ -66,7 +66,7 @@
   my.services.tailscale = {
     enable = lib.mkDefault true;
     web.enable = lib.mkDefault true;
-    web.listenAddress = lib.mkDefault "${config.networking.hostName}:5252";
+    web.listenAddress = lib.mkDefault "[::]:5252"; # Works on v4 & v6 bc the kernel opts below forward v4 to v6
   };
 
   # https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html
