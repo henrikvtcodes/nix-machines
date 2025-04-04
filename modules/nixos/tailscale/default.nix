@@ -135,7 +135,7 @@ in {
       users.tailscale = {
         isSystemUser = true;
         group = "tailscale";
-        extraGroups = ["networkmanager" "resolvconf"];
+        extraGroups = ["networkmanager" "resolvconf" "systemd-resolve" "systemd-network"];
       };
       groups.tailscale = {};
     };
