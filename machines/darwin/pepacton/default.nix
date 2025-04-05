@@ -3,6 +3,7 @@
   config,
   pkgs,
   unstable,
+  lib,
   ...
 }: {
   users.users.henrikvt = {
@@ -84,39 +85,41 @@
       commit.gpgsign = true;
     };
 
-    # xdg.configFile."glab-cli/config-base.yml" = let
-    #   yaml = pkgs.formats.yaml {};
-    # in {
-    #   source = yaml.generate "config.yml" {
-    #     git_protocol = "ssh";
-    #     check_update = false;
-    #     host = "gitlab.uvm.edu";
-    #     editor = "nvim";
-    #     glamour_style = "dark";
-    #     no_prompt = false;
-    #     hosts = {
-    #       "gitlab.uvm.edu" = {
-    #         api_host = "gitlab.uvm.edu";
-    #         api_protocol = "https";
-    #         git_protocol = "ssh";
-    #         user = "henrikvtcodes";
-    #         # token = builtins.readFile config.age.secrets.uvmGitlabToken.path;
-    #       };
-    #       "gitlab.com" = {
-    #         api_host = "gitlab.com";
-    #         api_protocol = "https";
-    #         git_protocol = "ssh";
-    #       };
-    #     };
-    #   };
+    xdg.configFile."glab-cli/config-base.yml" = let
+      yaml = pkgs.formats.yaml {};
+    in {
+      source = yaml.generate "config.yml" {
+        git_protocol = "ssh";
+        check_update = false;
+        host = "gitlab.uvm.edu";
+        editor = "nvim";
+        glamour_style = "dark";
+        no_prompt = false;
+        hosts = {
+          "gitlab.uvm.edu" = {
+            api_host = "gitlab.uvm.edu";
+            api_protocol = "https";
+            git_protocol = "ssh";
+            user = "henrikvtcodes";
+            token = "@uvmtoken@";
+          };
+          "gitlab.com" = {
+            api_host = "gitlab.com";
+            api_protocol = "https";
+            git_protocol = "ssh";
+          };
+        };
+      };
+    };
 
-    #   onChange = ''
-    #     rm -f ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-    #     cp ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config-base.yml ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-    #     chmod 600 ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-    #     echo "\n\n" > ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-    #   '';
-    # };
+    home.activation = {
+      glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        rm -f ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        cp ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config-base.yml ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        chmod 600 ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        sed -i "s|@uvmtoken@|$(cat ${config.age.secrets.uvmGitlabToken.path})|g" ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+      '';
+    };
   };
 
   nix-homebrew = {
