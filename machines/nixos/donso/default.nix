@@ -19,14 +19,13 @@
     diskPath = "/dev/disk/by-id/ata-SAMSUNG_MZ7TY128HDHP-000H1_S2ZYNB0J110815";
   };
 
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [
-    22
-    5201
-  ];
-
-  networking.wireless.enable = false;
-  networking.networkmanager.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+      5201
+    ];
+  };
 
   services.prometheus.exporters.node = {
     enable = true;
