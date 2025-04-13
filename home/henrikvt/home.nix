@@ -77,6 +77,7 @@
           "fnm"
           "fzf"
           "zoxide"
+          "grc"
           "lol"
         ];
       };
@@ -231,6 +232,19 @@
           sort_by = "alphabetical";
           sort_dir_first = true;
         };
+      };
+    };
+
+    tealdeer = {
+      enable = true;
+      settings = {
+        cache_dir = "$HOME/.cache/tealdeer";
+        cache_size = 100;
+        cache_timeout = 604800;
+        color = "auto";
+        format = "markdown";
+        pager = "less -R";
+        style = "fancy";
       };
     };
   };
