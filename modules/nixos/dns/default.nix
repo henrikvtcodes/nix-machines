@@ -56,6 +56,7 @@ in {
           Group = "coredns";
           DynamicUser = mkForce false;
         };
+        stopIfChanged = false;
       };
     };
 }
