@@ -43,6 +43,10 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
+
+    # activation.tldr-alias = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    #   unalias tldr
+    # '';
   };
 
   programs = {
@@ -244,7 +248,6 @@
         color = "auto";
         format = "markdown";
         pager = "less -R";
-        style = "fancy";
       };
     };
   };
