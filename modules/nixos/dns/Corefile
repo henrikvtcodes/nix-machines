@@ -33,7 +33,8 @@ ts.unicycl.ing:53 {
 		# metrics 3600 IN CNAME barnegat.ts.unicycl.ing.
 		# ashokan 3600 IN CNAME ashokan.ts.unicycl.ing.
 		# barnegat 3600 IN CNAME barnegat.ts.unicycl.ing.
-		pve 3600 IN A 10.205.16.30
+		pve 3600 IN A 10.205.100.30
+		hudson 3600 IN A 10.205.100.20
 	}
 
 	import common
