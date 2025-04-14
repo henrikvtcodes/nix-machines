@@ -2,6 +2,7 @@
   pkgs,
   modulesPath,
   system,
+  lib,
   ...
 }: {
   imports = [
@@ -9,6 +10,8 @@
   ];
 
   nixpkgs.hostPlatform = system;
+
+  boot.growPartition = lib.mkDefault true;
 
   # This is a workaround for the fact that the default image does not
   # include the `nix` command.
@@ -38,4 +41,5 @@
 
   networking.nameservers = ["1.0.0.1" "1.1.1.1" "2606:4700:4700::1111" "2606:4700:4700::1001"];
   networking.networkmanager.enable = true;
+  networking.wireless.enable = false;
 }
