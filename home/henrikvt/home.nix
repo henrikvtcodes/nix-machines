@@ -138,7 +138,7 @@
     # Shell-integrated tools
     zoxide.enable = true;
     fzf.enable = true;
-    thefuck.enable = true;
+    pay-respects.enable = true;
     dircolors.enable = true;
     btop.enable = true;
     atuin = {
