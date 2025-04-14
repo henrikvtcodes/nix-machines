@@ -6,6 +6,13 @@
 	}
 }
 
+(taildns) {
+	# Bind to the tailscale0 interface
+	bind tailscale0
+	tailscale ts.unicycl.ing
+
+}
+
 . {
 	bind tailscale0
 	forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1001 2606:4700:4700::1111
@@ -14,8 +21,7 @@
 }
 
 ts.unicycl.ing:53 {
-	bind tailscale0
-	tailscale ts.unicycl.ing
+	import taildns
 
 	import common
 }
