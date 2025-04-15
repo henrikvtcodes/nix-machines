@@ -1,8 +1,13 @@
-{...}: {
+{lib, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
   ];
+
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+  };
 
   networking.hostName = "penikese";
   networking.hostId = "e55b3488";

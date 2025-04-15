@@ -75,6 +75,8 @@
     "net.ipv6.conf.all.accept_ra" = 0;
   };
 
+  boot.growPartition = lib.mkDefault true;
+
   # Enable SSH server
   services.openssh = {
     enable = true;
