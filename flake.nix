@@ -23,7 +23,7 @@
 
     catppuccin.url = "github:catppuccin/nix/release-1.x";
 
-    agenix = {
+    ragenix = {
       # agenix-compatible but in rust, for stability
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,7 +75,7 @@
     self,
     nixpkgs,
     disko,
-    agenix,
+    ragenix,
     deploy-rs,
     darwin,
     nil-lsp,
@@ -155,7 +155,7 @@
         unstable = importUnstable system;
       };
       modules = [
-        agenix.darwinModules.default
+        ragenix.darwinModules.default
         home-manager.darwinModules.home-manager
         nix-homebrew.darwinModules.nix-homebrew
 
@@ -164,7 +164,7 @@
 
         {
           environment.systemPackages = [
-            agenix.packages.${system}.default
+            ragenix.packages.${system}.default
             deploy-rs.packages.${system}.default
             nil-lsp.packages.${system}.default
           ];
@@ -191,7 +191,7 @@
           # System was provisioned with nixos-infect, runs on Oracle Cloud
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -216,7 +216,7 @@
           # Custom disk config is in the machine config
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -241,7 +241,7 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -265,7 +265,7 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -289,7 +289,7 @@
           ./modules/nixos/boot-disk-gb
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -313,7 +313,7 @@
           ./modules/nixos/boot-disk
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
@@ -336,7 +336,7 @@
           ./machines/nixos/penikese
 
           # Secrets
-          agenix.nixosModules.default
+          ragenix.nixosModules.default
 
           # User config
           ./users/henrikvt
