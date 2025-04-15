@@ -510,27 +510,6 @@
         "type": "github"
       }
     },
-    "gitignore_2": {
-      "inputs": {
-        "nixpkgs": [
-          "tangledsh",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1709087332,
-        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
     "gomod2nix": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -639,60 +618,6 @@
         "type": "github"
       }
     },
-    "htmx-src": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-nm6avZuEBg67SSyyZUhjpXVNstHHgUxrtBHqJgowU08=",
-        "type": "file",
-        "url": "https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
-      }
-    },
-    "ibm-plex-mono-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731402384,
-        "narHash": "sha256-OwUmrPfEehLDz0fl2ChYLK8FQM2p0G1+EMrGsYEq+6g=",
-        "type": "tarball",
-        "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-mono@1.1.0/ibm-plex-mono.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-mono@1.1.0/ibm-plex-mono.zip"
-      }
-    },
-    "indigo": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1738491661,
-        "narHash": "sha256-+njDigkvjH4XmXZMog5Mp0K4x9mamHX6gSGJCZB9mE4=",
-        "owner": "oppiliappan",
-        "repo": "indigo",
-        "rev": "feb802f02a462ac0a6392ffc3e40b0529f0cdf71",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oppiliappan",
-        "repo": "indigo",
-        "type": "github"
-      }
-    },
-    "inter-fonts-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731687360,
-        "narHash": "sha256-5vdKKvHAeZi6igrfpbOdhZlDX2/5+UvzlnCQV6DdqoQ=",
-        "type": "tarball",
-        "url": "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip"
-      }
-    },
     "ixx": {
       "inputs": {
         "flake-utils": [
@@ -719,19 +644,6 @@
         "ref": "v0.0.6",
         "repo": "ixx",
         "type": "github"
-      }
-    },
-    "lucide-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742302029,
-        "narHash": "sha256-OyPVtpnC4/AAmPq84Wt1r1Gcs48d9KG+UBCtZK87e9k=",
-        "type": "tarball",
-        "url": "https://github.com/lucide-icons/lucide/releases/download/0.483.0/lucide-icons-0.483.0.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/lucide-icons/lucide/releases/download/0.483.0/lucide-icons-0.483.0.zip"
       }
     },
     "nil-lsp": {
@@ -1040,8 +952,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim",
-        "tangledsh": "tangledsh"
+        "nixvim": "nixvim"
       }
     },
     "rust-overlay": {
@@ -1204,32 +1115,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "tangledsh": {
-      "inputs": {
-        "gitignore": "gitignore_2",
-        "htmx-src": "htmx-src",
-        "ibm-plex-mono-src": "ibm-plex-mono-src",
-        "indigo": "indigo",
-        "inter-fonts-src": "inter-fonts-src",
-        "lucide-src": "lucide-src",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1744664407,
-        "narHash": "sha256-kCo2nsNZjt8nxTQbyWic4qh/9za0EjqXMVcVt4SzIrk=",
-        "ref": "refs/heads/master",
-        "rev": "8d2a08af78b6d43dea1454f0e6dca585d6a79cc1",
-        "revCount": 469,
-        "type": "git",
-        "url": "https://tangled.sh/@tangled.sh/core"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://tangled.sh/@tangled.sh/core"
       }
     },
     "treefmt-nix": {

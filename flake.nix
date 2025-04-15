@@ -65,10 +65,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tangledsh = {
-      url = "git+https://tangled.sh/@tangled.sh/core";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # tangledsh = {
+    #   url = "git+https://tangled.sh/@tangled.sh/core";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = {
