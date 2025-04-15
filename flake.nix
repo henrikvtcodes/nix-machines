@@ -60,10 +60,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    crowdsec = {
-      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # crowdsec = {
+    #   url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # tangledsh = {
     #   url = "git+https://tangled.sh/@tangled.sh/core";
