@@ -142,7 +142,7 @@
     # Shell-integrated tools
     zoxide.enable = true;
     fzf.enable = true;
-    pay-respects.enable = true;
+    # pay-respects.enable = true;
     dircolors.enable = true;
     btop.enable = true;
     atuin = {
