@@ -7,12 +7,13 @@ let
   henrik_homelab_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmZEhaLdiFJ6TdyhdBC5fvCiY5c7drQK2EVHGPCPHei";
 
   # --------- Systems ---------
-  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLF2ymnhVA2fZy9bW3AvittJllvdIhpEEJeNE1JtZ4z";
-  valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q";
-  donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0fAwr0mzV/YHFGxyc9Id5FzLE34GlVdXb4toYn0p8s";
-  marstrand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcHEGMX9Oxd+0J5sZNKtq7LHKBNxFw525NPnhh5Ewr2";
-  barnegat = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpfaMerK8+qEPKyuF5V0tCMhu797kmw3knLmXTkQtTT";
-  ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p";
+  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLF2ymnhVA2fZy9bW3AvittJllvdIhpEEJeNE1JtZ4z root@svalbard";
+  valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q root@valcour";
+  donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0fAwr0mzV/YHFGxyc9Id5FzLE34GlVdXb4toYn0p8s root@donso";
+  marstrand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcHEGMX9Oxd+0J5sZNKtq7LHKBNxFw525NPnhh5Ewr2 root@marstrand";
+  barnegat = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpfaMerK8+qEPKyuF5V0tCMhu797kmw3knLmXTkQtTT root@barnegat";
+  ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p root@ashokan";
+  penikese = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHtuT1HokTm346l4GRdj7WNylz8UQWa4Ycd4hFBidD+ root@penikese";
 
   henrik = [
     henrik_public_pubkey
@@ -29,6 +30,7 @@ let
     marstrand
     barnegat
     ashokan
+    penikese
   ];
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
