@@ -51,7 +51,7 @@
     networkmanager.enable = lib.mkDefault false;
     dhcpcd.persistent = lib.mkDefault true;
     firewall = {
-      enable = lib.mkDefault true;
+      enable = lib.mkDefault false;
       allowPing = true;
     };
     wireless.enable = lib.mkDefault false;

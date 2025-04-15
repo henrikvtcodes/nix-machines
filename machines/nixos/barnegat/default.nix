@@ -13,6 +13,7 @@
     hostId = "57e3eb57";
     useDHCP = false;
     dhcpcd.enable = false;
+    firewall.enable = true;
   };
 
   boot.loader.grub = {
