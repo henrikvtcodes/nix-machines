@@ -1,0 +1,6 @@
+builds:
+  exclude: []
+  include:
+    - devShell.aarch64-darwin
+    - darwinConfigurations.*
+    - nixosConfigurations.*
