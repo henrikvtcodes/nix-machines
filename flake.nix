@@ -322,6 +322,29 @@
         ];
       };
 
+      penikese = lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/penikese
+
+          # Secrets
+          agenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+          home-manager.nixosModules.home-manager
+          ./home/henrikvt
+        ];
+      };
+
       # ISO Image Generators
       iso-virt = lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -388,6 +411,12 @@
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.valcour;
+        };
+        penikese = {
+          hostname = "penikese";
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.penikese;
         };
       };
     };
