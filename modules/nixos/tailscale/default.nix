@@ -99,7 +99,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    age.secrets.tailscaleAuthKey.file = ../../../secrets/tailscaleAuthKey.age;
+    age.secrets.tailscaleAuthKey =
+      {
+        file = ../../../secrets/tailscaleAuthKey.age;
+      }
+      // lib.optionalAttrs cfg.runAsTSUser {
+        owner = "tailscale";
+        group = "tailscale";
+      };
 
     assertions = [
       {
