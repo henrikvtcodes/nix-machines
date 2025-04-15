@@ -3,21 +3,27 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.users.henrikvt;
+in {
   options.users.henrikvt = {
     enableNixosSpecific = lib.mkEnableOption "Enable NixOS specific options";
+    enablePasswordFile = lib.mkEnableOption "Enable password file";
   };
 
   config = {
     nix.settings.trusted-users = ["henrikvt"];
-    age.secrets.henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
+
+    age.secrets = lib.mkIf cfg.enablePasswordFile {
+      henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
+    };
 
     users = {
       users.henrikvt = {
         uid = 1000;
         group = "henrikvt";
         isNormalUser = true;
-        hashedPasswordFile = config.age.secrets.henrikUserPassword.path;
+        hashedPasswordFile = lib.mkIf cfg.enablePasswordFile config.age.secrets.henrikUserPassword.path;
         extraGroups = [
           "wheel"
           "networkmanager"
@@ -72,6 +78,6 @@
 
     programs.ssh.startAgent = true;
 
-    age.identityPaths = lib.mkIf config.users.henrikvt.enableNixosSpecific ["/home/henrikvt/.ssh/id_ed25519"];
+    age.identityPaths = lib.mkIf cfg.enableNixosSpecific ["/home/henrikvt/.ssh/id_ed25519"];
   };
 }
