@@ -59,8 +59,8 @@ in {
       enable = true;
       environment = {
         WOODPECKER_HOST = "https://${cfg.domain}";
-        WOODPECKER_SERVER_ADDR = ":${toString cfg.httpPort}";
-        WOODPECKER_GRPC_ADDR = "0.0.0.0:${toString cfg.grpcPort}";
+        WOODPECKER_SERVER_ADDR = "[::]:${toString cfg.httpPort}";
+        WOODPECKER_GRPC_ADDR = "[::]:${toString cfg.grpcPort}";
         WOODPECKER_OPEN = toString cfg.allowSignup;
         WOODPECKER_ADMIN = cfg.adminUser;
         WOODPECKER_ORGS = cfg.allowedOrgs;
