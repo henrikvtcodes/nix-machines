@@ -345,6 +345,28 @@
         ];
       };
 
+      moran = lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/moran
+
+          # Secrets
+          ragenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
       # ISO Image Generators
       iso-virt = lib.nixosSystem rec {
         system = "x86_64-linux";
