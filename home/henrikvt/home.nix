@@ -58,7 +58,6 @@
       enableCompletion = true;
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
-      nix-index.enable = true;
 
       history = {
         size = 12000;
@@ -150,6 +149,8 @@
       enable = true;
       flags = ["--disable-up-arrow"];
     };
+          nix-index.enable = true;
+
 
     direnv = {
       enable = true;
