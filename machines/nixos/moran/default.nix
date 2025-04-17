@@ -10,7 +10,7 @@
   networking.networkmanager.enable = true;
 
   networking.hostName = "moran";
-  networking.hostId = "e55b3488";
+  networking.hostId = "e5da046e";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -56,6 +56,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  programs.firefox.enable = true;
+
+  home.henrikvt = {
+    ghostty = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
