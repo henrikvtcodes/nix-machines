@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -62,6 +62,10 @@
   home.henrikvt = {
     ghostty = true;
   };
+
+  users.users.henrikvt.packages = with pkgs; [ ghostty alacritty  ];
+
+  security.sudo.wheelNeedsPassword = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
