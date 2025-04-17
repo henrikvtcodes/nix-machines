@@ -58,6 +58,7 @@
       enableCompletion = true;
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
+      nix-index.enable = true;
 
       history = {
         size = 12000;
