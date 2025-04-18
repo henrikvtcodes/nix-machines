@@ -86,6 +86,7 @@
     nixpkgs-unstable,
     eoxporter,
     hardware,
+    catppuccin,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -370,6 +371,9 @@
 
           # Framework hardware module
           hardware.nixosModules.framework-13-7040-amd
+	  
+          # Catppuccin NixOS
+	  catppuccin.nixosModules.catppuccin
         ];
       };
 

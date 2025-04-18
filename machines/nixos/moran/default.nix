@@ -23,6 +23,9 @@
     };
   };
 
+  catppuccin.grub.enable = true;
+  catppuccin.grub.flavor = "mocha";
+
   networking.networkmanager.enable = true;
 
   networking.hostName = "moran";
