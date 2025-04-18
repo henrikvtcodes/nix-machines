@@ -8,8 +8,16 @@
     ./hardware-config.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      devices = ["nodev"];
+      efiSupport = true;
+      useOSProber = true;
+    };
+  };
 
   networking.networkmanager.enable = true;
 
@@ -70,6 +78,8 @@
   users.users.henrikvt.packages = with pkgs; [ghostty alacritty];
 
   security.sudo.wheelNeedsPassword = true;
+
+  time.hardwareClockInLocalTime = true;
 
   programs._1password.enable = true;
   programs._1password-gui = {
