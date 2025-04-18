@@ -149,8 +149,7 @@
       enable = true;
       flags = ["--disable-up-arrow"];
     };
-          nix-index.enable = true;
-
+    nix-index.enable = true;
 
     direnv = {
       enable = true;
