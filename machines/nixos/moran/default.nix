@@ -54,7 +54,9 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [nerd-fonts.symbols-only];
+    packages = with pkgs; [
+      nerd-fonts.symbols-only
+    ];
   };
 
   # Enable the X11 windowing system.
