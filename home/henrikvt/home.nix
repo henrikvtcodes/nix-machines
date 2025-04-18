@@ -219,6 +219,7 @@
       };
     };
     lazygit.enable = true;
+    lazygit.settings = {};
     gh = {
       enable = true;
       settings.git_protocol = "ssh";

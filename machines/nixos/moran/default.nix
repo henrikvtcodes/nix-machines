@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  unstable,
   ...
 }: {
   imports = [
@@ -54,7 +55,7 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [
+    packages = with unstable; [
       nerd-fonts.symbols-only
     ];
   };
