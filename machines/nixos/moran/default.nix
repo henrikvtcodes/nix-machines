@@ -13,13 +13,13 @@
     efi.canTouchEfiVariables = true;
 
     # efi.efiSysMountPoint = "/boot/efi";
-		#systemd-boot.enable = true;
-        grub = {
-          enable = true;
-          device = "nodev";
-     efiSupport = true;
-     efiInstallAsRemovable = false;
-     useOSProber = true;
+    #systemd-boot.enable = true;
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      efiInstallAsRemovable = false;
+      useOSProber = true;
     };
   };
 
@@ -43,12 +43,12 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-	# fonts.packages = with pkgs; [ nerdfonts ];
+  # fonts.packages = with pkgs; [ nerdfonts ];
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
-services.openssh.enable=true;
+  services.openssh.enable = true;
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;

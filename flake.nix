@@ -371,9 +371,9 @@
 
           # Framework hardware module
           hardware.nixosModules.framework-13-7040-amd
-	  
+
           # Catppuccin NixOS
-	  catppuccin.nixosModules.catppuccin
+          catppuccin.nixosModules.catppuccin
         ];
       };
 
