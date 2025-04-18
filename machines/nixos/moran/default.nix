@@ -11,11 +11,13 @@
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
+    
     efi.efiSysMountPoint = "/boot/efi";			
     grub = {
       enable = true;
-      devices = ["nodev"];
+      device = "nodev";
       efiSupport = true;
+      efiInstallAsRemovable = false;
       useOSProber = true;
     };
   };
