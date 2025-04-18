@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-24.11";
@@ -85,7 +85,7 @@
     nil-lsp,
     home-manager,
     nix-homebrew,
-    nixpkgs-unstable,
+    unstable,
     eoxporter,
     hardware,
     catppuccin,
@@ -109,7 +109,7 @@
         });
 
     importUnstable = system:
-      import nixpkgs-unstable {
+      import unstable {
         inherit system;
         config.allowUnfree = true;
       };
@@ -358,6 +358,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
