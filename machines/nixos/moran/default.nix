@@ -43,10 +43,12 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+	# fonts.packages = with pkgs; [ nerdfonts ];
+
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
-
+services.openssh.enable=true;
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
@@ -84,7 +86,7 @@
     ghostty = true;
   };
 
-  users.users.henrikvt.packages = with pkgs; [ghostty alacritty];
+  users.users.henrikvt.packages = with pkgs; [ghostty alacritty fprintd];
 
   security.sudo.wheelNeedsPassword = true;
 
@@ -106,6 +108,7 @@
       gpg.ssh.allowedSignersFile = toString ./signers.txt;
       commit.gpgsign = true;
     };
+    programs.lazygit.settings = {};
 
     programs.ssh = let
       onePassPath = "~/.1password/agent.sock";
