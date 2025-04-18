@@ -2,7 +2,7 @@
 {
   config,
   pkgs,
-  unstable,
+  # unstable,
   lib,
   ...
 }: {
