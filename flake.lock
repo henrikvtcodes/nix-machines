@@ -482,6 +482,21 @@
         "type": "github"
       }
     },
+    "hardware": {
+      "locked": {
+        "lastModified": 1744633460,
+        "narHash": "sha256-fbWE4Xpw6eH0Q6in+ymNuDwTkqmFmtxcQEmtRuKDTTk=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "9a049b4a421076d27fee3eec664a18b2066824cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs_6"
@@ -1019,6 +1034,7 @@
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "eoxporter": "eoxporter",
+        "hardware": "hardware",
         "home-manager": "home-manager",
         "nil-lsp": "nil-lsp",
         "nix-homebrew": "nix-homebrew",

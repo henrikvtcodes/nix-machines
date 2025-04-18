@@ -11,6 +11,8 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hardware.url = "github:NixOS/nixos-hardware";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -83,6 +85,7 @@
     nix-homebrew,
     nixpkgs-unstable,
     eoxporter,
+    hardware,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -364,6 +367,9 @@
           # User config
           ./users/henrikvt
           home-manager.nixosModules.home-manager
+
+          # Framework hardware module
+          hardware.nixosModules.framework-13-7040-amd
         ];
       };
 
