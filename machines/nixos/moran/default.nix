@@ -52,7 +52,10 @@
     };
   };
 
-  # fonts.packages = with pkgs; [ nerdfonts ];
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [nerd-fonts.symbols-only];
+  };
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
