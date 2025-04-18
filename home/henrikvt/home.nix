@@ -54,9 +54,9 @@
       enable = true;
       autocd = true;
       syntaxHighlighting.enable = true;
-      autosuggestion.enable = true;
+            autosuggestion.enable = true;
       enableCompletion = true;
-      enableVteIntegration = true;
+          enableVteIntegration = true;
       historySubstringSearch.enable = true;
 
       history = {
