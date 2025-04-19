@@ -2,6 +2,7 @@
   lib,
   pkgs,
   unstable,
+  inputs,
   ...
 }: {
   imports = [
@@ -144,6 +145,10 @@
       package = pkgs.usbmuxd2;
     };
   };
+
+  nixpkgs.overlays = with inputs; [
+    nur.overlays.default
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

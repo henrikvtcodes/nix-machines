@@ -1,0 +1,44 @@
+@import "catppuccin.css";
+
+* {
+  color: @text;
+  border: none;
+  border-radius: 1rem;
+  font-family: Liberation Mono;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+widget label,
+widget box {
+  background: @base;
+  padding: 0 1rem;
+}
+
+.modules-left widget box {
+  margin-right: 0.5rem;
+}
+
+.modules-right widget label {
+  margin-left: 0.5rem;
+}
+
+#workspaces {
+  padding: 0;
+}
+
+#workspaces label {
+  background: transparent;
+  padding: 0.4rem 0;
+}
+
+#workspaces button {
+  padding: 0.4rem 0;
+}
+
+#workspaces button.active,
+#workspaces button:hover {
+  background: @surface0;
+}
