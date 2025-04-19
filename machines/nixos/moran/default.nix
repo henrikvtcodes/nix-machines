@@ -68,6 +68,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.package = pkgs.kdePackages.sddm;
   # services.desktopManager.plasma6.enable = true;
 
   services.fwupd.enable = true;
