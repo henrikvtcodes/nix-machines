@@ -67,12 +67,8 @@
   services.openssh.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-
-  # Enable sound with pipewire.
+  services.displayManager.sddm.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   services.fwupd.enable = true;
 

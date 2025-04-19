@@ -1,4 +1,12 @@
 {...}: {
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+
+  programs.uwsm.enable = true;
+
   services = {
     libinput.touchpad = {
       tappingButtonMap = "lrm";
