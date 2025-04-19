@@ -256,6 +256,7 @@
 
   catppuccin = {
     enable = true;
+    flavor = "mocha";
   };
 
   xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty {

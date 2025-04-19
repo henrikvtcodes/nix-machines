@@ -154,7 +154,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [batmon];
+  environment.systemPackages = with pkgs; [batmon vscode-fhs];
 
   powerManagement = {
     enable = true;
