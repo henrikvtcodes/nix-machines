@@ -10,6 +10,11 @@ in {
     enable = mkEnableOption "Enable henrikvt's home configuration";
     ghDash = mkEnableOption "Enable GitHub TUI Dashboard"; # Github TUI dashboard doesn't play nice on all systems
     ghostty = mkEnableOption "Enable Ghostty Config";
+    extraModules = mkOption {
+      type = types.listOf types.path;
+      default = [];
+      description = "Extra modules to include in the home-manager configuration.";
+    };
     prompt = {
       dev = mkOption {
         type = types.bool;

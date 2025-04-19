@@ -5,10 +5,12 @@
   lib,
   ...
 }: {
-  imports = [
-    inputs.nixvim.homeManagerModules.nixvim
-    inputs.catppuccin.homeManagerModules.catppuccin
-  ];
+  imports =
+    [
+      inputs.nixvim.homeManagerModules.nixvim
+      inputs.catppuccin.homeManagerModules.catppuccin
+    ]
+    ++ homeCfg.extraModules;
 
   home = {
     packages = with pkgs; [
