@@ -82,7 +82,7 @@
     ghostty = true;
   };
 
-  users.users.henrikvt.packages = with pkgs; [ghostty alacritty fprintd];
+  users.users.henrikvt.packages = with pkgs; [fprintd];
 
   security.sudo.wheelNeedsPassword = true;
 
@@ -109,6 +109,9 @@
         autoFetch = false;
       };
     };
+
+		programs.alacritty.enable = true;
+		programs.ghostty.enable = true;
 
     programs.ssh = let
       onePassPath = "~/.1password/agent.sock";
