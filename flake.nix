@@ -35,17 +35,17 @@
     ragenix = {
       # agenix-compatible but in rust, for stability
       url = "github:yaxitech/ragenix";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
       url = "github:nix-community/disko";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     deploy-rs = {
       url = "github:serokell/deploy-rs";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nil-lsp = {
@@ -61,6 +61,11 @@
 
     coredns = {
       url = "github:henrikvtcodes/coredns";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    attic = {
+      url = "github:zhaofengli/attic";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -95,6 +100,7 @@
     hardware,
     catppuccin,
     hyprland,
+    attic,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -205,6 +211,8 @@
           # Secrets
           ragenix.nixosModules.default
 
+          attic.nixosModules.atticd
+
           # User config
           ./users/henrikvt
           home-manager.nixosModules.home-manager
@@ -229,6 +237,8 @@
 
           # Secrets
           ragenix.nixosModules.default
+
+          attic.nixosModules.atticd
 
           # User config
           ./users/henrikvt

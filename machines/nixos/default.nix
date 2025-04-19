@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  system,
   ...
 }: {
   imports = [../../modules/nixos ../../home/henrikvt];
@@ -180,5 +181,7 @@
     bsdgames
 
     diskus
+
+    attic-client
   ];
 }

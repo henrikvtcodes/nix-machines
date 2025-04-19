@@ -54,7 +54,7 @@
       coder = "code . -r";
     };
 
-    systemPackages = with pkgs; [ncurses];
+    systemPackages = with pkgs; [attic-client];
 
     variables = {
       EDITOR = "nvim";
