@@ -7,6 +7,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
+    ./wmde.nix
   ];
 
   # boot.loader.systemd-boot.enable = true;
@@ -63,40 +64,17 @@
     ];
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
   services.openssh.enable = true;
+
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
 
   services.fwupd.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   programs.firefox.enable = true;
 
@@ -136,6 +114,55 @@
         Host *
             IdentityAgent ${onePassPath}
       '';
+    };
+  };
+
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+
+  hardware.graphics.enable = true;
+
+  services = {
+    printing.enable = true; # Cups
+    pcscd.enable = true; # Smart card (Yubikey) daemon
+
+    # Sound
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
+
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
+    };
+
+    udev.packages = [pkgs.yubikey-personalization];
+  };
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
+
+  environment.systemPackages = with pkgs; [batmon];
+
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+  };
+
+  networking.networkmanager.wifi.powersave = true;
+
+  services = {
+    usbmuxd = {
+      enable = true;
+      package = pkgs.usbmuxd2;
     };
   };
 

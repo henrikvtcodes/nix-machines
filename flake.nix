@@ -89,6 +89,7 @@
     eoxporter,
     hardware,
     catppuccin,
+    hyprland,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -357,7 +358,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
-	  unstable = importUnstable system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -375,8 +376,11 @@
           # Framework hardware module
           hardware.nixosModules.framework-13-7040-amd
 
-          # Catppuccin NixOS
+          # Catppuccin NixOS for theming
           catppuccin.nixosModules.catppuccin
+
+          # Hyprland WM
+          hyprland.nixosModules.default
         ];
       };
 
