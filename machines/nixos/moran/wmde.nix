@@ -18,16 +18,16 @@
         variant = "";
       };
     };
-    greetd = {
-      enable = true;
-    };
+    # greetd = {
+    #   enable = true;
+    # };
   };
 
-  programs = {
-    regreet = {
-      enable = true;
-    };
-  };
+  # programs = {
+  #   regreet = {
+  #     enable = true;
+  #   };
+  # };
 
   security.polkit.enable = true;
 
