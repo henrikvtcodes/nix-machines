@@ -25,8 +25,8 @@
     };
   };
 
-  catppuccin.grub.enable = true;
-  catppuccin.grub.flavor = "mocha";
+  catppuccin.enable = true;
+  catppuccin.flavor = "mocha";
 
   networking.networkmanager.enable = true;
 
@@ -104,7 +104,11 @@
       gpg.ssh.allowedSignersFile = toString ./signers.txt;
       commit.gpgsign = true;
     };
-    programs.lazygit.settings = {};
+    programs.lazygit.settings = {
+      git = {
+        autoFetch = false;
+      };
+    };
 
     programs.ssh = let
       onePassPath = "~/.1password/agent.sock";
