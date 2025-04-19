@@ -381,7 +381,6 @@
 
           # Hyprland WM
           hyprland.nixosModules.default
-
         ];
       };
 
