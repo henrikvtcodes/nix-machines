@@ -57,6 +57,9 @@
     enableDefaultPackages = true;
     packages = with unstable; [
       nerd-fonts.symbols-only
+      nerd-fonts.caskaydia-mono
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
     ];
   };
 
