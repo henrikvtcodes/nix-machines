@@ -10,6 +10,15 @@
         variant = "";
       };
     };
+    greetd = {
+      enable = true;
+    };
+  };
+
+  programs = {
+    regreet = {
+      enable = true;
+    };
   };
 
   security.polkit.enable = true;
