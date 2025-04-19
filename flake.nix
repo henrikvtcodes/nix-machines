@@ -6,6 +6,11 @@
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       # inputs.nixpkgs.follows = "nixpkgs";
