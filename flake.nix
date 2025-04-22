@@ -211,7 +211,8 @@
           # Secrets
           ragenix.nixosModules.default
 
-          attic.nixosModules.atticd
+          # Attic Binary Cache
+          # attic.nixosModules.atticd
 
           # User config
           ./users/henrikvt
@@ -238,7 +239,8 @@
           # Secrets
           ragenix.nixosModules.default
 
-          attic.nixosModules.atticd
+          # Attic Binary Cache
+          # attic.nixosModules.atticd
 
           # User config
           ./users/henrikvt
