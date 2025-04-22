@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   programs = {
+    tofi.enable = true;
     hyprlock = {
       enable = true;
       settings = {
@@ -21,11 +22,53 @@
     wl-clip-persist
   ];
 
+  xdg = {
+    mimeApps.defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+    };
+  };
+
   services = {
-    hypridle.enable = true;
-    hyprpaper.enable = true;
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
+    avizo.enable = true;
+
+    hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          lock_cmd = "${pkgs.hyprlock}/bin/hyprlock";
+          before_sleep_cmd = [
+            "${pkgs.playerctl}/bin/playerctl pause"
+            "${pkgs.hyprlock}/bin/hyprlock"
+          ];
+          after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        };
+        listener = [
+          {
+            timeout = 300;
+            on-timeout = "${pkgs.hyprlock}/bin/hyprlock";
+          }
+          {
+            timeout = 600;
+            on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+            on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          }
+        ];
+      };
+    };
+
+    hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = "off";
+        preload = "~/Pictures/wallpapers/arcanepigeon/mushroom.png";
+        wallpaper = ",~/Pictures/wallpapers/arcanepigeon/mushroom.png";
+      };
+    };
   };
 
   wayland.windowManager.hyprland = {
@@ -34,6 +77,27 @@
     xwayland.enable = true;
 
     settings = {
+      "$mod" = "SUPER";
+      "$terminal" = "alacritty";
+      "$browser" = "firefox";
+      "$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
+
+      monitor = [
+        ", prefered, auto, 1"
+        ", prefered, auto, 1"
+      ];
+
+      general = {
+        gaps_in = 10;
+        gaps_out = 10;
+        border_size = 0;
+      };
+
+      decoration = {
+        rounding = 10;
+        dim_inactive = true;
+      };
+
       input = {
         kb_model = "pc104";
         kb_options = "kb_options";
@@ -45,6 +109,35 @@
           clickfinger_behavior = true;
         };
       };
+
+      bindel = [
+        ",XF86AudioRaiseVolume, exec, volumectl -u up"
+        ",XF86AudioLowerVolume, exec, volumectl -u down"
+        ",XF86AudioMute, exec, volumectl toggle-mute"
+        ",XF86MonBrightnessUp, exec, lightctl up"
+        ",XF86MonBrightnessDown, exec, lightctl down"
+      ];
+
+      # Requires playerctl
+      bindl = [
+        ",XF86AudioNext, exec, playerctl next"
+        ",XF86AudioPause, exec, playerctl play-pause"
+        ",XF86AudioPlay, exec, playerctl play-pause"
+        ",XF86AudioPrev, exec, playerctl previous"
+      ];
+
+      exec-once = [
+        "avizo-service &"
+        "blueman-applet &"
+        "nm-applet &"
+        "wayland-pipewire-idle-inhibit &"
+        "wl-clip-persist --clipboard regular"
+      ];
+
+      windowrule = [
+        "idleinhibit fullscreen, class:*"
+        "float, class:firefox, title:(Extension:.*)"
+      ];
     };
   };
 }
