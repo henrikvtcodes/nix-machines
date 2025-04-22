@@ -106,15 +106,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    age.secrets.tailscaleAuthKey =
-      lib.optionalAttrs cfg.enableAutoUp
-      ({
-          file = ../../../secrets/tailscaleAuthKey.age;
-        }
-        // lib.optionalAttrs cfg.runAsTSUser {
-          owner = "tailscale";
-          group = "tailscale";
-        });
+    age.secrets =
+      {}
+      // (lib.optionalAttrs cfg.enableAutoUp {
+        tailscaleAuthKey =
+          {
+            file = ../../../secrets/tailscaleAuthKey.age;
+          }
+          // lib.optionalAttrs cfg.runAsTSUser {
+            owner = "tailscale";
+            group = "tailscale";
+          };
+      });
 
     assertions = [
       {
@@ -135,7 +138,6 @@ in {
       {
         enable = true;
         useRoutingFeatures = "both";
-
         extraUpFlags =
           ["--reset=true"]
           ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
