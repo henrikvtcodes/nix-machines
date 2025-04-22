@@ -67,6 +67,8 @@
     ];
   };
 
+  users.users.henrikvt.extraGroups = ["video"];
+
   services.openssh.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
