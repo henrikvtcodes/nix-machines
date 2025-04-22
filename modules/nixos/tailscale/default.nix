@@ -20,6 +20,13 @@ in {
         Run Tailscale as the Tailscale user
       '';
     };
+    enableAutoUp = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Enable Tailscale autostart
+      '';
+    };
     advertiseExitNode = mkOption {
       type = types.bool;
       default = false;
@@ -100,13 +107,14 @@ in {
 
   config = mkIf cfg.enable {
     age.secrets.tailscaleAuthKey =
-      {
-        file = ../../../secrets/tailscaleAuthKey.age;
-      }
-      // lib.optionalAttrs cfg.runAsTSUser {
-        owner = "tailscale";
-        group = "tailscale";
-      };
+      lib.optionalAttrs cfg.enableAutoUp
+      ({
+          file = ../../../secrets/tailscaleAuthKey.age;
+        }
+        // lib.optionalAttrs cfg.runAsTSUser {
+          owner = "tailscale";
+          group = "tailscale";
+        });
 
     assertions = [
       {
@@ -123,20 +131,24 @@ in {
       # nameservers = [ "100.100.100.100" ];
     };
 
-    services.tailscale = {
-      enable = true;
-      useRoutingFeatures = "both";
-      authKeyFile = config.age.secrets.tailscaleAuthKey.path;
-      extraUpFlags =
-        ["--reset=true"]
-        ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
+    services.tailscale =
+      {
+        enable = true;
+        useRoutingFeatures = "both";
 
-      extraSetFlags = [
-        (tsBoolFlag "webclient" cfg.enableWebUI)
-        (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
-        "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
-      ];
-    };
+        extraUpFlags =
+          ["--reset=true"]
+          ++ (optional cfg.advertiseTags.enable "--advertise-tags=${concatStringsSep "," cfg.advertiseTags.tags}");
+
+        extraSetFlags = [
+          (tsBoolFlag "webclient" cfg.enableWebUI)
+          (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
+          "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
+        ];
+      }
+      // lib.optionalAttrs cfg.enableAutoUp {
+        authKeyFile = config.age.secrets.tailscaleAuthKey.path;
+      };
 
     users = mkIf cfg.runAsTSUser {
       users.tailscale = {

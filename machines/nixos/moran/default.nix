@@ -55,6 +55,8 @@
     };
   };
 
+  my.services.tailscale.enableAutoUp = false;
+
   fonts = {
     enableDefaultPackages = true;
     packages = with unstable; [
