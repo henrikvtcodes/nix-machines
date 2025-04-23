@@ -132,7 +132,7 @@
     enable = true;
     settings.cue = true;
     control = "sufficient";
-  };  
+  };
 
   security.pam.services = {
     greetd.u2fAuth = true;
@@ -142,7 +142,6 @@
 
   # USB Automounting
   services.gvfs.enable = true;
-
 
   hardware = {
     bluetooth = {

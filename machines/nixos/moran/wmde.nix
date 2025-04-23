@@ -24,23 +24,23 @@
     #   };
     # };
     greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet \
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet \
           --time --time-format '%I:%M %p | %a • %h | %F' \
           --cmd 'uwsm start hyprland'";
-        user    = "greeter";
+          user = "greeter";
+        };
       };
     };
-  };
   };
 
   users.users.greeter = {
     isNormalUser = false;
-    description  = "greetd greeter user";
-    extraGroups  = [ "video" "audio" ];
-    linger        = true;
+    description = "greetd greeter user";
+    extraGroups = ["video" "audio"];
+    linger = true;
   };
 
   security = {
@@ -56,7 +56,7 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     pyprland
     hyprpicker
     hyprcursor
