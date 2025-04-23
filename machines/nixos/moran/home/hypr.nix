@@ -110,7 +110,7 @@
         };
       };
 
-            bind = [
+      bind = [
         "$mod, RETURN, exec, $terminal"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
