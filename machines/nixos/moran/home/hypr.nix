@@ -33,7 +33,7 @@
 
   services = {
     network-manager-applet.enable = true;
-    blueman-applet.enable = true;
+    # blueman-applet.enable = true;
     avizo.enable = true;
 
     hypridle = {
@@ -170,7 +170,7 @@
 
       exec-once = [
         "avizo-service &"
-        "blueman-applet &"
+        # "blueman-applet &"
         "nm-applet &"
         "wayland-pipewire-idle-inhibit &"
         "wl-clip-persist --clipboard regular"

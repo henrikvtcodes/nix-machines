@@ -152,7 +152,15 @@
 
   programs.dconf.enable = true;
 
-  environment.systemPackages = with pkgs; [batmon keepassxc vscode-fhs yubikey-manager avizo playerctl];
+  environment.systemPackages = with pkgs; [
+    batmon 
+    keepassxc 
+    vscode-fhs 
+    yubikey-manager 
+    avizo 
+    playerctl
+    blueman
+    ];
 
   powerManagement = {
     enable = true;
