@@ -397,7 +397,7 @@
           catppuccin.nixosModules.catppuccin
 
           # Hyprland WM
-          hyprland.nixosModules.default
+          # hyprland.nixosModules.default
         ];
       };
 
