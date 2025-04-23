@@ -12,10 +12,10 @@
   services = {
     hypridle.enable = true;
     blueman.enable = true;
-    libinput.enable = true;
-    libinput.touchpad = {
-      tappingButtonMap = "lrm";
-    };
+    # libinput.enable = true;
+    # libinput.touchpad = {
+    #   tappingButtonMap = "lrm";
+    # };
     # xserver = {
     #   enable = true;
     #   xkb = {
