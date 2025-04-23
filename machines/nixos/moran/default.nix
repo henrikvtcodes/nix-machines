@@ -152,7 +152,7 @@
 
   programs.dconf.enable = true;
 
-  environment.systemPackages = with pkgs; [batmon vscode-fhs yubikey-manager];
+  environment.systemPackages = with pkgs; [batmon vscode-fhs yubikey-manager avizo playerctl];
 
   powerManagement = {
     enable = true;
