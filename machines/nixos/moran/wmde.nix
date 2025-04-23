@@ -43,6 +43,8 @@
     linger = true;
   };
 
+  programs.waybar.enable = true;
+
   security = {
     polkit.enable = true;
     pam.services.hyprlock = {};
