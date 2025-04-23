@@ -456,6 +456,12 @@
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.marstrand;
         };
+        moran = {
+          hostname = "moran";
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.moran;
+        };
         svalbard = {
           hostname = "svalbard";
           profiles.system.path =
