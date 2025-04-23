@@ -7,7 +7,10 @@
 
   # programs.uwsm.enable = true;
 
+  programs.hyprlock.enable = true;
+
   services = {
+    hypridle.enable = true;
     blueman.enable = true;
     libinput.enable = true;
     libinput.touchpad = {
@@ -21,14 +24,23 @@
     #   };
     # };
     greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-          user = "greeter";
-        };
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --time --time-format '%I:%M %p | %a • %h | %F' \
+          --cmd 'uwsm start hyprland'";
+        user    = "greeter";
       };
     };
+  };
+  };
+
+  users.users.greeter = {
+    isNormalUser = false;
+    description  = "greetd greeter user";
+    extraGroups  = [ "video" "audio" ];
+    linger        = true;
   };
 
   security = {
@@ -43,4 +55,17 @@
   # };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+    environment.systemPackages = with pkgs; [
+    pyprland
+    hyprpicker
+    hyprcursor
+    hyprlock
+    hypridle
+    hyprpaper
+
+    kitty
+
+    greetd.tuigreet
+  ];
 }
