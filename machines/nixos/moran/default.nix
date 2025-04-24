@@ -29,7 +29,14 @@
   catppuccin.enable = true;
   catppuccin.flavor = "mocha";
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    networkmanager.wifi.powersave = true;
+    networkmanager.wifi.backend = "iwd";
+    useDHCP = false;
+    dhcpcd.enable = false;
+    wireless.enable = false;
+  };
 
   networking.hostName = "moran";
   networking.hostId = "e5da046e";
@@ -167,8 +174,6 @@
     powertop.enable = true;
   };
 
-  networking.networkmanager.wifi.powersave = true;
-  networking.wireless.enable = false;
 
   services = {
     usbmuxd = {
