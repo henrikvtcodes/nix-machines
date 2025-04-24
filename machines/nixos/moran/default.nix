@@ -16,12 +16,15 @@
     grub = {
       enable = true;
       mirroredBoots = [
-      { devices = [ "nodev"]; path = "/boot"; }
-    ];
+        {
+          devices = ["nodev"];
+          path = "/boot";
+        }
+      ];
       efiSupport = true;
       efiInstallAsRemovable = false;
       useOSProber = true;
-      zfsSupport =  true;
+      zfsSupport = true;
     };
   };
 
