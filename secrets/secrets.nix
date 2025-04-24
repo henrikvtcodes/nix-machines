@@ -14,7 +14,7 @@ let
   barnegat = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpfaMerK8+qEPKyuF5V0tCMhu797kmw3knLmXTkQtTT root@barnegat";
   ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p root@ashokan";
   penikese = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHtuT1HokTm346l4GRdj7WNylz8UQWa4Ycd4hFBidD+ root@penikese";
-  moran = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKh9GHHLvNmm74cOYj4hoRFGG1T9RVeRA+le7w6fsOAQ root@moran";
+  moran = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORnxbZIBQVqT6nlmxr9YEn94zXEaYWuUwPQJM2IgZA2 root@moran";
 
   henrik = [
     henrik_public_pubkey
