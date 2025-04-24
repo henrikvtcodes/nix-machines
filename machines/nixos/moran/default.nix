@@ -168,6 +168,7 @@
   };
 
   networking.networkmanager.wifi.powersave = true;
+  networking.wireless.enable = false;
 
   services = {
     usbmuxd = {

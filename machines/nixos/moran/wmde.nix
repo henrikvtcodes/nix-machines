@@ -11,7 +11,7 @@
 
   services = {
     hypridle.enable = true;
-    blueman.enable = true;
+    # blueman.enable = true;
     # libinput.enable = true;
     # libinput.touchpad = {
     #   tappingButtonMap = "lrm";
