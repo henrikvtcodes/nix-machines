@@ -174,7 +174,6 @@
     powertop.enable = true;
   };
 
-
   services = {
     usbmuxd = {
       enable = true;
