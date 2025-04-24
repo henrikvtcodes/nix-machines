@@ -36,7 +36,7 @@
       fsType = "zfs";
     };
     "/boot" = {
-      device = "/dev/disk/by-uuid/2A11-F4EF";
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
   };
