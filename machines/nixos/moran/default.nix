@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   unstable,
   inputs,
@@ -14,15 +13,15 @@
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
-
-    # efi.efiSysMountPoint = "/boot/efi";
-    #systemd-boot.enable = true;
     grub = {
       enable = true;
-      device = "nodev";
+      mirroredBoots = [
+      { devices = [ "nodev"]; path = "/boot"; }
+    ];
       efiSupport = true;
       efiInstallAsRemovable = false;
       useOSProber = true;
+      zfsSupport =  true;
     };
   };
 
