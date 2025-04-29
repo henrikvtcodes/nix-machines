@@ -219,6 +219,7 @@
         pull.rebase = false;
         protocol.file.allow = "always";
       };
+      delta.enable = true;
     };
     lazygit.enable = true;
     lazygit.settings = {};
