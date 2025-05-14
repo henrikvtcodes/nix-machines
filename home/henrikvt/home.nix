@@ -32,7 +32,7 @@
       magic-wormhole
       glab
       python3
-      mtr
+      wget
     ];
 
     shellAliases = {

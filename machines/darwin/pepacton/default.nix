@@ -35,6 +35,7 @@
       sl
       cowsay
       safe-rm
+      mtr
     ];
   };
 
