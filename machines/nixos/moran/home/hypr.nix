@@ -157,6 +157,9 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
+        "ALT, Tab, cyclenext"
+        "ALT, Tab, bringactivetotop"
+
         "$mod SHIFT, N, exec, swaync-client -t -sw"
         ''$mod, PRINT, exec, grim -g "$(slurp)" - | wl-copy''
         ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
