@@ -117,8 +117,6 @@
         workspace_swipe_create_new = false;
       };
 
-      
-
       misc = {
         disable_hyprland_logo = true;
         new_window_takes_over_fullscreen = 1;
