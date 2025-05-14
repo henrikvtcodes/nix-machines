@@ -89,8 +89,9 @@
 
       general = {
         gaps_in = 0;
-        gaps_out = 0;
+        gaps_out = [10 0 0 0];
         border_size = 0;
+        layout = "master";
       };
 
       decoration = {
