@@ -88,8 +88,8 @@
       ];
 
       general = {
-        gaps_in = 10;
-        gaps_out = 10;
+        gaps_in = 0;
+        gaps_out = 0;
         border_size = 0;
       };
 
@@ -108,6 +108,16 @@
           natural_scroll = true;
           clickfinger_behavior = true;
         };
+      };
+
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_create_new = false;
+      };
+
+      misc = {
+        disable_hyprland_logo = true;
+        new_window_takes_over_fullscreen = 1;
       };
 
       bind = [
