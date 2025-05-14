@@ -14,7 +14,7 @@
   home.packages = with pkgs; [
     grim
     hyprpicker
-    # hyprsysteminfo
+    hyprsysteminfo
     playerctl
     # slurp
     wayland-pipewire-idle-inhibit
@@ -33,7 +33,7 @@
 
   services = {
     network-manager-applet.enable = true;
-    # blueman-applet.enable = true;
+    blueman-applet.enable = true;
     avizo.enable = true;
 
     hypridle = {
@@ -64,9 +64,6 @@
     hyprpaper = {
       enable = true;
       settings = {
-        ipc = "off";
-        preload = "~/Pictures/wallpapers/arcanepigeon/mushroom.png";
-        wallpaper = ",~/Pictures/wallpapers/arcanepigeon/mushroom.png";
       };
     };
   };
