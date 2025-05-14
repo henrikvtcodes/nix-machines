@@ -80,11 +80,6 @@
 
   services.openssh.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.package = pkgs.kdePackages.sddm;
-  # services.desktopManager.plasma6.enable = true;
-
   services.fwupd.enable = true;
 
   programs.firefox.enable = true;
@@ -96,18 +91,21 @@
     ];
   };
 
-  users.users.henrikvt.packages = with pkgs; [fprintd];
+  # users.users.henrikvt.packages = with pkgs; [fprintd];
 
   security.sudo.wheelNeedsPassword = true;
 
-  time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = true; # Windows compatibility
 
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = ["yourUsernameHere"];
+  programs = {
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      # Certain features, including CLI integration and system authentication support,
+      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+      polkitPolicyOwners = ["henrikvt"];
+    };
+    hyprlock.enable = true;
   };
 
   hardware.pulseaudio.enable = false;
@@ -181,6 +179,8 @@
       enable = true;
       package = pkgs.usbmuxd2;
     };
+    hypridle.enable = true;
+    fprintd.enable = true;
   };
 
   nixpkgs.overlays = with inputs; [
