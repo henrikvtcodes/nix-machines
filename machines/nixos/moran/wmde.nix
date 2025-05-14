@@ -16,13 +16,13 @@
     # libinput.touchpad = {
     #   tappingButtonMap = "lrm";
     # };
-    # xserver = {
-    #   enable = true;
-    #   xkb = {
-    #     layout = "us";
-    #     variant = "";
-    #   };
-    # };
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
     greetd = {
       enable = true;
       settings = {
