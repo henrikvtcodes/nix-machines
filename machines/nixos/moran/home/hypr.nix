@@ -14,7 +14,7 @@
   home.packages = with pkgs; [
     grim
     hyprpicker
-    hyprsysteminfo
+    # hyprsysteminfo # does not exist in nixpkgs (yet?)
     playerctl
     # slurp
     wayland-pipewire-idle-inhibit
