@@ -96,6 +96,7 @@
 
   home.henrikvt = {
     ghostty = true;
+    client = true;
     extraModules = [
       ./home
     ];
