@@ -33,7 +33,12 @@
       glab
       python3
       wget
-    ];
+      ripgrep
+      mprocs
+      du-dust
+      fd
+      xh
+    ] ++ lib.optionals homeCfg.client [ presenterm] ;
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";
@@ -152,6 +157,7 @@
       flags = ["--disable-up-arrow"];
     };
     nix-index.enable = true;
+    zellij.enable = true;
 
     direnv = {
       enable = true;

@@ -27,6 +27,7 @@ in {
         description = "Show hostname";
       };
     };
+    client = mkEnableOption "Enable client configuration (ie things that would only be used on a clientside machine)";
   };
 
   config = lib.mkIf homeCfg.enable {
