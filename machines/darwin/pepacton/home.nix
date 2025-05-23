@@ -1,4 +1,4 @@
-{pkgs, config, lib, ...}: {
+{pkgs, config, lib, age, ...}: {
       home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
@@ -37,10 +37,10 @@
 
     home.activation = {
       glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        rm -f ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-        cp ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config-base.yml ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-        chmod 600 ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
-        sed -i "s|@uvmtoken@|$(cat ${config.age.secrets.uvmGitlabToken.path})|g" ${config.home-manager.users.henrikvt.xdg.configHome}/glab-cli/config.yml
+        rm -f ${config.xdg.configHome}/glab-cli/config.yml
+        cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
+        chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
+        sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
       '';
     };
 } 

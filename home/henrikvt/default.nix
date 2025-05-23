@@ -38,6 +38,7 @@ in {
       extraSpecialArgs = {
         inherit inputs;
         inherit homeCfg;
+        inherit (config) age;
       };
       backupFileExtension = "hmbak";
       users.henrikvt = import ./home.nix;
