@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  age,
   ...
 }: {
   home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
@@ -40,12 +41,12 @@
     };
   };
 
-  home.activation = {
-    glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      rm -f ${config.xdg.configHome}/glab-cli/config.yml
-      cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
-      chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
-      sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
-    '';
-  };
-}
+    home.activation = {
+      glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        rm -f ${config.xdg.configHome}/glab-cli/config.yml
+        cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
+        chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
+        sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
+      '';
+    };
+} 
