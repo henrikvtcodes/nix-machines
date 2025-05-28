@@ -15,7 +15,6 @@
   home = {
     packages = with pkgs;
       [
-        fastfetch
         tokei
         q
         ffmpeg
@@ -34,11 +33,11 @@
         glab
         python3
         wget
-        ripgrep
         mprocs
         du-dust
-        fd
         xh
+        entr
+        watchman
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
@@ -49,6 +48,7 @@
         lolcat
         ninvaders
         fortune
+        longcat
       ];
 
     shellAliases = {
@@ -188,7 +188,6 @@
     };
 
     # Other tools
-    bat.enable = true;
     git = {
       enable = true;
       lfs.enable = true;
@@ -240,6 +239,15 @@
     };
     lazygit.enable = true;
     lazygit.settings = {};
+    gitui.enable = true;
+
+    ripgrep.enable = true;
+    ripgrep-all.enable = true;
+
+    bat.enable = true;
+    fd.enable = true;
+    fastfetch.enable=true;
+
     gh = {
       enable = true;
       settings.git_protocol = "ssh";
