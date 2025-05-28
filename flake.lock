@@ -1045,6 +1045,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-2411": {
+      "locked": {
+        "lastModified": 1748037224,
+        "narHash": "sha256-92vihpZr6dwEMV6g98M5kHZIttrWahb9iRPBm1atcPk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f09dede81861f3a83f7f06641ead34f02f37597f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1743296961,
@@ -1156,11 +1172,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1748439094,
-        "narHash": "sha256-gZaw+Y0KSNnNCO86kED3y5NMWrG06TXq6L4vl/UQ3vU=",
+        "lastModified": 1748446793,
+        "narHash": "sha256-NiiYGP8V2fQLjwloyxd3QfbgTcQGzoGewVtU5mMAsTs=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "cc59c871120ee0ea17ba17dd3f26d60bb21bc49d",
+        "rev": "dfd9c24c9067bab9c7bf7b31dd8e3c3ad9f19110",
         "type": "github"
       },
       "original": {
@@ -1221,7 +1237,7 @@
         "crane": "crane_2",
         "flake-utils": "flake-utils_5",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-2411"
         ],
         "rust-overlay": "rust-overlay_2"
       },
@@ -1236,6 +1252,7 @@
       "original": {
         "owner": "yaxitech",
         "repo": "ragenix",
+        "rev": "40f2e17ecaeab4d78ec323e96a04548c0aaa5223",
         "type": "github"
       }
     },
@@ -1255,6 +1272,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-2411": "nixpkgs-2411",
         "nixvim": "nixvim",
         "nur": "nur",
         "ragenix": "ragenix",
