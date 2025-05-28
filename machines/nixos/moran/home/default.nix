@@ -27,15 +27,11 @@
     };
 
     firefox.enable = true;
-    ghostty.enable = true;
+    ghostty = {
+      enable = true;
+    };
     alacritty = {
       enable = true;
-      settings = {
-        window = {
-          startup_mode = "Fullscreen";
-          dynamic_title = true;
-        };
-      };
     };
   };
 

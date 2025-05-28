@@ -6,12 +6,21 @@
   ...
 }: {
   home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
-  programs.git.extraConfig = {
-    user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
-    gpg.format = "ssh";
-    gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-    gpg.ssh.allowedSignersFile = toString ./signers.txt;
-    commit.gpgsign = true;
+  programs = {
+    git.extraConfig = {
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
+      gpg.format = "ssh";
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg.ssh.allowedSignersFile = toString ./signers.txt;
+      commit.gpgsign = true;
+    };
+    alacritty = {
+      settings = {
+        font = {
+          normal = "Liga SFMono Nerd Font";
+        };
+      };
+    };
   };
 
   xdg.configFile."glab-cli/config-base.yml" = let
