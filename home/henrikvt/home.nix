@@ -160,7 +160,7 @@
     # Shell-integrated tools
     zoxide.enable = true;
     fzf.enable = true;
-    # pay-respects.enable = true;
+    pay-respects.enable = true;
     dircolors.enable = true;
     btop.enable = true;
     atuin = {
@@ -270,6 +270,16 @@
         color = "auto";
         format = "markdown";
         pager = "less -R";
+      };
+    };
+
+    alacritty = lib.mkIf homeCfg.client {
+      enable = true;
+      settings = {
+        window = {
+          startup_mode = "Maximized";
+          dynamic_title = true;
+        };
       };
     };
   };
