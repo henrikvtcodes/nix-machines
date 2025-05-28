@@ -34,7 +34,7 @@
   services = {
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
-    avizo.enable = true;
+    # avizo.enable = true;
 
     hypridle = {
       enable = true;
