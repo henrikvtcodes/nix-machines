@@ -75,7 +75,7 @@
 
     settings = {
       "$mod" = "SUPER";
-      "$terminal" = "ghostty";
+      "$terminal" = "alacritty";
       "$browser" = "firefox";
       "$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
 
