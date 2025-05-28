@@ -13,21 +13,21 @@
 
     darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-25.05";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
 
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin.url = "github:catppuccin/nix/release-1.x";
@@ -56,22 +56,22 @@
 
     eoxporter = {
       url = "github:henrikvtcodes/eoxporter";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     coredns = {
       url = "github:henrikvtcodes/coredns";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     attic = {
       url = "github:zhaofengli/attic";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # crowdsec = {
