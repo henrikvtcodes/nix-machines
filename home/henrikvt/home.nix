@@ -40,7 +40,16 @@
         fd
         xh
       ]
-      ++ lib.optionals homeCfg.client [presenterm];
+      ++ lib.optionals homeCfg.client [
+        presenterm
+        nyancat
+        moon-buggy
+        sl
+        cowsay
+        lolcat
+        ninvaders
+        fortune
+      ];
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";

@@ -12,14 +12,12 @@
       wifi-password
       just
       kraft
-      fortune
       uv
       gdu
       diskus
       fnm
       flyctl
       qrcp
-      ninvaders
       statix
       yt-dlp
       wrangler
@@ -27,12 +25,7 @@
       speedtest-cli
       nmap
       doggo
-      lolcat
       cmake
-      nyancat
-      moon-buggy
-      sl
-      cowsay
       safe-rm
       mtr
     ];
