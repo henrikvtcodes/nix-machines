@@ -13,32 +13,34 @@
     ++ homeCfg.extraModules;
 
   home = {
-    packages = with pkgs; [
-      fastfetch
-      tokei
-      q
-      ffmpeg
-      websocat
-      # trippy (this fucks with my mac and also it just doesn't work?)
-      podman
-      podman-compose
-      podman-tui
-      jq
-      imagemagick
-      hyperfine
-      git-lfs
-      fd
-      iperf3
-      magic-wormhole
-      glab
-      python3
-      wget
-      ripgrep
-      mprocs
-      du-dust
-      fd
-      xh
-    ] ++ lib.optionals homeCfg.client [ presenterm] ;
+    packages = with pkgs;
+      [
+        fastfetch
+        tokei
+        q
+        ffmpeg
+        websocat
+        # trippy (this fucks with my mac and also it just doesn't work?)
+        podman
+        podman-compose
+        podman-tui
+        jq
+        imagemagick
+        hyperfine
+        git-lfs
+        fd
+        iperf3
+        magic-wormhole
+        glab
+        python3
+        wget
+        ripgrep
+        mprocs
+        du-dust
+        fd
+        xh
+      ]
+      ++ lib.optionals homeCfg.client [presenterm];
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat -p";

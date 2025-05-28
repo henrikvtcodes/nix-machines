@@ -36,6 +36,10 @@
     };
   };
 
+  programs.regreet = {
+    enable = true;
+  };
+
   users.users.greeter = {
     isNormalUser = false;
     description = "greetd greeter user";
