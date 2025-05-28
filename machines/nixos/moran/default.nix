@@ -192,6 +192,11 @@
     fprintd.enable = true;
   };
 
+  services.logind = {
+    powerKey = "lock";
+    powerKeyLongPress = "poweroff";
+  };
+
   nixpkgs.overlays = with inputs; [
     nur.overlays.default
   ];
