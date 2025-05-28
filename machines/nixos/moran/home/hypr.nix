@@ -75,7 +75,7 @@
 
     settings = {
       "$mod" = "SUPER";
-      "$terminal" = "alacritty";
+      "$terminal" = "ghostty";
       "$browser" = "firefox";
       "$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
 
@@ -86,7 +86,7 @@
 
       general = {
         gaps_in = 0;
-        gaps_out = [10 0 0 0];
+        gaps_out = [100 0 0 0];
         border_size = 0;
         layout = "master";
       };
@@ -122,7 +122,8 @@
       };
 
       bind = [
-        "$mod, RETURN, exec, $terminal"
+        "$mod, T, exec, $terminal"
+        "$mod, G, exec, ghostty"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
         "$mod SHIFT, B, exec, $browser --private-window"
