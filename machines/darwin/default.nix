@@ -42,13 +42,10 @@ in {
   };
 
   # TouchID Prompt for sudo
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   home.henrikvt.enable = true;
 
   # Show hidden files in Finder always
   system.defaults.finder.AppleShowAllFiles = true;
-
-  # Force the nix daemon to run
-  services.nix-daemon.enable = lib.mkForce true;
 }

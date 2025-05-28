@@ -5,6 +5,7 @@
   # unstable,
   ...
 }: {
+  system.primaryUser = "henrikvt";
   users.users.henrikvt = {
     home = "/Users/henrikvt";
     packages = with pkgs; [
