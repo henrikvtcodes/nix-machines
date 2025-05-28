@@ -297,10 +297,10 @@
     flavor = "mocha";
   };
 
-  xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty {
+  xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty (lib.mkForce {
     enable = true;
     source = ./ghostty.txt;
-  };
+  });
 
   # ======================== DO NOT CHANGE THIS ========================
   home.stateVersion = "24.11";
