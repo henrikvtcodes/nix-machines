@@ -246,7 +246,7 @@
 
     bat.enable = true;
     fd.enable = true;
-    fastfetch.enable=true;
+    fastfetch.enable = true;
 
     gh = {
       enable = true;
