@@ -38,7 +38,7 @@
     ragenix = {
       # agenix-compatible but in rust, for stability
       url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
