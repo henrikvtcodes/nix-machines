@@ -163,10 +163,10 @@
         "$mod SHIFT, N, exec, swaync-client -t -sw"
         ''$mod, PRINT, exec, grim -g "$(slurp)" - | wl-copy''
         ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
-	"$mod, X, exec, wl-clip"	
+        "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
-	"$mod, V, exec, wl-paste"
-	"$mod SHIFT, C, exec, hyprpicker | wl-copy"
+        "$mod, V, exec, wl-paste"
+        "$mod SHIFT, C, exec, hyprpicker | wl-copy"
       ];
 
       bindel = [
