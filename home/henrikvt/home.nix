@@ -49,6 +49,7 @@
         ninvaders
         fortune
         longcat
+        numbat
       ];
 
     shellAliases = {
