@@ -21,7 +21,6 @@
       qrcp
       statix
       yt-dlp
-      wrangler
       pipes
       speedtest-cli
       nmap

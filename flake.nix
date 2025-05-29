@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-2411.url = "github:nixos/nixpkgs/nixos-24.11";
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -37,8 +38,8 @@
 
     ragenix = {
       # agenix-compatible but in rust, for stability
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:yaxitech/ragenix/40f2e17ecaeab4d78ec323e96a04548c0aaa5223";
+      inputs.nixpkgs.follows = "nixpkgs-2411";
     };
 
     disko = {
