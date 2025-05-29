@@ -122,8 +122,7 @@
       };
 
       bind = [
-        "$mod, T, exec, $terminal"
-        "$mod, G, exec, ghostty"
+        "$mod, ENTER, exec, $terminal"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
         "$mod SHIFT, B, exec, $browser --private-window"
@@ -164,7 +163,10 @@
         "$mod SHIFT, N, exec, swaync-client -t -sw"
         ''$mod, PRINT, exec, grim -g "$(slurp)" - | wl-copy''
         ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
-        "$mod, C, exec, hyprpicker | wl-copy"
+	"$mod, X, exec, wl-clip"	
+        "$mod, C, exec, wl-copy"
+	"$mod, V, exec, wl-paste"
+	"$mod SHIFT, C, exec, hyprpicker | wl-copy"
       ];
 
       bindel = [
