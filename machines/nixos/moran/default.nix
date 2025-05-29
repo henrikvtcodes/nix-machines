@@ -102,6 +102,11 @@
     ];
   };
 
+  environment.shellAliases = {
+    rebuild = "sudo nixos-rebuild --flake /home/henrikvt/Desktop/code/projects/nixmachines";
+    reload = "omz reload";
+  };
+
   security.sudo.wheelNeedsPassword = true;
 
   time.hardwareClockInLocalTime = true; # Windows compatibility
