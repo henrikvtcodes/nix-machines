@@ -187,8 +187,8 @@
 
       exec-once = [
         "avizo-service &"
-        # "blueman-applet &"
-        # "nm-applet &"
+        "blueman-applet &"
+        "nm-applet &"
         "wayland-pipewire-idle-inhibit &"
         "wl-clip-persist --clipboard regular"
       ];
