@@ -103,7 +103,7 @@
   };
 
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild --flake /home/henrikvt/Desktop/code/projects/nixmachines";
+    rebuild = "sudo nixos-rebuild switch --flake /home/henrikvt/Desktop/code/projects/nixmachines && omz reload";
     reload = "omz reload";
   };
 
