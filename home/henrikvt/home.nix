@@ -165,7 +165,7 @@
     dircolors.enable = true;
     btop.enable = true;
     atuin = {
-      enable = true;
+      enable = false;
       flags = ["--disable-up-arrow"];
     };
     nix-index.enable = true;
