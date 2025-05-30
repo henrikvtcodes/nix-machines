@@ -68,6 +68,11 @@
     };
   };
 
+  catppuccin.cursors = {
+    enable = true;
+    accent = "green";
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
