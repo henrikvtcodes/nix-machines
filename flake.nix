@@ -65,7 +65,7 @@
 
     coredns = {
       url = "github:henrikvtcodes/coredns";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     attic = {
@@ -151,12 +151,13 @@
   in {
     # Dev shell for this flake (mostly for reference)
     devShells = forEachSupportedSystem (
-      {pkgs, ...}: {
+      {pkgs, system, ...}: {
         default = pkgs.mkShell {
           packages = with pkgs; [
             nixd
             git
             nixos-generators
+            deploy-rs.packages.${system}.default
           ];
         };
       }

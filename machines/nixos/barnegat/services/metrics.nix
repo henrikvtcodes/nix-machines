@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       users = {
-        editors_can_admin = false;
+        # editors_can_admin = false;
         viewers_can_edit = false;
         allow_sign_up = false;
       };
