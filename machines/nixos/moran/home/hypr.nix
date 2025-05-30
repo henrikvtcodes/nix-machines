@@ -127,7 +127,7 @@
       };
 
       bind = [
-        "$mod, ENTER, exec, $terminal"
+	"$mod, RETURN, exec, $terminal"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
         "$mod SHIFT, B, exec, $browser --private-window"
