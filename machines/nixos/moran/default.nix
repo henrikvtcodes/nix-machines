@@ -102,6 +102,11 @@
     ];
   };
 
+  environment.shellAliases = {
+    rebuild = "sudo nixos-rebuild switch --flake /home/henrikvt/Desktop/code/projects/nixmachines && omz reload";
+    reload = "omz reload";
+  };
+
   security.sudo.wheelNeedsPassword = true;
 
   time.hardwareClockInLocalTime = true; # Windows compatibility
@@ -180,7 +185,6 @@
 
   powerManagement = {
     enable = true;
-    powertop.enable = true;
   };
 
   services = {
