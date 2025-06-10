@@ -37,7 +37,6 @@
         du-dust
         xh
         entr
-        watchman
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
