@@ -66,6 +66,7 @@
       settings = {
       };
     };
+    hyprpolkitagent.enable=true;
   };
 
   catppuccin.cursors = {
