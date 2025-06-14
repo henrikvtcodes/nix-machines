@@ -66,7 +66,7 @@
       settings = {
       };
     };
-    hyprpolkitagent.enable=true;
+    hyprpolkitagent.enable = true;
   };
 
   catppuccin.cursors = {
@@ -128,7 +128,7 @@
       };
 
       bind = [
-	"$mod, RETURN, exec, $terminal"
+        "$mod, RETURN, exec, $terminal"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
         "$mod SHIFT, B, exec, $browser --private-window"
