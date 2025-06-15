@@ -27,5 +27,13 @@
     allowSignup = true;
   };
 
+  services.atuin = {
+    enable = true;
+    openRegistration = true;
+    host = "0.0.0.0";
+    port = 22022;
+    database.createLocally = true;
+  };
+
   services.woodpecker-server.package = pkgs-unstable.woodpecker-server;
 }
