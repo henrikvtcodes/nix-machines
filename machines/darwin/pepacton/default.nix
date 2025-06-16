@@ -28,6 +28,7 @@
       cmake
       safe-rm
       mtr
+      nh
     ];
   };
 
