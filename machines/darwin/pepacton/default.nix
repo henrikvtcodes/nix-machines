@@ -38,6 +38,7 @@
       rebuild = "sudo darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
       ytdl = "yt-dlp";
       home = "cd ~";
       nvm = "fnm";
