@@ -36,6 +36,7 @@ in {
           [
             # stuff
             fastfetch
+            hyfetch
             btop
 
             bat
