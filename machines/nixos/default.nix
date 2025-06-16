@@ -2,17 +2,18 @@
   pkgs,
   lib,
   system,
+config,
   ...
 }: {
   imports = [../../modules/nixos ../../home/henrikvt];
 
   # Clean up nix store + old generations automatically
   nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
+    #gc = {
+    #  automatic = true;
+    #  dates = "weekly";
+    #  options = "--delete-older-than 30d";
+    #};
     optimise = {
       automatic = true;
       dates = ["weekly"];
@@ -30,6 +31,11 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
+  };
+  programs.nh.clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep 2 --keep-since 14d";
   };
 
   # Config sudo/doas commands
