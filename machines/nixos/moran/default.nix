@@ -102,8 +102,14 @@
     ];
   };
 
+  programs.nh = {
+    enable = true;
+    flake = "/home/henrikvt/Desktop/code/projects/nixmachines"
+  };
+
+
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake /home/henrikvt/Desktop/code/projects/nixmachines && omz reload";
+    rebuild = "sudo nixos-rebuild switch --flake $NH_FLAKE#moran && omz reload";
     reload = "omz reload";
   };
 
