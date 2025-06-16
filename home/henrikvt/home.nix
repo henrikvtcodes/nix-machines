@@ -37,7 +37,6 @@
         du-dust
         xh
         entr
-        watchman
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
@@ -239,7 +238,6 @@
       delta.enable = true;
     };
     lazygit.enable = true;
-    lazygit.settings = {};
     gitui.enable = true;
 
     ripgrep.enable = true;

@@ -151,7 +151,11 @@
   in {
     # Dev shell for this flake (mostly for reference)
     devShells = forEachSupportedSystem (
-      {pkgs, system, ...}: {
+      {
+        pkgs,
+        system,
+        ...
+      }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
             nixd
