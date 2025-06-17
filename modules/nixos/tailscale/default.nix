@@ -44,16 +44,7 @@ in {
         '';
       };
     };
-    acceptRoutes = {
-      enable = mkEnableOption "Accept routes";
-      routes = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          Accept these routes.
-        '';
-      };
-    };
+    acceptRoutes = mkEnableOption "Accept routes";
     advertiseTags = {
       enable = mkEnableOption "Advertise tags";
       tags = mkOption {
@@ -145,6 +136,7 @@ in {
         extraSetFlags = [
           (tsBoolFlag "webclient" cfg.enableWebUI)
           (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
+          (tsBoolFlag "accept-routes" cfg.acceptRoutes)
           "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
         ];
       }
