@@ -10,6 +10,7 @@
     prismlauncher
     spotify
     networkmanagerapplet
+    yaak
   ];
 
   programs = {
