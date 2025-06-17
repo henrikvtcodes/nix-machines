@@ -104,7 +104,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "/home/henrikvt/Desktop/code/projects/nixmachines"
+    flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
   };
 
 
