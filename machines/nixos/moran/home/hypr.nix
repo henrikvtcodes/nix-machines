@@ -81,7 +81,8 @@
 
     settings = {
       "$mod" = "SUPER";
-      "$terminal" = "alacritty";
+      "$terminal" = "ghostty";
+      # "$terminal" = "alacritty";
       "$browser" = "firefox";
       "$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
 
