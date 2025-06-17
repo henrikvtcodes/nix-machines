@@ -78,7 +78,7 @@
         };
 
         backlight = {
-          device = "intel_backlight";
+          device = "amd_backlight";
           format = "{percent}% ";
         };
 
