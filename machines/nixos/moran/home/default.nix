@@ -44,4 +44,11 @@
           IdentityAgent ${onePassPath}
     '';
   };
+  
+  xdg.autostart = {
+    enable = true;
+    entries = [
+      "${lib.getExe' pkgs._1password-gui "1password"}"
+    ];
+  };
 }
