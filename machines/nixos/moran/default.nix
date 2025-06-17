@@ -64,7 +64,10 @@
     };
   };
 
-  my.services.tailscale.enableAutoUp = false;
+  my.services.tailscale = {
+    enableAutoUp = false;
+    acceptRoutes = true;
+  };
 
   fonts = {
     enableDefaultPackages = true;
@@ -106,7 +109,6 @@
     enable = true;
     flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
   };
-
 
   environment.shellAliases = {
     rebuild = "sudo nixos-rebuild switch --flake $NH_FLAKE#moran && omz reload";
