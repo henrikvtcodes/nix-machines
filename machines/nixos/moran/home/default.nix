@@ -44,7 +44,7 @@
           IdentityAgent ${onePassPath}
     '';
   };
-  
+
   xdg.autostart = {
     enable = true;
     entries = [

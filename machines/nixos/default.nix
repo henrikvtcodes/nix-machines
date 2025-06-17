@@ -2,7 +2,7 @@
   pkgs,
   lib,
   system,
-config,
+  config,
   ...
 }: {
   imports = [../../modules/nixos ../../home/henrikvt];
@@ -33,9 +33,9 @@ config,
     };
   };
   programs.nh.clean = {
-      enable = true;
-      dates = "weekly";
-      extraArgs = "--keep 2 --keep-since 14d";
+    enable = true;
+    dates = "weekly";
+    extraArgs = "--keep 2 --keep-since 14d";
   };
 
   # Config sudo/doas commands
