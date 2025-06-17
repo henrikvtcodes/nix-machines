@@ -187,6 +187,7 @@
     avizo
     playerctl
     blueman
+    uutils-coreutils-noprefix
   ];
 
   powerManagement = {
