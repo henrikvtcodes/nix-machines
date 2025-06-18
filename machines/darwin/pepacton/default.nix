@@ -39,6 +39,7 @@
       rebuild = "sudo darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      # docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
       ytdl = "yt-dlp";
       home = "cd ~";
       nvm = "fnm";
@@ -55,6 +56,7 @@
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
       JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
+      DOCKER_BIN_DIR = "/Applications/Docker.app/Contents/Resources/bin";
       FNM_COREPACK_ENABLED = "true";
       FNM_RESOLVE_ENGINES = "true";
       GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
