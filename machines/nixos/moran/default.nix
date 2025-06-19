@@ -154,6 +154,9 @@
     };
 
     udev.packages = [pkgs.yubikey-personalization];
+    spotifyd = {
+      enable = true;
+    };
   };
 
   # FIXME Don't forget to create an authorization mapping file for your user (https://nixos.wiki/wiki/Yubikey#pam_u2f)
