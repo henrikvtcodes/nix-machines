@@ -34,6 +34,7 @@
     alacritty = {
       enable = true;
     };
+    ncspot.enable = true;
   };
 
   programs.ssh = let
