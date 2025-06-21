@@ -19,7 +19,7 @@
         q
         ffmpeg
         websocat
-        trippy 
+        trippy
         jq
         imagemagick
         hyperfine
