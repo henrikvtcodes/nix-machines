@@ -32,10 +32,13 @@
       ];
     };
   };
-  programs.nh.clean = {
+  programs.nh = {
     enable = true;
-    dates = "weekly";
-    extraArgs = "--keep 2 --keep-since 14d";
+    clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep 2 --keep-since 14d";
+    };
   };
 
   # Config sudo/doas commands
