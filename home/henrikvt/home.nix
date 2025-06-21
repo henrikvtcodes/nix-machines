@@ -19,7 +19,7 @@
         q
         ffmpeg
         websocat
-        # trippy (this fucks with my mac and also it just doesn't work?)
+        trippy 
         jq
         imagemagick
         hyperfine
@@ -297,6 +297,11 @@
     enable = true;
     source = ./ghostty.txt;
   });
+
+  xdg.configFile."trippy.toml" = {
+    enable = true;
+    source = ./trippy.toml;
+  };
 
   # ======================== DO NOT CHANGE THIS ========================
   home.stateVersion = "24.11";
