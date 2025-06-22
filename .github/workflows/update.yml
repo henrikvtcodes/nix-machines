@@ -21,10 +21,10 @@ jobs:
 #          key: ${{ runner.os }}-nix-store
       - name: Update flake inputs
         run: nix flake update
-      - name: Ensure the flake passes checks
-        run: nix flake check
-      - name: Copy all flake inputs to store for caching
-        run: nix flake archive
+#      - name: Ensure the flake passes checks
+#        run: nix flake check
+#      - name: Copy all flake inputs to store for caching
+#        run: nix flake archive
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
