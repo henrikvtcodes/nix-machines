@@ -79,7 +79,7 @@
     ];
   };
 
-  users.users.henrikvt.extraGroups = ["video"];
+  users.users.henrikvt.extraGroups = ["video" "bird"];
 
   services.openssh.enable = true;
 
@@ -220,20 +220,7 @@
   services.bird = {
     enable = true;
     package = pkgs.bird2;
-    config = ''
-    protocol kernel {
-        ipv4 {
-                export all;     # Default is export none
-        };
-        ipv6 {
-                export all;
-        };
-        persist;                # Don't remove routes on BIRD shutdown
-}
-
-protocol device {
-}
-    '';
+    config = builtins.readFile ./bird.conf;
   };
 
   # This value determines the NixOS release from which the default
