@@ -221,18 +221,18 @@
     enable = true;
     package = pkgs.bird2;
     config = ''
-    protocol kernel {
-        ipv4 {
-                export all;     # Default is export none
-        };
-        ipv6 {
-                export all;
-        };
-        persist;                # Don't remove routes on BIRD shutdown
-}
+          protocol kernel {
+              ipv4 {
+                      export all;     # Default is export none
+              };
+              ipv6 {
+                      export all;
+              };
+              persist;                # Don't remove routes on BIRD shutdown
+      }
 
-protocol device {
-}
+      protocol device {
+      }
     '';
   };
 
