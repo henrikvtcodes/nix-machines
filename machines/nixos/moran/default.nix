@@ -217,6 +217,25 @@
     nur.overlays.default
   ];
 
+  services.bird = {
+    enable = true;
+    package = pkgs.bird2;
+    config = ''
+    protocol kernel {
+        ipv4 {
+                export all;     # Default is export none
+        };
+        ipv6 {
+                export all;
+        };
+        persist;                # Don't remove routes on BIRD shutdown
+}
+
+protocol device {
+}
+    '';
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
