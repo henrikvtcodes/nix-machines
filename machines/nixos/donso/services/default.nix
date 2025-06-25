@@ -57,7 +57,7 @@
   # ];
 
   services.couchdb = {
-    enable = true;
+    enable = false;
     databaseDir = "/data/main/couchdb";
     bindAddress = "0.0.0.0";
     adminUser = "obsd";
