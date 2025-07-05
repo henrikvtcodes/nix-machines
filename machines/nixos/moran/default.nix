@@ -32,9 +32,14 @@
   catppuccin.flavor = "mocha";
 
   networking = {
-    networkmanager.enable = true;
-    networkmanager.wifi.powersave = true;
-    networkmanager.wifi.backend = "iwd";
+    networkmanager = {
+      enable = true;
+      wifi = {
+        powersave = true;
+        backend = "iwd";
+        macAddress = "permanent";
+      };
+    };
     useDHCP = false;
     dhcpcd.enable = false;
     wireless.enable = false;
