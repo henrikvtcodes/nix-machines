@@ -217,12 +217,6 @@
     nur.overlays.default
   ];
 
-  services.bird = {
-    enable = true;
-    package = pkgs.bird2;
-    config = builtins.readFile ./bird.conf;
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
