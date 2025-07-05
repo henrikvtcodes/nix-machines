@@ -42,13 +42,6 @@
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
       # docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
-      ytdl = "yt-dlp";
-      home = "cd ~";
-      nvm = "fnm";
-      pn = "pnpm";
-      nsl = "doggo A AAAA MX TXT";
-      rm = "safe-rm";
-      coder = "code . -r";
     };
 
     systemPackages = with pkgs; [attic-client];

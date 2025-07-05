@@ -5,7 +5,19 @@
   age,
   ...
 }: {
-  home.sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
+  home = {
+    shellAliases = {
+      ytdl = "yt-dlp";
+      home = "cd ~";
+      nvm = "fnm";
+      pn = "pnpm";
+      rm = "safe-rm";
+      coder = "code . -r";
+    };
+    sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
+  };
+  
+  
   programs = {
     git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
