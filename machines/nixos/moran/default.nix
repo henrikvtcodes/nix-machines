@@ -38,6 +38,11 @@
     useDHCP = false;
     dhcpcd.enable = false;
     wireless.enable = false;
+    
+    useNetworkd = true;
+  };
+  systemd.network = {
+    wait-online.enable = false;
   };
 
   networking.hostName = "moran";
@@ -216,6 +221,7 @@
   nixpkgs.overlays = with inputs; [
     nur.overlays.default
   ];
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
