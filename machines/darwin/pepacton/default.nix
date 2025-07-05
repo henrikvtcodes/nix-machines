@@ -29,6 +29,7 @@
       safe-rm
       mtr
       nh
+      fastlane
     ];
   };
 
