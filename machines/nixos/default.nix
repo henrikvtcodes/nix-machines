@@ -64,6 +64,7 @@
     tempAddresses = lib.mkDefault "disabled";
     networkmanager.enable = lib.mkDefault false;
     dhcpcd.persistent = lib.mkDefault true;
+    nftables.enable = true;
     firewall = {
       enable = lib.mkDefault false;
       allowPing = true;
