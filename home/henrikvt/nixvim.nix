@@ -1,5 +1,5 @@
 # This module is imported into programs.nixvim, thus everthing exists in that scope
-{...}: {
+{homeCfg, lib,  ...}: {
   enable = true;
   defaultEditor = true;
   colorschemes.catppuccin.settings = {
@@ -65,7 +65,7 @@
     # | LSP |
     # ------
     # Javascript/Typescript
-    conform-nvim = {
+    conform-nvim = lib.mkIf homeCfg.client  {
       settings = {
         formatters_by_ft.javascript = ["prettier"];
         formatters_by_ft.typescript = ["prettier"];
@@ -73,7 +73,7 @@
         formatters_by_ft.typescriptreact = ["prettier"];
       };
     };
-    lsp.servers = {
+    lsp.servers = lib.mkIf homeCfg.client {
       ts_ls = {
         enable = true;
         filetypes = [

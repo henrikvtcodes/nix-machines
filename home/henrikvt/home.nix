@@ -168,7 +168,7 @@
     zellij.enable = true;
 
     direnv = {
-      enable = true;
+      enable = homeCfg.client;
       nix-direnv.enable = true;
       config = {
         global = {
@@ -245,13 +245,15 @@
     fastfetch.enable = true;
 
     gh = {
-      enable = true;
+      enable = homeCfg.client;
       settings.git_protocol = "ssh";
     };
     gh-dash.enable = homeCfg.ghDash;
 
     nixvim = import ./nixvim.nix {
       inherit pkgs;
+      inherit homeCfg;
+      inherit lib;
     };
 
     yazi = {
@@ -291,6 +293,8 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
+    # IFD issues - https://github.com/catppuccin/nix/issues/392
+    lazygit.enable = homeCfg.client;
   };
 
   xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty (lib.mkForce {
