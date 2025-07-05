@@ -290,10 +290,10 @@
     };
   };
 
+  # IFD issues - #5
   catppuccin = {
-    enable = true;
+    enable = homeCfg.client;
     flavor = "mocha";
-    # IFD issues - https://github.com/catppuccin/nix/issues/392
     lazygit.enable = homeCfg.client;
   };
 
