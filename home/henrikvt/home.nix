@@ -53,6 +53,7 @@
       lzg = "lazygit";
       gib = "git pull";
       nixsize = "${pkgs.diskus}/bin/diskus /nix/store";
+      sude = "sudo -E";
     };
 
     sessionVariables = {
