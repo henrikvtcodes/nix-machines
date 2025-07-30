@@ -68,6 +68,11 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tungsten = {
+      url = "github:henrikvtcodes/tungsten";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     attic = {
       url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
