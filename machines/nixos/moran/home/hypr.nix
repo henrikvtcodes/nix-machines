@@ -84,7 +84,8 @@
       "$terminal" = "ghostty";
       # "$terminal" = "alacritty";
       "$browser" = "firefox";
-      "$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
+      #"$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
+      "$menu" = "fuzzel";
 
       monitor = [
         ", prefered, auto, 1"
