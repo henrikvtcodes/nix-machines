@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  lib,
   # unstable,
   ...
 }: {
@@ -29,6 +30,8 @@
       safe-rm
       mtr
       nh
+      cocoapods
+      fastlane
     ];
   };
 
@@ -36,17 +39,10 @@
 
   environment = {
     shellAliases = {
-      rebuild = "sudo darwin-rebuild switch --flake /Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton && omz reload";
+      rebuild = "${lib.getExe pkgs.nh} darwin switch -H pepacton && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
       # docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
-      ytdl = "yt-dlp";
-      home = "cd ~";
-      nvm = "fnm";
-      pn = "pnpm";
-      nsl = "doggo A AAAA MX TXT";
-      rm = "safe-rm";
-      coder = "code . -r";
     };
 
     systemPackages = with pkgs; [attic-client];
@@ -61,6 +57,7 @@
       FNM_RESOLVE_ENGINES = "true";
       GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
       GITLAB_HOST = "gitlab.uvm.edu";
+      NH_FLAKE = "/Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
     };
   };
 
