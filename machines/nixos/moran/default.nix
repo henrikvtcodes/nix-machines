@@ -204,6 +204,7 @@
     playerctl
     blueman
     uutils-coreutils-noprefix
+    yubioath-flutter
   ];
 
   powerManagement = {
