@@ -1,7 +1,7 @@
 amends "https://raw.githubusercontent.com/henrikvtcodes/tungsten/refs/heads/main/config/Server.pkl"
 
 enableTailscale = true
-defaultPort = 1053
+defaultPort = 53
 
 defaultForwardConfig {
   ipv4Addresses {
@@ -17,5 +17,26 @@ defaultForwardConfig {
 zones {
   ["unicycl.ing."] {
     tailscale {} // This will serve tailscale machine names
+  }
+  ["205.unicycl.ing."] {
+    records {
+      A {
+        ["hudson"] {
+          new {
+            address = "10.205.100.20"
+          }
+        }
+        ["ilovebeans"] {
+          new {
+            address = "10.205.100.192"
+          }
+        }
+        ["pve"] {
+          new {
+            address = "10.205.100.30"
+          }
+        }
+      }
+    }
   }
 }
