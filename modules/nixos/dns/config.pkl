@@ -1,0 +1,21 @@
+amends "https://raw.githubusercontent.com/henrikvtcodes/tungsten/refs/heads/main/config/Server.pkl"
+
+enableTailscale = true
+defaultPort = 1053
+
+defaultForwardConfig {
+  ipv4Addresses {
+    "1.1.1.1"
+    "1.0.0.1"
+  }
+  ipv6Addresses {
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  }
+}
+
+zones {
+  ["unicycl.ing."] {
+    tailscale {} // This will serve tailscale machine names
+  }
+}
