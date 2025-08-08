@@ -68,6 +68,10 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tungsten = {
+      url = "github:henrikvtcodes/tungsten";
+    };
+
     attic = {
       url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -105,6 +109,7 @@
     catppuccin,
     hyprland,
     attic,
+    tungsten,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
