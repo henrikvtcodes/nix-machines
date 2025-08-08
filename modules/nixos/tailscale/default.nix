@@ -16,7 +16,7 @@ in {
     enable = mkEnableOption "Enable Tailscale";
     runAsTSUser = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = ''
         Run Tailscale as the Tailscale user
       '';
