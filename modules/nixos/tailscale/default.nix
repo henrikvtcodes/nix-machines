@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -152,6 +153,8 @@ in {
       };
       groups.tailscale = {};
     };
+
+    environment.shellAliases.ts = "${pkgs.tailscale}/bin/tailscale";
 
     systemd.services = {
       tailscaled.serviceConfig = let
