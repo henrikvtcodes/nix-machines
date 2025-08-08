@@ -122,7 +122,7 @@
   };
 
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake $NH_FLAKE#moran && omz reload";
+    rebuild = "${pkgs.nh}/bin/nh os switch && omz reload";
     reload = "omz reload";
   };
 
