@@ -3,11 +3,10 @@
   config,
   lib,
   system,
+  pkgs,
   ...
 }: let
   cfg = config.my.services.dns;
-
-  rootCorefile = builtins.readFile ./Corefile;
   
 in {
   options.my.services.dns = with lib; {
@@ -54,13 +53,19 @@ in {
         ];
       in {
         wants = ["tailscaled.service"];
-        after = ["tailscaled.service"];
+        after = ["tailscaled.service" "network.target"];
+        wantedBy = [ "multi-user.target" ];
+        path = with pkgs; [
+          pkl
+        ];
         serviceConfig = {
+          Type = "simple";
           CapabilityBoundingSet = caps;
           AmbientCapabilities = caps;
           User = "tungsten";
           Group = "tungsten";
-          LimitNPROC = 512;
+          # LimitNPROC = 512;
+          Restart = "on-failure";
           ProtectHome="read-only";
           ExecStart = "${cfg.package}/bin/tungsten serve --socket=${cfg.controlSocket} --config=${cfg.configFile}";
           ExecReload = "${cfg.package}/bin/tungsten reload --socket=${cfg.controlSocket}";
