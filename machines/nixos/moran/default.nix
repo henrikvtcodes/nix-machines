@@ -43,6 +43,12 @@
     useDHCP = false;
     dhcpcd.enable = false;
     wireless.enable = false;
+
+    useNetworkd = true;
+  };
+  systemd.network = {
+    enable = true;
+    wait-online.enable = false;
   };
 
   networking.hostName = "moran";
@@ -116,7 +122,7 @@
   };
 
   environment.shellAliases = {
-    rebuild = "sudo nixos-rebuild switch --flake $NH_FLAKE#moran && omz reload";
+    rebuild = "${pkgs.nh}/bin/nh os switch && omz reload";
     reload = "omz reload";
   };
 
@@ -198,6 +204,7 @@
     playerctl
     blueman
     uutils-coreutils-noprefix
+    yubioath-flutter
   ];
 
   powerManagement = {

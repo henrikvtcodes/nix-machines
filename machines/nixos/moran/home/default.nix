@@ -35,6 +35,12 @@
       enable = true;
     };
     ncspot.enable = true;
+    fuzzel = {
+      enable = true;
+    };
+    vesktop = {
+      enable = true;
+    };
   };
 
   programs.ssh = let

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -15,7 +16,7 @@ in {
     enable = mkEnableOption "Enable Tailscale";
     runAsTSUser = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = ''
         Run Tailscale as the Tailscale user
       '';
@@ -152,6 +153,8 @@ in {
       };
       groups.tailscale = {};
     };
+
+    environment.shellAliases.ts = "${pkgs.tailscale}/bin/tailscale";
 
     systemd.services = {
       tailscaled.serviceConfig = let
