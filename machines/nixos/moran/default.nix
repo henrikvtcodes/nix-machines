@@ -223,6 +223,12 @@
   services.logind = {
     powerKey = "lock";
     powerKeyLongPress = "poweroff";
+    suspendKey = "ignore";
+    suspendKeyLongPress = "poweroff";
+    hibernateKey = "ignore";
+    hibernateKeyLongPress = "poweroff";
+    rebootKey = "ignore";
+    rebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
