@@ -68,10 +68,17 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tungsten = {
+      url = "github:henrikvtcodes/tungsten";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     attic = {
       url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    copyparty.url = "github:9001/copyparty";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";

@@ -1,6 +1,7 @@
 {config, ...}: {
   imports = [
     ./metrics.nix
+    ./stirling.nix
   ];
 
   my.services.traefik = {
@@ -18,5 +19,9 @@
     smtpPasswordEnvFile = config.age.secrets.mastodonSmtpPassword.path;
     activeRecordEncryptionEnvFile = config.age.secrets.mastodonAREncryptionEnvVars.path;
     s3SecretKeysEnvFile = config.age.secrets.mastodonJortageSecretEnvVars.path;
+  };
+
+  my.services.copyparty = {
+    enable = true;
   };
 }
