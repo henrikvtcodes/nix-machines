@@ -21,6 +21,7 @@
     s3SecretKeysEnvFile = config.age.secrets.mastodonJortageSecretEnvVars.path;
   };
 
+  my.services.copyparty = {
     enable = true;
   };
 }

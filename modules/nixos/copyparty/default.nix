@@ -36,8 +36,35 @@ in {
         i = "0.0.0.0";
         # use lists to set multiple values
         p = [cfg.port];
+
+        "/" = {
+          # share the contents of "/srv/copyparty"
+          path = "/srv/copyparty";
+          # see `copyparty --help-accounts` for available options
+          access = {
+            # everyone gets read-access, but
+            r = "*";
+            # users "ed" and "k" get read-write
+            # rw = ["ed" "k"];
+          };
+          # see `copyparty --help-flags` for available options
+          # flags = {
+          #   # "fk" enables filekeys (necessary for upget permission) (4 chars long)
+          #   fk = 4;
+          #   # scan for new files every 60sec
+          #   scan = 60;
+          #   # volflag "e2d" enables the uploads database
+          #   e2d = true;
+          #   # "d2t" disables multimedia parsers (in case the uploads are malicious)
+          #   d2t = true;
+          #   # skips hashing file contents if path matches *.iso
+          #   nohash = "\.iso$";
+          # };
+        };
       };
     };
+
+    environment.systemPackages = [ config.services.copyparty.package ];
 
     services.traefik.dynamicConfigOptions = cfg.enableTraefik {
       http = {
