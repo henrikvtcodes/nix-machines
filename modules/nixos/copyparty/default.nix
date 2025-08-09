@@ -18,7 +18,7 @@ in {
       description = "The port copyparty is listening on";
     };
     domain = mkOption {
-      type = types.string;
+      type = types.str;
       default = "cp.${config.networking.hostName}.unicycl.ing";
       description = "The domain copyparty is hosted on";
     };
@@ -37,6 +37,15 @@ in {
         # use lists to set multiple values
         p = [cfg.port];
 
+        # what ip to use when id'ing clients
+        rproxy = -2;
+
+        # am proxying this, to tls is terminated elsewhere
+        http-only = true;
+      };
+
+      volumes = {
+        # create a volume at "/" (the webroot), which will
         "/" = {
           # share the contents of "/srv/copyparty"
           path = "/srv/copyparty";
@@ -44,22 +53,20 @@ in {
           access = {
             # everyone gets read-access, but
             r = "*";
-            # users "ed" and "k" get read-write
-            # rw = ["ed" "k"];
           };
-          # see `copyparty --help-flags` for available options
-          # flags = {
-          #   # "fk" enables filekeys (necessary for upget permission) (4 chars long)
-          #   fk = 4;
-          #   # scan for new files every 60sec
-          #   scan = 60;
-          #   # volflag "e2d" enables the uploads database
-          #   e2d = true;
-          #   # "d2t" disables multimedia parsers (in case the uploads are malicious)
-          #   d2t = true;
-          #   # skips hashing file contents if path matches *.iso
-          #   nohash = "\.iso$";
-          # };
+          # # see `copyparty --help-flags` for available options
+          flags = {
+            # # "fk" enables filekeys (necessary for upget permission) (4 chars long)
+            # fk = 4;
+            # scan for new files every 60sec
+            scan = 60;
+            # volflag "e2d" enables the uploads database
+            e2d = true;
+            # "d2t" disables multimedia parsers (in case the uploads are malicious)
+            # d2t = true;
+            # skips hashing file contents if path matches *.iso
+            nohash = "\.iso$";
+          };
         };
       };
     };
@@ -75,7 +82,6 @@ in {
             "https"
             "http"
           ];
-          tls.certResolver = "lecf";
         };
         services.copyparty = {
           loadBalancer = {
