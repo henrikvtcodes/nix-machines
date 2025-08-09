@@ -64,7 +64,7 @@ in {
       };
     };
 
-    environment.systemPackages = [ config.services.copyparty.package ];
+    environment.systemPackages = [config.services.copyparty.package];
 
     services.traefik.dynamicConfigOptions = cfg.enableTraefik {
       http = {
