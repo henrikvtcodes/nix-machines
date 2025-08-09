@@ -66,7 +66,7 @@ in {
 
     environment.systemPackages = [config.services.copyparty.package];
 
-    services.traefik.dynamicConfigOptions = cfg.enableTraefik {
+    services.traefik.dynamicConfigOptions = lib.mkIf cfg.enableTraefik {
       http = {
         routers.copyparty = {
           rule = "Host(`${cfg.domain}`)";
