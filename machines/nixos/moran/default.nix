@@ -12,19 +12,21 @@
 
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = false;
     grub = {
       enable = true;
-      mirroredBoots = [
-        {
-          devices = ["nodev"];
-          path = "/boot";
-        }
-      ];
+      copyKernels = true;
+      # device = "nodev";
       efiSupport = true;
-      efiInstallAsRemovable = false;
+      efiInstallAsRemovable = true;
       useOSProber = true;
       zfsSupport = true;
+      mirroredBoots = [
+          {
+            devices = ["nodev"];
+            path = "/boot";
+          }
+        ];
     };
   };
 
