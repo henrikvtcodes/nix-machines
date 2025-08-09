@@ -19,7 +19,7 @@ in {
     };
     domain = mkOption {
       type = types.string;
-      default = "cp.${networking.hostName}.unicycl.ing";
+      default = "cp.${config.networking.hostName}.unicycl.ing";
       description = "The domain copyparty is hosted on";
     };
     enableTraefik = mkOption {
