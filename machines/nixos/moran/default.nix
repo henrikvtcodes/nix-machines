@@ -22,11 +22,11 @@
       useOSProber = true;
       zfsSupport = true;
       mirroredBoots = [
-          {
-            devices = ["nodev"];
-            path = "/boot";
-          }
-        ];
+        {
+          devices = ["nodev"];
+          path = "/boot";
+        }
+      ];
     };
   };
 
