@@ -8,6 +8,8 @@
 }: let
   cfg = config.my.services.copyparty;
 in {
+  imports = [inputs.copyparty.nixosModules.default];
+
   options.my.services.copyparty = with lib; {
     enable = mkEnableOption "Enable Copyparty, a fast file server";
     port = mkOption {
@@ -27,8 +29,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    imports = [inputs.copyparty.nixosModules.default];
-
     services.copyparty = {
       enable = true;
       package = inputs.copyparty.packages.${system}.copyparty;
@@ -64,7 +64,7 @@ in {
       };
     };
 
-    environment.systemPackages = [ config.services.copyparty.package ];
+    environment.systemPackages = [config.services.copyparty.package];
 
     services.traefik.dynamicConfigOptions = cfg.enableTraefik {
       http = {
