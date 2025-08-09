@@ -9,5 +9,6 @@
     ./mastodon
     ./eoxporter
     ./dns
+    ./copyparty
   ];
 }
