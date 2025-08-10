@@ -12,19 +12,21 @@
 
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = false;
     grub = {
       enable = true;
+      copyKernels = true;
+      # device = "nodev";
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      useOSProber = true;
+      zfsSupport = true;
       mirroredBoots = [
         {
           devices = ["nodev"];
           path = "/boot";
         }
       ];
-      efiSupport = true;
-      efiInstallAsRemovable = false;
-      useOSProber = true;
-      zfsSupport = true;
     };
   };
 
@@ -223,6 +225,12 @@
   services.logind = {
     powerKey = "lock";
     powerKeyLongPress = "poweroff";
+    suspendKey = "ignore";
+    suspendKeyLongPress = "poweroff";
+    hibernateKey = "ignore";
+    hibernateKeyLongPress = "poweroff";
+    rebootKey = "ignore";
+    rebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
