@@ -21,7 +21,7 @@
       services = {
         netbox = {
           loadBalancer = {
-            servers = [{url = "http://localhost:${config.services.stirling-pdf.port}";}];
+            servers = [{url = "http://localhost:${toString config.services.netbox.port}";}];
           };
         };
       };
