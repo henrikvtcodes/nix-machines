@@ -1,7 +1,8 @@
-{config, ...}: {
+{config,pkgs, ...}: {
   services.netbox = {
     enable = true;
     port = 22022;
+    package = pkgs.netbox_4_2;
   };
 
   services.traefik.dynamicConfigOptions = {
