@@ -58,6 +58,11 @@
       mode = "0400";
     };
   in {
+    netboxSecretKey = {
+      file = "${secretsDir}/netboxSecretKey.age";
+      owner = "netbox";
+      group = "netbox";
+    };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
     mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "${secretsDir}/mastodonVapidEnvVars.age";

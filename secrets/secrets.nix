@@ -51,6 +51,7 @@ in {
     ]
     ++ henrik;
 
+  "netboxSecretKey.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
   "mastodonOtpSecret.age".publicKeys = [ashokan] ++ henrik;
@@ -58,6 +59,7 @@ in {
   "mastodonAREncryptionEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "mastodonVapidEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
+  
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 

@@ -3,6 +3,7 @@
     enable = true;
     port = 22022;
     package = pkgs.netbox_4_2;
+    secretKeyFile = config.age.secrets.netboxSecretKey.path;
   };
 
   services.traefik.dynamicConfigOptions = {
