@@ -2,6 +2,7 @@
   imports = [
     ./metrics.nix
     ./stirling.nix
+    ./netbox.nix
   ];
 
   my.services.traefik = {
