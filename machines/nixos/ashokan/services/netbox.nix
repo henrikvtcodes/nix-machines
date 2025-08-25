@@ -1,4 +1,8 @@
-{config,pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   services.netbox = {
     enable = true;
     port = 22022;
@@ -10,16 +14,18 @@
     enable = true;
     group = "netbox";
     virtualHosts."netbox-static" = {
-      listen = [{
-        addr = "127.0.0.1";
-        port = 9001;
-      }];
-      locations."/" = { root = "${config.services.netbox.dataDir}"; };
+      listen = [
+        {
+          addr = "127.0.0.1";
+          port = 9001;
+        }
+      ];
+      locations."/" = {root = "${config.services.netbox.dataDir}";};
     };
   };
 
-  services.traefik.dynamicConfigOptions = let 
-  domain = "netbox.unicycl.ing";
+  services.traefik.dynamicConfigOptions = let
+    domain = "netbox.unicycl.ing";
   in {
     http = {
       routers = {
@@ -47,7 +53,7 @@
           };
         };
         "netbox-static" = {
-          loadBalancer.servers = [{ url = "http://127.0.0.1:9001"; }];
+          loadBalancer.servers = [{url = "http://127.0.0.1:9001";}];
         };
       };
     };

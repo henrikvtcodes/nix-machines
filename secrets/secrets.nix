@@ -59,7 +59,6 @@ in {
   "mastodonAREncryptionEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "mastodonVapidEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
-  
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 
