@@ -1,5 +1,4 @@
-{config,...}: {
-
+{config, ...}: {
   services.mealie = {
     enable = true;
     port = 16099;
@@ -14,7 +13,6 @@
       # Password defined in credentials file
     };
   };
-
 
   services.traefik.dynamicConfigOptions = let
     domain = "mealie.unicycl.ing";
