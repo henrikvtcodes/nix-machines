@@ -65,7 +65,6 @@
     };
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
-      owner = "mealie";
     };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
     mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
