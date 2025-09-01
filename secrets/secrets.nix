@@ -60,6 +60,8 @@ in {
   "mastodonVapidEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
+  "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
+
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 
   "uvmGitlabToken.age".publicKeys = henrik;

@@ -3,6 +3,7 @@
     ./metrics.nix
     ./stirling.nix
     ./netbox.nix
+    ./mealie.nix
   ];
 
   my.services.traefik = {

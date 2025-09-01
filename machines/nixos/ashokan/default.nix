@@ -63,6 +63,10 @@
       owner = "netbox";
       group = "netbox";
     };
+    mealieCredentials = {
+      file = "${secretsDir}/mealieCredentials.age";
+      owner = "mealie";
+    };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
     mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "${secretsDir}/mastodonVapidEnvVars.age";
