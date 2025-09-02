@@ -52,8 +52,8 @@
   # Secrets
   age.secrets = let
     secretsDir = ../../../secrets;
-    chownPodman = file: {
-      inherit file;
+    chownPodman = secret: {
+      file = "${secretsDir}/${secret}";
       group = "podman";
       mode = "0400";
     };
@@ -67,12 +67,12 @@
       file = "${secretsDir}/mealieCredentials.age";
     };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
-    mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
-    mastodonVapidKeys = chownPodman "${secretsDir}/mastodonVapidEnvVars.age";
-    mastodonSecretKeyBase = chownPodman "${secretsDir}/mastodonSecretKeyBase.age";
-    mastodonOtpSecret = chownPodman "${secretsDir}/mastodonOtpSecret.age";
-    mastodonAREncryptionEnvVars = chownPodman "${secretsDir}/mastodonAREncryptionEnvVars.age";
-    mastodonJortageSecretEnvVars = chownPodman "${secretsDir}/jortageSecretEnvVars.age";
+    mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
+    mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
+    mastodonSecretKeyBase = chownPodman "mastodonSecretKeyBase.age";
+    mastodonOtpSecret = chownPodman "mastodonOtpSecret.age";
+    mastodonAREncryptionEnvVars = chownPodman "mastodonAREncryptionEnvVars.age";
+    mastodonJortageSecretEnvVars = chownPodman "jortageSecretEnvVars.age";
   };
 
   # ======================== DO NOT CHANGE THIS ========================
