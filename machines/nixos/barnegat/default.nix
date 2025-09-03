@@ -51,10 +51,17 @@
     enable = true;
   };
 
-  age.secrets = {
+  age.secrets = 
+  let
+    secretsDir = ../../../secrets;
+  in  {
     cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
     ciSecrets.file = ../../../secrets/ciServerSecrets.age;
     ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;
+    netbirdTurnUserPassword = {
+      file = "${secretsDir}/netbirdTurnUserPassword.age";
+      owner = "turnserver";
+    };
   };
 
   # This value determines the NixOS release from which the default
