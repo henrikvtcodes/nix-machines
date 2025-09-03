@@ -87,6 +87,7 @@
     search = [
       "reindeer-porgy.ts.net"
       "unicycl.ing"
+      "ts.unicycl.ing"
     ];
     # This must be set in order to set search domains above
     # $ networksetup -listallnetworkservices
