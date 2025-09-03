@@ -1,4 +1,4 @@
-{...}: {
+{config,...}: {
   imports = [
     ./hardware-config.nix
     ./services
@@ -74,6 +74,15 @@
     mastodonAREncryptionEnvVars = chownPodman "mastodonAREncryptionEnvVars.age";
     mastodonJortageSecretEnvVars = chownPodman "jortageSecretEnvVars.age";
   };
+
+  security.acme.defaults = {
+    dnsPropagationCheck = true;
+    dnsProvider = "cloudflare";
+    dnsResolver = "8.8.8.8:53";
+    environmentFile = config.age.secrets.cfDnsApiToken.path;
+    email = "acme@unicycl.ing";
+  };
+  security.acme.acceptTerms = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
