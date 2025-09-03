@@ -67,7 +67,10 @@
       file = "${secretsDir}/mealieCredentials.age";
     };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
-    netbirdTurnUserPassword.file = "${secretsDir}/netbirdTurnUserPassword.age";
+    netbirdTurnUserPassword = {
+      file = "${secretsDir}/netbirdTurnUserPassword.age";
+      owner = "turnserver";
+    };
     mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
     mastodonSecretKeyBase = chownPodman "mastodonSecretKeyBase.age";
