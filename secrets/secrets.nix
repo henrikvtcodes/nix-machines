@@ -38,6 +38,7 @@ in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
   "henrikUserPassword.age".publicKeys = henrik ++ [moran];
+  "uvmGitlabToken.age".publicKeys = henrik;
 
   "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;
@@ -52,6 +53,10 @@ in {
     ++ henrik;
 
   "netboxSecretKey.age".publicKeys = [ashokan] ++ henrik;
+  "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
+  "netbirdTurnUserPassword.age".publicKeys = [ashokan] ++ henrik;
+  "zitadelSecret.age".publicKeys = [ashokan] ++ henrik;
+  
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
   "mastodonOtpSecret.age".publicKeys = [ashokan] ++ henrik;
@@ -60,12 +65,8 @@ in {
   "mastodonVapidEnvVars.age".publicKeys = [ashokan] ++ henrik;
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
-  "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
-  "netbirdTurnUserPassword.age".publicKeys = [ashokan] ++ henrik;
+  
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
-
-  "uvmGitlabToken.age".publicKeys = henrik;
-
   "aristaEapiConf.age".publicKeys = [valcour] ++ henrik;
 }
