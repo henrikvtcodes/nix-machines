@@ -6,6 +6,7 @@
   imports = [
     ./metrics.nix
     ./proxy.nix
+    ./netbird.nix
   ];
 
   my.services.pocketid = {
