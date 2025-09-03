@@ -4,6 +4,7 @@
     ./stirling.nix
     ./netbox.nix
     ./mealie.nix
+    ./netbird.nix
   ];
 
   my.services.traefik = {
