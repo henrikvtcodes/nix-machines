@@ -61,6 +61,7 @@ in {
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
   "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
+  "netbirdTurnUserPassword.age".publicKeys = [ashokan] ++ henrik;
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
 
