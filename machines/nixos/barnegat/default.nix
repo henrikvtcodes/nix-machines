@@ -1,4 +1,4 @@
-{...}: {
+{config,...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -63,6 +63,15 @@
       owner = "turnserver";
     };
   };
+
+  security.acme.defaults = {
+    dnsPropagationCheck = true;
+    dnsProvider = "cloudflare";
+    dnsResolver = "8.8.8.8:53";
+    environmentFile = config.age.secrets.cfDnsApiToken.path;
+    email = "acme@unicycl.ing";
+  };
+  security.acme.acceptTerms = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
