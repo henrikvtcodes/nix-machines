@@ -34,15 +34,19 @@ let
     penikese
     moran
   ];
+
+  cloud = [ashokan barnegat];
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
   "henrikUserPassword.age".publicKeys = henrik ++ [moran];
+  "uvmGitlabToken.age".publicKeys = henrik;
 
   "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;
 
-  "cfDnsApiToken.age".publicKeys = [barnegat ashokan] ++ henrik;
+  "cfDnsApiToken.age".publicKeys = cloud ++ henrik;
+  "netbirdTurnUserPassword.age".publicKeys = cloud ++ henrik;
   "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
   "ciAgentSecrets.age".publicKeys =
     [
@@ -50,6 +54,10 @@ in {
       barnegat
     ]
     ++ henrik;
+
+  "netboxSecretKey.age".publicKeys = [ashokan] ++ henrik;
+  "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
+  "zitadelSecret.age".publicKeys = [ashokan] ++ henrik;
 
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
@@ -60,8 +68,5 @@ in {
   "jortageSecretEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
-
-  "uvmGitlabToken.age".publicKeys = henrik;
-
   "aristaEapiConf.age".publicKeys = [valcour] ++ henrik;
 }

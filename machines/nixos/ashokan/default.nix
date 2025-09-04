@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./hardware-config.nix
     ./services
@@ -52,20 +52,41 @@
   # Secrets
   age.secrets = let
     secretsDir = ../../../secrets;
-    chownPodman = file: {
-      inherit file;
+    chownPodman = secret: {
+      file = "${secretsDir}/${secret}";
       group = "podman";
       mode = "0400";
     };
   in {
+    netboxSecretKey = {
+      file = "${secretsDir}/netboxSecretKey.age";
+      owner = "netbox";
+      group = "netbox";
+    };
+    mealieCredentials = {
+      file = "${secretsDir}/mealieCredentials.age";
+    };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
-    mastodonSmtpPassword = chownPodman "${secretsDir}/mastodonSmtpPassword.age";
-    mastodonVapidKeys = chownPodman "${secretsDir}/mastodonVapidEnvVars.age";
-    mastodonSecretKeyBase = chownPodman "${secretsDir}/mastodonSecretKeyBase.age";
-    mastodonOtpSecret = chownPodman "${secretsDir}/mastodonOtpSecret.age";
-    mastodonAREncryptionEnvVars = chownPodman "${secretsDir}/mastodonAREncryptionEnvVars.age";
-    mastodonJortageSecretEnvVars = chownPodman "${secretsDir}/jortageSecretEnvVars.age";
+    netbirdTurnUserPassword = {
+      file = "${secretsDir}/netbirdTurnUserPassword.age";
+      owner = "turnserver";
+    };
+    mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
+    mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
+    mastodonSecretKeyBase = chownPodman "mastodonSecretKeyBase.age";
+    mastodonOtpSecret = chownPodman "mastodonOtpSecret.age";
+    mastodonAREncryptionEnvVars = chownPodman "mastodonAREncryptionEnvVars.age";
+    mastodonJortageSecretEnvVars = chownPodman "jortageSecretEnvVars.age";
   };
+
+  security.acme.defaults = {
+    dnsPropagationCheck = true;
+    dnsProvider = "cloudflare";
+    dnsResolver = "8.8.8.8:53";
+    environmentFile = config.age.secrets.cfDnsApiToken.path;
+    email = "acme@unicycl.ing";
+  };
+  security.acme.acceptTerms = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";

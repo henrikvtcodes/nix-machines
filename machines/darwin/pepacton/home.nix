@@ -25,13 +25,13 @@
       gpg.ssh.allowedSignersFile = toString ./signers.txt;
       commit.gpgsign = true;
     };
-    alacritty = {
-      settings = {
-        font = {
-          normal = "Liga SFMono Nerd Font";
-        };
-      };
-    };
+    # alacritty = {
+    #   settings = {
+    #     font = {
+    #       normal = "Liga SFMono Nerd Font";
+    #     };
+    #   };
+    # };
   };
 
   xdg.configFile."glab-cli/config-base.yml" = let

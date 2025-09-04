@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -51,11 +51,26 @@
     enable = true;
   };
 
-  age.secrets = {
+  age.secrets = let
+    secretsDir = ../../../secrets;
+  in {
     cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
     ciSecrets.file = ../../../secrets/ciServerSecrets.age;
     ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;
+    netbirdTurnUserPassword = {
+      file = "${secretsDir}/netbirdTurnUserPassword.age";
+      owner = "turnserver";
+    };
   };
+
+  security.acme.defaults = {
+    dnsPropagationCheck = true;
+    dnsProvider = "cloudflare";
+    dnsResolver = "8.8.8.8:53";
+    environmentFile = config.age.secrets.cfDnsApiToken.path;
+    email = "acme@unicycl.ing";
+  };
+  security.acme.acceptTerms = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

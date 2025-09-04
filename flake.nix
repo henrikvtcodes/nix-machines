@@ -77,6 +77,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    copyparty.url = "github:9001/copyparty";
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";

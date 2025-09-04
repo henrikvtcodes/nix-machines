@@ -46,6 +46,7 @@
         fortune
         longcat
         numbat
+        glow
       ];
 
     shellAliases = {
