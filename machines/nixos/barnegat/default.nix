@@ -1,4 +1,4 @@
-{config,...}: {
+{config, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -51,10 +51,9 @@
     enable = true;
   };
 
-  age.secrets = 
-  let
+  age.secrets = let
     secretsDir = ../../../secrets;
-  in  {
+  in {
     cfDnsApiToken.file = ../../../secrets/cfDnsApiToken.age;
     ciSecrets.file = ../../../secrets/ciServerSecrets.age;
     ciAgentSecrets.file = ../../../secrets/ciAgentSecrets.age;

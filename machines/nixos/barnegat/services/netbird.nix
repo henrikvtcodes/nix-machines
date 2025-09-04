@@ -1,4 +1,4 @@
-{config,...}: {
+{config, ...}: {
   services.netbird.server = {
     coturn = {
       enable = true;
