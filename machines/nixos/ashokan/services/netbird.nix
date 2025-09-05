@@ -1,6 +1,6 @@
-{config, ...}: let 
+{config, ...}: let
   nbDomain = "vpn.unicycl.ing";
-  in {
+in {
   services.netbird.server = {
     coturn = {
       enable = true;
@@ -48,37 +48,37 @@
     routers = {
       netbird-management = {
         rule = "Host(`${nbDomain}`) && PathPrefix(`/management.ManagementService/`)";
-          service = "netbird-management";
-          entryPoints = [
-            "https"
-            "http"
-          ];
+        service = "netbird-management";
+        entryPoints = [
+          "https"
+          "http"
+        ];
       };
       netbird-api = {
         rule = "Host(`${nbDomain}`) && PathPrefix(`/api`)";
-          service = "netbird-api";
-          entryPoints = [
-            "https"
-            "http"
-          ];
+        service = "netbird-api";
+        entryPoints = [
+          "https"
+          "http"
+        ];
       };
 
       netbird-signal = {
         rule = "Host(`${nbDomain}`) && PathPrefix(`/signalexchange.SignalExchange/`)";
-          service = "netbird-signal";
-          entryPoints = [
-            "https"
-            "http"
-          ];
+        service = "netbird-signal";
+        entryPoints = [
+          "https"
+          "http"
+        ];
       };
 
       netbird-dashboard = {
         rule = "Host(`${nbDomain}`)";
-          service = "netbird-dashboard";
-          entryPoints = [
-            "https"
-            "http"
-          ];
+        service = "netbird-dashboard";
+        entryPoints = [
+          "https"
+          "http"
+        ];
       };
     };
   };
