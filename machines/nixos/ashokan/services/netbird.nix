@@ -29,6 +29,7 @@ in {
 
     dashboard = {
       enable = true;
+      enableNginx = true;
       managementServer = "https://${nbDomain}";
       settings = {
         AUTH_AUTHORITY = "oidc.unicycl.ing";
