@@ -1,4 +1,4 @@
-{config, ...}: let
+{config, lib, ...}: let
   nbDomain = "vpn.unicycl.ing";
   nbDashboardPort = 13203;
 in {
@@ -13,7 +13,7 @@ in {
     };
 
     management = {
-      enable = true;
+      enable = false;
       port = 13201;
       turnDomain = "turn.nyc.unicycl.ing";
       oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
@@ -28,8 +28,8 @@ in {
     };
 
     dashboard = {
-      enable = true;
-      enableNginx = true;
+      enable = false;
+      enableNginx = false;
       managementServer = "https://${nbDomain}";
       settings = {
         AUTH_AUTHORITY = "https://oidc.unicycl.ing";
@@ -37,15 +37,30 @@ in {
     };
   };
 
-  services.nginx = {
-    enable = true;
+  # services.nginx.
+  #   virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = lib.mkIf config.services.netbird.server.dashboard.enable [
+  #     {
+  #       addr = "127.0.0.1";
+  #       port = nbDashboardPort;
+  #     }
+  #   ];
+  
 
-    virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = [
-      {
-        addr = "127.0.0.1";
-        port = nbDashboardPort;
-      }
-    ];
+  virtualisation.oci-containers.containers = {
+    netbird-dashboard = {
+      image = "netbirdio/dashboard:v2.18.0";
+      autoStart = true;
+      environment = {
+        USE_AUTH0 = "false";
+        AUTH_AUTHORITY = "https://oidc.unicycl.ing";
+        AUTH_CLIENT_ID = "578136d1-736c-48f6-8515-f7cf3a82b142";
+        AUTH_AUDIENCE = "none";
+        NETBIRD_MGMT_API_ENDPOINT="https://${nbDomain}";
+        AUTH_SUPPORTED_SCOPES = "openid profile email";
+        NETBIRD_TOKEN_SOURCE = "idToken";
+      };
+      ports = [ "${toString nbDashboardPort}:80" ];
+    };
   };
 
   services.traefik.dynamicConfigOptions.http = {
