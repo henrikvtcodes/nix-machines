@@ -29,6 +29,10 @@ in {
     dashboard = {
       enable = true;
       domain = nbDomain;
+      managementServer = "https://${nbDomain}";
+      settings = {
+        AUTH_AUTHORITY = "oidc.unicycl.ing";
+      };
     };
   };
 
