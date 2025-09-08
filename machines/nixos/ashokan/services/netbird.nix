@@ -46,6 +46,7 @@ in {
         AUTH_SUPPORTED_SCOPES = "openid profile email";
         NETBIRD_TOKEN_SOURCE = "idToken";
       };
+      extraOptions = ["--runtime=${pkgs.gvisor}/bin/runsc"];
       ports = ["${toString nbDashboardPort}:80"];
     };
   };
