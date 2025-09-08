@@ -32,7 +32,7 @@ in {
       enableNginx = true;
       managementServer = "https://${nbDomain}";
       settings = {
-        AUTH_AUTHORITY = "oidc.unicycl.ing";
+        AUTH_AUTHORITY = "https://oidc.unicycl.ing";
       };
     };
   };
