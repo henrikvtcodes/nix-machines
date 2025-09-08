@@ -23,6 +23,7 @@ in {
     signal = {
       enable = true;
       port = 13202;
+      metricsPort = 9132;
       domain = nbDomain;
     };
 
