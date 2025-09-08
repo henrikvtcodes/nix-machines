@@ -3,6 +3,8 @@
   nbDashboardPort = 13203;
 in {
   services.netbird.server = {
+    domain = nbDomain;
+
     coturn = {
       enable = true;
       useAcmeCertificates = true;
@@ -13,7 +15,6 @@ in {
     management = {
       enable = true;
       port = 13201;
-      domain = nbDomain;
       turnDomain = "turn.nyc.unicycl.ing";
       oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
@@ -24,12 +25,10 @@ in {
       enable = true;
       port = 13202;
       metricsPort = 9132;
-      domain = nbDomain;
     };
 
     dashboard = {
       enable = true;
-      domain = nbDomain;
       managementServer = "https://${nbDomain}";
       settings = {
         AUTH_AUTHORITY = "oidc.unicycl.ing";
