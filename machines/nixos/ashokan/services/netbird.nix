@@ -33,15 +33,15 @@ in {
   };
 
   services.nginx = {
-      enable = true;
+    enable = true;
 
-      virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = [
-        {
-          addr = "127.0.0.1";
-          port = nbDashboardPort;
-        }
-      ];
-    };
+    virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = [
+      {
+        addr = "127.0.0.1";
+        port = nbDashboardPort;
+      }
+    ];
+  };
 
   services.traefik.dynamicConfigOptions.http = {
     services = {
