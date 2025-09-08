@@ -51,14 +51,14 @@ in {
     services = {
       netbird-management = {
         # h2c scheme is required for gRPC
-        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.management.port}";}];
+        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.server.management.port}";}];
       };
       netbird-api = {
-        loadBalancer.servers = [{url = "http://localhost:${toString config.services.netbird.management.port}";}];
+        loadBalancer.servers = [{url = "http://localhost:${toString config.services.netbird.server.management.port}";}];
       };
       netbird-signal = {
         # h2c scheme is required for gRPC
-        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.signal.port}";}];
+        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.server.signal.port}";}];
       };
       netbird-dashboard = {
         loadBalancer.servers = [{url = "http://localhost:${toString nbDashboardPort}";}];
