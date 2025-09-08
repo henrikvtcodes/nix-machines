@@ -13,6 +13,10 @@ in {
       enable = true;
       port = 13201;
       domain = nbDomain;
+      turnDomain = "turn.nyc.unicycl.ing";
+      oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
+      dnsDomain = "int.unicycl.ing";
+      disableSingleAccountMode = true;
     };
 
     signal = {
