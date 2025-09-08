@@ -1,5 +1,6 @@
 {config, ...}: let
   nbDomain = "vpn.unicycl.ing";
+  nbDashboardPort = 13203;
 in {
   services.netbird.server = {
     coturn = {
@@ -27,10 +28,20 @@ in {
 
     dashboard = {
       enable = true;
-      port = 13203;
       domain = nbDomain;
     };
   };
+
+  services.nginx = {
+      enable = true;
+
+      virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = [
+        {
+          addr = "127.0.0.1";
+          port = nbDashboardPort;
+        }
+      ];
+    };
 
   services.traefik.dynamicConfigOptions.http = {
     services = {
@@ -46,7 +57,7 @@ in {
         loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.signal.port}";}];
       };
       netbird-dashboard = {
-        loadBalancer.servers = [{url = "http://localhost:${toString config.services.netbird.dashboard.port}";}];
+        loadBalancer.servers = [{url = "http://localhost:${toString nbDashboardPort}";}];
       };
     };
     routers = {
