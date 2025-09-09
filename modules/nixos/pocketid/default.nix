@@ -11,6 +11,11 @@ in {
       type = types.str;
       description = "Domain name for PocketID";
     };
+    port = mkOption {
+      type = types.int;
+      default = 7007;
+      description = "Port for PocketID";
+    };
     serviceHttpPort = mkOption {
       type = types.int;
       default = 7007;
@@ -36,13 +41,13 @@ in {
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
-      "d ${cfg.dataPath} 0755 root podman -"
-      "d ${cfg.dataPath}/uploads 0755 root podman -"
-      "z ${cfg.dataPath}/pocket-id.db 0644 root podman -"
+      "d ${cfg.dataPath} 0764 root podman -"
+      "d ${cfg.dataPath}/uploads 0764 root podman -"
+      "z ${cfg.dataPath}/pocket-id.db 0764 root podman -"
     ];
 
     virtualisation.oci-containers.containers.pocketid = {
-      image = "stonith404/pocket-id:latest";
+      image = "ghcr.io/pocket-id/pocket-id:v1.9-distroless";
       ports = [
         "${toString cfg.frontendApiPort}:${toString cfg.frontendApiPort}"
         "${toString cfg.adminApiPort}:${toString cfg.adminApiPort}"
@@ -54,12 +59,11 @@ in {
         # "${cfg.dataPath}/uploads:/app/uploads"
       ];
       environment = {
-        PUBLIC_APP_URL = "https://${cfg.domainName}";
+        APP_URL = "https://${cfg.domainName}";
         TRUST_PROXY = "true";
-        # DB_PATH = "/app/pocket-id.db";
-        # UPLOAD_PATH = "/app/uploads";
-        INTERNAL_BACKEND_URL = "http://localhost:${toString cfg.adminApiPort}";
-        PORT = toString cfg.frontendApiPort;
+        DB_CONNECTION_STRING = "file:/app/backend/data/pocket-id.db";
+        UPLOAD_PATH = "/app/backend/data/uploads";
+        PORT = toString cfg.port;
         BACKEND_PORT = toString cfg.adminApiPort;
       };
     };
@@ -79,7 +83,7 @@ in {
         services = {
           pocketid = {
             loadBalancer = {
-              servers = [{url = "http://localhost:${toString cfg.serviceHttpPort}";}];
+              servers = [{url = "http://localhost:${toString cfg.port}";}];
             };
           };
         };
