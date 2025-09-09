@@ -63,6 +63,13 @@
       owner = "netbox";
       group = "netbox";
     };
+
+    netbirdDSEKey = {
+      file = "${secretsDir}/netbirdDSEKey";
+      owner = "netbird";
+      group = "netbird";
+    };
+
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
     };

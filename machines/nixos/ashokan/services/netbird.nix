@@ -26,7 +26,11 @@ in {
       oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
       disableSingleAccountMode = true;
-      # settings = {  };
+      settings = {
+        DataStoreEncryptionKey = {
+          _secret = config.age.secrets.netbirdDSEKey.path;
+        };
+      };
     };
 
     signal = {

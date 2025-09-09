@@ -46,6 +46,7 @@ in {
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;
 
   "cfDnsApiToken.age".publicKeys = cloud ++ henrik;
+  "netbirdDSEKey.age".publicKeys = cloud ++ henrik;
   "netbirdTurnUserPassword.age".publicKeys = cloud ++ henrik;
   "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
   "ciAgentSecrets.age".publicKeys =
