@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   nbDomain = "vpn.unicycl.ing";
@@ -17,18 +18,21 @@ in {
     };
 
     management = {
-      enable = false;
+      enable = true;
       port = 13201;
+      metricsPort = 13291;
+      domain = nbDomain;
       turnDomain = "turn.nyc.unicycl.ing";
       oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
       disableSingleAccountMode = true;
+      # settings = {  };
     };
 
     signal = {
       enable = true;
       port = 13202;
-      metricsPort = 9132;
+      metricsPort = 13292;
     };
   };
 
