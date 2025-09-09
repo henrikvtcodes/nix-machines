@@ -241,7 +241,7 @@
 
         specialArgs = {
           inherit inputs;
-          pkgs-unstable = importUnstable system;
+          unstable = importUnstable system;
           inherit system;
         };
 

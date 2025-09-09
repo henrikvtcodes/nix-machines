@@ -1,6 +1,6 @@
 {
   config,
-  pkgs-unstable,
+  unstable,
   ...
 }: {
   imports = [
@@ -34,5 +34,5 @@
     database.createLocally = true;
   };
 
-  services.woodpecker-server.package = pkgs-unstable.woodpecker-server;
+  services.woodpecker-server.package = unstable.woodpecker-server;
 }
