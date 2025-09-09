@@ -47,7 +47,7 @@ in {
     ];
 
     virtualisation.oci-containers.containers.pocketid = {
-      image = "ghcr.io/pocket-id/pocket-id:v1.9-distroless";
+      image = "ghcr.io/pocket-id/pocket-id:v1.9";
       ports = [
         "${toString cfg.frontendApiPort}:${toString cfg.frontendApiPort}"
         "${toString cfg.adminApiPort}:${toString cfg.adminApiPort}"
