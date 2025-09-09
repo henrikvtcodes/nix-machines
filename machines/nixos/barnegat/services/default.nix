@@ -12,8 +12,6 @@
   my.services.pocketid = {
     enable = true;
     domainName = "oidc.unicycl.ing";
-    frontendApiPort = 7000;
-    adminApiPort = 7070;
     traefikProxy = true;
   };
 
