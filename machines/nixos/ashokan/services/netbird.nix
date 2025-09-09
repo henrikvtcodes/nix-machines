@@ -30,6 +30,51 @@ in {
         DataStoreEncryptionKey = {
           _secret = config.age.secrets.netbirdDSEKey.path;
         };
+
+        Stuns = [
+          {
+            Proto = "udp";
+            URI = "stun:turn.nyc.unicycl.ing:3478";
+            Username = "";
+            Password = null;
+          }
+          {
+            Proto = "udp";
+            URI = "stun:turn.ash.unicycl.ing:3478";
+            Username = "";
+            Password = null;
+          }
+        ];
+
+        TURNConfig = {
+          Turns = [
+            {
+              Proto = "udp";
+              URI = "turn:turn.ash.unicycl.ing:3478";
+              Username = "netbird";
+              Password = {
+                _secret = config.age.secrets.netbirdTurnUserPassword.path;
+              };
+            }
+            {
+              Proto = "udp";
+              URI = "turn:turn.nyc.unicycl.ing:3478";
+              Username = "netbird";
+              Password = {
+                _secret = config.age.secrets.netbirdTurnUserPassword.path;
+              };
+            }
+          ];
+        };
+
+        IdpManagerConfig = {
+          ClientConfig = {
+            ClientID = "578136d1-736c-48f6-8515-f7cf3a82b142";
+            ClientSecret = {
+              _secret = config.age.secrets.netbirdOIDCSecret.path;
+            };
+          };
+        };
       };
     };
 
