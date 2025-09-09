@@ -1,12 +1,15 @@
 {
   config,
   lib,
+  unstable,
   ...
 }: let
   cfg = config.my.services.pocketid;
 in {
   options.my.services.pocketid = with lib; {
-    enable = mkEnableOption {description = "Enable PocketID";};
+    enable = mkEnableOption {
+      description = "Enable PocketID";
+    };
     domainName = mkOption {
       type = types.str;
       description = "Domain name for PocketID";
@@ -21,7 +24,9 @@ in {
       default = "/var/lib/pocketid/data";
       description = "Path to store PocketID data";
     };
-    traefikProxy = mkEnableOption {description = "Enable Traefik proxy for PocketID";};
+    traefikProxy = mkEnableOption {
+      description = "Enable Traefik proxy for PocketID";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -31,18 +36,28 @@ in {
     #   "z ${cfg.dataPath}/pocket-id.db 0764 root podman -"
     # ];
 
-    virtualisation.oci-containers.containers.pocketid = {
-      image = "ghcr.io/pocket-id/pocket-id:v1.9";
-      ports = [
-        "${toString cfg.port}:${toString cfg.port}"
-      ];
-      volumes = [
-        "${cfg.dataPath}:/app/data"
-      ];
-      environment = {
+    # virtualisation.oci-containers.containers.pocketid = {
+    #   image = "ghcr.io/pocket-id/pocket-id:v1.9";
+    #   ports = [
+    #     "0.0.0.0:${toString cfg.port}:1411"
+    #   ];
+    #   volumes = [
+    #     "${cfg.dataPath}:/app/data"
+    #   ];
+    #   environment = {
+    #     APP_URL = "https://${cfg.domainName}";
+    #     TRUST_PROXY = "true";
+    #     # DB_CONNECTION_STRING = "file:///data/pocket-id.db";
+    #     # PORT = toString cfg.port;
+    #   };
+    # };
+
+    services.pocket-id = {
+      enable = true;
+      package = unstable.pocket-id;
+      settings = {
         APP_URL = "https://${cfg.domainName}";
-        TRUST_PROXY = "true";
-        # DB_CONNECTION_STRING = "file:///data/pocket-id.db";
+        TRUST_PROXY = true;
         PORT = toString cfg.port;
       };
     };
