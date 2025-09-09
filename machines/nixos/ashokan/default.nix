@@ -65,7 +65,10 @@
     };
 
     netbirdDSEKey = {
-      file = "${secretsDir}/netbirdDSEKey";
+      file = "${secretsDir}/netbirdDSEKey.age";
+      owner = "netbird";
+      group = "netbird";
+    };
     netbirdOIDCSecret = {
       file = "${secretsDir}/netbirdOIDCSecret.age";
       owner = "netbird";
@@ -78,6 +81,7 @@
     netbirdTurnUserPassword = {
       file = "${secretsDir}/netbirdTurnUserPassword.age";
       owner = "turnserver";
+      group = "netbird";
     };
     mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
