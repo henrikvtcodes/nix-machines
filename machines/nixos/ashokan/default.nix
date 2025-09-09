@@ -66,10 +66,11 @@
 
     netbirdDSEKey = {
       file = "${secretsDir}/netbirdDSEKey";
+    netbirdOIDCSecret = {
+      file = "${secretsDir}/netbirdOIDCSecret.age";
       owner = "netbird";
       group = "netbird";
     };
-
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
     };

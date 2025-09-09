@@ -47,6 +47,7 @@ in {
 
   "cfDnsApiToken.age".publicKeys = cloud ++ henrik;
   "netbirdDSEKey.age".publicKeys = cloud ++ henrik;
+  "netbirdOIDCSecret.age".publicKeys = [ashokan] ++ henrik;
   "netbirdTurnUserPassword.age".publicKeys = cloud ++ henrik;
   "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
   "ciAgentSecrets.age".publicKeys =
