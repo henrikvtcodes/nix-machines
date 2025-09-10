@@ -69,7 +69,7 @@ in {
 
         IdpManagerConfig = {
           ClientConfig = {
-            ClientID = "578136d1-736c-48f6-8515-f7cf3a82b142";
+            ClientID = "a08f0cef-03d2-4380-836f-b4d71da2d609";
             ClientSecret = {
               _secret = config.age.secrets.netbirdOIDCSecret.path;
             };
@@ -93,7 +93,7 @@ in {
       environment = {
         USE_AUTH0 = "false";
         AUTH_AUTHORITY = "https://oidc.unicycl.ing";
-        AUTH_CLIENT_ID = "578136d1-736c-48f6-8515-f7cf3a82b142";
+        AUTH_CLIENT_ID = "a08f0cef-03d2-4380-836f-b4d71da2d609";
         AUTH_AUDIENCE = "none";
         NETBIRD_MGMT_API_ENDPOINT = "https://${nbDomain}";
         AUTH_SUPPORTED_SCOPES = "openid profile email";
