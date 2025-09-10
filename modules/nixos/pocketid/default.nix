@@ -26,7 +26,7 @@ in {
     };
     dataDir = mkOption {
       type = types.str;
-      default = "/var/lib/pocketid/data";
+      default = "/var/lib/pocket-id";
       description = "Path to store PocketID data";
     };
     traefikProxy = mkEnableOption {
@@ -87,7 +87,7 @@ in {
     systemd.services = {
       pocket-id = {
         description = "Pocket ID";
-        after = ["network.target"];
+        after = ["network.target" "systemd-tmpfiles-setup.service"];
         wantedBy = ["multi-user.target"];
         restartTriggers = [
           pCfg.package
