@@ -69,6 +69,8 @@ in {
       };
     };
 
+    environment.systemPackages = [ unstable.pocket-id ];
+
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0755 pocketid pocketid"
     ];

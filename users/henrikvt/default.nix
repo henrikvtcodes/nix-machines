@@ -29,6 +29,7 @@ in {
           "networkmanager"
           "podman"
           "traefik"
+          "pocket-id"
         ];
 
         shell = pkgs.zsh;
