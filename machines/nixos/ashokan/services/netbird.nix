@@ -6,6 +6,7 @@
 }: let
   nbDomain = "vpn.unicycl.ing";
   nbDashboardPort = 13203;
+  clientId = "a08f0cef-03d2-4380-836f-b4d71da2d609";
 in {
   services.netbird.server = {
     domain = nbDomain;
@@ -69,7 +70,7 @@ in {
 
         IdpManagerConfig = {
           ClientConfig = {
-            ClientID = "a08f0cef-03d2-4380-836f-b4d71da2d609";
+            ClientID = clientId;
             ClientSecret = {
               _secret = config.age.secrets.netbirdOIDCSecret.path;
             };
@@ -93,8 +94,8 @@ in {
       environment = {
         USE_AUTH0 = "false";
         AUTH_AUTHORITY = "https://oidc.unicycl.ing";
-        AUTH_CLIENT_ID = "a08f0cef-03d2-4380-836f-b4d71da2d609";
-        AUTH_AUDIENCE = "none";
+        AUTH_CLIENT_ID = clientId;
+        AUTH_AUDIENCE = clientId;
         NETBIRD_MGMT_API_ENDPOINT = "https://${nbDomain}";
         AUTH_SUPPORTED_SCOPES = "openid profile email";
         NETBIRD_TOKEN_SOURCE = "idToken";
