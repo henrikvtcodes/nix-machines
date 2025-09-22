@@ -51,6 +51,8 @@
     enable = true;
   };
 
+  my.services.tailscale.advertiseExitNode = true;
+
   age.secrets = let
     secretsDir = ../../../secrets;
   in {

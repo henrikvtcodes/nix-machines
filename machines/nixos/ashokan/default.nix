@@ -95,6 +95,9 @@
   };
   security.acme.acceptTerms = true;
 
+  my.services.tailscale.advertiseExitNode = true;
+
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
   # ======================== DO NOT CHANGE THIS ========================
