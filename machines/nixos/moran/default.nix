@@ -38,14 +38,15 @@
       enable = true;
       wifi = {
         powersave = true;
-        backend = "iwd";
+        #backend = "iwd";
+        backend = "wpa_supplicant";
         macAddress = "permanent";
       };
     };
     useDHCP = false;
     dhcpcd.enable = false;
     wireless.enable = false;
-
+    wireless.iwd.enable = false;
     useNetworkd = true;
   };
   systemd.network = {
