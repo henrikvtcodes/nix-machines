@@ -11,10 +11,10 @@ in {
     enablePasswordFile = lib.mkEnableOption "Enable password file";
   };
 
+  imports = [../../home/henrikvt];
+
   config = {
     nix.settings.trusted-users = ["henrikvt"];
-
-    imports = [../../home/henrikvt];
 
     age.secrets = lib.mkIf cfg.enablePasswordFile {
       henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
