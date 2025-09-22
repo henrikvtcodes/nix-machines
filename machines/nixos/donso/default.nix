@@ -31,12 +31,23 @@
     enable = true;
   };
 
-  my.services.tailscale.advertiseExitNode = true;
-
   # ZFS Stuff
   environment.systemPackages = with pkgs; [
     zfs
   ];
+
+  my.services.tailscale = {
+    advertiseExitNode = true;
+    advertiseRoutes = {
+      enable = true;
+      routes = [
+        "132.198.0.0/16"
+        "2620:104:e000::/40"
+
+        # "132.198.59.133/32" # EMSWEB
+      ];
+    };
+  };
 
   services.zfs = {
     autoScrub = {

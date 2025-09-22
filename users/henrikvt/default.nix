@@ -11,6 +11,8 @@ in {
     enablePasswordFile = lib.mkEnableOption "Enable password file";
   };
 
+  imports = [../../home/henrikvt];
+
   config = {
     nix.settings.trusted-users = ["henrikvt"];
 

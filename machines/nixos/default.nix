@@ -5,7 +5,7 @@
   config,
   ...
 }: {
-  imports = [../../modules/nixos ../../home/henrikvt];
+  imports = [../../modules/nixos];
 
   # Clean up nix store + old generations automatically
   nix = {
