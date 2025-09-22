@@ -141,7 +141,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable henrikvt home config and other options
-  # home.henrikvt.enable = lib.mkDefault true;
+  home.henrikvt.enable = lib.mkDefault true;
   users.henrikvt.enableNixosSpecific = lib.mkDefault true;
   users.henrikvt.enablePasswordFile = lib.mkDefault true;
 
