@@ -14,6 +14,8 @@ in {
   config = {
     nix.settings.trusted-users = ["henrikvt"];
 
+    imports = [../../home/henrikvt];
+
     age.secrets = lib.mkIf cfg.enablePasswordFile {
       henrikUserPassword.file = ../../secrets/henrikUserPassword.age;
     };

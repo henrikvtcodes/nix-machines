@@ -111,6 +111,7 @@
   programs.firefox.enable = true;
 
   home.henrikvt = {
+    enable = true;
     ghostty = true;
     client = true;
     extraModules = [
