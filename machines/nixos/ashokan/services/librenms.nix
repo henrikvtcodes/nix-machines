@@ -1,7 +1,7 @@
 {config, ...}:
 let 
 
-hostname = "librenms.unicycl.ing";
+hostname = "nms.unicycl.ing";
 internalport = 18008;
 
 in
