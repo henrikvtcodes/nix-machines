@@ -5,6 +5,7 @@
     ./netbox.nix
     ./mealie.nix
     ./netbird.nix
+    ./librenms.nix
   ];
 
   my.services.traefik = {

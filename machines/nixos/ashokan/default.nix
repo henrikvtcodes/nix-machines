@@ -78,6 +78,11 @@
       file = "${secretsDir}/netbirdTurnUserPassword.age";
       owner = "turnserver";
     };
+    librenmsDbPw = {
+      file = "${secretsDir}/librenmsDbPw.age";
+      owner = "librenms";
+      group = "mysql";
+    };
     mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
     mastodonSecretKeyBase = chownPodman "mastodonSecretKeyBase.age";
