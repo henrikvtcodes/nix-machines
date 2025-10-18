@@ -101,6 +101,7 @@
   security.acme.acceptTerms = true;
 
   my.services.tailscale.advertiseExitNode = true;
+  my.services.tailscale.acceptRoutes = true;
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
