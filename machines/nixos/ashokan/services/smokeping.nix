@@ -26,13 +26,13 @@ in {
         title = UVM Infra
         probe = DNS
 
-        ++ ns1.uvm
+        ++ ns1-uvm
         menu = ns1
         title = UVM NS1
         server = ns1.uvm.edu
         host = ${config.networking.fqdnOrHostName}
 
-        ++ ns2.uvm
+        ++ ns2-uvm
         menu = ns2
         title = UVM NS2
         server = ns2.uvm.edu
@@ -81,12 +81,14 @@ in {
     '';
   };
 
-  services.nginx.virtualHosts."smokeping".listen = [
-    {
-      addr = "127.0.0.1";
-      port = internalport;
-    }
-  ];
+  services.nginx.virtualHosts."smokeping" = {
+    listen = [
+      {
+        addr = "127.0.0.1";
+        port = internalport;
+      }
+    ];
+  };
 
   services.traefik.dynamicConfigOptions = {
     http = {
@@ -103,7 +105,7 @@ in {
       services = {
         smokeping = {
           loadBalancer = {
-            servers = [{url = "http://localhost:${toString internalport}";}];
+            servers = [{url = "http://127.0.0.1:${toString internalport}";}];
           };
         };
       };
