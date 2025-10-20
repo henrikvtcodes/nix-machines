@@ -9,14 +9,24 @@ in {
   services.smokeping = {
     enable = true;
     webService = true;
+    cgiUrl = "https://${hostname}/smokeping.cgi";
     probeConfig = ''
       + FPing
       binary = ${config.security.wrapperDir}/fping
 
-      +DNS
-      binary = ${pkgs.dig}/bin/dig
-      lookup = ${config.networking.fqdnOrHostName}
+      + Curl
+      binary = ${pkgs.curl}/bin/curl
+      urlformat = http://%host%/
+      timeout = 10
+      step = 300
+      extraargs = --silent
+      follow_redirects = yes
+      include_redirects = no
 
+      + DNS
+      binary = ${pkgs.bind.dnsutils}/bin/dig
+      timeout = 15
+      step = 300
     '';
     targetConfig = ''
       probe = FPing
@@ -81,7 +91,93 @@ in {
     '';
   };
 
+  systemd.services.smokeping = {
+    serviceConfig = {
+      # Resource limits
+      Slice = "smokeping.slice";
+      MemoryHigh = "200M";
+      MemoryMax = "300M";
+      CPUQuota = "20%";
+      TasksMax = 200;
+
+      # Process limits
+      LimitNOFILE = 1024;
+      LimitNPROC = 100;
+
+      # Security restrictions
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectControlGroups = true;
+      ProtectKernelLogs = true;
+      PrivateDevices = true;
+      RestrictRealtime = true;
+      # RestrictSUIDSGID = true;  # Disabled - smokeping needs SUID wrapper for ping
+      RestrictNamespaces = true;
+      LockPersonality = true;
+      # MemoryDenyWriteExecute = true;  # Disabled - interferes with DNS resolution
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+
+      # Additional security restrictions
+      RemoveIPC = true;  # Clean up IPC objects
+      UMask = "0077";  # Restrict file permissions
+      SystemCallFilter = [ "@system-service" "~@privileged" "~@mount" "~@debug" "~@module" "~@reboot" "~@swap" "~@clock" "~@cpu-emulation" "~@obsolete" ];  # Allow raw-io for IPv6 ping
+      CapabilityBoundingSet = [ "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];  # Only network capabilities needed
+      ProtectProc = "default";  # Allow access to process info for DNS resolution
+      ProcSubset = "all";  # Allow access to all process info
+      ProtectHostname = true;  # Prevent hostname changes
+      ProtectClock = true;  # Prevent clock changes
+
+      # File system restrictions - allow access to dig
+      ReadWritePaths = [
+        "/var/lib/smokeping"
+        "/var/log"
+        "/run"
+      ];
+      ReadOnlyPaths = [
+        "/etc/smokeping.conf"
+        "/nix/store"
+        "${pkgs.curl}"
+        "${config.services.smokeping.package}"
+        "${config.security.wrapperDir}"
+        "/etc/resolv.conf"
+        "/etc/hosts"
+        "/etc/nsswitch.conf"
+        "/etc/ssl"
+        "/etc/ca-bundle.crt"
+        "/etc/ssl/certs"
+      ];
+
+      # User/group restrictions
+      User = "smokeping";
+      Group = "smokeping";
+      SupplementaryGroups = [ "smokeping" ];
+
+      # Restart policy
+      Restart = "on-failure";
+      RestartSec = "10s";
+
+      # Nice priority (lower number = higher priority)
+      Nice = 10;
+
+      # Required by smokeping module
+      ExecStart = "${config.services.smokeping.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon";
+    };
+
+    # Add curl package to the service environment
+    path = [ pkgs.curl pkgs.bind.dnsutils ];
+    environment = {
+      # Ensure DNS resolution works
+      NSS_WRAPPER_PASSWD = "/etc/passwd";
+      NSS_WRAPPER_GROUP = "/etc/group";
+      LD_LIBRARY_PATH = "${pkgs.curl}/lib";
+    };
+  };
+
   services.nginx.virtualHosts."smokeping" = {
+    serverName = hostname;
     listen = [
       {
         addr = "127.0.0.1";
