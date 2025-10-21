@@ -6,8 +6,13 @@
     ./mealie.nix
     ./netbird.nix
     ./librenms.nix
-    ./smokeping.nix
+    ./smokeping2.nix
   ];
+
+  my.services.smokeping = {
+    enable = true;
+    domain = "sp.ash.unicycl.ing";
+  };
 
   my.services.traefik = {
     enable = true;
