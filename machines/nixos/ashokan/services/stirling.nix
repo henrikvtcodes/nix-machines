@@ -29,4 +29,10 @@
       };
     };
   };
+
+  services.caddy.virtualHosts."pdf.unicycl.ing" = {
+    extraConfig = ''
+      reverse_proxy localhost:${config.services.stirling-pdf.environment.SERVER_PORT}
+    '';
+  };
 }

@@ -19,9 +19,15 @@
     environmentFiles = [config.age.secrets.cfDnsApiToken.path];
   };
 
+  my.services.caddy = {
+    enable = true;
+    devMode = true;
+  };
+
   my.services.mastodon = {
     enable = true;
     configureTraefik = true;
+    configureCaddy = true;
 
     secretKeyBaseEnvFile = config.age.secrets.mastodonSecretKeyBase.path;
     otpSecretEnvFile = config.age.secrets.mastodonOtpSecret.path;
@@ -54,6 +60,12 @@
       disable_startup_analytics = true;
       avatars = "initials";
     };
+  };
+
+  services.caddy.virtualHosts."idp.unicycl.ing" = {
+    extraConfig = ''
+      reverse_proxy https://localhost:9443
+    '';
   };
 
   services.traefik.dynamicConfigOptions = let

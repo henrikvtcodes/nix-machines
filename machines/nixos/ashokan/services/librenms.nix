@@ -36,4 +36,10 @@ in {
       };
     };
   };
+
+  services.caddy.virtualHosts."${hostname}" = {
+    extraConfig = ''
+      reverse_proxy localhost:${toString internalport}
+    '';
+  };
 }

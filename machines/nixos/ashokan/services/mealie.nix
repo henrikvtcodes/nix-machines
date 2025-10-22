@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  domain = "mealie.unicycl.ing";
+in {
   services.mealie = {
     enable = true;
     port = 16099;
@@ -14,9 +16,7 @@
     };
   };
 
-  services.traefik.dynamicConfigOptions = let
-    domain = "mealie.unicycl.ing";
-  in {
+  services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
         mealie = {
@@ -36,5 +36,11 @@
         };
       };
     };
+  };
+
+  services.caddy.virtualHosts."${domain}" = {
+    extraConfig = ''
+      reverse_proxy localhost:${toString config.services.mealie.port}
+    '';
   };
 }

@@ -159,4 +159,21 @@ in {
       };
     };
   };
+
+  services.caddy.virtualHosts."${nbDomain}" = {
+    extraConfig = ''
+      reverse_proxy /* localhost:${toString nbDashboardPort}
+      reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
+      reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
+      reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
+      header * {
+      	Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
+      	X-Content-Type-Options "nosniff"
+      	X-Frame-Options "DENY"
+      	X-XSS-Protection "1; mode=block"
+      	-Server
+      	Referrer-Policy strict-origin-when-cross-origin
+      }
+    '';
+  };
 }

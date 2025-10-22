@@ -2,7 +2,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  domain = "netbox.unicycl.ing";
+in {
   services.netbox = {
     enable = true;
     port = 22022;
@@ -24,9 +26,7 @@
     };
   };
 
-  services.traefik.dynamicConfigOptions = let
-    domain = "netbox.unicycl.ing";
-  in {
+  services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
         netbox = {
@@ -57,5 +57,17 @@
         };
       };
     };
+  };
+
+  services.caddy.virtualHosts."${domain}" = {
+    extraConfig = ''
+      handle /static* {
+          root * ${config.services.netbox.dataDir}
+          file_server
+      }
+      handle {
+        reverse_proxy localhost:${toString config.services.netbox.port}
+      }
+    '';
   };
 }
