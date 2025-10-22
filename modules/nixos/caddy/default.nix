@@ -23,7 +23,7 @@ in
         enable = mkDefault true;
         package = pkgs.caddy.withPlugins {
           plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
-          hash = "sha256-UwrkarDwfb6u+WGwkAq+8c+nbsFt7sVdxVAV9av0DLo=";
+          hash = "sha256-p9AIi6MSWm0umUB83HPQoU8SyPkX5pMx989zAi8d/74=";
         };
         environmentFile = config.age.secrets.cfDnsApiToken.path;
         globalConfig = ''
