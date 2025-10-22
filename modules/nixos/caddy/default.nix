@@ -20,7 +20,7 @@ in
 
     config = mkIf cfg.enable {
       services.caddy = {
-        enable = mkDefault true;
+        enable = mkForce true;
         package = pkgs.caddy.withPlugins {
           plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
           hash = "sha256-p9AIi6MSWm0umUB83HPQoU8SyPkX5pMx989zAi8d/74=";

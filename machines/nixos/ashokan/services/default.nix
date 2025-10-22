@@ -14,14 +14,14 @@
     domain = "sp.ash.unicycl.ing";
   };
 
-  my.services.traefik = {
-    enable = true;
-    environmentFiles = [config.age.secrets.cfDnsApiToken.path];
-  };
+  # my.services.traefik = {
+  #   enable = true;
+  #   environmentFiles = [config.age.secrets.cfDnsApiToken.path];
+  # };
 
   my.services.caddy = {
     enable = true;
-    devMode = true;
+    devMode = false;
   };
 
   my.services.mastodon = {
