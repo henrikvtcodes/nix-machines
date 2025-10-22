@@ -73,6 +73,9 @@
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
     };
+    authentikEnvVars = {
+      file = "${secretsDir}/authentikEnvVars.age";
+    };
     cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
     netbirdTurnUserPassword = {
       file = "${secretsDir}/netbirdTurnUserPassword.age";

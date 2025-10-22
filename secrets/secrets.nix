@@ -61,6 +61,7 @@ in {
   "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
   "zitadelSecret.age".publicKeys = [ashokan] ++ henrik;
   "librenmsDbPw.age".publicKeys = [ashokan] ++ henrik;
+  "authentikEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;
