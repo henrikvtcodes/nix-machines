@@ -229,7 +229,7 @@
           # Secrets
           ragenix.nixosModules.default
 
-          # Services 
+          # Services
           # attic.nixosModules.atticd
           authentik.nixosModules.default
 
