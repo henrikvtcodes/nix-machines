@@ -393,7 +393,6 @@ in
       };
 
       services.fcgiwrap = {
-        enable = true;
         instances.smokeping = {
           process.user = cfg.user;
           process.group = cfg.user;
@@ -422,7 +421,7 @@ in
             fastcgi_intercept_errors on;
             include ${pkgs.nginx}/conf/fastcgi_params;
             fastcgi_param SCRIPT_FILENAME ${config.users.users.smokeping.home}/smokeping.fcgi;
-            fastcgi_pass unix:/run/fcgiwrap.sock;
+            fastcgi_pass unix:${services.fcgiwrap.instances.smokeping.socket.address};
           '';
         };
 
