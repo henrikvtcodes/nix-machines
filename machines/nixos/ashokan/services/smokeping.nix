@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   hostname = "sp.ash.unicycl.ing";
@@ -28,67 +29,107 @@ in {
       timeout = 15
       step = 300
     '';
-    targetConfig = ''
-      probe = FPing
+    # targetConfig = ''
+    #   probe = FPing
 
-        + UVM
-        menu = UVM
-        title = UVM Infra
-        probe = DNS
+    #     + UVM
+    #     menu = UVM
+    #     title = UVM Infra
+    #     probe = DNS
 
-        ++ ns1-uvm
-        menu = ns1
-        title = UVM NS1
-        server = ns1.uvm.edu
-        host = ${config.networking.fqdnOrHostName}
+    #     ++ ns1-uvm
+    #     menu = ns1
+    #     title = UVM NS1
+    #     server = ns1.uvm.edu
+    #     host = ${config.networking.fqdnOrHostName}
 
-        ++ ns2-uvm
-        menu = ns2
-        title = UVM NS2
-        server = ns2.uvm.edu
-        host = ${config.networking.fqdnOrHostName}
+    #     ++ ns2-uvm
+    #     menu = ns2
+    #     title = UVM NS2
+    #     server = ns2.uvm.edu
+    #     host = ${config.networking.fqdnOrHostName}
 
+    #     + DNS
+    #     probe = DNS
+    #     menu = DNS
+    #     title = DNS Latency Probes
 
-        + DNS
-        probe = DNS
-        menu = DNS
-        title = DNS Latency Probes
+    #     ++ all-cloudflare
+    #     menu = all-cloudflare
+    #     title = All cloudflare DNS
+    #     host = /DNS/cloudflare0 /DNS/cloudflare1
 
-        ++ all-cloudflare
-        menu = all-cloudflare
-        title = All cloudflare DNS
-        host = /DNS/cloudflare0 /DNS/cloudflare1
+    #     ++ cloudflare0
+    #     menu = cloudflare0
+    #     title = cloudflare 1.0.0.1 DNS performance
+    #     server = 1.0.0.1
+    #     host = ${config.networking.fqdnOrHostName}
 
-        ++ cloudflare0
-        menu = cloudflare0
-        title = cloudflare 1.0.0.1 DNS performance
-        server = 1.0.0.1
-        host = ${config.networking.fqdnOrHostName}
+    #     ++ cloudflare1
+    #     menu = cloudflare1
+    #     title = cloudflare 1.1.1.1 DNS performance
+    #     server = 1.1.1.1
+    #     host = ${config.networking.fqdnOrHostName}
 
-        ++ cloudflare1
-        menu = cloudflare1
-        title = cloudflare 1.1.1.1 DNS performance
-        server = 1.1.1.1
-        host = ${config.networking.fqdnOrHostName}
+    #     ++ all-quad9
+    #     menu = all-quad9
+    #     title = All quad9 DNS
+    #     host = /DNS/quad9 /DNS/quad112
 
-        ++ all-quad9
-        menu = all-quad9
-        title = All quad9 DNS
-        host = /DNS/quad9 /DNS/quad112
+    #     ++ quad9
+    #     menu = quad9
+    #     title = quad9 9.9.9.9 DNS performance
+    #     server = 9.9.9.9
+    #     host = ${config.networking.fqdnOrHostName}
 
-        ++ quad9
-        menu = quad9
-        title = quad9 9.9.9.9 DNS performance
-        server = 9.9.9.9
-        host = ${config.networking.fqdnOrHostName}
+    #     ++ quad112
+    #     menu = quad112
+    #     title = quad9 149.112.112.112 DNS performance
+    #     server = 149.112.112.112
+    #     host = ${config.networking.fqdnOrHostName}
 
-        ++ quad112
-        menu = quad112
-        title = quad9 149.112.112.112 DNS performance
-        server = 149.112.112.112
-        host = ${config.networking.fqdnOrHostName}
+    # '';
 
+    # Presentation configuration
+    presentationConfig = ''
+      + charts
+      menu = Charts
+      title = The most interesting destinations
+      ++ stddev
+      sorter = StdDev(entries=>4)
+      title = Top Standard Deviation
+      menu = Std Deviation
+      format = Standard Deviation %f
+      ++ max
+      sorter = Max(entries=>5)
+      title = Top Max Roundtrip Time
+      menu = by Max
+      format = Max Roundtrip Time %f seconds
+      ++ loss
+      sorter = Loss(entries=>5)
+      title = Top Packet Loss
+      menu = Loss
+      format = Packets Lost %f
+      ++ median
+      sorter = Median(entries=>5)
+      title = Top Median Roundtrip Time
+      menu = by Median
+      format = Median RTT %f seconds
+      + overview
+      width = 600
+      height = 50
+      range = 10h
+      + detail
+      width = 600
+      height = 200
+      unison_tolerance = 2
+      "Last 3 Hours"    3h
+      "Last 30 Hours"   30h
+      "Last 10 Days"    10d
+      "Last 360 Days"   360d
     '';
+
+    inherit targetConfig;
   };
 
   systemd.services.smokeping = {
@@ -118,17 +159,17 @@ in {
       RestrictNamespaces = true;
       LockPersonality = true;
       # MemoryDenyWriteExecute = true;  # Disabled - interferes with DNS resolution
-      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+      RestrictAddressFamilies = ["AF_INET" "AF_INET6"];
 
       # Additional security restrictions
-      RemoveIPC = true;  # Clean up IPC objects
-      UMask = "0077";  # Restrict file permissions
-      SystemCallFilter = [ "@system-service" "~@privileged" "~@mount" "~@debug" "~@module" "~@reboot" "~@swap" "~@clock" "~@cpu-emulation" "~@obsolete" ];  # Allow raw-io for IPv6 ping
-      CapabilityBoundingSet = [ "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];  # Only network capabilities needed
-      ProtectProc = "default";  # Allow access to process info for DNS resolution
-      ProcSubset = "all";  # Allow access to all process info
-      ProtectHostname = true;  # Prevent hostname changes
-      ProtectClock = true;  # Prevent clock changes
+      RemoveIPC = true; # Clean up IPC objects
+      UMask = "0077"; # Restrict file permissions
+      SystemCallFilter = ["@system-service" "~@privileged" "~@mount" "~@debug" "~@module" "~@reboot" "~@swap" "~@clock" "~@cpu-emulation" "~@obsolete"]; # Allow raw-io for IPv6 ping
+      CapabilityBoundingSet = ["CAP_NET_RAW" "CAP_NET_BIND_SERVICE"]; # Only network capabilities needed
+      ProtectProc = "default"; # Allow access to process info for DNS resolution
+      ProcSubset = "all"; # Allow access to all process info
+      ProtectHostname = true; # Prevent hostname changes
+      ProtectClock = true; # Prevent clock changes
 
       # File system restrictions - allow access to dig
       ReadWritePaths = [
@@ -153,7 +194,7 @@ in {
       # User/group restrictions
       User = "smokeping";
       Group = "smokeping";
-      SupplementaryGroups = [ "smokeping" ];
+      SupplementaryGroups = ["smokeping"];
 
       # Restart policy
       Restart = "on-failure";
@@ -167,7 +208,7 @@ in {
     };
 
     # Add curl package to the service environment
-    path = [ pkgs.curl pkgs.bind.dnsutils ];
+    path = [pkgs.curl pkgs.bind.dnsutils];
     environment = {
       # Ensure DNS resolution works
       NSS_WRAPPER_PASSWD = "/etc/passwd";
@@ -185,6 +226,8 @@ in {
       }
     ];
   };
+
+  users.users.nginx.extraGroups = ["smokeping"];
 
   services.traefik.dynamicConfigOptions = {
     http = {
