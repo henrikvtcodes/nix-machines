@@ -27,6 +27,7 @@ in
           hash = "sha256-p9AIi6MSWm0umUB83HPQoU8SyPkX5pMx989zAi8d/74=";
         };
         environmentFile = config.age.secrets.cfDnsApiToken.path;
+        # logFormat = lib.mkForce "level DEBUG\nformat console";
         globalConfig = ''
           acme_dns cloudflare {env.CF_DNS_API_TOKEN}
           dns cloudflare {env.CF_DNS_API_TOKEN}
@@ -57,8 +58,6 @@ in
           (default) {
           	import universal
           	import security
-          	import bunny
-          	import branding
           }
         '';
       };
