@@ -109,6 +109,17 @@
   my.services.tailscale.advertiseExitNode = true;
   my.services.tailscale.acceptRoutes = true;
 
+  services.postgresql.ensureUsers = [
+    {
+      name = "henrikvt";
+      ensureClauses = {
+        superuser = true;
+        login = true;
+        createrole = true;
+      };
+    }
+  ];
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";
   # ======================== DO NOT CHANGE THIS ========================
