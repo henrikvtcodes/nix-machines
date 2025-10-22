@@ -6,18 +6,13 @@
     ./mealie.nix
     ./netbird.nix
     ./librenms.nix
-    ./smokeping2.nix
+    # ./smokeping2.nix
     ./authentik.nix
   ];
 
-  my.services.smokeping = {
-    enable = true;
-    domain = "sp.ash.unicycl.ing";
-  };
-
-  # my.services.traefik = {
+  # my.services.smokeping = {
   #   enable = true;
-  #   environmentFiles = [config.age.secrets.cfDnsApiToken.path];
+  #   domain = "sp.ash.unicycl.ing";
   # };
 
   my.services.caddy = {
