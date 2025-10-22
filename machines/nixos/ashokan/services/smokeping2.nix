@@ -394,8 +394,8 @@ in
 
       services.fcgiwrap = {
         instances.smokeping = {
-          process.user = cfg.user;
-          process.group = cfg.user;
+          process = {inherit (config.services.smokeping) user;};
+          process.group = "smokeping";
           socket = {inherit (config.services.nginx) user group;};
         };
       };
@@ -421,7 +421,7 @@ in
             fastcgi_intercept_errors on;
             include ${pkgs.nginx}/conf/fastcgi_params;
             fastcgi_param SCRIPT_FILENAME ${config.users.users.smokeping.home}/smokeping.fcgi;
-            fastcgi_pass unix:${services.fcgiwrap.instances.smokeping.socket.address};
+            fastcgi_pass unix:${config.services.fcgiwrap.instances.smokeping.socket.address};
           '';
         };
 
@@ -448,7 +448,7 @@ in
           services = {
             smokeping = {
               loadBalancer = {
-                servers = [{url = "http://127.0.0.1:${internalport}";}];
+                servers = [{url = "http://127.0.0.1:${toString internalport}";}];
               };
             };
           };
