@@ -76,7 +76,10 @@
     authentikEnvVars = {
       file = "${secretsDir}/authentikEnvVars.age";
     };
-    cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
+    cfDnsApiToken = {
+      file = "${secretsDir}/cfDnsApiToken.age";
+      group = "caddy";
+    };
     netbirdTurnUserPassword = {
       file = "${secretsDir}/netbirdTurnUserPassword.age";
       owner = "turnserver";

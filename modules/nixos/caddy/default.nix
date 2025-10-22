@@ -20,13 +20,15 @@ in
 
     config = mkIf cfg.enable {
       services.caddy = {
-        enable = mkForce true;
+        enable = true;
+        enableReload = true;
         package = pkgs.caddy.withPlugins {
           plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
           hash = "sha256-p9AIi6MSWm0umUB83HPQoU8SyPkX5pMx989zAi8d/74=";
         };
         environmentFile = config.age.secrets.cfDnsApiToken.path;
         globalConfig = ''
+          acme_dns cloudflare {env.CF_DNS_API_TOKEN}
           dns cloudflare {env.CF_DNS_API_TOKEN}
           metrics
           ${devModeConfig}
