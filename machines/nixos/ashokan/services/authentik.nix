@@ -20,9 +20,16 @@
     };
   };
 
+  systemd.services.authentik-migrate.after = ["redis-authentik.service" "postgresql.service"];
+  systemd.targets.authentik = {
+    wantedBy = ["multi-user.target"];
+    wants = ["authentik.service" "authentik-migrate.service" "authentik-worker.service"];
+    after = ["redis-authentik.service" "postgresql.service" "network-online.target"];
+  };
+
   services.caddy.virtualHosts."idp.unicycl.ing" = {
     extraConfig = ''
-      reverse_proxy https://localhost:9443
+      reverse_proxy http://localhost:9000
     '';
   };
 }
