@@ -70,6 +70,9 @@
     netbirdOIDCSecret = {
       file = "${secretsDir}/netbirdOIDCSecret.age";
     };
+    netbirdIDPServiceUserPassword = {
+      file = "${secretsDir}/netbirdIDPServiceUserPassword.age";
+    };
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
     };
