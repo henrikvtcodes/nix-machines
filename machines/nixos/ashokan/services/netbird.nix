@@ -92,19 +92,19 @@ in {
           RedirectURLs = ["http://localhost:53000"];
         };
 
-        DeviceAuthorizationFlow = {
-          Provider = "hosted";
+        # DeviceAuthorizationFlow = {
+        #   Provider = "hosted";
 
-          ProviderConfig = {
-            ClientID = clientId;
-            Audience = clientId;
-            Domain = idpDomain;
-            TokenEndpoint = "https://${idpDomain}/application/o/token/";
-            DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
-            Scope = "openid";
-            UseIDToken = false;
-          };
-        };
+        #   ProviderConfig = {
+        #     ClientID = clientId;
+        #     Audience = clientId;
+        #     Domain = idpDomain;
+        #     TokenEndpoint = "https://${idpDomain}/application/o/token/";
+        #     DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
+        #     Scope = "openid";
+        #     UseIDToken = true;
+        #   };
+        # };
       };
     };
 
@@ -118,8 +118,8 @@ in {
       enable = true;
       # managementServer = "https://${nbDomain}";
       # domain = "localhost";
-      managementServer = "";
-      domain = "";
+      managementServer = "https://vpn.test.com";
+      domain = "vpn2.example.com";
       settings = {
         AUTH_AUTHORITY = "https://${idpDomain}/application/o/netbird/";
         AUTH_SUPPORTED_SCOPES = "openid profile email offline_access api";
@@ -140,11 +140,9 @@ in {
       file_server
 
       header * {
-      	Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
+      	# Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
       	X-Content-Type-Options "nosniff"
-      	X-Frame-Options "DENY"
       	X-XSS-Protection "1; mode=block"
-      	-Server
       	Referrer-Policy strict-origin-when-cross-origin
       }
     '';
