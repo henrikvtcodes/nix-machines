@@ -6,7 +6,7 @@
 }: let
   nbDomain = "vpn.unicycl.ing";
   nbDashboardPort = 13203;
-  clientId = "a08f0cef-03d2-4380-836f-b4d71da2d609";
+  clientId = "xcFITirsKHIIFIAtuAOd6SXkCrlS31GOcEPwanYE";
 in {
   services.netbird.server = {
     domain = nbDomain;
@@ -24,7 +24,7 @@ in {
       metricsPort = 13291;
       domain = nbDomain;
       turnDomain = "turn.nyc.unicycl.ing";
-      oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
+      oidcConfigEndpoint = "https://idp.unicycl.ing/application/o/netbird/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
       disableSingleAccountMode = true;
       settings = {
@@ -93,7 +93,7 @@ in {
       autoStart = true;
       environment = {
         USE_AUTH0 = "false";
-        AUTH_AUTHORITY = "https://oidc.unicycl.ing";
+        AUTH_AUTHORITY = "https://idp.unicycl.ing";
         AUTH_CLIENT_ID = clientId;
         AUTH_AUDIENCE = clientId;
         NETBIRD_MGMT_API_ENDPOINT = "https://${nbDomain}";
