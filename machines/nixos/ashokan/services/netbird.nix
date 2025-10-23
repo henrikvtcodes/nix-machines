@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }: let
   nbDomain = "vpn.unicycl.ing";
@@ -94,7 +95,6 @@ in {
 
         # DeviceAuthorizationFlow = {
         #   Provider = "hosted";
-
         #   ProviderConfig = {
         #     ClientID = clientId;
         #     Audience = clientId;
@@ -116,6 +116,7 @@ in {
 
     dashboard = {
       enable = true;
+      package = unstable.netbird-dashboard;
       domain = "localhost";
       managementServer = "https://${nbDomain}"; # Determines API endpoint. Must start with full url even if its same-origin, otherwise it breaks
       settings = {
