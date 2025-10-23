@@ -93,18 +93,18 @@ in {
           RedirectURLs = ["http://localhost:53000"];
         };
 
-        # DeviceAuthorizationFlow = {
-        #   Provider = "hosted";
-        #   ProviderConfig = {
-        #     ClientID = clientId;
-        #     Audience = clientId;
-        #     Domain = idpDomain;
-        #     TokenEndpoint = "https://${idpDomain}/application/o/token/";
-        #     DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
-        #     Scope = "openid";
-        #     UseIDToken = true;
-        #   };
-        # };
+        DeviceAuthorizationFlow = {
+          Provider = "hosted";
+          ProviderConfig = {
+            ClientID = clientId;
+            Audience = clientId;
+            Domain = idpDomain;
+            TokenEndpoint = "https://${idpDomain}/application/o/token/";
+            DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
+            Scope = "openid";
+            UseIDToken = true;
+          };
+        };
       };
     };
 
