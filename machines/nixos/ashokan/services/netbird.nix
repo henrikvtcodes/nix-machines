@@ -28,7 +28,7 @@ in {
       metricsPort = 13291;
       domain = nbDomain;
       turnDomain = "turn.nyc.unicycl.ing";
-      oidcConfigEndpoint = "https://${idpDomain}/application/o/netbird/.well-known/openid-configuration/";
+      oidcConfigEndpoint = "https://${idpDomain}/application/o/netbird/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
       disableSingleAccountMode = true;
       settings = {
@@ -65,7 +65,6 @@ in {
             }
           ];
         };
-
         HttpConfig = {
           AuthAudience = clientId;
           AuthUserIDClaim = "sub";
@@ -104,8 +103,10 @@ in {
 
     dashboard = {
       enable = true;
-      managementServer = "https://${nbDomain}";
-      domain = "localhost";
+      # managementServer = "https://${nbDomain}";
+      # domain = "localhost";
+      managementServer = "";
+      domain = "";
       settings = {
         AUTH_AUTHORITY = "https://${idpDomain}/application/o/netbird/";
         AUTH_SUPPORTED_SCOPES = "openid profile email offline_access api";
@@ -116,31 +117,10 @@ in {
     };
   };
 
-  # Dashboard hosted in Podman Container
-  # virtualisation.oci-containers.containers = {
-  #   netbird-dashboard = {
-  #     image = "netbirdio/dashboard:v2.18.0";
-  #     autoStart = true;
-  #     environment = {
-  #       USE_AUTH0 = "false";
-  #       AUTH_AUTHORITY = "https://idp.unicycl.ing";
-  #       AUTH_CLIENT_ID = clientId;
-  #       AUTH_AUDIENCE = clientId;
-  #       NETBIRD_MGMT_API_ENDPOINT = "https://${nbDomain}";
-  #       AUTH_SUPPORTED_SCOPES = "openid profile email";
-  #       NETBIRD_TOKEN_SOURCE = "accessToken";
-  #       AUTH_REDIRECT_URI = "/auth";
-  #       AUTH_SILENT_REDIRECT_URI = "/silent-auth";
-  #     };
-  #     extraOptions = ["--runtime=${pkgs.gvisor}/bin/runsc"];
-  #     ports = ["${toString nbDashboardPort}:80"];
-  #   };
-  # };
-
   services.caddy.virtualHosts."${nbDomain}" = {
     extraConfig = ''
       root * ${config.services.netbird.server.dashboard.finalDrv}
-      
+
       reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
       reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
       reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
