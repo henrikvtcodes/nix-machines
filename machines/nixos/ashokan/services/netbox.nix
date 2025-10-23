@@ -60,8 +60,7 @@ in {
   };
 
   users.users.caddy.extraGroups = ["netbox"];
-  systemd.services.caddy.serviceConfig = { SupplementaryGroups = ["netbox"]; };
-
+  systemd.services.caddy.serviceConfig = {SupplementaryGroups = ["netbox"];};
 
   services.caddy.virtualHosts."${domain}" = {
     extraConfig = ''
