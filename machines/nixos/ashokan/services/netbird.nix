@@ -9,7 +9,6 @@
   clientId = "xcFITirsKHIIFIAtuAOd6SXkCrlS31GOcEPwanYE";
   idpDomain = "idp.unicycl.ing";
 in {
-
   my.services.caddy.verbose = true;
 
   services.netbird.server = {
@@ -92,6 +91,20 @@ in {
           TokenEndpoint = "https://${idpDomain}/application/o/token/";
           RedirectURLs = ["http://localhost:53000"];
         };
+
+        DeviceAuthorizationFlow = {
+          Provider = "hosted";
+
+          ProviderConfig = {
+            ClientID = clientId;
+            Audience = clientId;
+            Domain = idpDomain;
+            TokenEndpoint = "https://${idpDomain}/application/o/token/";
+            DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
+            Scope = "openid";
+            UseIDToken = false;
+          };
+        };
       };
     };
 
@@ -112,7 +125,6 @@ in {
         AUTH_SUPPORTED_SCOPES = "openid profile email offline_access api";
         AUTH_AUDIENCE = clientId;
         AUTH_CLIENT_ID = clientId;
-        
       };
     };
   };
@@ -124,7 +136,7 @@ in {
       reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
       reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
       reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
-      
+
       file_server
 
       header * {
