@@ -86,7 +86,7 @@ in {
         PKCEAuthorizationFlow.ProviderConfig = {
           Audience = clientId;
           ClientID = clientId;
-          ClientSecret = "";
+          ClientSecret._secret = config.age.secrets.netbirdOIDCSecret.path;
           AuthorizationEndpoint = "https://${idpDomain}/application/o/authorize/";
           TokenEndpoint = "https://${idpDomain}/application/o/token/";
           RedirectURLs = ["http://localhost:53000"];
@@ -116,10 +116,8 @@ in {
 
     dashboard = {
       enable = true;
-      # managementServer = "https://${nbDomain}";
-      # domain = "localhost";
-      managementServer = "https://vpn.test.com";
-      domain = "vpn2.example.com";
+      domain = "localhost";
+      managementServer = "https://${nbDomain}"; # Determines API endpoint. Must start with full url even if its same-origin, otherwise it breaks
       settings = {
         AUTH_AUTHORITY = "https://${idpDomain}/application/o/netbird/";
         AUTH_SUPPORTED_SCOPES = "openid profile email offline_access api";
