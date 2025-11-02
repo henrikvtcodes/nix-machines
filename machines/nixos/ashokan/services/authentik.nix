@@ -23,7 +23,7 @@
     };
   };
 
-  systemd.tmpfiles."authentik"."/var/lib/authentik/media" = {
+  systemd.tmpfiles.settings."authentik"."/var/lib/authentik/media" = {
     d = {
       group = "root";
       mode = "0744";
