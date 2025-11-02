@@ -16,9 +16,9 @@
         use_ssl = false;
         from = "auth-noreply@unicycl.ing";
       };
-      storage.media = {
-        backend = "s3";
-      };
+      # storage.media = {
+      #   # backend = "s3";
+      # };
       disable_startup_analytics = true;
     };
   };
