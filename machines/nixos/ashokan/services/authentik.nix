@@ -23,6 +23,14 @@
     };
   };
 
+  systemd.tmpfiles."authentik"."/var/lib/authentik/media" = {
+    d = {
+      group = "root";
+      mode = "0744";
+      user = "root";
+    };
+  };
+
   systemd.services.authentik-migrate.after = ["redis-authentik.service" "postgresql.service"];
   systemd.services.authentik-migrate.before = lib.mkForce ["authentik.service"];
   systemd.services.authentik.after = ["authentik-migrate.service"];
