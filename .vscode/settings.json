@@ -15,7 +15,7 @@
       },
       "options": {
         "nixos": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.svalbard.options"
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.ashokan.options"
         },
         "nix-darwin": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.pepacton.options"

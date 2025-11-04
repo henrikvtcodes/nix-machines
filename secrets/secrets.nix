@@ -48,6 +48,7 @@ in {
   "cfDnsApiToken.age".publicKeys = cloud ++ henrik;
   "netbirdDSEKey.age".publicKeys = [ashokan] ++ henrik;
   "netbirdOIDCSecret.age".publicKeys = [ashokan] ++ henrik;
+  "netbirdIDPServiceUserPassword.age".publicKeys = [ashokan] ++ henrik;
   "netbirdTurnUserPassword.age".publicKeys = cloud ++ henrik;
   "ciServerSecrets.age".publicKeys = [barnegat] ++ henrik;
   "ciAgentSecrets.age".publicKeys =
@@ -60,6 +61,8 @@ in {
   "netboxSecretKey.age".publicKeys = [ashokan] ++ henrik;
   "mealieCredentials.age".publicKeys = [ashokan] ++ henrik;
   "zitadelSecret.age".publicKeys = [ashokan] ++ henrik;
+  "librenmsDbPw.age".publicKeys = [ashokan] ++ henrik;
+  "authentikEnvVars.age".publicKeys = [ashokan] ++ henrik;
 
   "mastodonSmtpPassword.age".publicKeys = [ashokan] ++ henrik;
   "mastodonSecretKeyBase.age".publicKeys = [ashokan] ++ henrik;

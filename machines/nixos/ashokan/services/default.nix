@@ -5,16 +5,25 @@
     ./netbox.nix
     ./mealie.nix
     ./netbird.nix
+    ./librenms.nix
+    # ./smokeping2.nix
+    ./authentik.nix
   ];
 
-  my.services.traefik = {
+  # my.services.smokeping = {
+  #   enable = true;
+  #   domain = "sp.ash.unicycl.ing";
+  # };
+
+  my.services.caddy = {
     enable = true;
-    environmentFiles = [config.age.secrets.cfDnsApiToken.path];
+    devMode = false;
   };
 
   my.services.mastodon = {
     enable = true;
     configureTraefik = true;
+    configureCaddy = true;
 
     secretKeyBaseEnvFile = config.age.secrets.mastodonSecretKeyBase.path;
     otpSecretEnvFile = config.age.secrets.mastodonOtpSecret.path;

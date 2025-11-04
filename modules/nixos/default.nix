@@ -10,5 +10,6 @@
     ./eoxporter
     ./dns
     ./copyparty
+    ./caddy
   ];
 }

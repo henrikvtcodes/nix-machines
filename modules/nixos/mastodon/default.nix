@@ -81,6 +81,7 @@ in {
   options.my.services.mastodon = with lib; {
     enable = mkEnableOption "Enable Mastodon";
     configureTraefik = mkEnableOption "Add Traefik Config";
+    configureCaddy = mkEnableOption "Add Caddy Config";
     rootDomain = mkOption {
       type = types.str;
       default = "unicycl.ing";
@@ -376,6 +377,12 @@ in {
           Type = mkForce "oneshot";
           Restart = mkForce "on-failure";
         };
+      };
+
+      services.caddy.virtualHosts."${interfaceDomain}" = lib.mkIf cfg.configureCaddy {
+        extraConfig = ''
+          reverse_proxy localhost:${toString cfg.mastodonWebPort}
+        '';
       };
 
       services.traefik.dynamicConfigOptions = lib.mkIf cfg.configureTraefik {

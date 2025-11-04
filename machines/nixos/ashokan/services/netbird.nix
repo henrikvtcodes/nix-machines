@@ -2,12 +2,16 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }: let
   nbDomain = "vpn.unicycl.ing";
   nbDashboardPort = 13203;
-  clientId = "a08f0cef-03d2-4380-836f-b4d71da2d609";
+  clientId = "xcFITirsKHIIFIAtuAOd6SXkCrlS31GOcEPwanYE";
+  idpDomain = "idp.unicycl.ing";
 in {
+  my.services.caddy.verbose = true;
+
   services.netbird.server = {
     domain = nbDomain;
 
@@ -24,13 +28,11 @@ in {
       metricsPort = 13291;
       domain = nbDomain;
       turnDomain = "turn.nyc.unicycl.ing";
-      oidcConfigEndpoint = "https://oidc.unicycl.ing/.well-known/openid-configuration";
+      oidcConfigEndpoint = "https://${idpDomain}/application/o/netbird/.well-known/openid-configuration";
       dnsDomain = "int.unicycl.ing";
       disableSingleAccountMode = true;
       settings = {
-        DataStoreEncryptionKey = {
-          _secret = config.age.secrets.netbirdDSEKey.path;
-        };
+        DataStoreEncryptionKey._secret = config.age.secrets.netbirdDSEKey.path;
 
         Stuns = [
           {
@@ -53,27 +55,54 @@ in {
               Proto = "udp";
               URI = "turn:turn.ash.unicycl.ing:3478";
               Username = "netbird";
-              Password = {
-                _secret = config.age.secrets.netbirdTurnUserPassword.path;
-              };
+              Password._secret = config.age.secrets.netbirdTurnUserPassword.path;
             }
             {
               Proto = "udp";
               URI = "turn:turn.nyc.unicycl.ing:3478";
               Username = "netbird";
-              Password = {
-                _secret = config.age.secrets.netbirdTurnUserPassword.path;
-              };
+              Password._secret = config.age.secrets.netbirdTurnUserPassword.path;
             }
           ];
         };
+        HttpConfig = {
+          AuthAudience = clientId;
+          AuthUserIDClaim = "sub";
+        };
 
         IdpManagerConfig = {
+          ManagerType = "authentik";
           ClientConfig = {
+            Issuer = "https://${idpDomain}/application/o/netbird/";
+            TokenEndpoint = "https://${idpDomain}/application/o/token/";
             ClientID = clientId;
-            ClientSecret = {
-              _secret = config.age.secrets.netbirdOIDCSecret.path;
-            };
+            ClientSecret._secret = config.age.secrets.netbirdOIDCSecret.path;
+          };
+          ExtraConfig = {
+            Password._secret = config.age.secrets.netbirdIDPServiceUserPassword.path;
+            Username = "netbird";
+          };
+        };
+
+        PKCEAuthorizationFlow.ProviderConfig = {
+          Audience = clientId;
+          ClientID = clientId;
+          ClientSecret._secret = config.age.secrets.netbirdOIDCSecret.path;
+          AuthorizationEndpoint = "https://${idpDomain}/application/o/authorize/";
+          TokenEndpoint = "https://${idpDomain}/application/o/token/";
+          RedirectURLs = ["http://localhost:53000"];
+        };
+
+        DeviceAuthorizationFlow = {
+          Provider = "hosted";
+          ProviderConfig = {
+            ClientID = clientId;
+            Audience = clientId;
+            Domain = idpDomain;
+            TokenEndpoint = "https://${idpDomain}/application/o/token/";
+            DeviceAuthEndpoint = "https://${idpDomain}/application/o/device/";
+            Scope = "openid";
+            UseIDToken = true;
           };
         };
       };
@@ -84,79 +113,37 @@ in {
       port = 13202;
       metricsPort = 13292;
     };
-  };
 
-  # Dashboard hosted in Podman Container
-  virtualisation.oci-containers.containers = {
-    netbird-dashboard = {
-      image = "netbirdio/dashboard:v2.18.0";
-      autoStart = true;
-      environment = {
-        USE_AUTH0 = "false";
-        AUTH_AUTHORITY = "https://oidc.unicycl.ing";
-        AUTH_CLIENT_ID = clientId;
+    dashboard = {
+      enable = true;
+      package = unstable.netbird-dashboard;
+      domain = "localhost";
+      managementServer = "https://${nbDomain}"; # Determines API endpoint. Must start with full url even if its same-origin, otherwise it breaks
+      settings = {
+        AUTH_AUTHORITY = "https://${idpDomain}/application/o/netbird/";
+        AUTH_SUPPORTED_SCOPES = "openid profile email offline_access api";
         AUTH_AUDIENCE = clientId;
-        NETBIRD_MGMT_API_ENDPOINT = "https://${nbDomain}";
-        AUTH_SUPPORTED_SCOPES = "openid profile email";
-        NETBIRD_TOKEN_SOURCE = "idToken";
+        AUTH_CLIENT_ID = clientId;
       };
-      extraOptions = ["--runtime=${pkgs.gvisor}/bin/runsc"];
-      ports = ["${toString nbDashboardPort}:80"];
     };
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    services = {
-      netbird-management = {
-        # h2c scheme is required for gRPC
-        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.server.management.port}";}];
-      };
-      netbird-api = {
-        loadBalancer.servers = [{url = "http://localhost:${toString config.services.netbird.server.management.port}";}];
-      };
-      netbird-signal = {
-        # h2c scheme is required for gRPC
-        loadBalancer.servers = [{url = "h2c://localhost:${toString config.services.netbird.server.signal.port}";}];
-      };
-      netbird-dashboard = {
-        loadBalancer.servers = [{url = "http://localhost:${toString nbDashboardPort}";}];
-      };
-    };
-    routers = {
-      netbird-management = {
-        rule = "Host(`${nbDomain}`) && PathPrefix(`/management.ManagementService/`)";
-        service = "netbird-management";
-        entryPoints = [
-          "https"
-          "http"
-        ];
-      };
-      netbird-api = {
-        rule = "Host(`${nbDomain}`) && PathPrefix(`/api`)";
-        service = "netbird-api";
-        entryPoints = [
-          "https"
-          "http"
-        ];
-      };
+  services.caddy.virtualHosts."${nbDomain}" = {
+    extraConfig = ''
+      root * ${config.services.netbird.server.dashboard.finalDrv}
 
-      netbird-signal = {
-        rule = "Host(`${nbDomain}`) && PathPrefix(`/signalexchange.SignalExchange/`)";
-        service = "netbird-signal";
-        entryPoints = [
-          "https"
-          "http"
-        ];
-      };
+      reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
+      reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
+      reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
 
-      netbird-dashboard = {
-        rule = "Host(`${nbDomain}`)";
-        service = "netbird-dashboard";
-        entryPoints = [
-          "https"
-          "http"
-        ];
-      };
-    };
+      file_server
+
+      header * {
+      	# Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
+      	X-Content-Type-Options "nosniff"
+      	X-XSS-Protection "1; mode=block"
+      	Referrer-Policy strict-origin-when-cross-origin
+      }
+    '';
   };
 }

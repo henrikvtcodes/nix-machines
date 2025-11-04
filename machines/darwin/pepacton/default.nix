@@ -39,7 +39,7 @@
 
   environment = {
     shellAliases = {
-      rebuild = "${lib.getExe pkgs.nh} darwin switch -H pepacton && omz reload";
+      rebuild = "${lib.getExe pkgs.nh} darwin switch && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
       # docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
@@ -57,7 +57,7 @@
       FNM_RESOLVE_ENGINES = "true";
       GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
       GITLAB_HOST = "gitlab.uvm.edu";
-      NH_FLAKE = "/Users/henrikvt/Desktop/Code/projects/nixmachines#pepacton";
+      NH_FLAKE = "/Users/henrikvt/Desktop/Code/projects/nixmachines#darwinConfigurations.pepacton";
     };
   };
 
@@ -86,7 +86,6 @@
     hostName = "pepacton";
     search = [
       "reindeer-porgy.ts.net"
-      "unicycl.ing"
       "ts.unicycl.ing"
     ];
     # This must be set in order to set search domains above

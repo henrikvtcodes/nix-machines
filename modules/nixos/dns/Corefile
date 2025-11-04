@@ -34,8 +34,12 @@ ts.unicycl.ing:53 {
 		# ashokan 3600 IN CNAME ashokan.ts.unicycl.ing.
 		# barnegat 3600 IN CNAME barnegat.ts.unicycl.ing.
 		pve 3600 IN A 10.205.100.30
-		hudson 3600 IN A 10.205.100.20
-		ilovebeans 3600 IN A 10.205.100.192
+		core-qp-1 3600 IN A 10.205.100.192
+		leaf-t-1 3600 IN A 10.205.100.20
+		leaf-t-1 3600 IN AAAA 2606:9400:939f:34f5:21c:73ff:fe9e:f078
+
+		beans 3600 IN CNAME core-qp-1
+		hudson 3600 IN CNAME leaf-t-1
 	}
 
 	import common

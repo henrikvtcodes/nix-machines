@@ -70,13 +70,27 @@
     netbirdOIDCSecret = {
       file = "${secretsDir}/netbirdOIDCSecret.age";
     };
+    netbirdIDPServiceUserPassword = {
+      file = "${secretsDir}/netbirdIDPServiceUserPassword.age";
+    };
     mealieCredentials = {
       file = "${secretsDir}/mealieCredentials.age";
     };
-    cfDnsApiToken.file = "${secretsDir}/cfDnsApiToken.age";
+    authentikEnvVars = {
+      file = "${secretsDir}/authentikEnvVars.age";
+    };
+    cfDnsApiToken = {
+      file = "${secretsDir}/cfDnsApiToken.age";
+      group = "caddy";
+    };
     netbirdTurnUserPassword = {
       file = "${secretsDir}/netbirdTurnUserPassword.age";
       owner = "turnserver";
+    };
+    librenmsDbPw = {
+      file = "${secretsDir}/librenmsDbPw.age";
+      owner = "librenms";
+      group = "mysql";
     };
     mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
@@ -96,6 +110,18 @@
   security.acme.acceptTerms = true;
 
   my.services.tailscale.advertiseExitNode = true;
+  my.services.tailscale.acceptRoutes = true;
+
+  services.postgresql.ensureUsers = [
+    {
+      name = "henrikvt";
+      ensureClauses = {
+        superuser = true;
+        login = true;
+        createrole = true;
+      };
+    }
+  ];
 
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "23.11";

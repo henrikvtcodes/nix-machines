@@ -55,6 +55,8 @@
       gib = "git pull";
       nixsize = "${pkgs.diskus}/bin/diskus /nix/store";
       sude = "sudo -E";
+      qwr = "q -wR";
+      zq = "zoxide query";
     };
 
     sessionVariables = {

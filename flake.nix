@@ -79,6 +79,7 @@
     };
 
     copyparty.url = "github:9001/copyparty";
+    authentik.url = "github:nix-community/authentik-nix/69fac05";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -112,6 +113,7 @@
     catppuccin,
     hyprland,
     attic,
+    authentik,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -227,8 +229,9 @@
           # Secrets
           ragenix.nixosModules.default
 
-          # Attic Binary Cache
+          # Services
           # attic.nixosModules.atticd
+          authentik.nixosModules.default
 
           # User config
           ./users/henrikvt
