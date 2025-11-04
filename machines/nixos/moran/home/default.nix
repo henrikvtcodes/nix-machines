@@ -41,6 +41,10 @@
     vesktop = {
       enable = true;
     };
+    eww = {
+      enable = false;
+      configDir = ./eww;
+    };
   };
 
   programs.ssh = let
