@@ -13,33 +13,22 @@ in {
         port = internalport;
       }
     ];
-  };
 
-  services.traefik.dynamicConfigOptions = {
-    http = {
-      routers = {
-        librenms = {
-          rule = "Host(`${hostname}`)";
-          service = "librenms";
-          entryPoints = [
-            "https"
-            "http"
-          ];
-        };
-      };
-      services = {
-        librenms = {
-          loadBalancer = {
-            servers = [{url = "http://localhost:${toString internalport}";}];
-          };
-        };
-      };
+    poolConfig = {
+      "listen.owner" = config.services.caddy.user;
+      "listen.group" = config.services.caddy.group;
     };
   };
 
   services.caddy.virtualHosts."${hostname}" = {
     extraConfig = ''
-      reverse_proxy localhost:${toString internalport}
+      # reverse_proxy localhost:${toString internalport}
+      root * ${config.services.librenms.finalPackage}/html
+      encode
+      php_fastcgi unix/${config.services.phpfpm.pools."librenms".socket} {
+        index index.php
+      }
+      file_server
     '';
   };
 }
