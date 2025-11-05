@@ -18,6 +18,15 @@ in {
       # netbox-topology-views
       netbox-reorder-rack
     ];
+    settings = {
+      "PLUGINS" = [
+        "netbox_bgp"
+        "netbox_routing"
+        "netbox_dns"
+        "netbox_floorplan"
+        "netbox_reorder_rack"
+      ];
+    };
   };
 
   users.users.caddy.extraGroups = ["netbox"];
