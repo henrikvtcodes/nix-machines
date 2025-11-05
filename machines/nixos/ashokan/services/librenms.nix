@@ -1,4 +1,4 @@
-{config, ...}: let
+{config, lib, ...}: let
   hostname = "nms.unicycl.ing";
   internalport = 18008;
 in {
@@ -7,12 +7,6 @@ in {
     inherit hostname;
     database.createLocally = true;
     database.passwordFile = config.age.secrets.librenmsDbPw.path;
-    nginx.listen = [
-      {
-        addr = "127.0.0.1";
-        port = internalport;
-      }
-    ];
 
     poolConfig = {
       "listen.owner" = config.services.caddy.user;

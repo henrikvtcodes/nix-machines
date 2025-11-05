@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, lib, ...}: {
   imports = [
     ./metrics.nix
     ./stirling.nix
@@ -36,4 +36,6 @@
   my.services.copyparty = {
     enable = true;
   };
+
+  services.nginx.enable = lib.mkForce false;
 }
