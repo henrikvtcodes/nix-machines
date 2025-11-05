@@ -40,6 +40,10 @@ in
           	encode zstd gzip
           }
 
+          (fun) {
+            header X-Powered-By my hopes and dreams
+          }
+
           (csp) {
           	header Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
           }
@@ -59,6 +63,7 @@ in
           (default) {
           	import universal
           	import security
+            import fun
           }
         '';
       };

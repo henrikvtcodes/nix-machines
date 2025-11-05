@@ -27,7 +27,7 @@ in {
 
   services.caddy.virtualHosts."${hostname}" = {
     extraConfig = ''
-      # reverse_proxy localhost:${toString internalport}
+      import default
       root * ${config.services.librenms.finalPackage}/html
       encode
       php_fastcgi unix/${config.services.phpfpm.pools."librenms".socket} {

@@ -17,6 +17,7 @@ in {
 
   services.caddy.virtualHosts."${domain}" = {
     extraConfig = ''
+      import default
       handle /static* {
           root * ${config.services.netbox.dataDir}
           file_server
