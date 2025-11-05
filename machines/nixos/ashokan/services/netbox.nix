@@ -10,6 +10,14 @@ in {
     port = 22022;
     package = pkgs.netbox_4_2;
     secretKeyFile = config.age.secrets.netboxSecretKey.path;
+    plugins = python3Packages: with python3Packages; [
+      netbox-bgp
+      netbox-routing
+      netbox-dns
+      netbox-floorplan-plugin
+      # netbox-topology-views
+      netbox-reorder-rack
+    ];
   };
 
   users.users.caddy.extraGroups = ["netbox"];
