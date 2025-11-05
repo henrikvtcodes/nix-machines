@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./metrics.nix
     ./stirling.nix
