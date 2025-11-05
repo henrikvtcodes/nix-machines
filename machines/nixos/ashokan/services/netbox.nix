@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  unstable,
   ...
 }: let
   domain = "netbox.unicycl.ing";
@@ -8,10 +9,10 @@ in {
   services.netbox = {
     enable = true;
     port = 22022;
-    package = pkgs.netbox_4_2;
+    package = unstable.netbox;
     secretKeyFile = config.age.secrets.netboxSecretKey.path;
     plugins = python3Packages: with python3Packages; [
-      netbox-bgp
+      # netbox-bgp
       netbox-routing
       netbox-dns
       netbox-floorplan-plugin
@@ -20,7 +21,7 @@ in {
     ];
     settings = {
       "PLUGINS" = [
-        "netbox_bgp"
+        # "netbox_bgp"
         "netbox_routing"
         "netbox_dns"
         "netbox_floorplan"
