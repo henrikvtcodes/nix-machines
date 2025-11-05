@@ -17,6 +17,13 @@ in {
     poolConfig = {
       "listen.owner" = config.services.caddy.user;
       "listen.group" = config.services.caddy.group;
+
+      "pm" = "dynamic";
+      "pm.max_children" = 32;
+      "pm.max_requests" = 500;
+      "pm.max_spare_servers" = 4;
+      "pm.min_spare_servers" = 2;
+      "pm.start_servers" = 2;
     };
   };
 
