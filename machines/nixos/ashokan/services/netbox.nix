@@ -11,14 +11,15 @@ in {
     port = 22022;
     package = unstable.netbox;
     secretKeyFile = config.age.secrets.netboxSecretKey.path;
-    plugins = python3Packages: with python3Packages; [
-      # netbox-bgp
-      netbox-routing
-      netbox-dns
-      netbox-floorplan-plugin
-      # netbox-topology-views
-      netbox-reorder-rack
-    ];
+    plugins = python3Packages:
+      with python3Packages; [
+        # netbox-bgp
+        netbox-routing
+        netbox-dns
+        netbox-floorplan-plugin
+        # netbox-topology-views
+        netbox-reorder-rack
+      ];
     settings = {
       "PLUGINS" = [
         # "netbox_bgp"
