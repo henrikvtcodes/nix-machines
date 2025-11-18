@@ -16,6 +16,12 @@
         use_ssl = false;
         from = "auth-noreply@unicycl.ing";
       };
+      storage.media = {
+        backend = "file";
+        file = {
+          path = "/var/lib/authentik-media";
+        };
+      };
       disable_startup_analytics = true;
     };
   };
