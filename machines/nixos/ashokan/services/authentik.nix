@@ -64,9 +64,22 @@
         serviceConfig.Group = "authentik";
       };
     };
+
+  users.users.caddy.extraGroups = ["authentik"];
+
   services.caddy.virtualHosts."idp.unicycl.ing" = {
     extraConfig = ''
-      reverse_proxy http://localhost:9000
+      handle /media/public* {
+          root * ${config.users.users.authentik.home}/media/public
+          file_server
+      }
+      handle /dist* {
+        root * ${config.users.users.authentik.home}/web/dist
+        file_server
+      }
+      handle {
+        reverse_proxy http://localhost:9000
+      }
     '';
   };
 }
