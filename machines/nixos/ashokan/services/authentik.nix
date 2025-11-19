@@ -18,9 +18,6 @@
       };
       storage.media = {
         backend = "file";
-        # file = {
-        #   path = "/var/lib/authentik-media";
-        # };
       };
       disable_startup_analytics = true;
     };
@@ -36,34 +33,25 @@
     groups.authentik = {};
   };
 
-  systemd.services = let
-    userOpts = {
-      User = "authentik";
-      Group = "authentik";
+  systemd.services = with lib; {
+    authentik-migrate = {
+      after = ["redis-authentik.service" "postgresql.service"];
+      before = mkForce ["authentik.service"];
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
     };
-  in
-    with lib; {
-      authentik-migrate = {
-        after = ["redis-authentik.service" "postgresql.service"];
-        before = mkForce ["authentik.service"];
-        # serviceConfig = mkMerge [config.systemd.services.authentik-migrate.serviceConfig userOpts];
-        serviceConfig.User = "authentik";
-        serviceConfig.Group = "authentik";
-      };
 
-      authentik = {
-        after = ["authentik-migrate.service"];
-        # serviceConfig = mkMerge [config.systemd.services.authentik.serviceConfig userOpts];
-        serviceConfig.User = "authentik";
-        serviceConfig.Group = "authentik";
-      };
-
-      authentik-worker = {
-        # serviceConfig = mkMerge [config.systemd.services.authentik-worker.serviceConfig userOpts];
-        serviceConfig.User = "authentik";
-        serviceConfig.Group = "authentik";
-      };
+    authentik = {
+      after = ["authentik-migrate.service"];
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
     };
+
+    authentik-worker = {
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
+    };
+  };
 
   users.users.caddy.extraGroups = ["authentik"];
 
@@ -82,4 +70,5 @@
       }
     '';
   };
+
 }

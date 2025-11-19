@@ -134,7 +134,7 @@ in {
   services.caddy.virtualHosts."${nbDomain}" = {
     extraConfig = ''
       import default
-      
+
       root * ${config.services.netbird.server.dashboard.finalDrv}
 
       reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
