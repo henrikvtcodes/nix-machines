@@ -55,7 +55,7 @@
 
   users.users.caddy.extraGroups = ["authentik"];
 
-  services.caddy.virtualHosts."idp.unicycl.ing" = {
+  services.caddy.virtualHosts."identity.unicycl.ing" = {
     extraConfig = ''
       handle /media/public* {
           root * ${config.users.users.authentik.home}/media/public
