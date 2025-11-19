@@ -57,17 +57,7 @@
 
   services.caddy.virtualHosts."identity.unicycl.ing" = {
     extraConfig = ''
-      handle /media/public* {
-          root * ${config.users.users.authentik.home}
-          file_server
-      }
-      handle /dist* {
-        root * ${config.users.users.authentik.home}/web
-        file_server
-      }
-      handle {
-        reverse_proxy http://localhost:9000
-      }
+      reverse_proxy http://localhost:9000
     '';
   };
 }
