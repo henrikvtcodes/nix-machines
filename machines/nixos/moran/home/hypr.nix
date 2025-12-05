@@ -118,10 +118,10 @@
         };
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_create_new = false;
-      };
+      #gestures = {
+      #  workspace_swipe = true;
+      #  workspace_swipe_create_new = false;
+      #};
 
       misc = {
         disable_hyprland_logo = true;
