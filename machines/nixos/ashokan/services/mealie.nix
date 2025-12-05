@@ -2,7 +2,7 @@
   domain = "mealie.unicycl.ing";
 in {
   services.mealie = {
-    enable = true;
+    enable = false;
     port = 16099;
     credentialsFile = config.age.secrets.mealieCredentials.path;
     settings = rec {

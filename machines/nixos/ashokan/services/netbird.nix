@@ -65,6 +65,7 @@ in {
             }
           ];
         };
+
         HttpConfig = {
           AuthAudience = clientId;
           AuthUserIDClaim = "sub";
@@ -127,6 +128,8 @@ in {
       };
     };
   };
+
+  systemd.services."netbird".after = ["authentik.service" "caddy.service"];
 
   services.caddy.virtualHosts."${nbDomain}" = {
     extraConfig = ''

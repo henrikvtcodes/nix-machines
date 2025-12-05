@@ -16,29 +16,13 @@
         use_ssl = false;
         from = "auth-noreply@unicycl.ing";
       };
-      # storage.media = {
-      #   # backend = "s3";
-      # };
       disable_startup_analytics = true;
-    };
-  };
-
-  systemd.tmpfiles.settings."authentik"."/var/lib/authentik/media" = {
-    d = {
-      group = "root";
-      mode = "0744";
-      user = "root";
     };
   };
 
   systemd.services.authentik-migrate.after = ["redis-authentik.service" "postgresql.service"];
   systemd.services.authentik-migrate.before = lib.mkForce ["authentik.service"];
   systemd.services.authentik.after = ["authentik-migrate.service"];
-  # systemd.targets.authentik = {
-  #   upheldBy = ["multi-user.target"];
-  #   upholds = ["authentik.service" "authentik-migrate.service" "authentik-worker.service"];
-  #   after = ["redis-authentik.service" "postgresql.service" "network-online.target"];
-  # };
 
   services.caddy.virtualHosts."idp.unicycl.ing" = {
     extraConfig = ''
