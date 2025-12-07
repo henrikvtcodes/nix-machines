@@ -218,13 +218,13 @@
       };
 
       init.defaultBranch = "main";
-      color.ui = "auto";
-      color.diff = {
-        meta = "white bold";
-        frag = "cyan bold";
-        old = "red bold";
-        new = "green bold";
-      };
+      # color.ui = "auto";
+      # color.diff = {
+      #   meta = "white bold";
+      #   frag = "cyan bold";
+      #   old = "red bold";
+      #   new = "green bold";
+      # };
 
       core = {
         editor = "vim";
