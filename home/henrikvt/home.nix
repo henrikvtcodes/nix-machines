@@ -31,7 +31,7 @@
         python3
         wget
         mprocs
-        du-dust
+        dust
         xh
         entr
       ]
