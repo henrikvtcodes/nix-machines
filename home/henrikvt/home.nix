@@ -34,6 +34,7 @@
         dust
         xh
         entr
+        comma
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
