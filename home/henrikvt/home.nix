@@ -7,7 +7,7 @@
 }: {
   imports =
     [
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
       inputs.catppuccin.homeModules.catppuccin
     ]
     ++ homeCfg.extraModules;
@@ -192,51 +192,57 @@
     git = {
       enable = true;
       lfs.enable = true;
-      userName = "Henrik VT";
-      userEmail = "commits@henrikvt.com";
-      aliases = {
-        a = "add";
-        ua = "reset HEAD";
-        p = "push";
-        c = "commit";
-        b = "branch";
-        co = "checkout";
-        cb = "checkout -b";
-        sw = "switch";
-        swc = "switch -c";
-        ap = "add -p";
-        ca = "commit -a";
-        cm = "commit -m";
-        cam = "commit -am";
-        amend = "commit --amend";
-        s = "status -sb";
-        l = "log --all --graph --decorate --oneline";
-      };
-      extraConfig = {
-        init.defaultBranch = "main";
-        color.ui = "auto";
-        color.diff = {
-          meta = "white bold";
-          frag = "cyan bold";
-          old = "red bold";
-          new = "green bold";
+      settings = {
+        user = {
+          name = "Henrik VT";
+          email = "commits@henrikvt.com";
         };
+        alias = {
+          a = "add";
+          ua = "reset HEAD";
+          p = "push";
+          c = "commit";
+          b = "branch";
+          co = "checkout";
+          cb = "checkout -b";
+          sw = "switch";
+          swc = "switch -c";
+          ap = "add -p";
+          ca = "commit -a";
+          cm = "commit -m";
+          cam = "commit -am";
+          amend = "commit --amend";
+          s = "status -sb";
+          l = "log --all --graph --decorate --oneline";
+        };
+      };
 
-        core = {
-          editor = "vim";
-          excludesfile = "~/.gitignore";
-          attributesfile = "~/.gitattributes";
-          ignorecase = false;
-          compression = 0;
-        };
-        push = {
-          autoSetupRemote = true;
-          default = "current";
-        };
-        pull.rebase = false;
-        protocol.file.allow = "always";
+      init.defaultBranch = "main";
+      color.ui = "auto";
+      color.diff = {
+        meta = "white bold";
+        frag = "cyan bold";
+        old = "red bold";
+        new = "green bold";
       };
-      delta.enable = true;
+
+      core = {
+        editor = "vim";
+        excludesfile = "~/.gitignore";
+        attributesfile = "~/.gitattributes";
+        ignorecase = false;
+        compression = 0;
+      };
+      push = {
+        autoSetupRemote = true;
+        default = "current";
+      };
+      pull.rebase = false;
+      protocol.file.allow = "always";
+    };
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
     lazygit.enable = true;
     gitui.enable = true;
