@@ -245,7 +245,7 @@
       enableGitIntegration = true;
     };
     lazygit.enable = true;
-    gitui.enable = true;
+    # gitui.enable = true;
 
     ripgrep.enable = true;
     ripgrep-all.enable = true;
