@@ -7,7 +7,7 @@
     ./netcheck
     ./traefik
     ./mastodon
-    ./eoxporter
+    # ./eoxporter
     ./dns
     ./copyparty
     ./caddy
