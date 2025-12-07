@@ -215,30 +215,30 @@
           s = "status -sb";
           l = "log --all --graph --decorate --oneline";
         };
-      };
 
-      init.defaultBranch = "main";
-      # color.ui = "auto";
-      # color.diff = {
-      #   meta = "white bold";
-      #   frag = "cyan bold";
-      #   old = "red bold";
-      #   new = "green bold";
-      # };
+        init.defaultBranch = "main";
+        color.ui = "auto";
+        color.diff = {
+          meta = "white bold";
+          frag = "cyan bold";
+          old = "red bold";
+          new = "green bold";
+        };
 
-      core = {
-        editor = "vim";
-        excludesfile = "~/.gitignore";
-        attributesfile = "~/.gitattributes";
-        ignorecase = false;
-        compression = 0;
+        core = {
+          editor = "vim";
+          excludesfile = "~/.gitignore";
+          attributesfile = "~/.gitattributes";
+          ignorecase = false;
+          compression = 0;
+        };
+        push = {
+          autoSetupRemote = true;
+          default = "current";
+        };
+        pull.rebase = false;
+        protocol.file.allow = "always";
       };
-      push = {
-        autoSetupRemote = true;
-        default = "current";
-      };
-      pull.rebase = false;
-      protocol.file.allow = "always";
     };
     delta = {
       enable = true;
