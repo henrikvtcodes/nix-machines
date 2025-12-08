@@ -56,7 +56,7 @@
       gib = "git pull";
       nixsize = "${pkgs.diskus}/bin/diskus /nix/store";
       sude = "sudo -E";
-      qwr = "q -wR";
+      qwr = "${pkgs.q}/bin/q -w -R";
       zq = "zoxide query";
     };
 
