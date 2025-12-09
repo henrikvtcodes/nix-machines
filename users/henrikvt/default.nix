@@ -40,7 +40,6 @@ in {
             # stuff
             fastfetch
             hyfetch
-            comma
             btop
 
             bat

@@ -55,10 +55,10 @@
     };
   };
 
-  my.services.eoxporter = {
-    enable = true;
-    eAPIConfigFilePath = config.age.secrets.aristaEapiConf.path;
-  };
+  # my.services.eoxporter = {
+  #   enable = true;
+  #   eAPIConfigFilePath = config.age.secrets.aristaEapiConf.path;
+  # };
 
   my.services.netcheck = {
     enable = true;

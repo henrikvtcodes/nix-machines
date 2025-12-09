@@ -7,7 +7,7 @@
 }: {
   imports =
     [
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
       inputs.catppuccin.homeModules.catppuccin
     ]
     ++ homeCfg.extraModules;
@@ -34,6 +34,7 @@
         dust
         xh
         entr
+        comma
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
@@ -55,7 +56,7 @@
       gib = "git pull";
       nixsize = "${pkgs.diskus}/bin/diskus /nix/store";
       sude = "sudo -E";
-      qwr = "q -wR";
+      qwr = "${pkgs.q}/bin/q -w -R";
       zq = "zoxide query";
     };
 
@@ -192,27 +193,30 @@
     git = {
       enable = true;
       lfs.enable = true;
-      userName = "Henrik VT";
-      userEmail = "commits@henrikvt.com";
-      aliases = {
-        a = "add";
-        ua = "reset HEAD";
-        p = "push";
-        c = "commit";
-        b = "branch";
-        co = "checkout";
-        cb = "checkout -b";
-        sw = "switch";
-        swc = "switch -c";
-        ap = "add -p";
-        ca = "commit -a";
-        cm = "commit -m";
-        cam = "commit -am";
-        amend = "commit --amend";
-        s = "status -sb";
-        l = "log --all --graph --decorate --oneline";
-      };
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Henrik VT";
+          email = "commits@henrikvt.com";
+        };
+        alias = {
+          a = "add";
+          ua = "reset HEAD";
+          p = "push";
+          c = "commit";
+          b = "branch";
+          co = "checkout";
+          cb = "checkout -b";
+          sw = "switch";
+          swc = "switch -c";
+          ap = "add -p";
+          ca = "commit -a";
+          cm = "commit -m";
+          cam = "commit -am";
+          amend = "commit --amend";
+          s = "status -sb";
+          l = "log --all --graph --decorate --oneline";
+        };
+
         init.defaultBranch = "main";
         color.ui = "auto";
         color.diff = {
@@ -236,10 +240,13 @@
         pull.rebase = false;
         protocol.file.allow = "always";
       };
-      delta.enable = true;
+    };
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
     lazygit.enable = true;
-    gitui.enable = true;
+    # gitui.enable = true;
 
     ripgrep.enable = true;
     ripgrep-all.enable = true;

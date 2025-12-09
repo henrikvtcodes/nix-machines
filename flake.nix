@@ -58,11 +58,6 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
-    eoxporter = {
-      url = "github:henrikvtcodes/eoxporter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     coredns = {
       url = "github:henrikvtcodes/coredns";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -108,7 +103,6 @@
     home-manager,
     nix-homebrew,
     unstable,
-    eoxporter,
     hardware,
     catppuccin,
     hyprland,

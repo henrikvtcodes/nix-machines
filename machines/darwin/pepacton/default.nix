@@ -11,7 +11,7 @@
     home = "/Users/henrikvt";
     packages = with pkgs; [
       nixd
-      wifi-password
+      # wifi-password
       just
       kraft
       uv
