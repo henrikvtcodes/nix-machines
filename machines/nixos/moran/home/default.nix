@@ -6,7 +6,6 @@
   imports = [./hypr.nix ./waybar.nix];
 
   home.packages = with pkgs; [
-    halloy
     prismlauncher
     spotify
     networkmanagerapplet
