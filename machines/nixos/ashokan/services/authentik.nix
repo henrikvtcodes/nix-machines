@@ -16,15 +16,46 @@
         use_ssl = false;
         from = "auth-noreply@unicycl.ing";
       };
+      storage.media = {
+        backend = "file";
+      };
       disable_startup_analytics = true;
     };
   };
 
-  systemd.services.authentik-migrate.after = ["redis-authentik.service" "postgresql.service"];
-  systemd.services.authentik-migrate.before = lib.mkForce ["authentik.service"];
-  systemd.services.authentik.after = ["authentik-migrate.service"];
+  users = {
+    users.authentik = {
+      isSystemUser = true;
+      createHome = true;
+      home = "/var/lib/authentik";
+      group = "authentik";
+    };
+    groups.authentik = {};
+  };
 
-  services.caddy.virtualHosts."idp.unicycl.ing" = {
+  systemd.services = with lib; {
+    authentik-migrate = {
+      after = ["redis-authentik.service" "postgresql.service"];
+      before = mkForce ["authentik.service"];
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
+    };
+
+    authentik = {
+      after = ["authentik-migrate.service"];
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
+    };
+
+    authentik-worker = {
+      serviceConfig.User = "authentik";
+      serviceConfig.Group = "authentik";
+    };
+  };
+
+  users.users.caddy.extraGroups = ["authentik"];
+
+  services.caddy.virtualHosts."identity.unicycl.ing" = {
     extraConfig = ''
       reverse_proxy http://localhost:9000
     '';
