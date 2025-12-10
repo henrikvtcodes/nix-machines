@@ -170,7 +170,8 @@
             nixd
             git
             nixos-generators
-            deploy-rs.packages.${system}.default
+            #deploy-rs.packages.${system}.default
+            pkgs.deploy-rs
           ];
         };
       }
