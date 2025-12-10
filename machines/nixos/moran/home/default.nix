@@ -45,6 +45,21 @@
       enable = false;
       configDir = ./eww;
     };
+    halloy = {
+      enable = true;
+      settings = {
+        "buffer.channel.topic" = {
+          enabled = true;
+        };
+        "servers.ipv6" = {
+          channels = [
+            "#general"
+          ];
+          nickname = "henrikvtcodes";
+          server = "irc.ipv6discord.com:6697";
+        };
+      };
+    };
   };
 
   programs.ssh = let
