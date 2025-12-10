@@ -55,7 +55,7 @@
             "#general"
           ];
           nickname = "henrikvtcodes";
-          server = "irc.ipv6discord.com:6697";
+          server = "irc.ipv6discord.com";
         };
       };
     };
