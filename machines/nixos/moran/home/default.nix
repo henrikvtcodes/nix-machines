@@ -47,10 +47,10 @@
     halloy = {
       enable = true;
       settings = {
-        "buffer.channel.topic" = {
+        buffer.channel.topic = {
           enabled = true;
         };
-        "servers.ipv6" = {
+        servers.ipv6 = {
           channels = [
             "#general"
           ];
