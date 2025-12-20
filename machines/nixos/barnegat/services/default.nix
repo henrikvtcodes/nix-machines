@@ -27,7 +27,7 @@
   };
 
   services.atuin = {
-    enable = true;
+    enable = false;
     openRegistration = true;
     host = "0.0.0.0";
     port = 22022;
