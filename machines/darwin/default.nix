@@ -48,4 +48,6 @@ in {
 
   # Show hidden files in Finder always
   system.defaults.finder.AppleShowAllFiles = true;
+
+  environment.systemPackages = with pkgs; [iproute2mac];
 }
