@@ -24,11 +24,11 @@
 
   age.secrets = {
     valcourHealthcheckUrl.file = ../../../secrets/valcourHealthcheckUrl.age;
-    aristaEapiConf = {
-      file = ../../../secrets/aristaEapiConf.age;
-      owner = "eoxporter";
-      group = "eoxporter";
-    };
+    # aristaEapiConf = {
+    #   file = ../../../secrets/aristaEapiConf.age;
+    #   owner = "eoxporter";
+    #   group = "eoxporter";
+    # };
     # unpollerPassword = {
     #   owner = "unifi-poller";
     #   file = ../../../secrets/valcourUnpollerPassword.age;
