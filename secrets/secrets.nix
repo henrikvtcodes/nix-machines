@@ -1,7 +1,7 @@
 let
   # --------- Henrik's Public Keys ---------
   # Fetch public key from https://henrikvt.com/id_ed25519.pub
-  henrik_public_pubkey = builtins.readFile (builtins.fetchurl "https://henrikvt.com/id_ed25519.pub");
+  henrik_public_pubkey = builtins.readFile (builtins.fetchurl "https://henrikvt.com/hvtssh.pub");
   # Fetch git signing key from https://github.com/henrikvtcodes.keys
   henrik_git_pubkey = builtins.readFile (builtins.fetchurl "https://github.com/henrikvtcodes.keys");
   henrik_homelab_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmZEhaLdiFJ6TdyhdBC5fvCiY5c7drQK2EVHGPCPHei";
