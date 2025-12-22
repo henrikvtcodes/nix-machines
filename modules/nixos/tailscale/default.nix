@@ -63,6 +63,13 @@ in {
         Enable Tailscale Web UI on port 5252
       '';
     };
+    operator = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+      Set tailscale operator permission to not require sudo for certain commands
+      '';
+    };
 
     web = {
       enable = mkEnableOption "Enable Tailscale Web UI";
@@ -138,8 +145,9 @@ in {
           (tsBoolFlag "webclient" cfg.enableWebUI)
           (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
           (tsBoolFlag "accept-routes" cfg.acceptRoutes)
+          
           "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
-        ];
+        ]  ++ (if (cfg.operator != null) then ["--operator=${cfg.operator}"] else []);
       }
       // lib.optionalAttrs cfg.enableAutoUp {
         authKeyFile = config.age.secrets.tailscaleAuthKey.path;
