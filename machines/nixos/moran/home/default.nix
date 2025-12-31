@@ -10,6 +10,7 @@
     spotify
     networkmanagerapplet
     yaak
+    uutils-coreutils-noprefix
   ];
 
   programs = {
