@@ -209,6 +209,8 @@
     blueman
     uutils-coreutils-noprefix
     yubioath-flutter
+    spacedrive
+    xfce.thunar
   ];
 
   powerManagement = {
