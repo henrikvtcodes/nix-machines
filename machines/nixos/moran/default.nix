@@ -213,6 +213,7 @@
     blueman
     uutils-coreutils-noprefix
     yubioath-flutter
+    libreoffice-qt-fresh
   ];
 
   powerManagement = {
