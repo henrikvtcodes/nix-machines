@@ -143,6 +143,10 @@
       polkitPolicyOwners = ["henrikvt"];
     };
     hyprlock.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
+    };
   };
 
   services.pulseaudio.enable = false;
@@ -209,7 +213,6 @@
     blueman
     uutils-coreutils-noprefix
     yubioath-flutter
-    xfce.thunar
   ];
 
   powerManagement = {
