@@ -64,6 +64,6 @@
 
     kitty
 
-    greetd.tuigreet
+    tuigreet
   ];
 }
