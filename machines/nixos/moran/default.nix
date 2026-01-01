@@ -85,7 +85,7 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with unstable; [
+    packages = with pkgs; [
       nerd-fonts.symbols-only
       nerd-fonts.caskaydia-mono
       nerd-fonts.fira-code
