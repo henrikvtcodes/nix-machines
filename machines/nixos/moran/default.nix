@@ -229,15 +229,15 @@
     fprintd.enable = true;
   };
 
-  services.logind = {
-    powerKey = "lock";
-    powerKeyLongPress = "poweroff";
-    suspendKey = "ignore";
-    suspendKeyLongPress = "poweroff";
-    hibernateKey = "ignore";
-    hibernateKeyLongPress = "poweroff";
-    rebootKey = "ignore";
-    rebootKeyLongPress = "poweroff";
+  services.logind.settings.Login = {
+    HandlePowerKey = "lock";
+    HandlePowerKeyLongPress = "poweroff";
+    HandleSuspendKey = "ignore";
+    HandleSuspendKeyLongPress = "poweroff";
+    HandleHibernateKey = "ignore";
+    HandleHibernateKeyLongPress = "poweroff";
+    HandleRebootKey = "ignore";
+    HandleRebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
