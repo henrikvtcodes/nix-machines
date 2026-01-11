@@ -54,6 +54,9 @@
     };
     vesktop = {
       enable = true;
+      settings = {
+        discordBranch = "stable";
+      };
     };
     eww = {
       enable = false;
