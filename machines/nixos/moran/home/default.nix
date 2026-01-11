@@ -7,6 +7,10 @@
 
   home = {
     sessionPath = ["$HOME/.bun/bin"];
+    sessionVariables = {
+      # Bun install is self managed so I can update separately
+      BUN_INSTALL = "$HOME/.bun";
+    };
     packages = with pkgs; [
       prismlauncher
       spotify
