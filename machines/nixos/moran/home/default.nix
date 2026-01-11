@@ -11,6 +11,7 @@
     networkmanagerapplet
     yaak
     uutils-coreutils-noprefix
+    wireshark
   ];
 
   programs = {
