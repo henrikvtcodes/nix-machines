@@ -223,12 +223,12 @@
   services.logind.settings.Login = {
     HandlePowerKey = "lock";
     HandlePowerKeyLongPress = "poweroff";
-    HandleSuspendKey = "ignore";
-    HandleSuspendKeyLongPress = "poweroff";
-    HandleHibernateKey = "ignore";
-    HandleHibernateKeyLongPress = "poweroff";
-    HandleRebootKey = "ignore";
-    HandleRebootKeyLongPress = "poweroff";
+    # HandleSuspendKey = "ignore";
+    # HandleSuspendKeyLongPress = "poweroff";
+    # HandleHibernateKey = "ignore";
+    # HandleHibernateKeyLongPress = "poweroff";
+    # HandleRebootKey = "ignore";
+    # HandleRebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
