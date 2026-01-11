@@ -12,6 +12,15 @@
     yaak
     uutils-coreutils-noprefix
     wireshark
+    steam
+
+    jetbrains.goland
+    jetbrains.webstorm
+    jetbrains.rust-rover
+    jetbrains.pycharm
+    jetbrains.datagrip
+    jetbrains.dataspell
+    zed-editor
   ];
 
   programs = {
