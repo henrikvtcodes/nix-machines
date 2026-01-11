@@ -9,11 +9,6 @@
 
   services = {
     hypridle.enable = true;
-    # blueman.enable = true;
-    # libinput.enable = true;
-    # libinput.touchpad = {
-    #   tappingButtonMap = "lrm";
-    # };
     xserver = {
       enable = true;
       xkb = {
@@ -25,7 +20,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet \
+          command = "${pkgs.tuigreet}/bin/tuigreet \
           --time --time-format '%I:%M %p | %a • %h | %F' \
           --cmd 'uwsm start hyprland'";
           user = "greeter";

@@ -3,7 +3,6 @@
   config,
   pkgs,
   lib,
-  # unstable,
   ...
 }: {
   system.primaryUser = "henrikvt";
@@ -11,7 +10,6 @@
     home = "/Users/henrikvt";
     packages = with pkgs; [
       nixd
-      # wifi-password
       just
       kraft
       uv
@@ -42,7 +40,6 @@
       rebuild = "${lib.getExe pkgs.nh} darwin switch && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-      # docker = "/Applications/Docker.app/Contents/Resources/bin/docker";
     };
 
     systemPackages = with pkgs; [attic-client];
@@ -69,16 +66,9 @@
   };
 
   nix-homebrew = {
-    # Install Homebrew under the default prefix
     enable = true;
-
-    # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
     enableRosetta = true;
-
-    # User owning the Homebrew prefix
     user = "henrikvt";
-
-    # Automatically migrate existing Homebrew installations
     autoMigrate = true;
   };
 
