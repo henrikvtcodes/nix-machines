@@ -133,7 +133,7 @@
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
         "$mod SHIFT, B, exec, $browser --private-window"
-        "$mod SHIFT, Q, killactive"
+        "$mod, Q, killactive"
         "$mod SHIFT, E, exit"
         "$mod, F, fullscreen"
 

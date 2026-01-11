@@ -85,7 +85,7 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with unstable; [
+    packages = with pkgs; [
       nerd-fonts.symbols-only
       nerd-fonts.caskaydia-mono
       nerd-fonts.fira-code
@@ -143,6 +143,10 @@
       polkitPolicyOwners = ["henrikvt"];
     };
     hyprlock.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
+    };
   };
 
   services.pulseaudio.enable = false;
@@ -209,6 +213,7 @@
     blueman
     uutils-coreutils-noprefix
     yubioath-flutter
+    libreoffice-qt-fresh
   ];
 
   powerManagement = {
@@ -224,15 +229,15 @@
     fprintd.enable = true;
   };
 
-  services.logind = {
-    powerKey = "lock";
-    powerKeyLongPress = "poweroff";
-    suspendKey = "ignore";
-    suspendKeyLongPress = "poweroff";
-    hibernateKey = "ignore";
-    hibernateKeyLongPress = "poweroff";
-    rebootKey = "ignore";
-    rebootKeyLongPress = "poweroff";
+  services.logind.settings.Login = {
+    HandlePowerKey = "lock";
+    HandlePowerKeyLongPress = "poweroff";
+    HandleSuspendKey = "ignore";
+    HandleSuspendKeyLongPress = "poweroff";
+    HandleHibernateKey = "ignore";
+    HandleHibernateKeyLongPress = "poweroff";
+    HandleRebootKey = "ignore";
+    HandleRebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
