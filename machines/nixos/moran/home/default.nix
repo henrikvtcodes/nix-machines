@@ -5,23 +5,25 @@
 }: {
   imports = [./hypr.nix ./waybar.nix];
 
-  home.packages = with pkgs; [
-    prismlauncher
-    spotify
-    networkmanagerapplet
-    yaak
-    uutils-coreutils-noprefix
-    wireshark
-    steam
+  home = {
+    sessionPath = ["$HOME/.bun/bin"];
+    packages = with pkgs; [
+      prismlauncher
+      spotify
+      networkmanagerapplet
+      yaak
+      uutils-coreutils-noprefix
+      wireshark
+      steam
 
-    jetbrains.goland
-    jetbrains.webstorm
-    jetbrains.rust-rover
-    jetbrains.pycharm
-    jetbrains.datagrip
-    jetbrains.dataspell
-    zed-editor
-  ];
+      jetbrains.goland
+      jetbrains.webstorm
+      jetbrains.rust-rover
+      jetbrains.pycharm
+      jetbrains.datagrip
+      jetbrains.dataspell
+    ];
+  };
 
   programs = {
     git.extraConfig = {
@@ -69,6 +71,10 @@
           server = "irc.ipv6discord.com";
         };
       };
+    };
+    zed-editor = {
+      enable = true;
+      extensions = ["nix" "catppuccin" "vscode-icons"];
     };
   };
 
