@@ -20,12 +20,11 @@
       wireshark
       steam
 
+      jetbrains.idea
       jetbrains.goland
       jetbrains.webstorm
-      jetbrains.rust-rover
       jetbrains.pycharm
       jetbrains.datagrip
-      jetbrains.dataspell
     ];
   };
 
