@@ -5,21 +5,37 @@
 }: {
   imports = [./hypr.nix ./waybar.nix];
 
-  home.packages = with pkgs; [
-    prismlauncher
-    spotify
-    networkmanagerapplet
-    yaak
-    uutils-coreutils-noprefix
-    wireshark
-  ];
+  home = {
+    # sessionPath = ["$HOME/.bun/bin"];
+    # sessionVariables = {
+    #   # Bun install is self managed so I can update separately
+    #   BUN_INSTALL = "$HOME/.bun";
+    # };
+    packages = with pkgs; [
+      prismlauncher
+      spotify
+      networkmanagerapplet
+      yaak
+      uutils-coreutils-noprefix
+      wireshark
+      steam
+
+      jetbrains.idea
+      jetbrains.goland
+      jetbrains.webstorm
+      jetbrains.pycharm
+      jetbrains.datagrip
+    ];
+  };
 
   programs = {
     git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
       gpg.format = "ssh";
       gpg.ssh.program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      gpg.ssh.allowedSignersFile = toString ./signers.txt;
+      gpg.ssh.allowedSignersFile = ''
+        commits@henrikvt.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU
+      '';
       commit.gpgsign = true;
     };
     lazygit.settings = {
@@ -41,6 +57,9 @@
     };
     vesktop = {
       enable = true;
+      settings = {
+        discordBranch = "stable";
+      };
     };
     eww = {
       enable = false;
@@ -60,6 +79,10 @@
           server = "irc.ipv6discord.com";
         };
       };
+    };
+    zed-editor = {
+      enable = true;
+      extensions = ["nix" "catppuccin" "vscode-icons"];
     };
   };
 

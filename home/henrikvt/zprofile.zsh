@@ -9,7 +9,10 @@ ceiling_divide() {
 clear_rows() {
   POS=$1
   # Insert Empty Rows to push & preserve the content of screen
-  for i in {1..$((LINES-POS-1))}; echo
+  for i in {1..$((LINES-POS-1))};
+  do
+    echo
+  done
   # Move to POS, after clearing content from POS to end of screen
   tput cup $((POS-1)) 0
 }

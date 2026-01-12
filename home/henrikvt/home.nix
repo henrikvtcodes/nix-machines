@@ -64,10 +64,6 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
-
-    # activation.tldr-alias = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    #   unalias tldr
-    # '';
   };
 
   programs = {

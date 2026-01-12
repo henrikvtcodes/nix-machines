@@ -1,9 +1,5 @@
 # This module is imported into programs.nixvim, thus everthing exists in that scope
-{
-  homeCfg,
-  lib,
-  ...
-}: {
+{...}: {
   enable = true;
   defaultEditor = true;
   colorschemes.catppuccin.settings = {
@@ -64,50 +60,5 @@
 
     vim-surround.enable = true;
     web-devicons.enable = true;
-
-    #  ------
-    # | LSP |
-    # ------
-    # Javascript/Typescript
-    conform-nvim = lib.mkIf homeCfg.client {
-      settings = {
-        formatters_by_ft.javascript = ["prettier"];
-        formatters_by_ft.typescript = ["prettier"];
-        formatters_by_ft.javascriptreact = ["prettier"];
-        formatters_by_ft.typescriptreact = ["prettier"];
-      };
-    };
-    lsp.servers = lib.mkIf homeCfg.client {
-      ts_ls = {
-        enable = true;
-        filetypes = [
-          "javascript"
-          "javascriptreact"
-          "typescript"
-          "typescriptreact"
-        ];
-      };
-      eslint.enable = true;
-      # Svelte with TS support
-      svelte = {
-        enable = true;
-        initOptions.svelte.plugin = {
-          html = {
-            enable = true;
-            tagComplete.enable = true;
-            completions = {
-              enable = true;
-              emmet = true;
-            };
-          };
-          typescript = {
-            enable = true;
-            signatureHelp.enable = true;
-            semanticTokens.enable = true;
-            hover.enable = true;
-          };
-        };
-      };
-    };
   };
 }

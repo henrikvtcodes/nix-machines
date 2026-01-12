@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   launchdWeekly = {
     Hour = 3;
     Minute = 0;

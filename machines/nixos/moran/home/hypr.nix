@@ -14,7 +14,7 @@
   home.packages = with pkgs; [
     grim
     hyprpicker
-    # hyprsysteminfo # does not exist in nixpkgs (yet?)
+    hyprsysteminfo # does not exist in nixpkgs (yet?)
     playerctl
     # slurp
     wayland-pipewire-idle-inhibit
@@ -82,9 +82,7 @@
     settings = {
       "$mod" = "SUPER";
       "$terminal" = "ghostty";
-      # "$terminal" = "alacritty";
       "$browser" = "firefox";
-      #"$menu" = "tofi-drun | xargs hyprctl dispatch exec --";
       "$menu" = "fuzzel";
 
       monitor = [
