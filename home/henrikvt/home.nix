@@ -48,6 +48,7 @@
         longcat
         numbat
         glow
+        github-copilot-cli
       ];
 
     shellAliases = {
