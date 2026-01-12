@@ -25,6 +25,8 @@
       jetbrains.webstorm
       jetbrains.pycharm
       jetbrains.datagrip
+
+      teams-for-linux
     ];
   };
 
