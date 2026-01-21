@@ -12,6 +12,7 @@
     ./librenms.nix
     # ./smokeping2.nix
     ./authentik.nix
+    ./zipline.nix
   ];
 
   # my.services.smokeping = {

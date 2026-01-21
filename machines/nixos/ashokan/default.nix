@@ -92,6 +92,8 @@
       owner = "librenms";
       group = "mysql";
     };
+    ziplineEnvVars.file = "${secretsDir}/ziplineEnvVars.age";
+    
     mastodonSmtpPassword = chownPodman "mastodonSmtpPassword.age";
     mastodonVapidKeys = chownPodman "mastodonVapidEnvVars.age";
     mastodonSecretKeyBase = chownPodman "mastodonSecretKeyBase.age";
