@@ -1,18 +1,19 @@
-{pkgs, config, ...} :let
-
+{
+  pkgs,
+  config,
+  ...
+}: let
   port = 26007;
-in
- {
+in {
   services.zipline = {
     enable = true;
     settings = {
       CORE_PORT = port;
-      DATASOURCE_TYPE="r2";
-      DATASOURCE_S3_FORCE_PATH_STYLE="true";
+      DATASOURCE_TYPE = "r2";
+      DATASOURCE_S3_FORCE_PATH_STYLE = "true";
     };
-    environmentFiles = [ config.age.secrets.ziplineEnvVars.path ];
+    environmentFiles = [config.age.secrets.ziplineEnvVars.path];
   };
-
 
   services.caddy.virtualHosts."share.unicycl.ing" = {
     extraConfig = ''
