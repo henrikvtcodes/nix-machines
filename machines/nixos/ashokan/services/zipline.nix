@@ -10,6 +10,7 @@ in {
     settings = {
       CORE_PORT = port;
       DATASOURCE_TYPE = "s3";
+      DEBUG="zipline";
     };
     environmentFiles = [config.age.secrets.ziplineEnvVars.path];
   };
