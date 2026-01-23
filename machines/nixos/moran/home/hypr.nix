@@ -1,4 +1,4 @@
-{pkgs, config, ...}: let 
+{pkgs, config, ...}: let
 
 zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
 #!/bin/bash
@@ -43,7 +43,7 @@ in {
     wayland-pipewire-idle-inhibit
     wl-clipboard-rs
     wl-clip-persist
-    zipline-upload
+    zipline-screenshot
   ];
 
   xdg = {
