@@ -11,9 +11,10 @@
     URL="https://share.unicycl.ing/api/upload"
 
     ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
+    echo "Screenshot taken, opening satty"
 
     ${pkgs.satty}/bin/satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
-
+    echo "Satty complete. Uploading"
     ${pkgs.curl}/bin/curl \
       -H "authorization: $TOKEN" $URL \
       -F file=@/tmp/screenshot-annotated.png \
@@ -21,6 +22,8 @@
       ${pkgs.jq}/bin/jq -r .files[0].url |
       ${pkgs.uutils-coreutils-noprefix}/bin/tr -d '\n' |
       ${pkgs.wl-clipboard-rs}/bin/wl-copy
+
+    echo "Upload complete. Deleting old screenshot"
 
       rm -f /tmp/screenshot.png
   '';
