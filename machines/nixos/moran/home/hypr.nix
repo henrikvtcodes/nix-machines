@@ -10,7 +10,7 @@
     TOKEN=$(cat ${age.secrets.ziplineToken.path})
     URL="https://share.unicycl.ing/api/upload"
 
-    ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
+    ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -f /tmp/screenshot.png
     echo "Screenshot taken, opening satty"
 
     ${pkgs.satty}/bin/satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
