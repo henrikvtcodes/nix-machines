@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   age,
   ...
 }: let
@@ -111,7 +110,7 @@ in {
 
     settings = {
       "$mod" = "SUPER";
-      "$terminal" = "ghostty";
+      "$terminal" = "ghostty +new-window";
       "$browser" = "firefox";
       "$menu" = "fuzzel";
 
