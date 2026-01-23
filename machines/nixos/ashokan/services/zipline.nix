@@ -94,6 +94,7 @@ in {
 
       environment = {
         DATABASE_URL = "postgres://zipline:zipline@zipline-db:5432/zipline";
+        OAUTH_BYPASS_LOCAL_LOGIN = "false";
       };
       environmentFiles = [config.age.secrets.ziplineEnvVars.path];
       ports = [
