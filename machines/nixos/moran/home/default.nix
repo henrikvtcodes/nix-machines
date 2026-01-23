@@ -77,6 +77,9 @@
         discordBranch = "stable";
       };
     };
+    discord = {
+      enable = true;
+    };
     eww = {
       enable = false;
       configDir = ./eww;
