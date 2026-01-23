@@ -1,12 +1,13 @@
 {
   pkgs,
   config,
+  age,
   ...
 }: let
   zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
     #!/bin/bash
 
-    TOKEN=$(cat ${config.age.secrets.ziplineToken.path})
+    TOKEN=$(cat ${age.secrets.ziplineToken.path})
     URL="https://share.unicycl.ing/api/upload"
 
     ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
