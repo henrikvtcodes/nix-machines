@@ -193,7 +193,7 @@ in {
         "ALT, Tab, bringactivetotop"
 
         # "$mod SHIFT, N, exec, swaync-client -t -sw"
-        ''$mod SHIFT, 2, exec, zipline-screenshot''
+        ''$mod SHIFT, PRINT, exec, zipline-screenshot''
         # ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
         "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
