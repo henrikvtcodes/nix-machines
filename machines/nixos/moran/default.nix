@@ -53,10 +53,10 @@
 
   networking.hostName = "moran";
   networking.hostId = "e5da046e";
-  
-  age.secrets =let
+
+  age.secrets = let
     secretsDir = ../../../secrets;
-  in  {
+  in {
     ziplineToken = {
       file = "${secretsDir}/ziplineToken.age";
       owner = "henrikvt";

@@ -1,26 +1,28 @@
-{pkgs, config, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
+  zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
+    #!/bin/bash
 
-zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
-#!/bin/bash
+    TOKEN=$(cat ${config.age.secrets.ziplineToken.path})
+    URL="https://share.unicycl.ing/api/upload"
 
-TOKEN=$(cat ${config.age.secrets.ziplineToken.path})
-URL="https://share.unicycl.ing/api/upload"
+    ${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
 
-${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
+    ${pkgs.satty}/bin/satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
 
-${pkgs.satty}/bin/satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
+    ${pkgs.curl}/bin/curl \
+      -H "authorization: $TOKEN" $URL \
+      -F file=@/tmp/screenshot-annotated.png \
+      -H 'content-type: multipart/form-data' |
+      ${pkgs.jq}/bin/jq -r .files[0].url |
+      ${pkgs.uutils-coreutils-noprefix}/bin/tr -d '\n' |
+      ${pkgs.wl-clipboard-rs}/bin/wl-copy
 
-${pkgs.curl}/bin/curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot-annotated.png \
-  -H 'content-type: multipart/form-data' |
-  ${pkgs.jq}/bin/jq -r .files[0].url |
-  ${pkgs.uutils-coreutils-noprefix}/bin/tr -d '\n' |
-  ${pkgs.wl-clipboard-rs}/bin/wl-copy
-
-  rm -f /tmp/screenshot.png
-'';
-
+      rm -f /tmp/screenshot.png
+  '';
 in {
   programs = {
     tofi.enable = true;
