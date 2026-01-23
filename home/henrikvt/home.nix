@@ -48,6 +48,7 @@
         longcat
         numbat
         glow
+        github-copilot-cli
       ];
 
     shellAliases = {
@@ -235,6 +236,7 @@
         };
         pull.rebase = false;
         protocol.file.allow = "always";
+        rerere.enabled = true;
       };
     };
     delta = {
