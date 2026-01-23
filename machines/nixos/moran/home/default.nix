@@ -90,6 +90,9 @@
       enable = true;
       saveLocation = "$HOME/Pictures/Screenshots";
     };
+    satty = {
+      enable = true;
+    };
   };
 
   programs.ssh = let
