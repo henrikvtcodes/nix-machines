@@ -41,6 +41,7 @@ in {
 
   "henrikUserPassword.age".publicKeys = henrik ++ [moran];
   "uvmGitlabToken.age".publicKeys = henrik;
+  "ziplineToken.age".publicKeys = henrik ++ [moran];
 
   "svalbardHealthcheckUrl.age".publicKeys = [svalbard] ++ henrik;
   "valcourHealthcheckUrl.age".publicKeys = [valcour] ++ henrik;

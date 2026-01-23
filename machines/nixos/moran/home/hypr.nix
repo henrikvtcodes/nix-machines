@@ -1,4 +1,27 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: let 
+
+zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
+#!/bin/bash
+
+TOKEN=$(cat ${config.age.secrets.ziplineToken.path})
+URL="https://share.unicycl.ing/api/upload"
+
+${pkgs.hyprshot}/bin/hyprshot -m region --freeze --raw > /tmp/screenshot.png
+
+${pkgs.satty}/bin/satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
+
+${pkgs.curl}/bin/curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot-annotated.png \
+  -H 'content-type: multipart/form-data' |
+  ${pkgs.jq}/bin/jq -r .files[0].url |
+  ${pkgs.uutils-coreutils-noprefix}/bin/tr -d '\n' |
+  ${pkgs.wl-clipboard-rs}/bin/wl-copy
+
+  rm -f /tmp/screenshot.png
+'';
+
+in {
   programs = {
     tofi.enable = true;
     hyprlock = {
@@ -20,6 +43,7 @@
     wayland-pipewire-idle-inhibit
     wl-clipboard-rs
     wl-clip-persist
+    zipline-upload
   ];
 
   xdg = {
@@ -165,9 +189,9 @@
         "ALT, Tab, cyclenext"
         "ALT, Tab, bringactivetotop"
 
-        "$mod SHIFT, N, exec, swaync-client -t -sw"
-        ''$mod, PRINT, exec, grim -g "$(slurp)" - | wl-copy''
-        ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
+        # "$mod SHIFT, N, exec, swaync-client -t -sw"
+        ''$mod, SHIFT, 2, exec, zipline-screenshot''
+        # ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
         "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
         "$mod, V, exec, wl-paste"
