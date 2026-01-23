@@ -1,0 +1,20 @@
+{
+  "lsp": {
+    "nixd": {
+      "settings": {
+        "formatting": {
+          // This is the default if ommited.
+          "command": ["nix", "fmt", "--", "--"],
+        },
+        "options": {
+          "nixos": {
+            "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.ashokan.options",
+          },
+          "nix-darwin": {
+            "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.pepacton.options",
+          },
+        },
+      },
+    },
+  },
+}
