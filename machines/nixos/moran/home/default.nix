@@ -86,6 +86,10 @@
       enable = true;
       extensions = ["nix" "catppuccin" "vscode-icons"];
     };
+    hyprshot = {
+      enable = true;
+      saveLocation = "$HOME/Pictures/Screenshots";
+    };
   };
 
   programs.ssh = let
