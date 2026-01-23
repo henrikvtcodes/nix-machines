@@ -53,6 +53,16 @@
 
   networking.hostName = "moran";
   networking.hostId = "e5da046e";
+  
+  age.secrets =let
+    secretsDir = ../../../secrets;
+  in  {
+    ziplineToken = {
+      file = "${secretsDir}/ziplineToken.age";
+      owner = "henrikvt";
+      group = "henrikvt";
+    };
+  };
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
