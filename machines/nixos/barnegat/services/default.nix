@@ -10,7 +10,7 @@
   ];
 
   my.services.pocketid = {
-    enable = true;
+    enable = false;
     domainName = "oidc.unicycl.ing";
     traefikProxy = true;
   };
