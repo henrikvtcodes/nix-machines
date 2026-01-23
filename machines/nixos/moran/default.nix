@@ -120,7 +120,7 @@
 
   home.henrikvt = {
     enable = true;
-    ghostty = true;
+    ghostty = false;
     client = true;
     extraModules = [
       ./home

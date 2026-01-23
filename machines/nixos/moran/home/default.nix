@@ -49,6 +49,20 @@
     firefox.enable = true;
     ghostty = {
       enable = true;
+      systemd.enable = true;
+      installBatSyntax = true;
+      enableZshIntegration = true;
+      settings = {
+        font-family = "Liga SFMono Nerd Font";
+        font-size = 14;
+        window-padding-x = 6;
+        window-inherit-font-size = false;
+        theme = "Catppuccin Mocha";
+        window-inherit-working-directory = true;
+        working-directory = "home";
+        term = "xterm-256color";
+        keybind = ["super+d=new_split:right" "super+shift+d=new_split:down" "super+t=new_tab" "super+w:close_surface"];
+      };
     };
     alacritty = {
       enable = true;
