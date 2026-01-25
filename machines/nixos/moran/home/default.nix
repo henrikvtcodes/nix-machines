@@ -19,6 +19,7 @@
       uutils-coreutils-noprefix
       wireshark
       steam
+      nixd
 
       jetbrains.idea
       jetbrains.goland
@@ -101,7 +102,7 @@
     };
     zed-editor = {
       enable = true;
-      extensions = ["nix" "catppuccin" "vscode-icons"];
+      extensions = ["nix" "catppuccin" "vscode-icons" "discord-presence"];
     };
     hyprshot = {
       enable = true;
