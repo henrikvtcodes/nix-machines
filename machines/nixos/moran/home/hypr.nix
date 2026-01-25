@@ -113,6 +113,7 @@ in {
       "$terminal" = "ghostty +new-window";
       "$browser" = "firefox";
       "$menu" = "fuzzel";
+      "$editor" = "zeditor";
 
       monitor = [
         ", prefered, auto, 1"
@@ -159,6 +160,8 @@ in {
         "$mod, RETURN, exec, $terminal"
         "$mod, D, exec, $menu"
         "$mod, B, exec, $browser"
+        "$mod, E, exec, $editor"
+        "$mod, Z, exec, zeditor"
         "$mod SHIFT, B, exec, $browser --private-window"
         "$mod, Q, killactive"
         "$mod SHIFT, E, exit"
