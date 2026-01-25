@@ -211,6 +211,11 @@
       # HandleRebootKey = "ignore";
       # HandleRebootKeyLongPress = "poweroff";
     };
+
+    avahi = {
+      enable = true;
+      browseDomains = ["int.uvm.edu"];
+    };
   };
 
   security = {
