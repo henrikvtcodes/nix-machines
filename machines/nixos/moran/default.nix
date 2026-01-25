@@ -27,8 +27,10 @@
     };
   };
 
-  catppuccin.enable = true;
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
 
   networking = {
     networkmanager = {
@@ -102,22 +104,6 @@
 
   users.users.henrikvt.extraGroups = ["video" "bird"];
 
-  services.openssh.enable = true;
-
-  services.fwupd = {
-    enable = true;
-    package =
-      (import (builtins.fetchTarball {
-          url = "https://github.com/NixOS/nixpkgs/archive/bb2009ca185d97813e75736c2b8d1d8bb81bde05.tar.gz";
-          sha256 = "sha256:003qcrsq5g5lggfrpq31gcvj82lb065xvr7bpfa8ddsw8x4dnysk";
-        }) {
-          inherit (pkgs) system;
-        })
-      .fwupd;
-  };
-
-  programs.firefox.enable = true;
-
   home.henrikvt = {
     enable = true;
     ghostty = false;
@@ -127,14 +113,24 @@
     ];
   };
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
-  };
+  environment = {
+    shellAliases = {
+      rebuild = "${pkgs.nh}/bin/nh os switch && omz reload";
+      reload = "omz reload";
+    };
 
-  environment.shellAliases = {
-    rebuild = "${pkgs.nh}/bin/nh os switch && omz reload";
-    reload = "omz reload";
+    systemPackages = with pkgs; [
+      batmon
+      keepassxc
+      vscode-fhs
+      yubikey-manager
+      avizo
+      playerctl
+      blueman
+      uutils-coreutils-noprefix
+      yubioath-flutter
+      libreoffice-qt-fresh
+    ];
   };
 
   security.sudo.wheelNeedsPassword = true;
@@ -154,16 +150,18 @@
       enable = true;
       plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
     };
+    firefox.enable = true;
+    nh = {
+      enable = true;
+      flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
+    };
+    dconf.enable = true;
   };
-
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-
-  hardware.graphics.enable = true;
 
   services = {
     printing.enable = true; # Cups
     pcscd.enable = true; # Smart card (Yubikey) daemon
+    gvfs.enable = true; # USB Automounting
 
     # Sound
     pipewire = {
@@ -172,73 +170,77 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    pulseaudio.enable = false;
 
     udev.packages = [pkgs.yubikey-personalization];
     spotifyd = {
       enable = true;
     };
+    openssh.enable = true;
+
+    # Firmware Update Daemon
+    fwupd = {
+      enable = true;
+      package =
+        (import (builtins.fetchTarball {
+            url = "https://github.com/NixOS/nixpkgs/archive/bb2009ca185d97813e75736c2b8d1d8bb81bde05.tar.gz";
+            sha256 = "sha256:003qcrsq5g5lggfrpq31gcvj82lb065xvr7bpfa8ddsw8x4dnysk";
+          }) {
+            inherit (pkgs) system;
+          })
+        .fwupd;
+    };
+
+    # USB multiplexing for iOS (can enable tethering)
+    usbmuxd = {
+      enable = true;
+      package = pkgs.usbmuxd2;
+    };
+    # Lock screen
+    hypridle.enable = true;
+    # Fingerprints
+    fprintd.enable = true;
+
+    logind.settings.Login = {
+      HandlePowerKey = "lock";
+      HandlePowerKeyLongPress = "poweroff";
+      # HandleSuspendKey = "ignore";
+      # HandleSuspendKeyLongPress = "poweroff";
+      # HandleHibernateKey = "ignore";
+      # HandleHibernateKeyLongPress = "poweroff";
+      # HandleRebootKey = "ignore";
+      # HandleRebootKeyLongPress = "poweroff";
+    };
   };
 
-  # FIXME Don't forget to create an authorization mapping file for your user (https://nixos.wiki/wiki/Yubikey#pam_u2f)
-  security.pam.u2f = {
-    enable = true;
-    settings.cue = true;
-    control = "sufficient";
+  security = {
+    # Used by pipewire for permission escalation
+    rtkit.enable = true;
+    pam = {
+      # FIXME Don't forget to create an authorization mapping file for your user (https://nixos.wiki/wiki/Yubikey#pam_u2f)
+      u2f = {
+        enable = true;
+        settings.cue = true;
+        control = "sufficient";
+      };
+      services = {
+        greetd.u2fAuth = true;
+        sudo.u2fAuth = true;
+        hyprlock.u2fAuth = true;
+      };
+    };
   };
-
-  security.pam.services = {
-    greetd.u2fAuth = true;
-    sudo.u2fAuth = true;
-    hyprlock.u2fAuth = true;
-  };
-
-  # USB Automounting
-  services.gvfs.enable = true;
 
   hardware = {
+    graphics.enable = true;
     bluetooth = {
       enable = true;
       powerOnBoot = true;
     };
   };
 
-  programs.dconf.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    batmon
-    keepassxc
-    vscode-fhs
-    yubikey-manager
-    avizo
-    playerctl
-    blueman
-    uutils-coreutils-noprefix
-    yubioath-flutter
-    libreoffice-qt-fresh
-  ];
-
   powerManagement = {
     enable = true;
-  };
-
-  services = {
-    usbmuxd = {
-      enable = true;
-      package = pkgs.usbmuxd2;
-    };
-    hypridle.enable = true;
-    fprintd.enable = true;
-  };
-
-  services.logind.settings.Login = {
-    HandlePowerKey = "lock";
-    HandlePowerKeyLongPress = "poweroff";
-    # HandleSuspendKey = "ignore";
-    # HandleSuspendKeyLongPress = "poweroff";
-    # HandleHibernateKey = "ignore";
-    # HandleHibernateKeyLongPress = "poweroff";
-    # HandleRebootKey = "ignore";
-    # HandleRebootKeyLongPress = "poweroff";
   };
 
   nixpkgs.overlays = with inputs; [
