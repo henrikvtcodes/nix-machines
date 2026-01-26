@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   catppuccin.waybar.mode = "createLink";
 
   programs.waybar = {
-    enable = true;
+    enable = lib.mkDefault true;
     systemd.enable = true;
     style = ./waybar.css;
 
