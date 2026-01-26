@@ -35,6 +35,7 @@
         xh
         entr
         comma
+        jless
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
