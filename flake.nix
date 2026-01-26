@@ -166,6 +166,7 @@
             nixos-generators
             #deploy-rs.packages.${system}.default
             pkgs.deploy-rs
+            statix
           ];
         };
       }
