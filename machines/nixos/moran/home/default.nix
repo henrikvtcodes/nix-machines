@@ -24,8 +24,9 @@
       jetbrains.idea
       jetbrains.goland
       jetbrains.webstorm
-      jetbrains.pycharm
       jetbrains.datagrip
+      jetbrains.pycharm
+      python3
 
       teams-for-linux
     ];
