@@ -26,7 +26,7 @@
         git-lfs
         fd
         iperf3
-        magic-wormhole
+        magic-wormhole-rs
         glab
         python3
         wget
