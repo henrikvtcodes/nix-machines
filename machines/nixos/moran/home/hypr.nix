@@ -37,18 +37,18 @@ in {
         };
       };
     };
-    hyprpanel = {
-      enable = true;
-      settings = {
-        bar.layouts = {
-          "*" = {
-            left = ["power" "systray"];
-            right = ["battery" "network" "bluetooth" "clock"];
-          };
-        };
-      };
-    };
-    waybar.enable = false;
+    # hyprpanel = {
+    #   enable = true;
+    #   settings = {
+    #     bar.layouts = {
+    #       "*" = {
+    #         left = ["power" "systray"];
+    #         right = ["battery" "network" "bluetooth" "clock"];
+    #       };
+    #     };
+    #   };
+    # };
+    # waybar.enable = false;
   };
 
   home.packages = with pkgs; [
