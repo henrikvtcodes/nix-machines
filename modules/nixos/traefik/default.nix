@@ -63,7 +63,7 @@ in {
     mkIf cfg.enable {
       services.traefik = {
         enable = true;
-        environmentFiles = cfg.environmentFiles;
+        inherit (cfg) environmentFiles;
         staticConfigOptions = {
           entrypoints = {
             http.address = ":80";
@@ -71,7 +71,7 @@ in {
               address = ":443";
               http.tls = {
                 certResolver = "lecf";
-                domains = cfg.domains;
+                inherit (cfg) domains;
               };
             };
 

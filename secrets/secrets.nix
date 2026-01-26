@@ -22,7 +22,7 @@ let
     henrik_homelab_pubkey
   ];
 
-  users = [] ++ henrik;
+  users = henrik;
 
   systems = [
     svalbard

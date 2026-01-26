@@ -28,8 +28,8 @@ in {
     environment.systemPackages = with pkgs; [prometheus];
     services.prometheus = {
       enable = true;
-      retentionTime = cfg.retentionTime;
-      scrapeConfigs = cfg.scrapeConfigs;
+      inherit (cfg) retentionTime;
+      inherit (cfg) scrapeConfigs;
     };
   };
 }

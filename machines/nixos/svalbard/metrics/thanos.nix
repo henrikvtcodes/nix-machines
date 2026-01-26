@@ -1,4 +1,4 @@
-{...}: {
+_: {
   # General Settings
   users.users.thanos = {
     isSystemUser = true;

@@ -145,7 +145,7 @@
             (self: super: {
               deploy-rs = {
                 inherit (pkgs) deploy-rs;
-                lib = super.deploy-rs.lib;
+                inherit (super.deploy-rs) lib;
               };
             })
           ];

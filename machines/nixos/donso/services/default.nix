@@ -1,4 +1,4 @@
-{...}: {
+_: {
   services.paperless = {
     enable = true;
     dataDir = "/data/main/paperless";

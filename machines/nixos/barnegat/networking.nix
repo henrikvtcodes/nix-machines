@@ -1,4 +1,4 @@
-{...}: {
+_: {
   # Firewall config
   networking.firewall = {
     allowedTCPPorts = [

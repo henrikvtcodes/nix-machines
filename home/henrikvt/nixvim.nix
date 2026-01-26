@@ -1,5 +1,5 @@
 # This module is imported into programs.nixvim, thus everthing exists in that scope
-{...}: {
+_: {
   enable = true;
   defaultEditor = true;
   colorschemes.catppuccin.settings = {

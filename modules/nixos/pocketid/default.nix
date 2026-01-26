@@ -61,7 +61,7 @@ in {
       # Using the module code copied from nixpkgs unstable but still using some stuff here.
       enable = false;
       package = unstable.pocket-id;
-      dataDir = cfg.dataDir;
+      inherit (cfg) dataDir;
       settings = {
         APP_URL = "https://${cfg.domainName}";
         TRUST_PROXY = true;

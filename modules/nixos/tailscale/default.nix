@@ -147,7 +147,7 @@ in {
             (tsBoolFlag "advertise-exit-node" cfg.advertiseExitNode)
             (tsBoolFlag "accept-routes" cfg.acceptRoutes)
 
-            "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable (cfg.advertiseRoutes.routes))}"
+            "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable cfg.advertiseRoutes.routes)}"
           ]
           ++ (
             if (cfg.operator != null)
