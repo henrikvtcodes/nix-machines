@@ -27,7 +27,7 @@
 
   networking = {
     hostName = "svalbard";
-    hostId = "08680d59"; # for ZFS
+    hostId = "8425e349"; # for ZFS
     firewall.enable = false;
     wireless.enable = false;
     networkmanager.enable = false;
