@@ -51,58 +51,56 @@
           };
         };
       };
-      
-      
     };
 
     # --------- ZFS Pools ---------
     zpool = {
-        zstorage = {
-          type = "zpool";
-          mode = "mirror";
-          mountpoint = "/data/storage";
-          rootFsOptions = {
-            compression = "zstd";
-          };
-
-          datasets = {
-            backup = {
-              type = "zfs_fs";
-              options.mountpoint = "legacy";
-              mountpoint = "/mnt/storage/backups";
-            };
-            media = {
-              type = "zfs_fs";
-              options.mountpoint = "legacy";
-              mountpoint = "/mnt/storage/apps";
-            };
-            apps = {
-              type = "zfs_fs";
-              options.mountpoint = "legacy";
-              mountpoint = "/mnt/storage/apps";
-            };
-          };
+      zstorage = {
+        type = "zpool";
+        mode = "mirror";
+        mountpoint = "/data/storage";
+        rootFsOptions = {
+          compression = "zstd";
         };
 
-        zscratch = {
-          type = "zpool";
-          rootFsOptions = {
-            compression = "zstd";
+        datasets = {
+          backup = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/storage/backups";
           };
-
-          datasets = {
-            backup = {
-              type = "zfs_fs";
-              options.mountpoint = "legacy";
-              mountpoint = "/mnt/scratch/backups";
-            };
-            apps = {
-              type = "zfs_fs";
-              options.mountpoint = "legacy";
-              mountpoint = "/mnt/scratch/apps";
-            };
+          media = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/storage/apps";
+          };
+          apps = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/storage/apps";
           };
         };
       };
+
+      zscratch = {
+        type = "zpool";
+        rootFsOptions = {
+          compression = "zstd";
+        };
+
+        datasets = {
+          backup = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/scratch/backups";
+          };
+          apps = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/scratch/apps";
+          };
+        };
+      };
+    };
   };
 }
