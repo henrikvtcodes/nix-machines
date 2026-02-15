@@ -35,6 +35,7 @@
         };
       };
 
+      # --------- ZFS Scratch Disk ---------
       scratch1 = {
         type = "disk";
         device = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
