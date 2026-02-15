@@ -8,9 +8,6 @@
     ./hardware-config.nix
   ];
 
-  boot.zfs = {
-    enabled = true;
-  };
   boot.loader = {
     efi.canTouchEfiVariables = false;
     grub = {
