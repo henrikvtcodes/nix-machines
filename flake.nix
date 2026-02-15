@@ -299,7 +299,7 @@
           # Machine config
           ./machines/nixos
           ./machines/nixos/svalbard
-          
+
           # Secrets
           ragenix.nixosModules.default
 
