@@ -37,6 +37,31 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/scratch/apps" =
+    { device = "zscratch/apps";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/scratch/backups" =
+    { device = "zscratch/backup";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/storage/apps" =
+    { device = "zstorage/apps";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/storage/backups" =
+    { device = "zstorage/backup";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/storage/media" =
+    { device = "zstorage/media";
+      fsType = "zfs";
+    };
+
   swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
