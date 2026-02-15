@@ -2,121 +2,104 @@
   disko.devices = {
     disk = {
       # --------- ZFS Mass Storage Disks ---------
-      # hdd1 = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38CXK3V5FSYC";
-      #   content = {
-      #     type = "gpt";
-      #     partitions = {
-      #       zfs = {
-      #         size = "100%";
-      #         content = {
-      #           type = "zfs";
-      #           pool = "zstorage";
-      #         };
-      #       };
-      #     };
-      #   };
-      # };
-      # hdd2 = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38DEK8WVFSYC";
-      #   content = {
-      #     type = "gpt";
-      #     partitions = {
-      #       zfs = {
-      #         size = "100%";
-      #         content = {
-      #           type = "zfs";
-      #           pool = "zstorage";
-      #         };
-      #       };
-      #     };
-      #   };
-      # };
-      # --------- NVMe Cache/Storage Disks ---------
-      nvme1 = {
+      hdd1 = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-KXG50ZNV256G_TOSHIBA_Y7UF724WF6FS";
+        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38CXK3V5FSYC";
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
-              type = "EF00";
-              size = "1G";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
-              };
-            };
             zfs = {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "zroot";
+                pool = "zstorage";
               };
             };
           };
         };
       };
-    };
-    # --------- ZFS Pools ---------
-    zpool = {
-      # # Mass storage mirror pool
+      hdd2 = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38DEK8WVFSYC";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "zstorage";
+              };
+            };
+          };
+        };
+      };
+
+      scratch1 = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "zscratch";
+              };
+            };
+          };
+        };
+      };
+      # --------- ZFS Pools ---------
       zpool = {
-        zroot = {
+        zstorage = {
           type = "zpool";
-          mode = "";
-          mountpoint = "/";
+          mode = "mirror";
+          mountpoint = "/data/storage";
           rootFsOptions = {
             compression = "zstd";
           };
 
           datasets = {
-            "root" = {
+            backup = {
               type = "zfs_fs";
               options.mountpoint = "legacy";
-              mountpoint = "/";
+              mountpoint = "/mnt/storage/backups";
             };
-            "root/nix" = {
+            media = {
               type = "zfs_fs";
               options.mountpoint = "legacy";
-              mountpoint = "/nix";
+              mountpoint = "/mnt/storage/apps";
             };
-            "root/var" = {
+            apps = {
               type = "zfs_fs";
               options.mountpoint = "legacy";
-              mountpoint = "/var";
+              mountpoint = "/mnt/storage/apps";
+            };
+          };
+        };
+
+        zscratch = {
+          type = "zpool";
+          rootFsOptions = {
+            compression = "zstd";
+          };
+
+          datasets = {
+            backup = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              mountpoint = "/mnt/scratch/backups";
+            };
+            apps = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              mountpoint = "/mnt/scratch/apps";
             };
           };
         };
       };
-
-      # zstorage = {
-      #   type = "zpool";
-      #   mode = "mirror";
-      #   mountpoint = "/data/storage";
-      #   rootFsOptions = {
-      #     compression = "zstd";
-      #   };
-
-      #   datasets = {
-      #     backup = {
-      #       type = "zfs_fs";
-      #       options.mountpoint = "/data/storage/backup";
-      #     };
-      #     media = {
-      #       type = "zfs_fs";
-      #       options.mountpoint = "/data/storage/media";
-      #     };
-      #     apps = {
-      #       type = "zfs_fs";
-      #       options.mountpoint = "/data/storage/apps";
-      #     };
-      #   };
-      # };
     };
   };
 }
