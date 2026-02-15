@@ -37,17 +37,17 @@
         };
 
         datasets = {
-          "zroot" = {
+          "root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/";
           };
-          "zroot/nix" = {
+          "root/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/nix";
           };
-          "zroot/var" = {
+          "root/var" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/var";
