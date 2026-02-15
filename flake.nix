@@ -299,10 +299,7 @@
           # Machine config
           ./machines/nixos
           ./machines/nixos/svalbard
-          disko.nixosModules.default
-
-          ./modules/nixos/boot-disk-gb
-
+          
           # Secrets
           ragenix.nixosModules.default
 
