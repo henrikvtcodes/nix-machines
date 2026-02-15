@@ -51,8 +51,12 @@
           };
         };
       };
-      # --------- ZFS Pools ---------
-      zpool = {
+      
+      
+    };
+
+    # --------- ZFS Pools ---------
+    zpool = {
         zstorage = {
           type = "zpool";
           mode = "mirror";
@@ -100,6 +104,5 @@
           };
         };
       };
-    };
   };
 }
