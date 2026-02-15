@@ -6,16 +6,26 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
-    ./disk-config.nix
-    ./metrics
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  bootDiskGB = {
-    enable = true;
-    diskPath = "/dev/disk/by-id/ata-KINGSTON_SKC400S37128G_50026B7267043399";
+  boot.zfs = {
+    enabled = true;
+  };
+  boot.loader = {
+    efi.canTouchEfiVariables = false;
+    grub = {
+      enable = true;
+      copyKernels = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      zfsSupport = true;
+      mirroredBoots = [
+        {
+          devices = ["nodev"];
+          path = "/boot";
+        }
+      ];
+    };
   };
 
   networking = {
@@ -33,7 +43,6 @@
     autoScrub = {
       enable = true;
       interval = "weekly";
-      pools = ["zstorage"];
     };
     trim = {
       enable = true;
@@ -57,5 +66,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.11";
 }
