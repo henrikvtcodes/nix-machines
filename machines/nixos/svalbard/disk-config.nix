@@ -48,7 +48,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = ["umask=0077"];
               };
             };
             zfs = {
@@ -66,33 +66,33 @@
     zpool = {
       # # Mass storage mirror pool
       zpool = {
-      zroot = {
-        type = "zpool";
-        mode = "";
-        mountpoint = "/";
-        rootFsOptions = {
-          compression = "zstd";
-        };
+        zroot = {
+          type = "zpool";
+          mode = "";
+          mountpoint = "/";
+          rootFsOptions = {
+            compression = "zstd";
+          };
 
-        datasets = {
-          "root" = {
-            type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/";
-          };
-          "root/nix" = {
-            type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/nix";
-          };
-          "root/var" = {
-            type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/var";
+          datasets = {
+            "root" = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              mountpoint = "/";
+            };
+            "root/nix" = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              mountpoint = "/nix";
+            };
+            "root/var" = {
+              type = "zfs_fs";
+              options.mountpoint = "legacy";
+              mountpoint = "/var";
+            };
           };
         };
-      };      
-    };
+      };
 
       # zstorage = {
       #   type = "zpool";
@@ -116,7 +116,7 @@
       #       options.mountpoint = "/data/storage/apps";
       #     };
       #   };
-      # };      
+      # };
     };
   };
 }
