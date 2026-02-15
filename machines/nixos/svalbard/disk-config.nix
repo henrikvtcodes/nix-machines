@@ -1,40 +1,39 @@
 {
-  boot.zfs.extraPools = ["zstorage" "zapps"];
   disko.devices = {
     disk = {
       # --------- ZFS Mass Storage Disks ---------
-      hdd1 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38CXK3V5FSYC";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "zstorage";
-              };
-            };
-          };
-        };
-      };
-      hdd2 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38DEK8WVFSYC";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "zstorage";
-              };
-            };
-          };
-        };
-      };
+      # hdd1 = {
+      #   type = "disk";
+      #   device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38CXK3V5FSYC";
+      #   content = {
+      #     type = "gpt";
+      #     partitions = {
+      #       zfs = {
+      #         size = "100%";
+      #         content = {
+      #           type = "zfs";
+      #           pool = "zstorage";
+      #         };
+      #       };
+      #     };
+      #   };
+      # };
+      # hdd2 = {
+      #   type = "disk";
+      #   device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_38DEK8WVFSYC";
+      #   content = {
+      #     type = "gpt";
+      #     partitions = {
+      #       zfs = {
+      #         size = "100%";
+      #         content = {
+      #           type = "zfs";
+      #           pool = "zstorage";
+      #         };
+      #       };
+      #     };
+      #   };
+      # };
       # --------- NVMe Cache/Storage Disks ---------
       nvme1 = {
         type = "disk";
@@ -42,11 +41,21 @@
         content = {
           type = "gpt";
           partitions = {
+            ESP = {
+              type = "EF00";
+              size = "1G";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
+              };
+            };
             zfs = {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "zapps";
+                pool = "zroot";
               };
             };
           };
@@ -55,54 +64,59 @@
     };
     # --------- ZFS Pools ---------
     zpool = {
-      # Mass storage mirror pool
-      zstorage = {
-        type = "zpool";
-        mode = "mirror";
-        mountpoint = "/data/storage";
-        rootFsOptions = {
-          compression = "zstd";
-        };
-
-        datasets = {
-          backup = {
-            type = "zfs_fs";
-            options.mountpoint = "/data/storage/backup";
-          };
-          media = {
-            type = "zfs_fs";
-            options.mountpoint = "/data/storage/media";
-          };
-          apps = {
-            type = "zfs_fs";
-            options.mountpoint = "/data/storage/apps";
-          };
-        };
-      };
-      # Application (ie high speed) storage "pool"
-      zapps = {
+      # # Mass storage mirror pool
+      zpool = {
+      zroot = {
         type = "zpool";
         mode = "";
-        mountpoint = "/data/apps";
+        mountpoint = "/";
         rootFsOptions = {
           compression = "zstd";
         };
 
         datasets = {
-          main = {
+          "root" = {
             type = "zfs_fs";
-            options.mountpoint = "/data/apps/main";
+            options.mountpoint = "legacy";
+            mountpoint = "/";
           };
-          scratch = {
+          "root/nix" = {
             type = "zfs_fs";
-            options.mountpoint = "/data/apps/scratch";
+            options.mountpoint = "legacy";
+            mountpoint = "/nix";
           };
-          prometheus = {
+          "root/var" = {
             type = "zfs_fs";
-            options.mountpoint = "/var/lib/prometheus";
+            options.mountpoint = "legacy";
+            mountpoint = "/var";
           };
         };
-      };
+      };      
+    };
+
+      # zstorage = {
+      #   type = "zpool";
+      #   mode = "mirror";
+      #   mountpoint = "/data/storage";
+      #   rootFsOptions = {
+      #     compression = "zstd";
+      #   };
+
+      #   datasets = {
+      #     backup = {
+      #       type = "zfs_fs";
+      #       options.mountpoint = "/data/storage/backup";
+      #     };
+      #     media = {
+      #       type = "zfs_fs";
+      #       options.mountpoint = "/data/storage/media";
+      #     };
+      #     apps = {
+      #       type = "zfs_fs";
+      #       options.mountpoint = "/data/storage/apps";
+      #     };
+      #   };
+      # };      
     };
   };
 }
