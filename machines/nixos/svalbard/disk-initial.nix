@@ -37,7 +37,7 @@
         };
 
         datasets = {
-          "zroot/root" = {
+          "zroot" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/";
