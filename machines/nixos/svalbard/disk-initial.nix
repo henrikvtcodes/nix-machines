@@ -32,24 +32,22 @@
     zpool = {
       zroot = {
         type = "zpool";
-        mode = "";
-        mountpoint = "/";
         rootFsOptions = {
           compression = "zstd";
         };
 
         datasets = {
-          "root" = {
+          "zroot/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/";
           };
-          "root/nix" = {
+          "zroot/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/nix";
           };
-          "root/var" = {
+          "zroot/var" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/var";
