@@ -39,7 +39,7 @@ let
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
-  "henrikUserPassword.age".publicKeys = henrik ++ [moran];
+  "henrikUserPassword.age".publicKeys = henrik ++ [moran svalbard];
   "uvmGitlabToken.age".publicKeys = henrik;
   "ziplineToken.age".publicKeys = henrik ++ [moran];
 
