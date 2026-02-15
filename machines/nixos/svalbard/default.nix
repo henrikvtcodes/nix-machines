@@ -47,15 +47,17 @@
     };
   };
 
+  services.logrotate.checkConfig = false;
+
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.forceImportRoot = false;
 
   # Healthcheck Ping
-  age.secrets.svalbardHealthcheckUrl.file = ../../../secrets/svalbardHealthcheckUrl.age;
-  my.services.betteruptime = {
-    enable = true;
-    healthcheckUrlFile = config.age.secrets.svalbardHealthcheckUrl.path;
-  };
+  # age.secrets.svalbardHealthcheckUrl.file = ../../../secrets/svalbardHealthcheckUrl.age;
+  # my.services.betteruptime = {
+  #   enable = true;
+  #   healthcheckUrlFile = config.age.secrets.svalbardHealthcheckUrl.path;
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
