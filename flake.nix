@@ -424,6 +424,7 @@
 
         modules = [
           # Machine config
+          ./machines/nixos
           ./machines/nixos/mci
 
           # Secrets

@@ -2,48 +2,22 @@
   imports = [
     ./hardware-config.nix
   ];
-  
+
   boot.loader.grub = {
     enable = true;
     device = "/dev/sda";
   };
 
+  virtualisation.podman.enable = false;
+
   home.henrikvt.enable = false;
   users.henrikvt.enablePasswordFile = false;
-  time.timeZone = "America/New_York";
-  i18n.defaultLocale = "en_US.UTF-8";
 
-  environment.systemPackages = with pkgs; [inetutils q btop git vim];
+  my.services.tailscale.enable = false;
 
-  services.openssh = {
-    enable = true;
-    ports = [22 69];
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-    "net.ipv6.conf.all.accept_ra" = 0;
-  };
+  # environment.systemPackages = with pkgs; [inetutils q btop git vim];
 
   networking = {
-    firewall.enable = false;
-    wireless.enable = false;
-    networkmanager.enable = false;
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.9"
-      "2620:fe::9"
-      "2620:fe::fe"
-      "1.1.1.1"
-      "1.0.0.1"
-      "2606:4700:4700::1111"
-      "2606:4700:4700::1001"
-    ];
     hostName = "mci";
     interfaces = {
       #   lo.ipv6.addresses = [
