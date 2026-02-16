@@ -1,4 +1,4 @@
-{pkgs,...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-config.nix
   ];
@@ -16,7 +16,7 @@
   environment.systemPackages = with pkgs; [inetutils q btop git vim];
 
   networking = {
-      firewall.enable = false;
+    firewall.enable = false;
     wireless.enable = false;
     networkmanager.enable = false;
     nameservers = [
