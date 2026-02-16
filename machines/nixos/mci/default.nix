@@ -1,6 +1,4 @@
-{ ... }:
-{
-
+{...}: {
   imports = [
     ../../modules/common.nix
 
@@ -17,16 +15,16 @@
   networking = {
     hostName = "mci";
     interfaces = {
-    #   lo.ipv6.addresses = [
-    #     {
-    #       address = "2602:fbcf:df::1";
-    #       prefixLength = 48;
-    #     }
-    #     {
-    #       address = "2602:fbcf:d3::1";
-    #       prefixLength = 48;
-    #     }
-    #   ];
+      #   lo.ipv6.addresses = [
+      #     {
+      #       address = "2602:fbcf:df::1";
+      #       prefixLength = 48;
+      #     }
+      #     {
+      #       address = "2602:fbcf:d3::1";
+      #       prefixLength = 48;
+      #     }
+      #   ];
       ens18 = {
         ipv4.addresses = [
           {
@@ -39,7 +37,6 @@
             address = "2602:fc26:12:1::39";
             prefixLength = 48;
           }
-
         ];
       };
     };
