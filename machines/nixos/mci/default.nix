@@ -15,8 +15,6 @@
 
   my.services.tailscale.enable = false;
 
-  # environment.systemPackages = with pkgs; [inetutils q btop git vim];
-
   networking = {
     useDHCP = false;
     dhcpcd.enable = false;
@@ -42,6 +40,10 @@
         ipv6.addresses = [
           {
             address = "2602:fc26:12:1::39";
+            prefixLength = 48;
+          }
+          {
+            address = "2602:fc26:12:1::beef";
             prefixLength = 48;
           }
         ];

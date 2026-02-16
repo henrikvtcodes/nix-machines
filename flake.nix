@@ -516,7 +516,7 @@
             self.nixosConfigurations.penikese;
         };
         mci = {
-          hostname = "mci";
+          hostname = "mci.unicycl.ing";
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.mci;
