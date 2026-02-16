@@ -5,8 +5,11 @@
 
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sda";
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev";
   };
+  boot.loader.efi.canTouchEfiVariables = false;
 
   home.henrikvt.enable = false;
   users.henrikvt.enablePasswordFile = false;
