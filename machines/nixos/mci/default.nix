@@ -22,6 +22,14 @@
 
   environment.systemPackages = with pkgs; [inetutils q btop git vim];
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+  };
+
   networking = {
     firewall.enable = false;
     wireless.enable = false;
@@ -63,14 +71,6 @@
         ];
       };
     };
-
-    services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
 
     defaultGateway = {
       address = "23.143.82.1";
