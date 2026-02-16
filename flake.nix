@@ -413,6 +413,29 @@
         ];
       };
 
+      mci = lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          unstable = importUnstable system;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/mci
+
+          # Secrets
+          ragenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
       # ISO Image Generators
       iso-virt = lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -491,6 +514,12 @@
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.penikese;
+        };
+        mci = {
+          hostname = "mci";
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.mci;
         };
       };
     };

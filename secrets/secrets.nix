@@ -15,6 +15,7 @@ let
   ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p root@ashokan";
   penikese = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHtuT1HokTm346l4GRdj7WNylz8UQWa4Ycd4hFBidD+ root@penikese";
   moran = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVce/XCWvap7McnE4YmT9yrur4UN7r/y6GMW0Oe0Led root@moran";
+  mci = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIlZWkgS4uVYZJwJ7nmKYm+49WPiNzsdfB593qU+wuK root@mci";
 
   henrik = [
     henrik_public_pubkey
@@ -33,13 +34,14 @@ let
     ashokan
     penikese
     moran
+    mci
   ];
 
   cloud = [ashokan barnegat];
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
-  "henrikUserPassword.age".publicKeys = henrik ++ [moran svalbard];
+  "henrikUserPassword.age".publicKeys = henrik ++ [moran svalbard mci];
   "uvmGitlabToken.age".publicKeys = henrik;
   "ziplineToken.age".publicKeys = henrik ++ [moran];
 
