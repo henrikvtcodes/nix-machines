@@ -18,6 +18,8 @@
   # environment.systemPackages = with pkgs; [inetutils q btop git vim];
 
   networking = {
+    useDHCP = false;
+    networking.dhcpcd.enable = false;
     hostName = "mci";
     interfaces = {
       #   lo.ipv6.addresses = [
