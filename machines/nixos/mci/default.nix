@@ -15,7 +15,10 @@
 
   my.services.tailscale.enable = true;
 
-  services.openssh.ports = [22 69];
+  services.openssh = {
+    openFirewall = false;
+    ports = [22 69];
+  };
 
   networking = {
     useDHCP = false;

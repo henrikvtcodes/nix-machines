@@ -45,6 +45,7 @@
   services.openssh = {
     # Use nonstandard SSH port for public server
     ports = [69];
+    openFirewall = false;
   };
 
   my.services.dns = {

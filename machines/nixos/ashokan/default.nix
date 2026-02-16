@@ -45,6 +45,7 @@
 
   services.openssh = {
     enable = true;
+    openFirewall = false;
     # Use nonstandard SSH port for public server
     ports = [69];
   };
