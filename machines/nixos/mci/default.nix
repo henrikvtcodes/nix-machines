@@ -10,7 +10,7 @@
 
   virtualisation.podman.enable = false;
 
-  home.henrikvt.enable = false;
+  home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
   my.services.tailscale.enable = false;
