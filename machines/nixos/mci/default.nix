@@ -1,4 +1,4 @@
-{...}: {
+{pkgs,...}: {
   imports = [
     ./hardware-config.nix
   ];
@@ -9,10 +9,26 @@
   };
 
   home.henrikvt.enable = false;
+  users.henrikvt.enablePasswordFile = false;
+  time.timeZone = "America/New_York";
+  i18n.defaultLocale = "en_US.UTF-8";
 
-  services.qemuGuest.enable = true;
+  environment.systemPackages = with pkgs; [inetutils q btop git vim];
 
   networking = {
+      firewall.enable = false;
+    wireless.enable = false;
+    networkmanager.enable = false;
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.9"
+      "2620:fe::9"
+      "2620:fe::fe"
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
     hostName = "mci";
     interfaces = {
       #   lo.ipv6.addresses = [

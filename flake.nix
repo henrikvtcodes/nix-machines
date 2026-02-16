@@ -424,7 +424,6 @@
 
         modules = [
           # Machine config
-          ./machines/nixos
           ./machines/nixos/mci
 
           # Secrets
@@ -432,7 +431,6 @@
 
           # User config
           ./users/henrikvt
-          home-manager.nixosModules.home-manager
         ];
       };
 
