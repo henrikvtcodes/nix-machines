@@ -8,6 +8,8 @@
     device = "/dev/sda";
   };
 
+  home.henrikvt.enable = false;
+
   services.qemuGuest.enable = true;
 
   networking = {
