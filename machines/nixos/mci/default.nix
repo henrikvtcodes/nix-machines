@@ -19,6 +19,13 @@
     useDHCP = false;
     dhcpcd.enable = false;
     hostName = "mci";
+    firewall = {
+      allowedTCPPorts = [
+        69
+      ];
+      allowedUDPPorts = [53];
+      enable = true;
+    };
     interfaces = {
       #   lo.ipv6.addresses = [
       #     {
