@@ -19,7 +19,7 @@
 
   networking = {
     useDHCP = false;
-    networking.dhcpcd.enable = false;
+    dhcpcd.enable = false;
     hostName = "mci";
     interfaces = {
       #   lo.ipv6.addresses = [
