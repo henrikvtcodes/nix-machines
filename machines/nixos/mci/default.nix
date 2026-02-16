@@ -3,13 +3,17 @@
     ./hardware-config.nix
   ];
 
+  # boot.loader.grub = {
+  #   enable = true;
+  #   efiSupport = true;
+  #   efiInstallAsRemovable = true;
+  #   device = "nodev";
+  # };
   boot.loader.grub = {
     enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    device = "nodev";
+    device = "/dev/sda";
   };
-  boot.loader.efi.canTouchEfiVariables = false;
+  # boot.loader.efi.canTouchEfiVariables = false;
 
   home.henrikvt.enable = false;
   users.henrikvt.enablePasswordFile = false;
