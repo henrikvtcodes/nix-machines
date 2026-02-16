@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware-config.nix
   ];
 
   boot.loader.grub = {
