@@ -5,5 +5,6 @@
     enable = true;
     package = pkgs.bird2;
     config = builtins.readFile bird/bird.conf;
+    checkConfig = false;
   };
 }
