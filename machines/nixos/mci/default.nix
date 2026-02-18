@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./hardware-config.nix
+    ./routing.nix
   ];
 
   boot.loader.grub = {
@@ -32,16 +33,16 @@
       enable = true;
     };
     interfaces = {
-      #   lo.ipv6.addresses = [
-      #     {
-      #       address = "2602:fbcf:df::1";
-      #       prefixLength = 48;
-      #     }
-      #     {
-      #       address = "2602:fbcf:d3::1";
-      #       prefixLength = 48;
-      #     }
-      #   ];
+        lo.ipv6.addresses = [
+          {
+            address = "2602:f542:bee::1";
+            prefixLength = 48;
+          }
+          {
+            address = "155.103.251.1";
+            prefixLength = 24;
+          }
+        ];
       ens18 = {
         ipv4.addresses = [
           {
