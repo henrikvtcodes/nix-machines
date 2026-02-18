@@ -7,4 +7,6 @@
     config = builtins.readFile bird/bird.conf;
     checkConfig = false;
   };
+
+  users.users.henrikvt.extraGroups = ["bird"];
 }
