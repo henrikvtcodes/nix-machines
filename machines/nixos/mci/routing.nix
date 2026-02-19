@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   environment.etc."bird/filter_bgp.conf".source = bird/filter_bgp.conf;
 
   services.bird = {

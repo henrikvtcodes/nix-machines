@@ -34,16 +34,16 @@
       allowedUDPPorts = [53];
     };
     interfaces = {
-        lo.ipv6.addresses = [
-          {
-            address = "2602:f542:bee::1";
-            prefixLength = 48;
-          }
-          {
-            address = "155.103.251.1";
-            prefixLength = 24;
-          }
-        ];
+      lo.ipv6.addresses = [
+        {
+          address = "2602:f542:bee::1";
+          prefixLength = 48;
+        }
+        {
+          address = "155.103.251.1";
+          prefixLength = 24;
+        }
+      ];
       ens18 = {
         ipv4.addresses = [
           {
