@@ -63,6 +63,21 @@ in {
         Enable Tailscale Web UI on port 5252
       '';
     };
+    relayServer = {
+      enable = mkEnableOption "Enable Tailscale Peer Relay";
+      openFirewall = mkOption {
+        type = types.bool;
+        description = ''
+          Open firewall for relay
+        '';
+      };
+      port = mkOption {
+        type = types.int;
+        description = ''
+          UDP port to use for peer relays
+        '';
+      };
+    };
     operator = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -127,6 +142,7 @@ in {
 
     networking = {
       firewall.trustedInterfaces = ["tailscale0"];
+      firewall.allowedUDPPorts = optionals cfg.relayServer.enable cfg.relayServer.port;
       # search = [
       #   "reindeer-porgy.ts.net"
       # ];
@@ -151,6 +167,11 @@ in {
           ]
           ++ (
             if (cfg.operator != null)
+            then ["--relay-server-port=${cfg.relayServer.port}"]
+            else ["--relay-server-port="]
+          )
+          ++ (
+            if (cfg.relayServer.enable)
             then ["--operator=${cfg.operator}"]
             else []
           );
