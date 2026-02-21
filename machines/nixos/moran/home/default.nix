@@ -114,6 +114,14 @@
     };
   };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-GTK-Dark";
+      package = pkgs.magnetic-catppuccin-gtk;
+    };
+  };
+
   programs.ssh = let
     onePassPath = "~/.1password/agent.sock";
   in {
