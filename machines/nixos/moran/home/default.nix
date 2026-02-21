@@ -129,6 +129,14 @@
     extraConfig = ''
       Host *
           IdentityAgent ${onePassPath}
+      Host ashokan*
+        Port 69
+      Host barnegat*
+        Port 69
+      Host *mci*
+        Port 69
+      Host *.as215207.net
+        User admin
     '';
   };
 
