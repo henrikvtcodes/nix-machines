@@ -73,7 +73,7 @@ in {
         '';
       };
       port = mkOption {
-        type = types.int;
+        type = types.port;
         description = ''
           UDP port to use for peer relays
         '';
@@ -143,7 +143,7 @@ in {
 
     networking = {
       firewall.trustedInterfaces = ["tailscale0"];
-      firewall.allowedUDPPorts = optionals cfg.relayServer.enable cfg.relayServer.port;
+      firewall.allowedUDPPorts = optional cfg.relayServer.enable cfg.relayServer.port;
       # search = [
       #   "reindeer-porgy.ts.net"
       # ];
