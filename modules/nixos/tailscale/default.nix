@@ -168,7 +168,7 @@ in {
           ]
           ++ (
             if (cfg.relayServer.enable)
-            then ["--relay-server-port=${cfg.relayServer.port}"]
+            then ["--relay-server-port=${toString cfg.relayServer.port}"]
             else ["--relay-server-port="]
           )
           ++ (
