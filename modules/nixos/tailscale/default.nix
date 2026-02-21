@@ -67,6 +67,7 @@ in {
       enable = mkEnableOption "Enable Tailscale Peer Relay";
       openFirewall = mkOption {
         type = types.bool;
+        default = true;
         description = ''
           Open firewall for relay
         '';
@@ -166,12 +167,12 @@ in {
             "--advertise-routes=${concatStringsSep "," (optionals cfg.advertiseRoutes.enable cfg.advertiseRoutes.routes)}"
           ]
           ++ (
-            if (cfg.operator != null)
+            if (cfg.relayServer.enable)
             then ["--relay-server-port=${cfg.relayServer.port}"]
             else ["--relay-server-port="]
           )
           ++ (
-            if (cfg.relayServer.enable)
+            if (cfg.operator != null)
             then ["--operator=${cfg.operator}"]
             else []
           );
