@@ -24,8 +24,9 @@
       jetbrains.idea
       jetbrains.goland
       jetbrains.webstorm
-      jetbrains.pycharm
       jetbrains.datagrip
+      jetbrains.pycharm
+      python3
 
       teams-for-linux
     ];
@@ -110,6 +111,14 @@
     };
     satty = {
       enable = true;
+    };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-GTK-Dark";
+      package = pkgs.magnetic-catppuccin-gtk;
     };
   };
 

@@ -26,7 +26,7 @@
         git-lfs
         fd
         iperf3
-        magic-wormhole
+        magic-wormhole-rs
         glab
         python3
         wget
@@ -35,6 +35,7 @@
         xh
         entr
         comma
+        jless
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
