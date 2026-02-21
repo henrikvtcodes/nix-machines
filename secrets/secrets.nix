@@ -7,7 +7,7 @@ let
   henrik_homelab_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMmZEhaLdiFJ6TdyhdBC5fvCiY5c7drQK2EVHGPCPHei";
 
   # --------- Systems ---------
-  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLF2ymnhVA2fZy9bW3AvittJllvdIhpEEJeNE1JtZ4z root@svalbard";
+  svalbard = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL/W6+dP50rsPRpTAAuC2G3n7e8OFucBFr6B8fvfDxut root@svalbard";
   valcour = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMUWyXkH30owx5qEz8gi6QjbPTEad2xzN7iVRO5knY8Q root@valcour";
   donso = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0fAwr0mzV/YHFGxyc9Id5FzLE34GlVdXb4toYn0p8s root@donso";
   marstrand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOcHEGMX9Oxd+0J5sZNKtq7LHKBNxFw525NPnhh5Ewr2 root@marstrand";
@@ -15,6 +15,7 @@ let
   ashokan = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILxUwEDsGw3KJJhe3f+pxeGVLNs8NkhDxen9Fuwocl6p root@ashokan";
   penikese = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHtuT1HokTm346l4GRdj7WNylz8UQWa4Ycd4hFBidD+ root@penikese";
   moran = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVce/XCWvap7McnE4YmT9yrur4UN7r/y6GMW0Oe0Led root@moran";
+  mci = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOfiuOWvd37Y7bzvQI6FSZi8bmtkYo32G1BziQ+bh8Vu root@mci";
 
   henrik = [
     henrik_public_pubkey
@@ -33,13 +34,14 @@ let
     ashokan
     penikese
     moran
+    mci
   ];
 
   cloud = [ashokan barnegat];
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
-  "henrikUserPassword.age".publicKeys = henrik ++ [moran];
+  "henrikUserPassword.age".publicKeys = henrik ++ [moran svalbard mci];
   "uvmGitlabToken.age".publicKeys = henrik;
   "ziplineToken.age".publicKeys = henrik ++ [moran];
 

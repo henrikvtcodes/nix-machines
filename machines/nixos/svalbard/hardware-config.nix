@@ -4,19 +4,65 @@
 {
   config,
   lib,
+  modulesPath,
   ...
 }: {
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
+
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
+
+  fileSystems."/" = {
+    device = "zroot/root";
+    fsType = "zfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/B09D-9EB8";
+    fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
+  };
+
+  fileSystems."/nix" = {
+    device = "zroot/root/nix";
+    fsType = "zfs";
+  };
+
+  fileSystems."/var" = {
+    device = "zroot/root/var";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/scratch/apps" = {
+    device = "zscratch/apps";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/scratch/backups" = {
+    device = "zscratch/backup";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/storage/apps" = {
+    device = "zstorage/apps";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/storage/backups" = {
+    device = "zstorage/backup";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/storage/media" = {
+    device = "zstorage/media";
+    fsType = "zfs";
+  };
+
+  swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
