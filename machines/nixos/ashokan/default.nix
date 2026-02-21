@@ -111,8 +111,14 @@
   };
   security.acme.acceptTerms = true;
 
-  my.services.tailscale.advertiseExitNode = true;
-  my.services.tailscale.acceptRoutes = true;
+  my.services.tailscale = {
+    acceptRoutes = true;
+    advertiseExitNode = true;
+    relayServer = {
+      enable = true;
+      port = 63477;
+    };
+  };
 
   services.postgresql.ensureUsers = [
     {

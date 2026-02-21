@@ -51,7 +51,13 @@
     enable = true;
   };
 
-  my.services.tailscale.advertiseExitNode = true;
+  my.services.tailscale = {
+    advertiseExitNode = true;
+    relayServer = {
+      enable = true;
+      port = 63477;
+    };
+  };
 
   age.secrets = let
     secretsDir = ../../../secrets;
