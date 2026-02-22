@@ -112,6 +112,7 @@
     satty = {
       enable = true;
     };
+    thunderbird.enable = true;
   };
 
   gtk = {
