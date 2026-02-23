@@ -20,6 +20,7 @@
       wireshark
       steam
       nixd
+      bun
 
       jetbrains.idea
       jetbrains.goland
