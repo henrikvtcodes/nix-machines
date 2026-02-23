@@ -101,7 +101,7 @@
     };
     zed-editor = {
       enable = true;
-      extensions = ["nix" "catppuccin" "vscode-icons" "discord-presence"];
+      extensions = ["nix" "catppuccin" "vscode-icons" "discord-presence" "astro"];
     };
     hyprshot = {
       enable = true;
