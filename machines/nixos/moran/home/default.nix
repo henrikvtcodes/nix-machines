@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  unstable,
   ...
 }: {
   imports = [./hypr.nix ./waybar.nix];
@@ -20,7 +21,7 @@
       wireshark
       steam
       nixd
-      bun
+      unstable.bun
 
       jetbrains.idea
       jetbrains.goland

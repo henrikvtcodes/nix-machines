@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  unstable,
   ...
 }: let
   homeCfg = config.home.henrikvt;
@@ -39,6 +40,7 @@ in {
         inherit inputs;
         inherit homeCfg;
         inherit (config) age;
+        inherit unstable;
       };
       backupFileExtension = "hmbak";
       users.henrikvt = import ./home.nix;
