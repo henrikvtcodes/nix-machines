@@ -84,10 +84,6 @@
     discord = {
       enable = true;
     };
-    eww = {
-      enable = false;
-      configDir = ./eww;
-    };
     halloy = {
       enable = true;
       settings = {
