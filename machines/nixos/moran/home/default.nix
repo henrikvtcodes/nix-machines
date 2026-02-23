@@ -112,7 +112,13 @@
     satty = {
       enable = true;
     };
-    thunderbird.enable = true;
+    thunderbird = {
+      enable = true;
+      profiles.henrikvt = {
+        isDefault = true;
+        search.default = "ddg";
+      };
+    };
   };
 
   gtk = {
