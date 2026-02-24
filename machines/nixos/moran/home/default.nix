@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  unstable,
   ...
 }: {
   imports = [./hypr.nix ./waybar.nix];
@@ -20,6 +21,7 @@
       wireshark
       steam
       nixd
+      unstable.bun
 
       jetbrains.idea
       jetbrains.goland
@@ -82,10 +84,6 @@
     discord = {
       enable = true;
     };
-    eww = {
-      enable = false;
-      configDir = ./eww;
-    };
     halloy = {
       enable = true;
       settings = {
@@ -112,6 +110,13 @@
     satty = {
       enable = true;
     };
+    thunderbird = {
+      enable = true;
+      profiles.henrikvt = {
+        isDefault = true;
+        search.default = "ddg";
+      };
+    };
   };
 
   gtk = {
@@ -129,6 +134,14 @@
     extraConfig = ''
       Host *
           IdentityAgent ${onePassPath}
+      Host ashokan*
+        Port 69
+      Host barnegat*
+        Port 69
+      Host *mci*
+        Port 69
+      Host *.as215207.net
+        User admin
     '';
   };
 

@@ -45,9 +45,9 @@
 
   services.openssh = {
     enable = true;
-    openFirewall = false;
     # Use nonstandard SSH port for public server
-    ports = [69];
+    ports = [22 69];
+    openFirewall = false;
   };
 
   # Secrets
