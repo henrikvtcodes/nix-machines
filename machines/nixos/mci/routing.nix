@@ -4,9 +4,9 @@
   ...
 }: {
   environment.etc."bird/filter_bgp.conf".source = bird/filter_bgp.conf;
-  
-   environment.etc."bird/constants.conf".source = bird/constant.conf;
-   environment.etc."bird/base.conf".source = bird/base.conf;
+
+  environment.etc."bird/constants.conf".source = bird/constant.conf;
+  environment.etc."bird/base.conf".source = bird/base.conf;
 
   services.bird = {
     enable = true;
