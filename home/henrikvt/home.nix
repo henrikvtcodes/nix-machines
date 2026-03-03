@@ -50,6 +50,7 @@
         numbat
         glow
         github-copilot-cli
+        opencode
       ];
 
     shellAliases = {
