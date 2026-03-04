@@ -66,7 +66,7 @@
         window-inherit-working-directory = true;
         working-directory = "home";
         term = "xterm-256color";
-        keybind = ["alt+d=new_split:right" "alt+shift+d=new_split:down" "alt+t=new_tab" "alt+w=close_surface"];
+        keybind = ["alt+d=new_split:right" "alt+shift+d=new_split:down" "alt+t=new_tab" "alt+w=close_surface" "alt+c=copy_to_clipboard" "alt+v=paste_from_clipboard"];
       };
     };
     alacritty = {
