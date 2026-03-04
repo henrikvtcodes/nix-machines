@@ -163,7 +163,12 @@
     fzf.enable = true;
     pay-respects.enable = true;
     dircolors.enable = true;
-    btop.enable = true;
+    btop = {
+      enable = true;
+      settings = {
+        update_ms = 500;
+      };
+    };
     atuin = {
       enable = false;
       flags = ["--disable-up-arrow"];
