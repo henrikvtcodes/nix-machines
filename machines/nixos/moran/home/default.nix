@@ -31,6 +31,7 @@
       python3
 
       teams-for-linux
+      davinci-resolve
     ];
   };
 
@@ -101,7 +102,7 @@
     };
     zed-editor = {
       enable = true;
-      extensions = ["nix" "catppuccin" "vscode-icons" "discord-presence"];
+      extensions = ["nix" "catppuccin" "vscode-icons" "discord-presence" "astro"];
     };
     hyprshot = {
       enable = true;
