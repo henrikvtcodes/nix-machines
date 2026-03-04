@@ -30,8 +30,7 @@ in {
           "wheel"
           "networkmanager"
           "podman"
-          "traefik"
-          "pocket-id"
+          "resolvconf"
         ];
 
         shell = pkgs.zsh;
