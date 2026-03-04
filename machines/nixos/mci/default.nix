@@ -27,11 +27,13 @@
     hostName = "mci";
     firewall = {
       enable = true;
-      allowedTCPPorts = [
-        69
-        179
-      ];
+      allowedTCPPorts = [69];
       allowedUDPPorts = [53];
+      extraInputRules = ''
+        ip saddr 23.143.82.0/24 tcp dport 179 accept
+        ip6 saddr 2602:fc26:12::/48 tcp dport 179 accept
+        tcp dport 179 drop
+      '';
     };
     interfaces = {
       lo.ipv6.addresses = [
