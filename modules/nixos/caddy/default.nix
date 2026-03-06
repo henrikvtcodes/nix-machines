@@ -20,7 +20,6 @@ in
     };
 
     config = mkIf cfg.enable {
-
       age.secrets.cfDnsApiToken = {
         file = ../../../secrets/cfDnsApiToken.age;
         group = "caddy";
