@@ -14,7 +14,18 @@
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
-  my.services.tailscale.enable = true;
+  my.services = {
+    tailscale.enable = true;
+    caddy.enable = true;
+  };
+
+  services.caddy.virtualHosts = {
+    "mci.unicycl.ing" = {
+      extraConfig = ''
+        respond "What're you doing here?"
+      '';
+    };
+  };
 
   services.openssh = {
     openFirewall = false;
@@ -27,8 +38,8 @@
     hostName = "mci";
     firewall = {
       enable = true;
-      allowedTCPPorts = [69];
-      allowedUDPPorts = [53];
+      allowedTCPPorts = [69 80 443];
+      allowedUDPPorts = [53 80 443];
       extraInputRules = ''
         ip saddr 23.143.82.0/24 tcp dport 179 accept
         ip6 saddr 2602:fc26:12::/48 tcp dport 179 accept
