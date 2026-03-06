@@ -27,9 +27,49 @@
     };
   };
 
-  services.openssh = {
-    openFirewall = false;
-    ports = [22 69];
+  services = {
+    openssh = {
+      openFirewall = false;
+      ports = [22 69];
+    };
+    knot = {
+      enable = true;
+      settings = {
+        server.listen = ["155.103.251.53@53" "2602:f542:bee::53@53"];
+        mod-synth-record = [
+          {
+            id = "pine-1-rdns";
+            type = "reverse";
+            prefix = "dynamic";
+            origin = "static.unicycl.ing";
+            network = "155.103.251.0/24";
+            ttl = 600;
+          }
+          {
+            id = "spruce-1-rdns";
+            type = "reverse";
+            prefix = "dynamic";
+            origin = "static.unicycl.ing";
+            network = "2602:F542::/36";
+            ttl = 600;
+          }
+        ];
+        zone = [
+          {
+            domain = "251.103.155.in-addr.arpa";
+            file = "251.103.155.in-addr.arpa.zone";
+            module = "mod-synth-record/pine-1-rdns";
+            storage = "/var/lib/knot/zones/";
+          }
+          {
+            domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
+            file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
+            module = "mod-synth-record/spruce-1-rdns";
+            storage = "/var/lib/knot/zones/";
+          }
+        ];
+      };
+    };
   };
 
   networking = {
@@ -51,13 +91,13 @@
         ipv4.addresses = [
           {
             address = "155.103.251.1";
-            prefixLength = 24;
+            prefixLength = 32;
           }
         ];
         ipv6.addresses = [
           {
             address = "2602:f542:bee::1";
-            prefixLength = 48;
+            prefixLength = 128;
           }
         ];
       };
