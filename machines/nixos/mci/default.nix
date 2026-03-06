@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, knot-dns-synth-record, ...}: {
   imports = [
     ./hardware-config.nix
     ./routing.nix
@@ -27,6 +27,11 @@
     };
   };
 
+  environment.etc = {
+    "knot/zones/251.103.155.in-addr.arpa.zone".source = ./dns/251.103.155.in-addr.arpa.zone;
+    "knot/zones/0.2.4.5.f.2.0.6.2.ip6.arpa.zone".source = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
+  };
+
   services = {
     openssh = {
       openFirewall = false;
@@ -35,12 +40,14 @@
     knot = {
       enable = true;
       settings = {
-        server.listen = ["155.103.251.53@53" "2602:f542:bee::53@53"];
-        mod-synth-record = [
+        server = {
+          listen = ["155.103.251.53@53" "2602:f542:bee::53@53"];
+        };
+        mod-synthrecord = [
           {
             id = "pine-1-rdns";
             type = "reverse";
-            prefix = "dynamic";
+            prefix = "rev4";
             origin = "static.unicycl.ing";
             network = "155.103.251.0/24";
             ttl = 600;
@@ -58,14 +65,14 @@
           {
             domain = "251.103.155.in-addr.arpa";
             file = "251.103.155.in-addr.arpa.zone";
-            module = "mod-synth-record/pine-1-rdns";
-            storage = "/var/lib/knot/zones/";
+            module = "mod-synthrecord/pine-1-rdns";
+            storage = "/etc/knot/zones";
           }
           {
             domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
             file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
-            module = "mod-synth-record/spruce-1-rdns";
-            storage = "/var/lib/knot/zones/";
+            module = "mod-synthrecord/spruce-1-rdns";
+            storage = "/etc/knot/zones";
           }
         ];
       };
