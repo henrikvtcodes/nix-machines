@@ -83,6 +83,7 @@
     enable = lib.mkDefault true;
     web.enable = lib.mkDefault true;
     web.listenAddress = lib.mkDefault "[::]:5252"; # Works on v4 & v6 bc the kernel opts below forward v4 to v6
+    operator = "henrikvt";
   };
 
   # https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html
