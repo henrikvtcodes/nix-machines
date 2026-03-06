@@ -13,5 +13,11 @@
     checkConfig = false;
   };
 
+  # Increase netlink buffers to stop bird from overflowing the netlink socket queue
+  boot.kernel.sysctl = {
+    "net.core.rmem_default" = 4194304;
+    "net.core.rmem_max" = 4194304;
+  };
+
   users.users.henrikvt.extraGroups = ["bird"];
 }
