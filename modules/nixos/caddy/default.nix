@@ -20,6 +20,12 @@ in
     };
 
     config = mkIf cfg.enable {
+
+      age.secrets.cfDnsApiToken = {
+        file = ../../../secrets/cfDnsApiToken.age;
+        group = "caddy";
+      };
+
       services.caddy = {
         enable = true;
         enableReload = true;
