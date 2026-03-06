@@ -51,6 +51,24 @@
       };
     };
 
+    ssh = let
+      onePassPath = "~/.1password/agent.sock";
+    in {
+      enable = true;
+      extraConfig = ''
+        Host *
+            IdentityAgent ${onePassPath}
+        Host ashokan*
+          Port 69
+        Host barnegat*
+          Port 69
+        Host *mci*
+          Port 69
+        Host *.as215207.net
+          User admin
+      '';
+    };
+
     firefox.enable = true;
     ghostty = {
       enable = true;
@@ -128,22 +146,8 @@
     };
   };
 
-  programs.ssh = let
-    onePassPath = "~/.1password/agent.sock";
-  in {
-    enable = true;
-    extraConfig = ''
-      Host *
-          IdentityAgent ${onePassPath}
-      Host ashokan*
-        Port 69
-      Host barnegat*
-        Port 69
-      Host *mci*
-        Port 69
-      Host *.as215207.net
-        User admin
-    '';
+  services = {
+    tailscale-systray.enable = true;
   };
 
   xdg.autostart = {
