@@ -1,4 +1,4 @@
-{pkgs, knot-dns-synth-record, ...}: {
+{...}: {
   imports = [
     ./hardware-config.nix
     ./routing.nix
@@ -47,16 +47,14 @@
           {
             id = "pine-1-rdns";
             type = "reverse";
-            prefix = "rev4";
-            origin = "static.unicycl.ing";
+            origin = "rdns4.static.as63477.net";
             network = "155.103.251.0/24";
             ttl = 600;
           }
           {
             id = "spruce-1-rdns";
             type = "reverse";
-            prefix = "dynamic";
-            origin = "static.unicycl.ing";
+            origin = "rdns6.static.as63477.net";
             network = "2602:F542::/36";
             ttl = 600;
           }
@@ -98,15 +96,20 @@
         ipv4.addresses = [
           {
             address = "155.103.251.1";
-            prefixLength = 32;
+            prefixLength = 24;
           }
         ];
         ipv6.addresses = [
           {
             address = "2602:f542:bee::1";
-            prefixLength = 128;
+            prefixLength = 48;
+          }
+          {
+            address = "2602:f542:bee::53";
+            prefixLength = 48;
           }
         ];
+
       };
       ens18 = {
         ipv4.addresses = [
