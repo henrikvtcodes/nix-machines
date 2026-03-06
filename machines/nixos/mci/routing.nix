@@ -13,7 +13,7 @@
     checkConfig = false;
   };
 
-  systemd.services.bird.reloadTriggers = [ config.environment.etc."bird/bird.conf".source config.environment.etc."bird/base.conf".source config.environment.etc."bird/constants.conf".source ];
+  systemd.services.bird.reloadTriggers = [config.environment.etc."bird/bird.conf".source config.environment.etc."bird/base.conf".source config.environment.etc."bird/constants.conf".source];
 
   # Increase netlink buffers to stop bird from overflowing the netlink socket queue
   boot.kernel.sysctl = {
