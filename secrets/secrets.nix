@@ -37,7 +37,7 @@ let
     mci
   ];
 
-  cloud = [ashokan barnegat];
+  cloud = [ashokan barnegat mci];
 in {
   "tailscaleAuthKey.age".publicKeys = users ++ systems;
 
