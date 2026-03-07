@@ -109,7 +109,6 @@
             prefixLength = 48;
           }
         ];
-
       };
       ens18 = {
         ipv4.addresses = [
