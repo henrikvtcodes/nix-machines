@@ -30,6 +30,7 @@
   environment.etc = {
     "knot/zones/251.103.155.in-addr.arpa.zone".source = ./dns/251.103.155.in-addr.arpa.zone;
     "knot/zones/0.2.4.5.f.2.0.6.2.ip6.arpa.zone".source = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
+    "knot/zones/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone".source = ./dns/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone;
   };
 
   services = {
@@ -49,14 +50,21 @@
             type = "reverse";
             origin = "rdns4.static.as63477.net";
             network = "155.103.251.0/24";
-            ttl = 600;
+            ttl = 3600;
           }
           {
             id = "spruce-1-rdns";
             type = "reverse";
             origin = "rdns6.static.as63477.net";
             network = "2602:F542::/36";
-            ttl = 600;
+            ttl = 3600;
+          }
+          {
+            id = "aethernet-bns-1-rdns";
+            type = "reverse";
+            origin = "rdns6.static.as215207.net";
+            network = "2602:FBCF:D0::/44";
+            ttl = 3600;
           }
         ];
         zone = [
@@ -70,6 +78,12 @@
             domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
             file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
             module = "mod-synthrecord/spruce-1-rdns";
+            storage = "/etc/knot/zones";
+          }
+          {
+            domain = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa";
+            file = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone";
+            module = "mod-synthrecord/aethernet-bns-1-rdns";
             storage = "/etc/knot/zones";
           }
         ];
@@ -109,7 +123,6 @@
             prefixLength = 48;
           }
         ];
-
       };
       ens18 = {
         ipv4.addresses = [
