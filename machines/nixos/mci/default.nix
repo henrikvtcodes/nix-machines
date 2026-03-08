@@ -15,7 +15,10 @@
   users.henrikvt.enablePasswordFile = false;
 
   my.services = {
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      advertiseExitNode = true;
+    };
     caddy.enable = true;
   };
 
