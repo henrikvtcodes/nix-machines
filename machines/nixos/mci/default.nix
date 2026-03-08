@@ -30,9 +30,54 @@
     };
   };
 
-  services.openssh = {
-    openFirewall = false;
-    ports = [22 69];
+  environment.etc = {
+    "knot/zones/251.103.155.in-addr.arpa.zone".source = ./dns/251.103.155.in-addr.arpa.zone;
+    "knot/zones/0.2.4.5.f.2.0.6.2.ip6.arpa.zone".source = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
+  };
+
+  services = {
+    openssh = {
+      openFirewall = false;
+      ports = [22 69];
+    };
+    knot = {
+      enable = true;
+      settings = {
+        server = {
+          listen = ["155.103.251.53@53" "2602:f542:bee::53@53"];
+        };
+        mod-synthrecord = [
+          {
+            id = "pine-1-rdns";
+            type = "reverse";
+            origin = "rdns4.static.as63477.net";
+            network = "155.103.251.0/24";
+            ttl = 600;
+          }
+          {
+            id = "spruce-1-rdns";
+            type = "reverse";
+            origin = "rdns6.static.as63477.net";
+            network = "2602:F542::/36";
+            ttl = 600;
+          }
+        ];
+        zone = [
+          {
+            domain = "251.103.155.in-addr.arpa";
+            file = "251.103.155.in-addr.arpa.zone";
+            module = "mod-synthrecord/pine-1-rdns";
+            storage = "/etc/knot/zones";
+          }
+          {
+            domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
+            file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
+            module = "mod-synthrecord/spruce-1-rdns";
+            storage = "/etc/knot/zones";
+          }
+        ];
+      };
+    };
   };
 
   networking = {
@@ -60,6 +105,10 @@
         ipv6.addresses = [
           {
             address = "2602:f542:bee::1";
+            prefixLength = 48;
+          }
+          {
+            address = "2602:f542:bee::53";
             prefixLength = 48;
           }
         ];

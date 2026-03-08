@@ -1,0 +1,15 @@
+$TTL 3600
+
+@  IN SOA dns.as63477.net. dns.as63477.net. (
+      1       ; Serial
+      3600    ; Refresh
+      1800    ; Retry
+      604800 ; Expire
+      86400 ) ; Minimum TTL
+
+;; NS Record
+0.2.4.5.f.2.0.6.2.ip6.arpa. 3600	IN	NS	dns.as63477.net.
+
+;; PTRs
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.e.b.0.2.4.5.f.2.0.6.2.ip6.arpa. 3600 IN PTR mci.unicycl.ing.
+3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.e.b.0.2.4.5.f.2.0.6.2.ip6.arpa. 3600 IN PTR dns.as63477.net.
