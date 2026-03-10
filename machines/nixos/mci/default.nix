@@ -9,7 +9,7 @@
     device = "/dev/sda";
   };
 
-  virtualisation.podman.enable = false;
+  virtualisation.podman.enable = true;
 
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
@@ -94,13 +94,63 @@
     };
   };
 
+  # virtualisation.podman.settings = {
+  #   networks = {
+  #     ripe-atlas = {
+  #       driver = "macvlan";
+  #       interfaces = {
+  #         ens18 = {};
+  #       };
+  #       ipam = {
+  #         type = "host-local";
+  #         ranges = [
+  #           [
+  #             {
+  #               subnet = "155.103.251.0/24";
+  #               gateway = "155.103.251.1";
+  #             }
+  #           ]
+  #           [
+  #             {
+  #               subnet = "2602:f542:bee::/48";
+  #               gateway = "2602:f542:bee::1";
+  #             }
+  #           ]
+  #         ];
+  #       };
+  #     };
+  #   };
+  # };
+
+  # virtualisation.oci-containers.containers = [
+  #   {
+  #     image = "jamesits/ripe-atlas:latest-probe";
+  #     extraOptions = [
+  #       "--network=ripe-atlas"
+  #       "--ip=155.103.251.2"
+  #       "--ipv6=2602:f542:bee::2"
+  #       "--cap-add=NET_RAW"
+  #       "--cap-add=SETUID"
+  #       "--cap-add=SETGID"
+  #       "--cap-add=CHOWN"
+  #       "--cap-add=DAC_OVERRIDE"
+  #     ];
+  #   }
+  # ];
+
+  # Disable rp_filter to allow asymmetric routing for container traffic
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 0;
+  };
+
   networking = {
     useDHCP = false;
     dhcpcd.enable = false;
     hostName = "mci";
     firewall = {
       enable = true;
-      allowedTCPPorts = [69 80 443];
+      allowedTCPPorts = [69 80 443 2023 8080];
       allowedUDPPorts = [80 443];
       extraInputRules = ''
         ip saddr 23.143.82.0/24 tcp dport 179 accept
