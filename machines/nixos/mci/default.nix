@@ -101,11 +101,17 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [69 80 443];
-      allowedUDPPorts = [53 80 443];
+      allowedUDPPorts = [80 443];
       extraInputRules = ''
         ip saddr 23.143.82.0/24 tcp dport 179 accept
         ip6 saddr 2602:fc26:12::/48 tcp dport 179 accept
         tcp dport 179 drop
+        ip daddr 155.103.251.53 udp dport 53 accept
+        ip daddr 155.103.251.53 tcp dport 53 accept
+        ip6 daddr 2602:f542:bee::53 udp dport 53 accept
+        ip6 daddr 2602:f542:bee::53 tcp dport 53 accept
+        udp dport 53 drop
+        tcp dport 53 drop
       '';
     };
     interfaces = {
