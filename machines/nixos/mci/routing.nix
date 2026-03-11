@@ -20,6 +20,4 @@
     "net.core.rmem_default" = 4194304;
     "net.core.rmem_max" = 4194304;
   };
-
-  users.users.henrikvt.extraGroups = ["bird"];
 }

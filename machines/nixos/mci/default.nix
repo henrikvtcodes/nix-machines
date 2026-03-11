@@ -162,6 +162,8 @@
     "net.ipv4.conf.default.rp_filter" = 0;
   };
 
+  users.users.henrikvt.extraGroups = ["bird" "knot"];
+
   networking = {
     useDHCP = false;
     dhcpcd.enable = false;
