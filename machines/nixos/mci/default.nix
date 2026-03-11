@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./hardware-config.nix
     ./routing.nix
@@ -104,6 +104,13 @@
       };
     };
   };
+
+  systemd.services.knot.reloadTriggers = [
+    config.environment.etc."knot/knot.conf".source
+    ./dns/251.103.155.in-addr.arpa.zone
+    ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone
+    ./dns/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone
+  ];
 
   # virtualisation.podman.settings = {
   #   networks = {
