@@ -1,7 +1,7 @@
-{ ...}: {
+{...}: {
   imports = [
     ./hardware-config.nix
-    ./routing.nix
+    ./routing
     ./dns
   ];
 
@@ -32,9 +32,9 @@
   };
 
   services.openssh = {
-      openFirewall = false;
-      ports = [22 69];
-    };
+    openFirewall = false;
+    ports = [22 69];
+  };
 
   # virtualisation.podman.settings = {
   #   networks = {
