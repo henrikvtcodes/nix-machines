@@ -30,12 +30,6 @@
     };
   };
 
-  environment.etc = {
-    "knot/zones/251.103.155.in-addr.arpa.zone".source = ./dns/251.103.155.in-addr.arpa.zone;
-    "knot/zones/0.2.4.5.f.2.0.6.2.ip6.arpa.zone".source = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
-    "knot/zones/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone".source = ./dns/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone;
-  };
-
   services = {
     openssh = {
       openFirewall = false;
@@ -86,25 +80,24 @@
             action = ["transfer"];
           }
         ];
-        database.storage = "/etc/knot/zones";
         zone = [
           {
             domain = "251.103.155.in-addr.arpa";
-            file = "251.103.155.in-addr.arpa.zone";
+            file = ./dns/251.103.155.in-addr.arpa.zone;
             module = "mod-synthrecord/pine-1-rdns";
             acl = ["nsglobal-axfr"];
             notify = ["nsglobal-collector"];
           }
           {
             domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
-            file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
+            file = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
             module = "mod-synthrecord/spruce-1-rdns";
             acl = ["nsglobal-axfr"];
             notify = ["nsglobal-collector"];
           }
           {
             domain = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa";
-            file = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone";
+            file = ./dns/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone;
             module = "mod-synthrecord/aethernet-bns-1-rdns";
           }
         ];
