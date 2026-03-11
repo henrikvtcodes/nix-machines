@@ -1,10 +1,13 @@
 {config, ...}: {
-  systemd.services.knot.reloadTriggers = [
-    config.environment.etc."knot/knot.conf".source
-    ./251.103.155.in-addr.arpa.zone
-    ./0.2.4.5.f.2.0.6.2.ip6.arpa.zone
-    ./d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone
-  ];
+  systemd.services.knot = {
+    restartIfChanged = false;
+    reloadTriggers = [
+      config.environment.etc."knot/knot.conf".source
+      ./251.103.155.in-addr.arpa.zone
+      ./0.2.4.5.f.2.0.6.2.ip6.arpa.zone
+      ./d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone
+    ];
+  };
 
   services.knot = {
     enable = true;
@@ -87,6 +90,8 @@
           domain = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa";
           file = ./d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone;
           module = "mod-synthrecord/aethernet-bns-1-rdns";
+          acl = ["axfr"];
+          notify = ["he-notify"];
         }
       ];
     };
