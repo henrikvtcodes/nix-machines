@@ -10,8 +10,14 @@ $TTL 3600
 ;; NS Record
 @	3600	IN	NS	dns.as63477.net.
 @	3600	IN	NS	ns-global.kjsl.com.
+@	3600	IN	NS	ns1.he.net.
+@	3600	IN	NS	ns2.he.net.
+@	3600	IN	NS	ns3.he.net.
+@	3600	IN	NS	ns4.he.net.
+@	3600	IN	NS	ns5.he.net.
 
 ;; PTRs
-1 3600 IN PTR mci.unicycl.ing.
-53 3600 IN PTR dns.as63477.net.
-2 3600 IN PTR atlas.mci.unicycl.ing.
+1                 3600 IN PTR mci.unicycl.ing.
+53                3600 IN PTR dns.as63477.net.
+2                 3600 IN PTR atlas.mci.unicycl.ing.
+dnshenet-key      3600 IN TXT "v3RsunNw7NPXRijB1bissIAjCJY6SO5cACEHmm6aJqc"

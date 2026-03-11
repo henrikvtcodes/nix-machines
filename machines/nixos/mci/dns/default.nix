@@ -36,6 +36,7 @@
         }
       ];
       remote = [
+        # NSGlobal Secondary DNS AXFR Collector
         {
           id = "nsglobal-collector";
           address = [
@@ -43,11 +44,27 @@
             "2607:7c80:54:6::53"
           ];
         }
+        # Hurricane Electric DNS AXFR collector
+        {
+          id = "he-collector";
+          address = [
+            "216.218.133.2"
+            "2001:470:600::2"
+          ];
+        }
+        # Hurricane Electric NS1 (Destination for AXFR Notify)
+        {
+          id = "he-notify";
+          address = [
+            "216.218.130.2"
+            "2001:470:100::2"
+          ];
+        }
       ];
       acl = [
         {
-          id = "nsglobal-axfr";
-          remote = ["nsglobal-collector"];
+          id = "axfr";
+          remote = ["nsglobal-collector" "he-collector"];
           action = ["transfer"];
         }
       ];
@@ -56,15 +73,15 @@
           domain = "251.103.155.in-addr.arpa";
           file = ./251.103.155.in-addr.arpa.zone;
           module = "mod-synthrecord/pine-1-rdns";
-          acl = ["nsglobal-axfr"];
-          notify = ["nsglobal-collector"];
+          acl = ["axfr"];
+          notify = ["nsglobal-collector" "he-notify"];
         }
         {
           domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
           file = ./0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
           module = "mod-synthrecord/spruce-1-rdns";
-          acl = ["nsglobal-axfr"];
-          notify = ["nsglobal-collector"];
+          acl = ["axfr"];
+          notify = ["nsglobal-collector" "he-notify"];
         }
         {
           domain = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa";
