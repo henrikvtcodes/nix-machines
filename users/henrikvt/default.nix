@@ -31,6 +31,10 @@ in {
           "networkmanager"
           "podman"
           "resolvconf"
+          "systemd-network"
+          "systemd-resolve"
+          "systemd-timesync"
+          "systemd-journal"
         ];
 
         shell = pkgs.zsh;
