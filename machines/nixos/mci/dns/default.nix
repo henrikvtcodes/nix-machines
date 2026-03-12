@@ -42,6 +42,7 @@
         # NSGlobal Secondary DNS AXFR Collector
         {
           id = "nsglobal-collector";
+          via = ["155.103.251.53" "2602:f542:bee::53"];
           address = [
             "204.87.183.53"
             "2607:7c80:54:6::53"
@@ -50,6 +51,7 @@
         # Hurricane Electric DNS AXFR collector
         {
           id = "he-collector";
+          via = ["155.103.251.53" "2602:f542:bee::53"];
           address = [
             "216.218.133.2"
             "2001:470:600::2"
@@ -58,6 +60,7 @@
         # Hurricane Electric NS1 (Destination for AXFR Notify)
         {
           id = "he-notify";
+          via = ["155.103.251.53" "2602:f542:bee::53"];
           address = [
             "216.218.130.2"
             "2001:470:100::2"
