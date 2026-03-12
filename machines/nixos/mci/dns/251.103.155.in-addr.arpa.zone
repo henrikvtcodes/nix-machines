@@ -16,8 +16,10 @@ $TTL 3600
 @	3600	IN	NS	ns4.he.net.
 @	3600	IN	NS	ns5.he.net.
 
+;; Hurricane Electric DNS Verification 
+dnshenet-key      3600 IN TXT "v3RsunNw7NPXRijB1bissIAjCJY6SO5cACEHmm6aJqc"
+
 ;; PTRs
 1                 3600 IN PTR mci.unicycl.ing.
 53                3600 IN PTR dns.as63477.net.
 2                 3600 IN PTR atlas.mci.unicycl.ing.
-dnshenet-key      3600 IN TXT "v3RsunNw7NPXRijB1bissIAjCJY6SO5cACEHmm6aJqc"

@@ -14,3 +14,13 @@ $TTL 3600
 @ 3600	IN	NS	ns3.he.net.
 @ 3600	IN	NS	ns4.he.net.
 @ 3600	IN	NS	ns5.he.net.
+
+;; Hurricane Electric DNS Verification 
+dnshenet-key 3600 IN TXT "4vMx3pnWjt0tqdLz17fmc/5bhQdg6EAHlHCYdtKzAvQ"
+
+;; Machines
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0 3600 IN PTR 6.pete.as215207.net
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8 3600 IN PTR 6.maple.as215207.net
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3 3600 IN PTR 6.kier.as215207.net
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e 3600 IN PTR 6.strudel.as215207.net
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.b 3600 IN PTR 6.tulip.as215207.net
