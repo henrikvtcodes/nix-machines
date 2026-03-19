@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-config.nix
     ./routing
@@ -86,7 +86,9 @@
     "net.ipv4.conf.default.rp_filter" = 0;
   };
 
-  users.users.henrikvt.extraGroups = ["bird" "knot"];
+  users.users.henrikvt.extraGroups = ["bird" "knot" "pcap"];
+
+  programs.tcpdump.enable = true;
 
   networking = {
     useDHCP = false;
