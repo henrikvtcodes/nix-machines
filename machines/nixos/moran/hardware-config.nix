@@ -39,6 +39,10 @@
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
+    "/home/henrikvt/.local/share/Steam/steamapps" = {
+      device = "${zfsRoot}/steam";
+      fsType = "zfs";
+    };
   };
 
   swapDevices = [];
