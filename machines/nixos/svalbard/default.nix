@@ -47,6 +47,10 @@
     };
   };
 
+  my.services.tailscale = {
+    advertiseExitNode = true;
+  };
+
   services.logrotate.checkConfig = false;
 
   boot.supportedFilesystems = ["zfs"];
