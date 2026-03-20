@@ -1,7 +1,8 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-config.nix
-    ./routing.nix
+    ./routing
+    ./dns
   ];
 
   boot.loader.grub = {
@@ -9,7 +10,7 @@
     device = "/dev/sda";
   };
 
-  virtualisation.podman.enable = false;
+  virtualisation.podman.enable = true;
 
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
@@ -30,69 +31,64 @@
     };
   };
 
-  environment.etc = {
-    "knot/zones/251.103.155.in-addr.arpa.zone".source = ./dns/251.103.155.in-addr.arpa.zone;
-    "knot/zones/0.2.4.5.f.2.0.6.2.ip6.arpa.zone".source = ./dns/0.2.4.5.f.2.0.6.2.ip6.arpa.zone;
-    "knot/zones/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone".source = ./dns/d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone;
+  services.openssh = {
+    openFirewall = false;
+    ports = [22 69];
   };
 
-  services = {
-    openssh = {
-      openFirewall = false;
-      ports = [22 69];
-    };
-    knot = {
-      enable = true;
-      settings = {
-        server = {
-          listen = ["155.103.251.53@53" "2602:f542:bee::53@53"];
-        };
-        mod-synthrecord = [
-          {
-            id = "pine-1-rdns";
-            type = "reverse";
-            origin = "rdns4.static.as63477.net";
-            network = "155.103.251.0/24";
-            ttl = 3600;
-          }
-          {
-            id = "spruce-1-rdns";
-            type = "reverse";
-            origin = "rdns6.static.as63477.net";
-            network = "2602:F542::/36";
-            ttl = 3600;
-          }
-          {
-            id = "aethernet-bns-1-rdns";
-            type = "reverse";
-            origin = "rdns6.static.as215207.net";
-            network = "2602:FBCF:D0::/44";
-            ttl = 3600;
-          }
-        ];
-        zone = [
-          {
-            domain = "251.103.155.in-addr.arpa";
-            file = "251.103.155.in-addr.arpa.zone";
-            module = "mod-synthrecord/pine-1-rdns";
-            storage = "/etc/knot/zones";
-          }
-          {
-            domain = "0.2.4.5.f.2.0.6.2.ip6.arpa";
-            file = "0.2.4.5.f.2.0.6.2.ip6.arpa.zone";
-            module = "mod-synthrecord/spruce-1-rdns";
-            storage = "/etc/knot/zones";
-          }
-          {
-            domain = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa";
-            file = "d.0.0.f.c.b.f.2.0.6.2.ip6.arpa.zone";
-            module = "mod-synthrecord/aethernet-bns-1-rdns";
-            storage = "/etc/knot/zones";
-          }
-        ];
-      };
-    };
+  # virtualisation.podman.settings = {
+  #   networks = {
+  #     ripe-atlas = {
+  #       driver = "macvlan";
+  #       interfaces = {
+  #         ens18 = {};
+  #       };
+  #       ipam = {
+  #         type = "host-local";
+  #         ranges = [
+  #           [
+  #             {
+  #               subnet = "155.103.251.0/24";
+  #               gateway = "155.103.251.1";
+  #             }
+  #           ]
+  #           [
+  #             {
+  #               subnet = "2602:f542:bee::/48";
+  #               gateway = "2602:f542:bee::1";
+  #             }
+  #           ]
+  #         ];
+  #       };
+  #     };
+  #   };
+  # };
+
+  # virtualisation.oci-containers.containers = [
+  #   {
+  #     image = "jamesits/ripe-atlas:latest-probe";
+  #     extraOptions = [
+  #       "--network=ripe-atlas"
+  #       "--ip=155.103.251.2"
+  #       "--ipv6=2602:f542:bee::2"
+  #       "--cap-add=NET_RAW"
+  #       "--cap-add=SETUID"
+  #       "--cap-add=SETGID"
+  #       "--cap-add=CHOWN"
+  #       "--cap-add=DAC_OVERRIDE"
+  #     ];
+  #   }
+  # ];
+
+  # Disable rp_filter to allow asymmetric routing for container traffic
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.ipv4.conf.default.rp_filter" = 0;
   };
+
+  users.users.henrikvt.extraGroups = ["bird" "knot" "pcap"];
+
+  programs.tcpdump.enable = true;
 
   networking = {
     useDHCP = false;
@@ -100,7 +96,7 @@
     hostName = "mci";
     firewall = {
       enable = true;
-      allowedTCPPorts = [69 80 443];
+      allowedTCPPorts = [69 80 443 2023 8080];
       allowedUDPPorts = [80 443];
       extraInputRules = ''
         ip saddr 23.143.82.0/24 tcp dport 179 accept
