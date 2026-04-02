@@ -51,6 +51,7 @@
         glow
         github-copilot-cli
         opencode
+        cursor-cli
       ];
 
     shellAliases = {
