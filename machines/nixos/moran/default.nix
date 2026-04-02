@@ -47,7 +47,6 @@
         networkmanager-ssh
         networkmanager-l2tp
       ];
-
     };
     useDHCP = false;
     dhcpcd.enable = false;
@@ -63,8 +62,6 @@
   services = {
     wg-netmanager.enable = true;
   };
-
-
 
   age.secrets = let
     secretsDir = ../../../secrets;

@@ -69,7 +69,13 @@
       '';
     };
 
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      profiles.default = {
+        isDefault = true;
+        search.force = true;
+      };
+    };
     ghostty = {
       enable = true;
       systemd.enable = true;
