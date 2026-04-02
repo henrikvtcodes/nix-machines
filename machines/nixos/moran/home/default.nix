@@ -150,10 +150,7 @@
     tailscale-systray.enable = true;
   };
 
-  xdg.autostart = {
-    enable = true;
-    entries = [
-      "${lib.getExe' pkgs._1password-gui "1password"}"
-    ];
+  xdg = {
+    configFile."search.json.mozlz4.hmbak".force = true;
   };
 }
