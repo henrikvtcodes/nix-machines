@@ -33,6 +33,8 @@
   };
 
   networking = {
+    hostName = "moran";
+    hostId = "e5da046e";
     networkmanager = {
       enable = true;
       wifi = {
@@ -41,6 +43,11 @@
         backend = "wpa_supplicant";
         macAddress = "permanent";
       };
+      plugins = with pkgs; [
+        networkmanager-ssh
+        networkmanager-l2tp
+      ];
+
     };
     useDHCP = false;
     dhcpcd.enable = false;
@@ -53,8 +60,11 @@
     wait-online.enable = false;
   };
 
-  networking.hostName = "moran";
-  networking.hostId = "e5da046e";
+  services = {
+    wg-netmanager.enable = true;
+  };
+
+
 
   age.secrets = let
     secretsDir = ../../../secrets;

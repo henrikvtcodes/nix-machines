@@ -147,6 +147,6 @@
   };
 
   services = {
-    tailscale-systray.enable = true;
+    trayscale.enable = true;
   };
 }
