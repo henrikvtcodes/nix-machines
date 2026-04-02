@@ -160,6 +160,7 @@
       profiles.henrikvt = {
         isDefault = true;
         search.default = "ddg";
+        search.force = true;
       };
     };
   };
