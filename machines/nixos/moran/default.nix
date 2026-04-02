@@ -46,6 +46,8 @@
       plugins = with pkgs; [
         networkmanager-ssh
         networkmanager-l2tp
+        networkmanager-openconnect
+        networkmanager-vpnc
       ];
     };
     useDHCP = false;
@@ -53,14 +55,11 @@
     wireless.enable = false;
     wireless.iwd.enable = false;
     useNetworkd = true;
+    wireguard.useNetworkd = true;
   };
   systemd.network = {
     enable = true;
     wait-online.enable = false;
-  };
-
-  services = {
-    wg-netmanager.enable = true;
   };
 
   age.secrets = let
@@ -137,6 +136,7 @@
       uutils-coreutils-noprefix
       yubioath-flutter
       libreoffice-qt-fresh
+      wireguard-tools
     ];
   };
 
