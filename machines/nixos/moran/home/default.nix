@@ -149,8 +149,4 @@
   services = {
     tailscale-systray.enable = true;
   };
-
-  xdg = {
-    configFile."search.json.mozlz4.hmbak".force = true;
-  };
 }
