@@ -33,6 +33,8 @@
   };
 
   networking = {
+    hostName = "moran";
+    hostId = "e5da046e";
     networkmanager = {
       enable = true;
       wifi = {
@@ -41,20 +43,24 @@
         backend = "wpa_supplicant";
         macAddress = "permanent";
       };
+      plugins = with pkgs; [
+        networkmanager-ssh
+        networkmanager-l2tp
+        networkmanager-openconnect
+        networkmanager-vpnc
+      ];
     };
     useDHCP = false;
     dhcpcd.enable = false;
     wireless.enable = false;
     wireless.iwd.enable = false;
     useNetworkd = true;
+    wireguard.useNetworkd = true;
   };
   systemd.network = {
     enable = true;
     wait-online.enable = false;
   };
-
-  networking.hostName = "moran";
-  networking.hostId = "e5da046e";
 
   age.secrets = let
     secretsDir = ../../../secrets;
@@ -130,6 +136,7 @@
       uutils-coreutils-noprefix
       yubioath-flutter
       libreoffice-qt-fresh
+      wireguard-tools
     ];
   };
 

@@ -69,7 +69,33 @@
       '';
     };
 
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      profiles.default = {
+        isDefault = true;
+        search.force = true;
+        extensions.force = true;
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          onepassword-password-manager
+          # catppuccin-web-file-icons
+          duckduckgo-privacy-essentials
+          # firefox-color
+          # languagetool
+          # libredirect
+          # localcdn
+          # protondb-for-steam
+          # protoots
+          refined-github
+          # return-youtube-dislikes
+          # search-by-image
+          # sponsorblock
+          # stylus
+          # tab-stash
+          ublock-origin
+          # user-agent-string-switcher
+        ];
+      };
+    };
     ghostty = {
       enable = true;
       systemd.enable = true;
@@ -134,6 +160,7 @@
       profiles.henrikvt = {
         isDefault = true;
         search.default = "ddg";
+        search.force = true;
       };
     };
   };
@@ -147,13 +174,6 @@
   };
 
   services = {
-    tailscale-systray.enable = true;
-  };
-
-  xdg.autostart = {
-    enable = true;
-    entries = [
-      "${lib.getExe' pkgs._1password-gui "1password"}"
-    ];
+    trayscale.enable = true;
   };
 }

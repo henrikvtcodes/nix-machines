@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-config.nix
@@ -45,6 +41,10 @@
       enable = true;
       interval = "monthly";
     };
+  };
+
+  my.services.tailscale = {
+    advertiseExitNode = true;
   };
 
   services.logrotate.checkConfig = false;
