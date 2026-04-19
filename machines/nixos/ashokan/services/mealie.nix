@@ -16,31 +16,31 @@ in {
     };
   };
 
-  services.traefik.dynamicConfigOptions = {
-    http = {
-      routers = {
-        mealie = {
-          rule = "Host(`${domain}`)";
-          service = "mealie";
-          entryPoints = [
-            "https"
-            "http"
-          ];
-        };
-      };
-      services = {
-        mealie = {
-          loadBalancer = {
-            servers = [{url = "http://localhost:${toString config.services.mealie.port}";}];
-          };
-        };
-      };
-    };
-  };
+  # services.traefik.dynamicConfigOptions = {
+  #   http = {
+  #     routers = {
+  #       mealie = {
+  #         rule = "Host(`${domain}`)";
+  #         service = "mealie";
+  #         entryPoints = [
+  #           "https"
+  #           "http"
+  #         ];
+  #       };
+  #     };
+  #     services = {
+  #       mealie = {
+  #         loadBalancer = {
+  #           servers = [{url = "http://localhost:${toString config.services.mealie.port}";}];
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
-  services.caddy.virtualHosts."${domain}" = {
-    extraConfig = ''
-      reverse_proxy localhost:${toString config.services.mealie.port}
-    '';
-  };
+  # services.caddy.virtualHosts."${domain}" = {
+  #   extraConfig = ''
+  #     reverse_proxy localhost:${toString config.services.mealie.port}
+  #   '';
+  # };
 }
