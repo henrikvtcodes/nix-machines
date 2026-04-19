@@ -14,8 +14,8 @@ in {
     plugins = python3Packages:
       with python3Packages; [
         # netbox-bgp
-        netbox-routing
-        netbox-dns
+        # netbox-routing
+        # netbox-dns
         netbox-floorplan-plugin
         # netbox-topology-views
         netbox-reorder-rack
@@ -23,8 +23,8 @@ in {
     settings = {
       "PLUGINS" = [
         # "netbox_bgp"
-        "netbox_routing"
-        "netbox_dns"
+        # "netbox_routing"
+        # "netbox_dns"
         "netbox_floorplan"
         "netbox_reorder_rack"
       ];
