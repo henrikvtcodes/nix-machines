@@ -7,7 +7,7 @@
   internalport = 18008;
 in {
   my.services.caddy.verbose = true;
-  
+
   services.librenms = {
     enable = true;
     inherit hostname;
@@ -26,7 +26,7 @@ in {
       "pm.start_servers" = 2;
     };
 
-    settings = { log_dir = config.services.librenms.logDir; };
+    settings = {log_dir = config.services.librenms.logDir;};
   };
 
   services.caddy.virtualHosts."${hostname}" = {
