@@ -10,8 +10,6 @@
   clientId = "xcFITirsKHIIFIAtuAOd6SXkCrlS31GOcEPwanYE";
   idpDomain = "idp.unicycl.ing";
 in {
-  my.services.caddy.verbose = false;
-
   services.netbird.server = {
     domain = nbDomain;
 

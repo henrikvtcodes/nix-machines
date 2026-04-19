@@ -6,6 +6,8 @@
   hostname = "nms.unicycl.ing";
   internalport = 18008;
 in {
+  my.services.caddy.verbose = true;
+  
   services.librenms = {
     enable = true;
     inherit hostname;
