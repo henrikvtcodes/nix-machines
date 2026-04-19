@@ -31,6 +31,8 @@ in {
     };
   };
 
+  systemd.services.netbox-rq.after = ["netbox.service" "redis-netbox.service"];
+
   users.users.caddy.extraGroups = ["netbox"];
   systemd.services.caddy.serviceConfig = {SupplementaryGroups = ["netbox"];};
 
