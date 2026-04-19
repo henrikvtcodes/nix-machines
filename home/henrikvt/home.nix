@@ -251,7 +251,12 @@
       enable = true;
       enableGitIntegration = true;
     };
-    lazygit.enable = true;
+    lazygit = {
+      enable = true;
+      settings = {
+        git.pagers = [{pager = "delta --paging=never";}];
+      };
+    };
     # gitui.enable = true;
 
     ripgrep.enable = true;
