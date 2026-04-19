@@ -23,6 +23,8 @@ in {
       "pm.min_spare_servers" = 2;
       "pm.start_servers" = 2;
     };
+
+    settings = { log_dir = config.services.librenms.logDir; };
   };
 
   services.caddy.virtualHosts."${hostname}" = {
