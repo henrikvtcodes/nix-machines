@@ -39,7 +39,7 @@
   };
 
   my.services.copyparty = {
-    enable = true;
+    enable = false;
   };
 
   services.nginx.enable = lib.mkForce false;

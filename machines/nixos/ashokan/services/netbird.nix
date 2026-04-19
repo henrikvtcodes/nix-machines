@@ -10,7 +10,7 @@
   clientId = "xcFITirsKHIIFIAtuAOd6SXkCrlS31GOcEPwanYE";
   idpDomain = "idp.unicycl.ing";
 in {
-  my.services.caddy.verbose = true;
+  my.services.caddy.verbose = false;
 
   services.netbird.server = {
     domain = nbDomain;
@@ -23,7 +23,7 @@ in {
     };
 
     management = {
-      enable = true;
+      enable = false;
       port = 13201;
       metricsPort = 13291;
       domain = nbDomain;
@@ -110,13 +110,13 @@ in {
     };
 
     signal = {
-      enable = true;
+      enable = false;
       port = 13202;
       metricsPort = 13292;
     };
 
     dashboard = {
-      enable = true;
+      enable = false;
       package = unstable.netbird-dashboard;
       domain = "localhost";
       managementServer = "https://${nbDomain}"; # Determines API endpoint. Must start with full url even if its same-origin, otherwise it breaks
@@ -129,26 +129,26 @@ in {
     };
   };
 
-  systemd.services."netbird".after = ["authentik.service" "caddy.service"];
+  # systemd.services."netbird".after = ["authentik.service" "caddy.service"];
 
-  services.caddy.virtualHosts."${nbDomain}" = {
-    extraConfig = ''
-      import default
+  # services.caddy.virtualHosts."${nbDomain}" = {
+  #   extraConfig = ''
+  #     import default
 
-      root * ${config.services.netbird.server.dashboard.finalDrv}
+  #     root * ${config.services.netbird.server.dashboard.finalDrv}
 
-      reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
-      reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
-      reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
+  #     reverse_proxy /signalexchange.SignalExchange/* h2c://localhost:${toString config.services.netbird.server.signal.port}
+  #     reverse_proxy /api/* localhost:${toString config.services.netbird.server.management.port}
+  #     reverse_proxy /management.ManagementService/* h2c://localhost:${toString config.services.netbird.server.management.port}
 
-      file_server
+  #     file_server
 
-      header * {
-      	# Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
-      	X-Content-Type-Options "nosniff"
-      	X-XSS-Protection "1; mode=block"
-      	Referrer-Policy strict-origin-when-cross-origin
-      }
-    '';
-  };
+  #     header * {
+  #     	# Strict-Transport-Security "max-age=3600; includeSubDomains; preload"
+  #     	X-Content-Type-Options "nosniff"
+  #     	X-XSS-Protection "1; mode=block"
+  #     	Referrer-Policy strict-origin-when-cross-origin
+  #     }
+  #   '';
+  # };
 }
