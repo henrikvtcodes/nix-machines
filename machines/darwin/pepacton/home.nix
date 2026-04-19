@@ -35,7 +35,7 @@
   };
 
   xdg = {
-    enable = true;
+    # enable = true;
     configFile."glab-cli/config-base.yml" = let
       yaml = pkgs.formats.yaml {};
     in {
