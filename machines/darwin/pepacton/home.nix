@@ -34,28 +34,31 @@
     # };
   };
 
-  xdg.configFile."glab-cli/config-base.yml" = let
-    yaml = pkgs.formats.yaml {};
-  in {
-    source = yaml.generate "config.yml" {
-      git_protocol = "ssh";
-      check_update = false;
-      host = "gitlab.uvm.edu";
-      editor = "nvim";
-      glamour_style = "dark";
-      no_prompt = false;
-      hosts = {
-        "gitlab.uvm.edu" = {
-          api_host = "gitlab.uvm.edu";
-          api_protocol = "https";
-          git_protocol = "ssh";
-          user = "henrikvtcodes";
-          token = "@uvmtoken@";
-        };
-        "gitlab.com" = {
-          api_host = "gitlab.com";
-          api_protocol = "https";
-          git_protocol = "ssh";
+  xdg = {
+    enable = true;
+    configFile."glab-cli/config-base.yml" = let
+      yaml = pkgs.formats.yaml {};
+    in {
+      source = yaml.generate "config.yml" {
+        git_protocol = "ssh";
+        check_update = false;
+        host = "gitlab.uvm.edu";
+        editor = "nvim";
+        glamour_style = "dark";
+        no_prompt = false;
+        hosts = {
+          "gitlab.uvm.edu" = {
+            api_host = "gitlab.uvm.edu";
+            api_protocol = "https";
+            git_protocol = "ssh";
+            user = "henrikvtcodes";
+            token = "@uvmtoken@";
+          };
+          "gitlab.com" = {
+            api_host = "gitlab.com";
+            api_protocol = "https";
+            git_protocol = "ssh";
+          };
         };
       };
     };
