@@ -259,7 +259,6 @@
         git.pagers = [{pager = "delta --paging=never";}];
       };
     };
-    # gitui.enable = true;
 
     ripgrep.enable = true;
     ripgrep-all.enable = true;
@@ -321,14 +320,18 @@
     lazygit.enable = homeCfg.client;
   };
 
-  xdg.configFile."ghostty/config" = lib.mkIf homeCfg.ghostty (lib.mkForce {
+  xdg = {
     enable = true;
-    source = ./ghostty.txt;
-  });
-
-  xdg.configFile."trippy.toml" = {
-    enable = true;
-    source = ./trippy.toml;
+    configFile = {
+      "ghostty/config" = lib.mkIf homeCfg.ghostty (lib.mkForce {
+        enable = true;
+        source = ./ghostty.txt;
+      });
+      "trippy.toml" = {
+        enable = true;
+        source = ./trippy.toml;
+      };
+    };
   };
 
   # ======================== DO NOT CHANGE THIS ========================

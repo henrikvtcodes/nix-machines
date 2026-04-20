@@ -8,62 +8,49 @@
   home = {
     shellAliases = {
       ytdl = "yt-dlp";
-      home = "cd ~";
       nvm = "fnm";
       pn = "pnpm";
-      rm = "safe-rm";
+      bn = "bun";
       coder = "code . -r";
     };
     sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
   };
 
-  programs = {
-    git.settings = {
-      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
-      gpg.format = "ssh";
-      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-      gpg.ssh.allowedSignersFile = toString ./signers.txt;
-      commit.gpgsign = true;
-    };
-    # alacritty = {
-    #   settings = {
-    #     font = {
-    #       normal = "Liga SFMono Nerd Font";
-    #     };
-    #   };
-    # };
+  programs.git.settings = {
+    user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
+    gpg.format = "ssh";
+    gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+    gpg.ssh.allowedSignersFile = toString ./signers.txt;
+    commit.gpgsign = true;
   };
 
-  xdg = {
-    # enable = true;
+  xdg.
     configFile."glab-cli/config-base.yml" = let
-      yaml = pkgs.formats.yaml {};
-    in {
-      source = yaml.generate "config.yml" {
-        git_protocol = "ssh";
-        check_update = false;
-        host = "gitlab.uvm.edu";
-        editor = "nvim";
-        glamour_style = "dark";
-        no_prompt = false;
-        hosts = {
-          "gitlab.uvm.edu" = {
-            api_host = "gitlab.uvm.edu";
-            api_protocol = "https";
-            git_protocol = "ssh";
-            user = "henrikvtcodes";
-            token = "@uvmtoken@";
-          };
-          "gitlab.com" = {
-            api_host = "gitlab.com";
-            api_protocol = "https";
-            git_protocol = "ssh";
-          };
+    yaml = pkgs.formats.yaml {};
+  in {
+    source = yaml.generate "config.yml" {
+      git_protocol = "ssh";
+      check_update = false;
+      host = "gitlab.uvm.edu";
+      editor = "nvim";
+      glamour_style = "dark";
+      no_prompt = false;
+      hosts = {
+        "gitlab.uvm.edu" = {
+          api_host = "gitlab.uvm.edu";
+          api_protocol = "https";
+          git_protocol = "ssh";
+          user = "hvantass";
+          token = "@uvmtoken@";
+        };
+        "gitlab.com" = {
+          api_host = "gitlab.com";
+          api_protocol = "https";
+          git_protocol = "ssh";
         };
       };
     };
   };
-
   home.activation = {
     glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
       rm -f ${config.xdg.configHome}/glab-cli/config.yml
