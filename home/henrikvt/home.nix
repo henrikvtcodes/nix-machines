@@ -3,6 +3,7 @@
   inputs,
   homeCfg,
   lib,
+  unstable,
   ...
 }: {
   imports =
@@ -52,6 +53,7 @@
         github-copilot-cli
         opencode
         cursor-cli
+        unstable.stax
       ];
 
     shellAliases = {
