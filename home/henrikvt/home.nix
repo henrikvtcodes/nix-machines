@@ -256,7 +256,7 @@
     lazygit = {
       enable = true;
       settings = {
-        git.pagers = [{pager = "delta --paging=never";}];
+        git.pagers = [{pager = "delta --paging=never --color-only --line-numbers";}];
       };
     };
 
