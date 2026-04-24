@@ -23,26 +23,27 @@
         trippy
         jq
         imagemagick
-        hyperfine
         git-lfs
         fd
         iperf3
         magic-wormhole-rs
-        glab
         python3
-        wget
         mprocs
         dust
         xh
         entr
         comma
         jless
+        talosctl
+	kubectl
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
         nyancat
         moon-buggy
         sl
+        hyperfine
+        glab
         cowsay
         lolcat
         ninvaders
