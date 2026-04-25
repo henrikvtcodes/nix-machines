@@ -32,7 +32,6 @@
       python3
 
       teams-for-linux
-      davinci-resolve
     ];
   };
 

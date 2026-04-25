@@ -16,3 +16,4 @@
 *.pem
 .direnv
 mprocs.log
+result
