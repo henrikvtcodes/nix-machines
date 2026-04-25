@@ -22,6 +22,7 @@
       steam
       nixd
       unstable.bun
+      kubectl
 
       jetbrains.idea
       jetbrains.goland
