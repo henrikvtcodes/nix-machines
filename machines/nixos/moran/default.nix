@@ -7,6 +7,7 @@
     # Include the results of the hardware scan.
     ./hardware-config.nix
     ./wmde.nix
+    ./network.nix
   ];
 
   boot.loader = {
@@ -39,7 +40,6 @@
       enable = true;
       wifi = {
         powersave = true;
-        #backend = "iwd";
         backend = "wpa_supplicant";
         macAddress = "permanent";
       };
@@ -52,8 +52,6 @@
     };
     useDHCP = false;
     dhcpcd.enable = false;
-    wireless.enable = false;
-    wireless.iwd.enable = false;
     useNetworkd = true;
     wireguard.useNetworkd = true;
   };
@@ -162,7 +160,7 @@
       enable = true;
       flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
     };
-    dconf.enable = true; 
+    dconf.enable = true;
     virt-manager.enable = true;
   };
   virtualisation.libvirtd.enable = true;
