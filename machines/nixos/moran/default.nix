@@ -108,7 +108,7 @@
     ];
   };
 
-  users.users.henrikvt.extraGroups = ["video" "bird"];
+  users.users.henrikvt.extraGroups = ["video" "bird" "libvirtd"];
 
   home.henrikvt = {
     enable = true;
@@ -162,8 +162,10 @@
       enable = true;
       flake = "/home/henrikvt/Desktop/code/projects/nixmachines";
     };
-    dconf.enable = true;
+    dconf.enable = true; 
+    virt-manager.enable = true;
   };
+  virtualisation.libvirtd.enable = true;
 
   services = {
     printing.enable = true; # Cups
