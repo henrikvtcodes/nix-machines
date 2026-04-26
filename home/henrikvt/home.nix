@@ -35,7 +35,6 @@
         comma
         jless
         talosctl
-        kubectl
       ]
       ++ lib.optionals homeCfg.client [
         presenterm
