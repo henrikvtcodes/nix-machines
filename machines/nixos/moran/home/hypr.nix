@@ -118,7 +118,8 @@ in {
 
   catppuccin.cursors = {
     enable = true;
-    accent = "green";
+    accent = "dark";
+    flavor = "mocha";
   };
 
   wayland.windowManager.hyprland = {
