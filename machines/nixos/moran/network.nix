@@ -19,11 +19,4 @@
       # };
     };
   };
-
-  networking.vswitches = {
-    "vms".interfaces = {
-      "int1".name = "wlp1s0";
-      "int2".name = "vbr0";
-    };
-  };
 }
