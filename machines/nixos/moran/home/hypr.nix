@@ -64,6 +64,12 @@ in {
   ];
 
   xdg = {
+    autostart = {
+      enable = true;
+      entries = [
+        "${pkgs._1password-gui}/bin/1password"
+      ];
+    };
     mimeApps.defaultApplications = {
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
@@ -112,7 +118,8 @@ in {
 
   catppuccin.cursors = {
     enable = true;
-    accent = "green";
+    accent = "dark";
+    flavor = "mocha";
   };
 
   wayland.windowManager.hyprland = {
