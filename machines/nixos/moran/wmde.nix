@@ -14,6 +14,12 @@
     waybar.enable = true;
   };
 
+  xdg.autostart = {
+    enable = true;
+    entries = [
+      "${pkgs._1password-gui}/bin/1password"
+    ];
+  };
 
   services = {
     hypridle.enable = true;

@@ -64,12 +64,7 @@ in {
   ];
 
   xdg = {
-    autostart = {
-      enable = true;
-      entries = [
-        "${pkgs._1password-gui}/bin/1password"
-      ];
-    };
+    autostart.enable = true;
     mimeApps.defaultApplications = {
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
