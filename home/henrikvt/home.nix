@@ -16,13 +16,10 @@
   home = {
     packages = with pkgs;
       [
-        tokei
         q
-        ffmpeg
-        websocat
+
         trippy
         jq
-        imagemagick
         git-lfs
         fd
         iperf3
@@ -34,9 +31,13 @@
         entr
         comma
         jless
-        talosctl
+        lazyjournal
       ]
       ++ lib.optionals homeCfg.client [
+        imagemagick
+        tokei
+        websocat
+        ffmpeg
         presenterm
         nyancat
         moon-buggy
@@ -54,6 +55,7 @@
         opencode
         cursor-cli
         unstable.stax
+        talosctl
       ];
 
     shellAliases = {
