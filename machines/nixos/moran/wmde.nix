@@ -1,11 +1,25 @@
 {pkgs, ...}: {
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
+  programs = {
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+      xwayland.enable = true;
+    };
+
+    hyprlock.enable = true;
+    regreet = {
+      enable = true;
+    };
+
+    waybar.enable = true;
   };
 
-  programs.hyprlock.enable = true;
+  xdg.autostart = {
+    enable = true;
+    entries = [
+      "${pkgs._1password-gui}/bin/1password"
+    ];
+  };
 
   services = {
     hypridle.enable = true;
@@ -28,10 +42,6 @@
     };
   };
 
-  programs.regreet = {
-    enable = true;
-  };
-
   users.users.greeter = {
     isNormalUser = false;
     description = "greetd greeter user";
@@ -39,25 +49,24 @@
     linger = true;
   };
 
-  programs.waybar.enable = true;
-
   security = {
     polkit.enable = true;
     pam.services.hyprlock = {};
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    systemPackages = with pkgs; [
+      pyprland
+      hyprpicker
+      hyprcursor
+      hyprlock
+      hypridle
+      hyprpaper
 
-  environment.systemPackages = with pkgs; [
-    pyprland
-    hyprpicker
-    hyprcursor
-    hyprlock
-    hypridle
-    hyprpaper
+      kitty
 
-    kitty
-
-    tuigreet
-  ];
+      tuigreet
+    ];
+  };
 }
