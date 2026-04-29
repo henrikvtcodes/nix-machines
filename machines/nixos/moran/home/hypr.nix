@@ -64,7 +64,12 @@ in {
   ];
 
   xdg = {
-    autostart.enable = true;
+    autostart = {
+      enable = true;
+      # entries = [
+      #   "${pkgs._1password-gui}/bin/1password"
+      # ];
+    };
     mimeApps.defaultApplications = {
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
@@ -241,6 +246,7 @@ in {
         "blueman-applet &"
         "nm-applet &"
         "wayland-pipewire-idle-inhibit &"
+        "1password --silent &"
         "wl-clip-persist --clipboard regular"
       ];
 
