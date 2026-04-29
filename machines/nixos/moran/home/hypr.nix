@@ -37,24 +37,12 @@ in {
         };
       };
     };
-    # hyprpanel = {
-    #   enable = true;
-    #   settings = {
-    #     bar.layouts = {
-    #       "*" = {
-    #         left = ["power" "systray"];
-    #         right = ["battery" "network" "bluetooth" "clock"];
-    #       };
-    #     };
-    #   };
-    # };
-    # waybar.enable = false;
   };
 
   home.packages = with pkgs; [
     grim
     hyprpicker
-    hyprsysteminfo # does not exist in nixpkgs (yet?)
+    hyprsysteminfo
     playerctl
     # slurp
     wayland-pipewire-idle-inhibit
@@ -66,9 +54,6 @@ in {
   xdg = {
     autostart = {
       enable = true;
-      # entries = [
-      #   "${pkgs._1password-gui}/bin/1password"
-      # ];
     };
     mimeApps.defaultApplications = {
       "text/html" = "firefox.desktop";

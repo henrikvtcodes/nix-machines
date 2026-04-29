@@ -5,12 +5,8 @@
       withUWSM = true;
       xwayland.enable = true;
     };
-
     hyprlock.enable = true;
-    regreet = {
-      enable = true;
-    };
-
+    regreet.enable = true;
     waybar.enable = true;
   };
 

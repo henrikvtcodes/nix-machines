@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-config.nix
     ./wmde.nix
     ./network.nix
@@ -82,13 +81,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  nix = {
-    settings = {
-      extra-substituters = ["https://hyprland.cachix.org"];
-      extra-trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-    };
+  nix.settings = {
+    extra-substituters = ["https://hyprland.cachix.org"];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
 
   my.services.tailscale = {
@@ -180,9 +177,7 @@
     pulseaudio.enable = false;
 
     udev.packages = [pkgs.yubikey-personalization];
-    spotifyd = {
-      enable = true;
-    };
+    spotifyd.enable = true;
     openssh.enable = true;
 
     # Firmware Update Daemon
@@ -251,9 +246,7 @@
     };
   };
 
-  powerManagement = {
-    enable = true;
-  };
+  powerManagement.enable = true;
 
   nixpkgs.overlays = with inputs; [
     nur.overlays.default
