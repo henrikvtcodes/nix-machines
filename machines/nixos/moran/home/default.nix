@@ -66,6 +66,8 @@
           Port 69
         Host *.as215207.net
           User admin
+        Host *.vermont-ix.net
+          User admin
       '';
     };
 
