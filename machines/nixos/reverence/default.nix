@@ -85,7 +85,10 @@
       allowedUDPPorts = [80 443];
     };
     nameservers = [];
+    useNetworkd = true;
   };
+
+  systemd.network.enable = true;
 
   system.stateVersion = "25.11";
 }
