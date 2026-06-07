@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./hardware-config.nix
-    # ./routing
+    ./routing
   ];
 
   boot.loader.grub = {
@@ -41,37 +41,38 @@
           MACAddress = "BC:24:11:21:8A:57";
           Type = "ether";
         };
-        linkConfig = {
-          Name = "nic0";
-        };
+        linkConfig.Name = "nic0";
       };
       "20-ix" = {
         matchConfig = {
           MACAddress = "38:2C:DB:06:34:47";
           Type = "ether";
         };
-        linkConfig = {
-          Name = "nic1";
-        };
+        linkConfig.Name = "nic1";
       };
     };
     networks = {
       "10-mgmt" = {
-        matchConfig = {Name = "nic0";};
+        matchConfig.Name = "nic0";
         networkConfig = {
           Description = "Backend Management NIC";
           DHCP = "yes";
         };
       };
       "20-ix" = {
-        matchConfig = {Name = "nic1";};
+        matchConfig.Name = "nic1";
         networkConfig = {
-          Description = "Vermont IX Peering Lan";
+          Description = "Vermont IX Peering LAN";
           DHCP = "no";
           IPv6AcceptRA = "no";
           IPv6SendRA = "no";
           EmitLLDP = "no";
         };
+        addresses = [
+          {
+            Address = "2001:504:136::63:477/64";
+          }
+        ];
       };
     };
   };
@@ -83,5 +84,6 @@
       allowedTCPPorts = [22 69 80 443 2023 8080];
       allowedUDPPorts = [80 443];
     };
+    nameservers = [];
   };
 }
