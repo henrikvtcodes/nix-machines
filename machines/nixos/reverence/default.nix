@@ -16,7 +16,7 @@
 
   my.services = {
     tailscale = {
-      enable = false;
+      enable = true;
       advertiseExitNode = false;
     };
     caddy.enable = false;
