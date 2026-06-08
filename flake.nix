@@ -2,7 +2,7 @@
   description = "nix configuration for my servers + other stuff";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-2411.url = "github:nixos/nixpkgs/nixos-24.11";
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,26 +13,25 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim/nixos-26.05";
     };
 
     catppuccin = {
-      url = "github:catppuccin/nix/release-25.11";
+      url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -437,6 +436,29 @@
         ];
       };
 
+      reverence = lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          unstable = importUnstable system;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/reverence
+
+          # Secrets
+          ragenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
       # ISO Image Generators
       iso-virt = lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -521,6 +543,12 @@
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.mci;
+        };
+        reverence = {
+          hostname = "reverence";
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.reverence;
         };
       };
     };
