@@ -52,6 +52,14 @@
       };
     };
     networks = {
+      "0-loopback" = {
+        matchConfig.Name = "lo";
+        addresses = [
+          {
+            Address = "2602:f542:530::1/48";
+          }
+        ];
+      };
       "10-mgmt" = {
         matchConfig.Name = "nic0";
         networkConfig = {
@@ -70,10 +78,11 @@
         };
         addresses = [
           {
-            Address = "2001:504:136::63:477/64";
+            Address = "2001:504:137::63:477/64";
           }
         ];
       };
+
     };
   };
 
