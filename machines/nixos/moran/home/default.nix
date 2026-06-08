@@ -2,7 +2,7 @@
   lib,
   pkgs,
   unstable,
-config,
+  config,
   ...
 }: {
   imports = [./hypr.nix ./waybar.nix];
@@ -13,27 +13,23 @@ config,
     #   # Bun install is self managed so I can update separately
     #   BUN_INSTALL = "$HOME/.bun";
     # };
-    packages = with pkgs; [
-      prismlauncher
-      spotify
-      networkmanagerapplet
-      yaak
-      uutils-coreutils-noprefix
-      wireshark
-      steam
-      nixd
-      unstable.bun
-      kubectl
+    packages =
+      (with pkgs; [
+        prismlauncher
+        spotify
+        networkmanagerapplet
+        yaak
+        uutils-coreutils-noprefix
+        wireshark
+        steam
+        nixd
+        unstable.bun
+        kubectl
+        python3
 
-      jetbrains.idea
-      jetbrains.goland
-      jetbrains.webstorm
-      jetbrains.datagrip
-      jetbrains.pycharm
-      python3
-
-      teams-for-linux
-    ];
+        teams-for-linux
+      ])
+      ++ (with pkgs.jetbrains; [idea goland webstorm datagrip pycharm]);
   };
 
   # TODO: Changes from new defaults and whatnot. integrate them later
