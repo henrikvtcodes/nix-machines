@@ -107,10 +107,14 @@ in {
     flavor = "mocha";
   };
 
+  # TODO: Fix this when hyprland colors shit gets figured out
+  catppuccin.hyprland.enable = false;
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
     xwayland.enable = true;
+    configType = "hyprlang";
 
     settings = {
       "$mod" = "SUPER";
@@ -156,7 +160,11 @@ in {
 
       misc = {
         disable_hyprland_logo = true;
-        new_window_takes_over_fullscreen = 1;
+        # TODO: Figure out where this setting went
+        #new_window_takes_over_fullscreen = 1;
+      };
+
+      debug = {
         vfr = true;
       };
 
@@ -236,8 +244,9 @@ in {
       ];
 
       windowrule = [
-        "idleinhibit fullscreen, class:*"
-        "float, class:firefox, title:(Extension:.*)"
+        # TODO: Figure out why this stuff throws invalid field type and invalid field float errors
+        # "idleinhibit fullscreen, class:*"
+        # "float, class:firefox, title:(Extension:.*)"
       ];
     };
   };
