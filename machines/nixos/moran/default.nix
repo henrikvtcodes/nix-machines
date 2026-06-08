@@ -27,6 +27,8 @@
     };
   };
 
+  boot.zfs.forceImportRoot = false;
+
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -150,7 +152,7 @@
     hyprlock.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
+      plugins = with pkgs; [thunar-archive-plugin thunar-volman];
     };
     firefox.enable = true;
     nh = {

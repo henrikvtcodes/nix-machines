@@ -2,6 +2,7 @@
   lib,
   pkgs,
   unstable,
+config,
   ...
 }: {
   imports = [./hypr.nix ./waybar.nix];
@@ -34,6 +35,11 @@
       teams-for-linux
     ];
   };
+
+  # TODO: Changes from new defaults and whatnot. integrate them later
+  gtk.gtk4.theme = null;
+  programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
+  programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
 
   programs = {
     git.extraConfig = {
