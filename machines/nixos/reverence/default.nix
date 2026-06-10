@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ./hardware-config.nix
     ./routing
@@ -92,7 +92,7 @@
       allowedTCPPorts = [22 69 80 443 2023 8080];
       allowedUDPPorts = [80 443];
     };
-    nameservers = [];
+    nameservers = lib.mkForce ["132.198.201.10" "132.198.202.10" "2620:104:e001:1002::a" "2620:104:e001:1003::a"];
     useNetworkd = true;
   };
 
