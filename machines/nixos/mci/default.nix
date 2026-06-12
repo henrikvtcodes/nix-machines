@@ -3,6 +3,7 @@
     ./hardware-config.nix
     ./routing
     ./dns
+    ./mail.nix
   ];
 
   boot.loader.grub = {

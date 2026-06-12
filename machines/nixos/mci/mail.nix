@@ -1,0 +1,9 @@
+
+{...}: {
+  services = {
+    postfix = {
+      enable = true;
+    };
+
+  };
+}
