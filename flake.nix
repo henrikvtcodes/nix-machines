@@ -167,6 +167,7 @@
             pkgs.deploy-rs
             statix
             pkgs.ragenix
+            just
           ];
         };
       }

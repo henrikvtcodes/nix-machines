@@ -179,6 +179,7 @@
     # named-compilezone named-journalprint named-rrchecker nsec3hash nslookup nsupdate rndc rndc-confgen tsig-keygen
     gdu
     diskus
+    nix-output-monitor
 
     doggo
     # perf testing/viewing
