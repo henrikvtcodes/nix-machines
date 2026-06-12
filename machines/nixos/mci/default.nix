@@ -118,10 +118,18 @@
             address = "155.103.251.1";
             prefixLength = 24;
           }
+          {
+            address = "155.103.251.25";
+            prefixLength = 24;
+          }
         ];
         ipv6.addresses = [
           {
             address = "2602:f542:bee::1";
+            prefixLength = 48;
+          }
+          {
+            address = "2602:f542:bee::25";
             prefixLength = 48;
           }
           {
