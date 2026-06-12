@@ -13,7 +13,7 @@
       bn = "bun";
       coder = "code . -r";
     };
-    sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
+    sessionPath = ["$GHOSTTY_BIN_DIR" "$HOME/.local/bin" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
   };
 
   programs.git.settings = {
