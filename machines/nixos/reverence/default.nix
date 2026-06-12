@@ -24,10 +24,6 @@
 
   services = {
     qemuGuest.enable = true;
-    openssh = {
-      openFirewall = false;
-      ports = [22 69];
-    };
   };
 
   users.users.henrikvt.extraGroups = ["bird" "knot" "pcap"];
