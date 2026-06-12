@@ -36,56 +36,6 @@
     ports = [22 69];
   };
 
-  # virtualisation.podman.settings = {
-  #   networks = {
-  #     ripe-atlas = {
-  #       driver = "macvlan";
-  #       interfaces = {
-  #         ens18 = {};
-  #       };
-  #       ipam = {
-  #         type = "host-local";
-  #         ranges = [
-  #           [
-  #             {
-  #               subnet = "155.103.251.0/24";
-  #               gateway = "155.103.251.1";
-  #             }
-  #           ]
-  #           [
-  #             {
-  #               subnet = "2602:f542:bee::/48";
-  #               gateway = "2602:f542:bee::1";
-  #             }
-  #           ]
-  #         ];
-  #       };
-  #     };
-  #   };
-  # };
-
-  # virtualisation.oci-containers.containers = [
-  #   {
-  #     image = "jamesits/ripe-atlas:latest-probe";
-  #     extraOptions = [
-  #       "--network=ripe-atlas"
-  #       "--ip=155.103.251.2"
-  #       "--ipv6=2602:f542:bee::2"
-  #       "--cap-add=NET_RAW"
-  #       "--cap-add=SETUID"
-  #       "--cap-add=SETGID"
-  #       "--cap-add=CHOWN"
-  #       "--cap-add=DAC_OVERRIDE"
-  #     ];
-  #   }
-  # ];
-
-  # Disable rp_filter to allow asymmetric routing for container traffic
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.all.rp_filter" = 0;
-    "net.ipv4.conf.default.rp_filter" = 0;
-  };
-
   users.users.henrikvt.extraGroups = ["bird" "knot" "pcap"];
 
   programs.tcpdump.enable = true;
