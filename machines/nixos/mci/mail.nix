@@ -25,7 +25,7 @@ in {
     nginx.virtualHosts."lists.as63477.net" = {
       listen = [
         {
-          addr = "::1";
+          addr = "[::1]";
           inherit port;
         }
       ];
