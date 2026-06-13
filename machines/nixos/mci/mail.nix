@@ -19,6 +19,7 @@ in {
       enablePostfix = true;
       hyperkitty.enable = true;
       serve.enable = true;
+      siteOwner = "postmaster@as63477.net";
       webHosts = ["lists.as63477.net"];
     };
     nginx.virtualHosts."lists.as63477.net" = {
