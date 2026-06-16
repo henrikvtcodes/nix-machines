@@ -59,6 +59,15 @@
         ip6 daddr 2602:f542:bee::53 tcp dport 53 accept
         udp dport 53 drop
         tcp dport 53 drop
+        ip daddr 155.103.251.25 tcp dport 25 accept
+        ip6 daddr 2602:f542:bee::25 tcp dport 25 accept
+        tcp dport 25 drop
+        ip daddr 155.103.251.25 tcp dport 465 accept
+        ip6 daddr 2602:f542:bee::25 tcp dport 465 accept
+        tcp dport 465 drop
+        ip daddr 155.103.251.25 tcp dport 587 accept
+        ip6 daddr 2602:f542:bee::25 tcp dport 587 accept
+        tcp dport 587 drop
       '';
     };
     interfaces = {
