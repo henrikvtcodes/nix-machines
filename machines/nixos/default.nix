@@ -95,31 +95,31 @@
 
   boot.growPartition = lib.mkDefault true;
 
-  # Enable SSH server
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
+  services = {
+    prometheus = {
+      listenAddress = lib.mkDefault "[::]";
+      exporters.node = {
+        # Enable node-exporter by default
+        enable = lib.mkDefault true;
+        enabledCollectors = lib.mkDefault [
+          "zfs"
+          "systemd"
+        ];
+      };
     };
-  };
-
-  services.prometheus = {
-    listenAddress = lib.mkDefault "[::]";
-    exporters.node = {
-      # Enable node-exporter by default
-      enable = lib.mkDefault true;
-      enabledCollectors = lib.mkDefault [
-        "zfs"
-        "systemd"
-      ];
+    iperf3 = {
+      enable = true;
+      openFirewall = true;
+      port = 42052;
     };
-  };
 
-  services.iperf3 = {
-    enable = true;
-    openFirewall = true;
-    port = 42052;
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+    };
   };
 
   # Enable containers
