@@ -82,7 +82,7 @@
           {
             AllowedIPs = [
               "10.200.0.0/16"
-              "10.200.0.1/31"
+              "172.16.255.0/30"
             ];
             Endpoint = "162.120.71.136:51820";
             PersistentKeepalive = 15;
@@ -112,7 +112,7 @@
         networkConfig.DHCP = "no";
         addresses = [
           {
-            Address = "10.200.0.1/31";
+            Address = "172.16.255.2/30";
           }
         ];
       };
