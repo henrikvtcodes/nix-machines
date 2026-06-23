@@ -35,7 +35,10 @@
   programs.tcpdump.enable = true;
 
   age.secrets = {
-    reverenceWgPrivkey.file = ../../../secrets/reverenceWgPrivkey.age;
+    reverenceWgPrivkey = {
+      file = ../../../secrets/reverenceWgPrivkey.age;
+      owner = "systemd-network";
+    };
     # aristaEapiConf = {
     #   file = ../../../secrets/aristaEapiConf.age;
     #   owner = "eoxporter";
