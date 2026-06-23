@@ -80,4 +80,6 @@ in {
 
   "valcourUnpollerPassword.age".publicKeys = [valcour] ++ henrik;
   "aristaEapiConf.age".publicKeys = [valcour] ++ henrik;
+
+  "reverenceWgPrivkey.age".publicKeys = [reverence] ++ henrik;
 }

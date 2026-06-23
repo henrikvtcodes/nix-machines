@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib,config, ...}: {
   imports = [
     ./hardware-config.nix
     ./routing
@@ -30,6 +30,19 @@
 
   programs.tcpdump.enable = true;
 
+  age.secrets = {
+    reverenceWgPrivkey.file = ../../../secrets/reverenceWgPrivkey.age;
+    # aristaEapiConf = {
+    #   file = ../../../secrets/aristaEapiConf.age;
+    #   owner = "eoxporter";
+    #   group = "eoxporter";
+    # };
+    # unpollerPassword = {
+    #   owner = "unifi-poller";
+    #   file = ../../../secrets/valcourUnpollerPassword.age;
+    # };
+  };
+
   systemd.network = {
     links = {
       "10-mgmt" = {
@@ -45,6 +58,25 @@
           Type = "ether";
         };
         linkConfig.Name = "nic1";
+      };
+    };
+    netdevs = {
+      "10-violet-wireguard" = {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "violet0";
+        };
+        wireguardConfig = { PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path; };
+        wireguardPeers = [
+          {
+            AllowedIPs = [
+              "10.200.0.0/16"
+            ];
+            Endpoint = "162.120.71.136:51820";
+            PersistentKeepalive = 15;
+            PublicKey = "uQKOe+7uF8Jm+98Uc64sEWJpuLpGH/BykXYySHkW6jg=";
+          }
+        ];
       };
     };
     networks = {
@@ -80,7 +112,6 @@
       };
     };
   };
-
   networking = {
     hostName = "reverence";
     firewall = {
