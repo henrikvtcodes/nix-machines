@@ -1,4 +1,8 @@
-{lib,config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./hardware-config.nix
     ./routing
@@ -66,7 +70,7 @@
           Kind = "wireguard";
           Name = "violet0";
         };
-        wireguardConfig = { PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path; };
+        wireguardConfig = {PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path;};
         wireguardPeers = [
           {
             AllowedIPs = [
