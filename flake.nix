@@ -460,6 +460,29 @@
         ];
       };
 
+      homer = lib.nixosSystem rec {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          unstable = importUnstable system;
+        };
+
+        modules = [
+          # Machine config
+          ./machines/nixos
+          ./machines/nixos/homer
+
+          # Secrets
+          ragenix.nixosModules.default
+
+          # User config
+          ./users/henrikvt
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
       # ISO Image Generators
       iso-virt = lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -550,6 +573,12 @@
           profiles.system.path =
             deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
             self.nixosConfigurations.reverence;
+        };
+        homer = {
+          hostname = "homer";
+          profiles.system.path =
+            deployPkgs."x86_64-linux".deploy-rs.lib.activate.nixos
+            self.nixosConfigurations.homer;
         };
       };
     };
