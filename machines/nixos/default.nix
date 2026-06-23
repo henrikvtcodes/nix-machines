@@ -96,6 +96,7 @@
   boot.growPartition = lib.mkDefault true;
 
   services = {
+    dbus.implementation = lib.mkDefault "dbus";
     prometheus = {
       listenAddress = lib.mkDefault "[::]";
       exporters.node = {
