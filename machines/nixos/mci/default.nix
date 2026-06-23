@@ -83,7 +83,7 @@
         ipv4.addresses = [
           {
             address = "23.143.82.39";
-            prefixLength = 24;
+            prefixLength = 25;
           }
         ];
         ipv6.addresses = [
