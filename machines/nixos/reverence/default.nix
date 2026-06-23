@@ -66,15 +66,20 @@
     };
     netdevs = {
       "10-violet-wireguard" = {
+        enable = true;
         netdevConfig = {
           Kind = "wireguard";
           Name = "violet0";
         };
-        wireguardConfig = {PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path;};
+        wireguardConfig = {
+          PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path;
+          RouteMetric = 2048;
+        };
         wireguardPeers = [
           {
             AllowedIPs = [
               "10.200.0.0/16"
+              "10.200.0.1/31"
             ];
             Endpoint = "162.120.71.136:51820";
             PersistentKeepalive = 15;
@@ -98,6 +103,15 @@
           Description = "Backend Management NIC";
           DHCP = "yes";
         };
+      };
+      "10-violet-wg" = {
+        matchConfig = {Name = "violet0";};
+        networkConfig.DHCP = "no";
+        addresses = [
+          {
+            Address = "10.200.0.1/31";
+          }
+        ];
       };
       "20-ix" = {
         matchConfig.Name = "nic1";
