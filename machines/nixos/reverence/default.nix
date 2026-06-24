@@ -22,6 +22,12 @@
     tailscale = {
       enable = true;
       advertiseExitNode = false;
+      advertiseRoutes = {
+      enable = true;
+      routes = [
+        "10.200.0.0/16"
+      ];
+    };
     };
     caddy.enable = false;
   };
