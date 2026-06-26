@@ -1,7 +1,6 @@
 {...}: {
   imports = [
     ./hardware-config.nix
-    ./routing
     ./dns
   ];
 
@@ -21,6 +20,67 @@
       advertiseExitNode = true;
     };
     caddy.enable = true;
+
+    routing = {
+      enable = true;
+      asn = 63477;
+
+      ipv4 = {
+        source = "155.103.251.1";
+        machine = "23.143.82.39";
+        localPrefixes = ["155.103.251.0/24"];
+        staticRoutes = [
+          {
+            prefix = "155.103.251.0/24";
+            via = "SOURCE4";
+          }
+        ];
+      };
+
+      ipv6 = {
+        source = "2602:f542:bee::1";
+        machine = "2602:fc26:12:1::39";
+        localPrefixes = ["2602:f542:bee::/48"];
+        staticRoutes = [
+          {
+            prefix = "2602:f542:bee::/48";
+            via = "SOURCE6";
+          }
+        ];
+      };
+
+      rpki.enable = true; # default; set false to disable RTR
+
+      irr = {
+        enable = true;
+        host = "rr.ntt.net"; # default
+        refreshInterval = "hourly";
+      };
+
+      excludeTailscale = true;
+
+      peers = [
+        # Transit — no IRR filtering, accepts default route
+        {
+          name = "up_as1003";
+          role = "transit";
+          asn = 1003;
+          neighborV4 = ["23.143.82.1"];
+          neighborV6 = ["2602:fc26:12::1"];
+          asSet = "AS-ANDREWNET";
+        }
+
+        # Regular peer — IRR filtered
+        {
+          name = "pe_as215207";
+          role = "peer";
+          asn = 215207;
+          neighborV4 = ["23.143.82.38"];
+          neighborV6 = ["2602:fc26:12:1::38"];
+          asSet = "AS-AETHERNET";
+        }
+      ];
+    };
   };
 
   services.caddy.virtualHosts = {
