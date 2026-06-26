@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./routing
     ./pocketid
     ./tailscale
     ./woodpecker
