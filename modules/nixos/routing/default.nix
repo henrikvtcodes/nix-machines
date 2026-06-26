@@ -202,11 +202,24 @@
 
   mkBgpProtocol = peer: family: idx: neighborIp: let
     role = cfg.roles.${peer.role};
-    template = if family == "v4" then "base4" else "base6";
-    afFamily = if family == "v4" then "ipv4" else "ipv6";
-    maxPrefix = if family == "v4" then peer.maxPrefixV4 else peer.maxPrefixV6;
+    template =
+      if family == "v4"
+      then "base4"
+      else "base6";
+    afFamily =
+      if family == "v4"
+      then "ipv4"
+      else "ipv6";
+    maxPrefix =
+      if family == "v4"
+      then peer.maxPrefixV4
+      else peer.maxPrefixV6;
     protName = "${peer.name}_${family}_${toString idx}";
-    importFilter = mkFilterName peer family (if role.enforceNexthop then idx else null);
+    importFilter = mkFilterName peer family (
+      if role.enforceNexthop
+      then idx
+      else null
+    );
   in
     "protocol bgp ${protName} from ${template} {\n"
     + "  neighbor ${neighborIp} as ${toString peer.asn};\n"
