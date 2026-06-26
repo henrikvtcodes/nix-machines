@@ -243,9 +243,9 @@
   mkIrrIncludes = peer:
     lib.concatStringsSep "\n" (
       lib.optional (cfg.ipv4.enable && peer.neighborV4 != [])
-      ''include "/var/lib/bird/irr/${peer.name}_v4.conf";''
+      ''include "/etc/bird/irr/${peer.name}_v4.conf";''
       ++ lib.optional (cfg.ipv6.enable && peer.neighborV6 != [])
-      ''include "/var/lib/bird/irr/${peer.name}_v6.conf";''
+      ''include "/etc/bird/irr/${peer.name}_v6.conf";''
     );
 
   # ── Full generated bird.conf ───────────────────────────────────────────────
@@ -329,11 +329,14 @@
   irrRefreshScript = let
     bgpq4 = "${pkgs.bgpq4}/bin/bgpq4";
     birdc = "${pkgs.bird2}/bin/birdc";
-    irrDir = "/var/lib/bird/irr";
+    irrDir = "/etc/bird/irr";
+    # bgpq4 with -b should emit "define NAME = [...]" but some versions omit "define".
+    # The sed ensures the keyword is always present regardless of bgpq4 version.
+    ensureDefine = "sed '1{/^define /!s/^/define /}'";
     mkPeerRefresh = peer: let
       v4 = opt (cfg.ipv4.enable && peer.neighborV4 != []) ''
         tmp=$(mktemp)
-        if ${bgpq4} -h ${cfg.irr.host} -4 -A -b -m ${toString cfg.irr.maxPrefixLenV4} -l ${peer.name}_v4 ${peer.asSet} > "$tmp"; then
+        if ${bgpq4} -h ${cfg.irr.host} -4 -A -b -m ${toString cfg.irr.maxPrefixLenV4} -l ${peer.name}_v4 ${peer.asSet} | ${ensureDefine} > "$tmp"; then
           mv "$tmp" ${irrDir}/${peer.name}_v4.conf
           echo "Updated ${peer.name} v4 prefixes"
         else
@@ -343,7 +346,7 @@
       '';
       v6 = opt (cfg.ipv6.enable && peer.neighborV6 != []) ''
         tmp=$(mktemp)
-        if ${bgpq4} -h ${cfg.irr.host} -6 -A -b -m ${toString cfg.irr.maxPrefixLenV6} -l ${peer.name}_v6 ${peer.asSet} > "$tmp"; then
+        if ${bgpq4} -h ${cfg.irr.host} -6 -A -b -m ${toString cfg.irr.maxPrefixLenV6} -l ${peer.name}_v6 ${peer.asSet} | ${ensureDefine} > "$tmp"; then
           mv "$tmp" ${irrDir}/${peer.name}_v6.conf
           echo "Updated ${peer.name} v6 prefixes"
         else
@@ -364,9 +367,9 @@
     lib.concatMap (
       peer:
         lib.optional (cfg.ipv4.enable && peer.neighborV4 != [])
-        "f /var/lib/bird/irr/${peer.name}_v4.conf 0640 bird bird - define ${peer.name}_v4 = [];"
+        "f /etc/bird/irr/${peer.name}_v4.conf 0644 bird bird - define ${peer.name}_v4 = [];"
         ++ lib.optional (cfg.ipv6.enable && peer.neighborV6 != [])
-        "f /var/lib/bird/irr/${peer.name}_v6.conf 0640 bird bird - define ${peer.name}_v6 = [];"
+        "f /etc/bird/irr/${peer.name}_v6.conf 0644 bird bird - define ${peer.name}_v6 = [];"
     )
     irrPeers;
 in {
@@ -580,7 +583,7 @@ in {
 
     systemd.tmpfiles.rules =
       lib.mkIf hasIrrPeers
-      (["d /var/lib/bird/irr 0750 bird bird -"] ++ irrTmpfiles);
+      (["d /etc/bird/irr 0755 bird bird -"] ++ irrTmpfiles);
 
     environment.systemPackages = lib.mkIf hasIrrPeers [pkgs.bgpq4];
   };

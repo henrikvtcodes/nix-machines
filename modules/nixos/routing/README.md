@@ -17,7 +17,7 @@ The module ships two static BIRD config files and generates the machine-specific
 2. `protocol static static4` / `static6` — announces your own prefixes; tailscale carve-outs optional
 3. `include "base.conf"` — pulls in all filter functions, kernel/device protocols, BGP templates
 4. `protocol rpki { … }` — RTR session to populate `rpki4`/`rpki6` tables (optional, see RPKI section)
-5. `include "/var/lib/bird/irr/<peer>_v{4,6}.conf"` — bgpq4-generated prefix-set defines per peer
+5. `include "/etc/bird/irr/<peer>_v{4,6}.conf"` — bgpq4-generated prefix-set defines per peer
 6. Named `filter` blocks per peer (one per family, or one per neighbor when `enforceNexthop = true`)
 7. `protocol bgp …` — one block per neighbor address, per peer
 
@@ -160,7 +160,7 @@ irr = {
 
 For each peer with an `asSet` whose role has `irrFilter = true`:
 
-1. `systemd-tmpfiles` seeds `/var/lib/bird/irr/<name>_v{4,6}.conf` with `define <name>_vX = [];` if the file doesn't exist yet — empty prefix set means BIRD rejects all routes from that peer until the first successful bgpq4 run (**fail-closed bootstrap**).
+1. `systemd-tmpfiles` seeds `/etc/bird/irr/<name>_v{4,6}.conf` with `define <name>_vX = [];` if the file doesn't exist yet — empty prefix set means BIRD rejects all routes from that peer until the first successful bgpq4 run (**fail-closed bootstrap**).
 2. On boot (`OnBootSec = 5min`) and on the configured schedule (`refreshInterval`), `bird-irr-refresh.service` runs `bgpq4` and atomically replaces the file, then calls `birdc configure` to reload BIRD without dropping sessions.
 3. The generated filter includes `if net !~ <name>_vX then reject;` before the rest of the filter chain.
 
@@ -330,8 +330,8 @@ protocol bgp pe_vermontix_v6_2 from base6 { neighbor 2001:504:137::feed:2 as 628
 | `/etc/bird/bird.conf` | NixOS (build-time) | Generated main config |
 | `/etc/bird/base.conf` | NixOS (build-time) | Filter functions and BGP templates |
 | `/etc/bird/constants.conf` | NixOS (build-time) | Bogon sets, validators, `reject_route()` helper |
-| `/var/lib/bird/irr/<peer>_v4.conf` | `bird-irr-refresh.service` | bgpq4 prefix-set define for v4 |
-| `/var/lib/bird/irr/<peer>_v6.conf` | `bird-irr-refresh.service` | bgpq4 prefix-set define for v6 |
+| `/etc/bird/irr/<peer>_v4.conf` | `bird-irr-refresh.service` | bgpq4 prefix-set define for v4 |
+| `/etc/bird/irr/<peer>_v6.conf` | `bird-irr-refresh.service` | bgpq4 prefix-set define for v6 |
 
 Useful commands once deployed:
 
