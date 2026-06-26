@@ -143,7 +143,7 @@
   mkPrefixList = prefixes:
     if prefixes == []
     then "[]"
-    else "[\n" + lib.concatMapStrings (p: "    ${p},\n") prefixes + "]";
+    else "[\n" + lib.concatStringsSep ",\n" (map (p: "    ${p}") prefixes) + "\n]";
 
   mkStaticRoutes = routes:
     lib.concatMapStrings (r: "  route ${r.prefix} via ${r.via};\n") routes;
