@@ -337,6 +337,7 @@
       v4 = opt (cfg.ipv4.enable && peer.neighborV4 != []) ''
         tmp=$(mktemp)
         if ${bgpq4} -h ${cfg.irr.host} -4 -A -b -m ${toString cfg.irr.maxPrefixLenV4} -l ${peer.name}_v4 ${peer.asSet} | ${ensureDefine} > "$tmp"; then
+          chmod 0644 "$tmp"
           mv "$tmp" ${irrDir}/${peer.name}_v4.conf
           echo "Updated ${peer.name} v4 prefixes"
         else
@@ -347,6 +348,7 @@
       v6 = opt (cfg.ipv6.enable && peer.neighborV6 != []) ''
         tmp=$(mktemp)
         if ${bgpq4} -h ${cfg.irr.host} -6 -A -b -m ${toString cfg.irr.maxPrefixLenV6} -l ${peer.name}_v6 ${peer.asSet} | ${ensureDefine} > "$tmp"; then
+          chmod 0644 "$tmp"
           mv "$tmp" ${irrDir}/${peer.name}_v6.conf
           echo "Updated ${peer.name} v6 prefixes"
         else
