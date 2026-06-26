@@ -11,6 +11,7 @@ in {
     port = 22022;
     package = unstable.netbox;
     secretKeyFile = config.age.secrets.netboxSecretKey.path;
+    apiTokenPeppersFile = config.age.secrets.netboxSecretKey.path;
     plugins = python3Packages:
       with python3Packages; [
         # netbox-bgp
