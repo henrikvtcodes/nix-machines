@@ -60,7 +60,6 @@
       excludeTailscale = true;
 
       peers = [
-        # Transit — no IRR filtering, accepts default route
         {
           name = "up_as1003";
           role = "transit";
@@ -70,7 +69,6 @@
           asSet = "AS-ANDREWNET";
         }
 
-        # Regular peer — IRR filtered
         {
           name = "pe_as215207";
           role = "peer";
