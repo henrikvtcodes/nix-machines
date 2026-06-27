@@ -77,7 +77,7 @@
           asn = 215207;
           neighborV4 = ["23.143.82.38"];
           neighborV6 = ["2602:fc26:12:1::38"];
-          asSet = "AS-AETHERNET";
+          asSet = "AS-AETHERNET-ALL";
         }
       ];
     };

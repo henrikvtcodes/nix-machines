@@ -326,45 +326,6 @@
   irrPeers = lib.filter (p: p.asSet != null) cfg.peers;
   hasIrrPeers = cfg.irr.enable && irrPeers != [];
 
-  irrRefreshScript = let
-    bgpq4 = "${pkgs.bgpq4}/bin/bgpq4";
-    birdc = "${pkgs.bird2}/bin/birdc";
-    irrDir = "/etc/bird/irr";
-    # bgpq4 with -b should emit "define NAME = [...]" but some versions omit "define".
-    # The sed ensures the keyword is always present regardless of bgpq4 version.
-    ensureDefine = "sed '1{/^define /!s/^/define /}'";
-    mkPeerRefresh = peer: let
-      v4 = opt (cfg.ipv4.enable && peer.neighborV4 != []) ''
-        tmp=$(mktemp)
-        if ${bgpq4} -h ${cfg.irr.host} -4 -A -b -m ${toString cfg.irr.maxPrefixLenV4} -l "define ${peer.name}_v4" ${peer.asSet} > "$tmp"; then
-          chmod 0644 "$tmp"
-          mv "$tmp" ${irrDir}/${peer.name}_v4.conf
-          echo "Updated ${peer.name} v4 prefixes"
-        else
-          echo "bgpq4 failed for ${peer.name} v4, keeping existing" >&2
-          rm -f "$tmp"
-        fi
-      '';
-      v6 = opt (cfg.ipv6.enable && peer.neighborV6 != []) ''
-        tmp=$(mktemp)
-        if ${bgpq4} -h ${cfg.irr.host} -6 -A -b -m ${toString cfg.irr.maxPrefixLenV6} -l "define ${peer.name}_v6" ${peer.asSet} > "$tmp"; then
-          chmod 0644 "$tmp"
-          mv "$tmp" ${irrDir}/${peer.name}_v6.conf
-          echo "Updated ${peer.name} v6 prefixes"
-        else
-          echo "bgpq4 failed for ${peer.name} v6, keeping existing" >&2
-          rm -f "$tmp"
-        fi
-      '';
-    in
-      v4 + v6;
-  in ''
-    set -euo pipefail
-    mkdir -p ${irrDir}
-    ${lib.concatStrings (map mkPeerRefresh irrPeers)}
-    ${birdc} configure
-  '';
-
   irrTmpfiles =
     lib.concatMap (
       peer:
@@ -569,8 +530,52 @@ in {
         Type = "oneshot";
         User = "bird";
         Group = "bird";
-        ExecStart = "${pkgs.writeShellScript "bird-irr-refresh" irrRefreshScript}";
       };
+      script = let
+        bgpq4 = "${pkgs.bgpq4}/bin/bgpq4";
+        birdc = "${pkgs.bird2}/bin/birdc";
+        irrDir = "/etc/bird/irr";
+        mkPeerRefresh = peer: let
+          v4 = opt (cfg.ipv4.enable && peer.neighborV4 != []) ''
+            tmp=$(mktemp)
+
+            echo "Updating ${peer.name} v4 prefixes in $tmp"
+
+            if ${bgpq4} -h ${cfg.irr.host} -4 -A -b -m ${toString cfg.irr.maxPrefixLenV4} -l "define ${peer.name}_v4" ${peer.asSet} > "$tmp"; then
+              chmod 0644 "$tmp"
+              cp "$tmp" ${irrDir}/${peer.name}_v4.conf
+              cat ${irrDir}/${peer.name}_v4.conf
+              chmod 0644 ${irrDir}/${peer.name}_v4.conf
+              echo "Updated ${peer.name} v4 prefixes"
+            else
+              echo "bgpq4 failed for ${peer.name} v4, keeping existing" >&2
+              rm -f "$tmp"
+            fi
+          '';
+          v6 = opt (cfg.ipv6.enable && peer.neighborV6 != []) ''
+            tmp=$(mktemp)
+
+            echo "Updating ${peer.name} v6 prefixes in $tmp"
+
+            if ${bgpq4} -h ${cfg.irr.host} -6 -A -b -m ${toString cfg.irr.maxPrefixLenV6} -l "define ${peer.name}_v6" ${peer.asSet} > "$tmp"; then
+              chmod 0644 "$tmp"
+              cp "$tmp" ${irrDir}/${peer.name}_v6.conf
+              cat ${irrDir}/${peer.name}_v6.conf
+              chmod 0644 ${irrDir}/${peer.name}_v6.conf
+              echo "Updated ${peer.name} v6 prefixes"
+            else
+              echo "bgpq4 failed for ${peer.name} v6, keeping existing" >&2
+              rm -f "$tmp"
+            fi
+          '';
+        in
+          v4 + v6;
+      in ''
+        set -euo pipefail
+        mkdir -p ${irrDir}
+        ${lib.concatStrings (map mkPeerRefresh irrPeers)}
+        ${birdc} configure
+      '';
     };
 
     systemd.timers.bird-irr-refresh = lib.mkIf hasIrrPeers {
