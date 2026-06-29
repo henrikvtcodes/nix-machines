@@ -30,7 +30,7 @@
     };
     caddy.enable = false;
 
-    my.services.routing = {
+    routing = {
       enable = true;
       asn = 63477;
 
@@ -88,15 +88,6 @@
       file = ../../../secrets/reverenceWgPrivkey.age;
       owner = "systemd-network";
     };
-    # aristaEapiConf = {
-    #   file = ../../../secrets/aristaEapiConf.age;
-    #   owner = "eoxporter";
-    #   group = "eoxporter";
-    # };
-    # unpollerPassword = {
-    #   owner = "unifi-poller";
-    #   file = ../../../secrets/valcourUnpollerPassword.age;
-    # };
   };
 
   systemd.network = {
