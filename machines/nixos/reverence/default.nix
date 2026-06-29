@@ -116,7 +116,7 @@
         };
         wireguardConfig = {
           PrivateKeyFile = config.age.secrets.reverenceWgPrivkey.path;
-          RouteMetric = 2048;
+          RouteMetric = 512;
         };
         wireguardPeers = [
           {
@@ -146,6 +146,13 @@
           Description = "Backend Management NIC";
           DHCP = "yes";
         };
+        routes = [
+          {
+            Gateway = "10.200.20.1";
+            Destination = "10.200.0.0/16";
+            Metric = 512;
+          }
+        ];
       };
       "10-violet-wg" = {
         matchConfig = {Name = "violet0";};
