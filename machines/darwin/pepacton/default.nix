@@ -50,6 +50,7 @@
       _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
       JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
       DOCKER_BIN_DIR = "/Applications/Docker.app/Contents/Resources/bin";
+      CARGO_BIN_DIR = "$HOME/.cargo/bin";
       FNM_COREPACK_ENABLED = "true";
       FNM_RESOLVE_ENGINES = "true";
       GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
