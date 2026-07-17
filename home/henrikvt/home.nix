@@ -77,6 +77,8 @@
   programs = {
     zsh = {
       enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
+
       autocd = true;
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
