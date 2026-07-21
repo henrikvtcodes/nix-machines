@@ -58,7 +58,7 @@
           role = "transit";
           asn = 21647;
           neighborV4 = ["149.112.191.193"];
-          neighborV6 = ["fe80::6e63:f8ff:fea2:d599"];
+          neighborV6 = ["fe80::6e63:f8ff:fea2:d599%wan0"];
           asSet = "AS-LIGHTBOARD";
         }
 
