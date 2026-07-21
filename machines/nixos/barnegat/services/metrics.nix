@@ -1,6 +1,6 @@
 {config, ...}: {
   services.grafana = {
-    enable = true;
+    enable = false;
     settings = {
       users = {
         # editors_can_admin = false;
@@ -20,6 +20,9 @@
     };
     provision.datasources.path = ./datasources.yml;
   };
+
+  # TODO: Set this as file 
+  # services.grafana.settings.security.secret_key;
 
   services.traefik.dynamicConfigOptions = {
     http = {
