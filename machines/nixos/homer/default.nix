@@ -21,11 +21,11 @@
     };
     caddy.enable = false;
 
-        routing = {
+    routing = {
       enable = true;
       asn = 63477;
 
-     ipv4 = {
+      ipv4 = {
         source = "149.112.191.230";
         machine = "149.112.191.230";
       };

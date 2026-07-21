@@ -21,7 +21,7 @@
     provision.datasources.path = ./datasources.yml;
   };
 
-  # TODO: Set this as file 
+  # TODO: Set this as file
   # services.grafana.settings.security.secret_key;
 
   services.traefik.dynamicConfigOptions = {
