@@ -4,6 +4,7 @@
   homeCfg,
   lib,
   unstable,
+  config,
   ...
 }: {
   imports =
