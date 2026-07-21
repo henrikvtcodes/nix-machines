@@ -9,6 +9,7 @@
     hostName = "ashokan";
     hostId = "808b3324";
     domain = "unicycl.ing";
+    useNetworkd = true;
     firewall = {
       allowedTCPPorts = [
         69
@@ -18,6 +19,27 @@
       ];
       allowedUDPPorts = [53];
       enable = true;
+    };
+  };
+
+  systemd.network = {
+    enable = true;
+    links = {
+      "10-wan0" = {
+        matchConfig = {
+          MACAddress = "02:00:17:00:b8:01";
+          Type = "ether";
+        };
+        linkConfig = {
+          Name = "wan0";
+        };
+      };
+    };
+    networks."10-wan0" = {
+      matchConfig.Name = "wan0";
+      networkConfig = {
+        DHCP = "yes";
+      };
     };
   };
 

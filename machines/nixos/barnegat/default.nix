@@ -12,6 +12,7 @@
     hostId = "57e3eb57";
     useDHCP = false;
     dhcpcd.enable = false;
+    useNetworkd = true;
     firewall = {
       allowedTCPPorts = [
         80
@@ -22,7 +23,7 @@
       allowedUDPPorts = [53];
       enable = true;
     };
-    interfaces.ens3 = {
+    interfaces.wan0 = {
       useDHCP = false;
       ipv4.addresses = [
         {
@@ -39,11 +40,26 @@
     };
     defaultGateway = {
       address = "162.120.71.1";
-      interface = "ens3";
+      interface = "wan0";
     };
     defaultGateway6 = {
       address = "2a0a:8dc0:2000:a5::1";
-      interface = "ens3";
+      interface = "wan0";
+    };
+  };
+
+  systemd.network = {
+    enable = true;
+    links = {
+      "10-wan0" = {
+        matchConfig = {
+          MACAddress = "00:10:7d:0f:c8:4b";
+          Type = "ether";
+        };
+        linkConfig = {
+          Name = "wan0";
+        };
+      };
     };
   };
 
