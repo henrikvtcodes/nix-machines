@@ -62,7 +62,6 @@
       excludeTailscale = true;
 
       peers = [
-        # IXP route server — IRR filtered, no default
         {
           name = "pe_vermontix";
           role = "ixp-rs";
