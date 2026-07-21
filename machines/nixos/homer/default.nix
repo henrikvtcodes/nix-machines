@@ -66,7 +66,8 @@
           name = "pe_aix_spfdma";
           role = "ixp-rs";
           asn = 11150;
-          neighborV6 = ["149.112.82.6" "149.112.82.7"  "2001:504:136::6 " " 2001:504:136::7"];
+          neighborV4 = ["149.112.82.6" "149.112.82.7"];
+          neighborV6 = ["2001:504:136::6 " " 2001:504:136::7"];
           asSet = "AS-SPFDMA-AIX";
           maxPrefixV4 = 500;
           maxPrefixV6 = 500;
