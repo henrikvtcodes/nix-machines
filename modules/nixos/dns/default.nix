@@ -25,6 +25,8 @@ in {
         config = rootCorefile;
       };
 
+      services.resolved.enable = false;
+
       users = {
         users.coredns = {
           isSystemUser = true;
