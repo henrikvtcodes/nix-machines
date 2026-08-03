@@ -20,7 +20,7 @@
   my.services = {
     tailscale = {
       enable = true;
-      advertiseExitNode = false;
+      advertiseExitNode = true;
       advertiseRoutes = {
         enable = true;
         routes = [
@@ -108,7 +108,7 @@
     };
     netdevs = {
       "10-violet-wireguard" = {
-        enable = true;
+        enable = false;
         netdevConfig = {
           Kind = "wireguard";
           Name = "violet0";
