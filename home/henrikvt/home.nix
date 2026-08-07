@@ -167,6 +167,18 @@
       };
     };
 
+    ghostty = {
+      enable = lib.mkDefault true;
+      settings = {
+        window-inherit-font-size = false;
+        shell-integration = "zsh";
+        theme = "Catppuccin Mocha";
+        window-inherit-working-directory = true;
+        working-directory = "home";
+        term = "xterm-256color";
+      };
+    };
+
     # Shell-integrated tools
     zoxide.enable = true;
     fzf.enable = true;
@@ -330,10 +342,6 @@
   xdg = {
     enable = true;
     configFile = {
-      "ghostty/config" = lib.mkIf homeCfg.ghostty (lib.mkForce {
-        enable = true;
-        source = ./ghostty.txt;
-      });
       "trippy.toml" = {
         enable = true;
         source = ./trippy.toml;

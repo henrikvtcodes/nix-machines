@@ -16,12 +16,28 @@
     sessionPath = ["$GHOSTTY_BIN_DIR" "$CARGO_BIN_DIR" "$HOME/.local/bin" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
   };
 
-  programs.git.settings = {
-    user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
-    gpg.format = "ssh";
-    gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-    gpg.ssh.allowedSignersFile = toString ./signers.txt;
-    commit.gpgsign = true;
+  programs = {
+    git.settings = {
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
+      gpg.format = "ssh";
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg.ssh.allowedSignersFile = toString ./signers.txt;
+      commit.gpgsign = true;
+    };
+
+    ghostty.settings = {
+      keybind = [
+        "cmd+r=reload_config"
+        "cmd+q=quit"
+        "cmd+w=close_surface"
+        # This enters the control sequence for ending an ssh session from the client side
+        "cmd+shift+k=text:\n~."
+      ];
+      font-family = "Liga SFMono Nerd Font";
+      font-size = 14;
+      macos-titlebar-proxy-icon = "hidden";
+      window-padding-x = 6;
+    };
   };
 
   xdg.
