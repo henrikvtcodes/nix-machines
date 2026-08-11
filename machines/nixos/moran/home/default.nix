@@ -34,7 +34,6 @@
 
   # TODO: Changes from new defaults and whatnot. integrate them later
   gtk.gtk4.theme = null;
-  programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
 
   programs = {
@@ -75,6 +74,7 @@
 
     firefox = {
       enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
       profiles.default = {
         isDefault = true;
         search.force = true;
