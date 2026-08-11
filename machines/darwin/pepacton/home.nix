@@ -25,18 +25,23 @@
       commit.gpgsign = true;
     };
 
-    ghostty.settings = {
-      keybind = [
-        "cmd+r=reload_config"
-        "cmd+q=quit"
-        "cmd+w=close_surface"
-        # This enters the control sequence for ending an ssh session from the client side
-        "cmd+shift+k=text:\n~."
-      ];
-      font-family = "Liga SFMono Nerd Font";
-      font-size = 14;
-      macos-titlebar-proxy-icon = "hidden";
-      window-padding-x = 6;
+    ghostty = {
+      # ghostty isn't built by nixpkgs for aarch64-darwin; managing the
+      # config declaratively while installing the app via the regular dmg
+      package = null;
+      settings = {
+        keybind = [
+          "cmd+r=reload_config"
+          "cmd+q=quit"
+          "cmd+w=close_surface"
+          # This enters the control sequence for ending an ssh session from the client side
+          "cmd+shift+k=text:\n~."
+        ];
+        font-family = "Liga SFMono Nerd Font";
+        font-size = 14;
+        macos-titlebar-proxy-icon = "hidden";
+        window-padding-x = 6;
+      };
     };
   };
 
