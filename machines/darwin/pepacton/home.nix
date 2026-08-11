@@ -35,7 +35,7 @@
           "cmd+q=quit"
           "cmd+w=close_surface"
           # This enters the control sequence for ending an ssh session from the client side
-          "cmd+shift+k=text:\n~."
+          "cmd+shift+k=text:\\n~."
         ];
         font-family = "Liga SFMono Nerd Font";
         font-size = 14;
