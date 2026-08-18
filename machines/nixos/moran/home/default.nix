@@ -29,7 +29,9 @@
 
         teams-for-linux
       ])
-      ++ (with pkgs.jetbrains; [idea goland webstorm datagrip pycharm]);
+      # ++ (with pkgs.jetbrains; [idea goland webstorm datagrip pycharm])
+      ;
+
   };
 
   # TODO: Changes from new defaults and whatnot. integrate them later
