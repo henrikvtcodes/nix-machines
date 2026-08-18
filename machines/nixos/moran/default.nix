@@ -55,6 +55,10 @@
     dhcpcd.enable = false;
     useNetworkd = true;
     wireguard.useNetworkd = true;
+    timeServers = [
+      "time.cloudflare.com"
+      "clock.nyc.he.net"
+    ];
   };
   systemd.network = {
     enable = true;
@@ -168,6 +172,11 @@
     printing.enable = true; # Cups
     pcscd.enable = true; # Smart card (Yubikey) daemon
     gvfs.enable = true; # USB Automounting
+
+    timesyncd.enable = false;
+    chrony = {
+      enable = true;
+    };
 
     # Sound
     pipewire = {
