@@ -14,7 +14,7 @@
     #   BUN_INSTALL = "$HOME/.bun";
     # };
     packages =
-      (with pkgs; [
+      with pkgs; [
         prismlauncher
         spotify
         networkmanagerapplet
@@ -26,12 +26,13 @@
         unstable.bun
         kubectl
         python3
+        podman-compose
+        podman-tui
 
         teams-for-linux
-      ])
+      ]
       # ++ (with pkgs.jetbrains; [idea goland webstorm datagrip pycharm])
       ;
-
   };
 
   # TODO: Changes from new defaults and whatnot. integrate them later
