@@ -274,7 +274,10 @@
     lazygit = {
       enable = true;
       settings = {
-        git.pagers = [{pager = "delta --dark --paging=never --color-only";}];
+        git = {
+          pagers = [{pager = "delta --dark --paging=never --color-only";}];
+          overrideGpg = true;
+        };
       };
     };
 
