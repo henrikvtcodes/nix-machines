@@ -1,30 +1,13 @@
-{
-  pkgs,
-  age,
-  ...
-}: let
-  zipline-screenshot = pkgs.writeShellScriptBin "zipline-screenshot" ''
-    #!/bin/bash
+{pkgs, ...}: let
+  screenshot = pkgs.writeShellScriptBin "screenshot" ''
+    mode="''${1:-region}"
+    out="$HOME/Desktop/screenshot-$(date +%Y-%m-%d_%H.%M.%S).png"
 
-    TOKEN=$(cat ${age.secrets.ziplineToken.path})
-    URL="https://share.unicycl.ing/api/upload"
-
-    # ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -f /tmp/screenshot.png
-    echo "Screenshot taken, opening satty"
-
-    ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -r -- "${pkgs.satty}/bin/satty --filename "-" --fullscreen --output-filename /tmp/screenshot-annotated.png"
-    echo "Satty complete. Uploading"
-    ${pkgs.curl}/bin/curl \
-      -H "authorization: $TOKEN" $URL \
-      -F file=@/tmp/screenshot-annotated.png \
-      -H 'content-type: multipart/form-data' |
-      ${pkgs.jq}/bin/jq -r .files[0].url |
-      ${pkgs.uutils-coreutils-noprefix}/bin/tr -d '\n' |
-      ${pkgs.wl-clipboard-rs}/bin/wl-copy
-
-    echo "Upload complete. Deleting old screenshot"
-
-      rm -f /tmp/screenshot.png
+    if [ "$mode" = "full" ]; then
+      ${pkgs.hyprshot}/bin/hyprshot -m output --freeze -r -- "${pkgs.satty}/bin/satty" --filename - --fullscreen --output-filename "$out"
+    else
+      ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -r -- "${pkgs.satty}/bin/satty" --filename - --fullscreen --output-filename "$out"
+    fi
   '';
 in {
   programs = {
@@ -48,7 +31,7 @@ in {
     wayland-pipewire-idle-inhibit
     wl-clipboard-rs
     wl-clip-persist
-    zipline-screenshot
+    screenshot
   ];
 
   xdg = {
@@ -210,8 +193,8 @@ in {
         "ALT, Tab, bringactivetotop"
 
         # "$mod SHIFT, N, exec, swaync-client -t -sw"
-        ''$mod SHIFT, PRINT, exec, zipline-screenshot''
-        # ''$mod SHIFT, PRINT, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date +%F\_%H.%M.%S).png''
+        "PRINT, exec, screenshot region"
+        "$mod, PRINT, exec, screenshot full"
         "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
         "$mod, V, exec, wl-paste"
