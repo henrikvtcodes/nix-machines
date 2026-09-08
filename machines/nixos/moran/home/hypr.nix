@@ -84,14 +84,20 @@ in {
     hyprpolkitagent.enable = true;
   };
 
-  catppuccin.cursors = {
-    enable = true;
-    accent = "dark";
-    flavor = "mocha";
-  };
+  catppuccin = {
+    cursors = {
+      enable = true;
+      accent = "dark";
+      flavor = "mocha";
+    };
 
-  # TODO: Fix this when hyprland colors shit gets figured out
-  catppuccin.hyprland.enable = false;
+    # catppuccin/nix builds all 64 flavor/accent variants in one derivation;
+    # nixpkgs' copy is the same v2.0.0 source and substitutes from cache.nixos.org.
+    sources.cursors.mochaDark = pkgs.catppuccin-cursors.mochaDark;
+
+    # TODO: Fix this when hyprland colors shit gets figured out
+    hyprland.enable = false;
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
