@@ -26,6 +26,8 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
+    niri.url = "github:sodiboo/niri-flake";
+
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
     };
@@ -105,6 +107,7 @@
     hardware,
     catppuccin,
     hyprland,
+    niri,
     attic,
     authentik,
     ...
@@ -411,6 +414,9 @@
 
           # Hyprland WM
           # hyprland.nixosModules.default
+
+          # Niri WM (stage 1: adds the niri-flake binary cache, niri not enabled yet)
+          niri.nixosModules.niri
         ];
       };
 

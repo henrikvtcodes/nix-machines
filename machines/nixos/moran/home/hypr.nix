@@ -242,4 +242,7 @@ in {
       ];
     };
   };
+
+  # keep hypridle out of the niri session (swayidle handles idle there)
+  systemd.user.services.hypridle.Unit.ConditionEnvironment = "XDG_CURRENT_DESKTOP=Hyprland";
 }

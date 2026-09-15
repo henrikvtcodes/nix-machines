@@ -15,6 +15,7 @@
         position = "top";
         margin = "10 10 0 10";
         modules-left = [
+          "niri/workspaces"
           "hyprland/workspaces"
           "tray"
           "hyprland/submap"

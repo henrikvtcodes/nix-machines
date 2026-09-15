@@ -5,7 +5,7 @@
   config,
   ...
 }: {
-  imports = [./hypr.nix ./waybar.nix];
+  imports = [./hypr.nix ./niri.nix ./waybar.nix];
 
   home = {
     # sessionPath = ["$HOME/.bun/bin"];
