@@ -1,13 +1,15 @@
 {pkgs, ...}: let
-  screenshot = pkgs.writeShellScriptBin "screenshot" ''
-    mode="''${1:-region}"
-    out="$HOME/Desktop/screenshot-$(date +%Y-%m-%d_%H.%M.%S).png"
+  screenshotOut = "$HOME/Desktop/screenshot-$(date +%Y-%m-%d_%H.%M.%S).png";
+  sattyArgs = ''-- ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename "$out"'';
+  screenshot-region = pkgs.writeShellScriptBin "screenshot-region" ''
+    out="${screenshotOut}"
 
-    if [ "$mode" = "full" ]; then
-      ${pkgs.hyprshot}/bin/hyprshot -m output --freeze -r -- "${pkgs.satty}/bin/satty" --filename - --fullscreen --output-filename "$out"
-    else
-      ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -r -- "${pkgs.satty}/bin/satty" --filename - --fullscreen --output-filename "$out"
-    fi
+    ${pkgs.hyprshot}/bin/hyprshot -m region --freeze -r ${sattyArgs}
+  '';
+  screenshot-full = pkgs.writeShellScriptBin "screenshot-full" ''
+    out="${screenshotOut}"
+
+    ${pkgs.hyprshot}/bin/hyprshot -m output --freeze -r ${sattyArgs}
   '';
 in {
   programs = {
@@ -31,7 +33,8 @@ in {
     wayland-pipewire-idle-inhibit
     wl-clipboard-rs
     wl-clip-persist
-    screenshot
+    screenshot-region
+    screenshot-full
   ];
 
   xdg = {
@@ -199,8 +202,8 @@ in {
         "ALT, Tab, bringactivetotop"
 
         # "$mod SHIFT, N, exec, swaync-client -t -sw"
-        "PRINT, exec, screenshot region"
-        "$mod, PRINT, exec, screenshot full"
+        "PRINT, exec, screenshot-region"
+        "$mod, PRINT, exec, screenshot-full"
         "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
         "$mod, V, exec, wl-paste"
