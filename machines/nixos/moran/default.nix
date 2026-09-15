@@ -7,6 +7,7 @@
     ./hardware-config.nix
     ./wmde.nix
     ./network.nix
+    ./power.nix
   ];
 
   boot.loader = {
