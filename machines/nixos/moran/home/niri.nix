@@ -293,5 +293,5 @@
     };
   };
 
-  systemd.user.services.swayidle.Unit.ConditionEnvironment = "XDG_CURRENT_DESKTOP=niri";
+  systemd.user.services.swayidle.Unit.ConditionEnvironment = lib.mkForce "XDG_CURRENT_DESKTOP=niri";
 }

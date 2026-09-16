@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   screenshotOut = "$HOME/Desktop/screenshot-$(date +%Y-%m-%d_%H.%M.%S).png";
   sattyArgs = ''-- ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename "$out"'';
   screenshot-region = pkgs.writeShellScriptBin "screenshot-region" ''
@@ -244,5 +248,5 @@ in {
   };
 
   # keep hypridle out of the niri session (swayidle handles idle there)
-  systemd.user.services.hypridle.Unit.ConditionEnvironment = "XDG_CURRENT_DESKTOP=Hyprland";
+  systemd.user.services.hypridle.Unit.ConditionEnvironment = lib.mkForce "XDG_CURRENT_DESKTOP=Hyprland";
 }
