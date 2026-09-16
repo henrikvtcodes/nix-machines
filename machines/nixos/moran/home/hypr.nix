@@ -202,8 +202,8 @@ in {
         "ALT, Tab, bringactivetotop"
 
         # "$mod SHIFT, N, exec, swaync-client -t -sw"
-        "PRINT, exec, screenshot-region"
-        "$mod, PRINT, exec, screenshot-full"
+        #"PRINT, exec, screenshot-region"
+        #"$mod, PRINT, exec, screenshot-full"
         "$mod, X, exec, wl-clip"
         "$mod, C, exec, wl-copy"
         "$mod, V, exec, wl-paste"
