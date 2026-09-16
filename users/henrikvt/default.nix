@@ -83,7 +83,7 @@ in {
       };
     };
 
-    programs.ssh.startAgent = true;
+    # programs.ssh.startAgent = true;
 
     age.identityPaths = lib.mkIf cfg.enableNixosSpecific ["/home/henrikvt/.ssh/id_ed25519"];
   };
