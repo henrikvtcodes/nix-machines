@@ -17,10 +17,8 @@
       gaps = 0;
       # full-width columns, closest to the old hyprland master layout
       default-column-width.proportion = 1.0;
-      focus-ring = {
-        active.color = "#89b4fa";
-        urgent.color = "#f38ba8";
-      };
+      focus-ring.enable = false;
+      border.enable = false;
     };
 
     # hyprland `rounding = 10` equivalent
@@ -28,10 +26,10 @@
     window-rules = [
       {
         geometry-corner-radius = {
-          top-left = 10.0;
-          top-right = 10.0;
-          bottom-right = 10.0;
-          bottom-left = 10.0;
+          top-left = 5.0;
+          top-right = 5.0;
+          bottom-right = 5.0;
+          bottom-left = 5.0;
         };
         clip-to-geometry = true;
       }
