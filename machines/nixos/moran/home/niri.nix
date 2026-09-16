@@ -15,13 +15,11 @@
 
     layout = {
       gaps = 0;
-      # full-width columns, closest to the old hyprland master layout
       default-column-width.proportion = 1.0;
       focus-ring.enable = false;
       border.enable = false;
     };
 
-    # hyprland `rounding = 10` equivalent
     prefer-no-csd = true;
     window-rules = [
       {
@@ -41,10 +39,6 @@
           }
         ];
         open-floating = true;
-      }
-      {
-        matches = [{app-id = "^org.keepassxc.KeePassXC$";}];
-        block-out-from = "screencast";
       }
     ];
 
