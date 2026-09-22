@@ -69,10 +69,10 @@
     # nm-applet/blueman/avizo etc. start via home-manager services on
     # graphical-session.target; this is only the stuff with no service
     spawn-at-startup = [
-      { argv = ["avizo-service"]; }
-      { argv = ["wayland-pipewire-idle-inhibit"]; }
-      { argv = ["1password" "--silent"]; }
-      { argv = ["wl-clip-persist" "--clipboard" "regular"]; }
+      {argv = ["avizo-service"];}
+      {argv = ["wayland-pipewire-idle-inhibit"];}
+      {argv = ["1password" "--silent"];}
+      {argv = ["wl-clip-persist" "--clipboard" "regular"];}
     ];
 
     binds = {

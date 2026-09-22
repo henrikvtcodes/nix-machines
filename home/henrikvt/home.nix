@@ -302,13 +302,13 @@
 
     yazi = {
       enable = true;
-      settings = {
+      settings.
         manager = {
-          show_hidden = false;
-          sort_by = "alphabetical";
-          sort_dir_first = true;
-        };
+        show_hidden = false;
+        sort_by = "alphabetical";
+        sort_dir_first = true;
       };
+
       shellWrapperName = "y";
     };
 
