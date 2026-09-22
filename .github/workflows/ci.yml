@@ -1,12 +1,12 @@
 name: Flake Check
 
 on:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -19,11 +19,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup Nix
         uses: DeterminateSystems/nix-installer-action@v13
-#      - name: Check cache
-#        uses: actions/cache@v4
-#        with:
-#          path: /nix/store
-#          key: ${{ runner.os }}-nix-store
+      - name: Set up Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Run Checks
         # run: nix flake check --no-build
         run: nix flake check
