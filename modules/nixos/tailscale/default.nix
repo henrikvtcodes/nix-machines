@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 with lib; let
@@ -153,6 +154,7 @@ in {
     services.tailscale =
       {
         enable = true;
+        package = unstable.tailscale;
         useRoutingFeatures = "both";
         extraUpFlags =
           ["--reset=true"]

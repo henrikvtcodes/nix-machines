@@ -292,6 +292,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -313,6 +314,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -337,6 +339,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -363,6 +366,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -490,6 +494,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
