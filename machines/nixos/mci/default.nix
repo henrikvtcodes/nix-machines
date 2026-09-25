@@ -118,48 +118,47 @@
         tcp dport 53 drop
       '';
     };
-    interfaces = {
-      lo = {
-        ipv4.addresses = [
-          {
-            address = "155.103.251.1";
-            prefixLength = 24;
-          }
-        ];
-        ipv6.addresses = [
-          {
-            address = "2602:f542:bee::1";
-            prefixLength = 48;
-          }
-          {
-            address = "2602:f542:bee::53";
-            prefixLength = 48;
-          }
-        ];
-      };
-      ens18 = {
-        ipv4.addresses = [
-          {
-            address = "23.143.82.39";
-            prefixLength = 25;
-          }
-        ];
-        ipv6.addresses = [
-          {
-            address = "2602:fc26:12:1::39";
-            prefixLength = 48;
-          }
-        ];
+  };
+
+  systemd.network = {
+    links = {
+      "10-wan" = {
+        matchConfig = {
+          MACAddress = "bc:24:11:52:1d:f5";
+          Type = "ether";
+        };
+        linkConfig.Name = "wan0";
       };
     };
 
-    defaultGateway = {
-      address = "23.143.82.1";
-      interface = "ens18";
-    };
-    defaultGateway6 = {
-      address = "2602:fc26:12::1";
-      interface = "ens18";
+    networks = {
+      "0-loopback" = {
+        matchConfig.Name = "lo";
+        addresses = [
+          {
+            Address = "155.103.251.1/24";
+          }
+          {
+            Address = "2602:f542:bee::1/48";
+          }
+          {
+            Address = "2602:f542:bee::53/48";
+          }
+        ];
+      };
+      "10-wan" = {
+        matchConfig.Name = "wan0";
+        gateway = ["23.143.82.1" "2602:fc26:12::1"];
+          address = ["23.143.82.39/25" "2602:fc26:12:1::39/48"];
+        networkConfig = {
+          Description = "Backend Management NIC";
+          DHCP = "no";
+          IPv6AcceptRA = "no";
+          IPv6SendRA = "no";
+          EmitLLDP = "no";
+          
+        };
+      };
     };
   };
 }
