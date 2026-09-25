@@ -118,9 +118,11 @@
         tcp dport 53 drop
       '';
     };
+    useNetworkd = true;
   };
 
   systemd.network = {
+    enable = true;
     links = {
       "10-wan" = {
         matchConfig = {
