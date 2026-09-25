@@ -8,6 +8,8 @@
 with lib; let
   cfg = config.my.services.tailscale;
 
+  package = unstable.tailscale;
+
   tsBoolFlag = flag: bool:
     if bool
     then "--${flag}"
@@ -154,7 +156,7 @@ in {
     services.tailscale =
       {
         enable = true;
-        package = unstable.tailscale;
+        inherit package;
         useRoutingFeatures = "both";
         extraUpFlags =
           ["--reset=true"]
@@ -192,7 +194,7 @@ in {
       groups.tailscale = {};
     };
 
-    environment.shellAliases.ts = "${pkgs.tailscale}/bin/tailscale";
+    environment.shellAliases.ts = "${package}/bin/tailscale";
 
     systemd.services = {
       tailscaled.serviceConfig = let
