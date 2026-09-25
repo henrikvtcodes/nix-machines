@@ -153,6 +153,7 @@
           Description = "Backend Management NIC";
           DHCP = "yes";
         };
+        dhcpV4Config.RouteMetric = 2048;
         routes = [
           {
             Gateway = "10.200.20.1";
@@ -192,6 +193,7 @@
           Description = "WAN interface";
           DHCP = "yes";
         };
+        dhcpV4Config.RouteMetric = 100;
       };
     };
   };
