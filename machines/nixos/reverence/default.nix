@@ -96,14 +96,21 @@
           MACAddress = "BC:24:11:21:8A:57";
           Type = "ether";
         };
-        linkConfig.Name = "nic0";
+        linkConfig.Name = "lan0";
       };
       "20-ix" = {
         matchConfig = {
           MACAddress = "38:2C:DB:06:34:47";
           Type = "ether";
         };
-        linkConfig.Name = "nic1";
+        linkConfig.Name = "ix0";
+      };
+      "30-wan" = {
+        matchConfig = {
+          MACAddress = "bc:24:11:c6:b8:e0";
+          Type = "ether";
+        };
+        linkConfig.Name = "wan0";
       };
     };
     netdevs = {
@@ -140,7 +147,7 @@
         ];
       };
       "10-mgmt" = {
-        matchConfig.Name = "nic0";
+        matchConfig.Name = "lan0";
         networkConfig = {
           Description = "Backend Management NIC";
           DHCP = "yes";
@@ -163,7 +170,7 @@
         ];
       };
       "20-ix" = {
-        matchConfig.Name = "nic1";
+        matchConfig.Name = "ix0";
         networkConfig = {
           Description = "Vermont IX Peering LAN";
           DHCP = "no";
@@ -176,6 +183,14 @@
             Address = "2001:504:137::63:477/64";
           }
         ];
+      };
+
+      "30-wan" = {
+        matchConfig.Name = "wan0";
+        networkConfig = {
+          Description = "WAN interface";
+          DHCP = "yes";
+        };
       };
     };
   };
