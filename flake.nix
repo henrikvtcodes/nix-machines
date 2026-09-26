@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -105,6 +106,7 @@
     niri,
     attic,
     authentik,
+    determinate,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -216,6 +218,7 @@
           ragenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
+          determinate.darwinModules.default
 
           ./machines/darwin
           ./machines/darwin/phoenicia

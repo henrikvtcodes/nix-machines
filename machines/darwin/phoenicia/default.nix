@@ -4,6 +4,25 @@
   lib,
   ...
 }: {
+  nix.enable = false;
+
+  determinateNix = {
+    enable = true;
+
+    # replaces nix.settings — same key/value form, written to
+    # /etc/nix/nix.custom.conf
+    customSettings = {
+      experimental-features = "nix-command flakes recursive-nix";
+      system-features = "recursive-nix";
+      extra-substituters = "https://nix-community.cachix.org";
+      extra-trusted-public-keys = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+      auto-optimise-store = true; # stands in for nix.optimise
+    };
+
+    # replaces nix.gc, but not on equal terms — see below
+    determinateNixd.garbageCollector.strategy = "automatic"; # or "disabled"
+  };
+
   system.primaryUser = "henrikvt";
   users.users.henrikvt = {
     home = "/Users/henrikvt";
