@@ -4,13 +4,11 @@
   lib,
   ...
 }: {
-  nix.enable = false;
+  nix = lib.mkForce {enable = false;};
 
   determinateNix = {
     enable = true;
 
-    # replaces nix.settings — same key/value form, written to
-    # /etc/nix/nix.custom.conf
     customSettings = {
       experimental-features = "nix-command flakes recursive-nix";
       system-features = "recursive-nix";

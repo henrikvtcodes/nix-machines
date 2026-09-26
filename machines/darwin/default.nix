@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   launchdWeekly = {
     Hour = 3;
     Minute = 0;
@@ -11,14 +15,14 @@ in {
   ];
 
   # Clean up nix store + old generations automatically
-  nix = {
+  nix = lib.mkDefault {
     package = pkgs.nix;
-    gc = {
+    gc = lib.mkDefault {
       automatic = true;
       interval = launchdWeekly;
       options = "--delete-older-than 7d";
     };
-    optimise = {
+    optimise = lib.mkDefault {
       automatic = true;
       interval = launchdWeekly;
     };
