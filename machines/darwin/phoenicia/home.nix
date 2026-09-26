@@ -47,39 +47,39 @@
     };
   };
 
-  xdg.
-    configFile."glab-cli/config-base.yml" = let
-    yaml = pkgs.formats.yaml {};
-  in {
-    source = yaml.generate "config.yml" {
-      git_protocol = "ssh";
-      check_update = false;
-      host = "gitlab.uvm.edu";
-      editor = "nvim";
-      glamour_style = "dark";
-      no_prompt = false;
-      hosts = {
-        "gitlab.uvm.edu" = {
-          api_host = "gitlab.uvm.edu";
-          api_protocol = "https";
-          git_protocol = "ssh";
-          user = "hvantass";
-          token = "@uvmtoken@";
-        };
-        "gitlab.com" = {
-          api_host = "gitlab.com";
-          api_protocol = "https";
-          git_protocol = "ssh";
-        };
-      };
-    };
-  };
-  home.activation = {
-    glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      rm -f ${config.xdg.configHome}/glab-cli/config.yml
-      cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
-      chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
-      sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
-    '';
-  };
+  # xdg.
+  #   configFile."glab-cli/config-base.yml" = let
+  #   yaml = pkgs.formats.yaml {};
+  # in {
+  #   source = yaml.generate "config.yml" {
+  #     git_protocol = "ssh";
+  #     check_update = false;
+  #     host = "gitlab.uvm.edu";
+  #     editor = "nvim";
+  #     glamour_style = "dark";
+  #     no_prompt = false;
+  #     hosts = {
+  #       "gitlab.uvm.edu" = {
+  #         api_host = "gitlab.uvm.edu";
+  #         api_protocol = "https";
+  #         git_protocol = "ssh";
+  #         user = "hvantass";
+  #         token = "@uvmtoken@";
+  #       };
+  #       "gitlab.com" = {
+  #         api_host = "gitlab.com";
+  #         api_protocol = "https";
+  #         git_protocol = "ssh";
+  #       };
+  #     };
+  #   };
+  # };
+  # home.activation = {
+  #   glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  #     rm -f ${config.xdg.configHome}/glab-cli/config.yml
+  #     cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
+  #     chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
+  #     sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
+  #   '';
+  # };
 }
