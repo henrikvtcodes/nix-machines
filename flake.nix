@@ -177,30 +177,58 @@
         pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
-    darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
-      system = "aarch64-darwin";
-      specialArgs = {
-        inherit inputs;
-        inherit system;
-        inherit lib;
-        unstable = importUnstable system;
+    darwinConfigurations = {
+      pepacton = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          inherit lib;
+          unstable = importUnstable system;
+        };
+        modules = [
+          ragenix.darwinModules.default
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+
+          ./machines/darwin
+          ./machines/darwin/pepacton
+
+          {
+            environment.systemPackages = [
+              ragenix.packages.${system}.default
+              deploy-rs.packages.${system}.default
+              nil-lsp.packages.${system}.default
+            ];
+          }
+        ];
       };
-      modules = [
-        ragenix.darwinModules.default
-        home-manager.darwinModules.home-manager
-        nix-homebrew.darwinModules.nix-homebrew
 
-        ./machines/darwin
-        ./machines/darwin/pepacton
+      phoenicia = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          inherit lib;
+          unstable = importUnstable system;
+        };
+        modules = [
+          ragenix.darwinModules.default
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
 
-        {
-          environment.systemPackages = [
-            ragenix.packages.${system}.default
-            deploy-rs.packages.${system}.default
-            nil-lsp.packages.${system}.default
-          ];
-        }
-      ];
+          ./machines/darwin
+          ./machines/darwin/phoenicia
+
+          {
+            environment.systemPackages = [
+              ragenix.packages.${system}.default
+              deploy-rs.packages.${system}.default
+              nil-lsp.packages.${system}.default
+            ];
+          }
+        ];
+      };
     };
 
     # Config for my servers

@@ -1,0 +1,85 @@
+{
+  pkgs,
+  config,
+  lib,
+  age,
+  ...
+}: {
+  home = {
+    shellAliases = {
+      ytdl = "yt-dlp";
+      nvm = "fnm";
+      pn = "pnpm";
+      bn = "bun";
+      coder = "code . -r";
+    };
+    sessionPath = ["$GHOSTTY_BIN_DIR" "$CARGO_BIN_DIR" "$HOME/.local/bin" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
+  };
+
+  programs = {
+    git.settings = {
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU";
+      gpg.format = "ssh";
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg.ssh.allowedSignersFile = ''
+        commits@henrikvt.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM+1ip8IBO+sK8J7cOwEtA/ba+tTtPHUGYC/KW6mppU
+      '';
+      commit.gpgsign = true;
+    };
+
+    ghostty = {
+      # ghostty isn't built by nixpkgs for aarch64-darwin; managing the
+      # config declaratively while installing the app via the regular dmg
+      package = null;
+      settings = {
+        keybind = [
+          "cmd+r=reload_config"
+          "cmd+q=quit"
+          "cmd+w=close_surface"
+          # This enters the control sequence for ending an ssh session from the client side
+          "cmd+shift+k=text:\\n~."
+        ];
+        font-family = "Liga SFMono Nerd Font";
+        font-size = 14;
+        macos-titlebar-proxy-icon = "hidden";
+        window-padding-x = 6;
+      };
+    };
+  };
+
+  xdg.
+    configFile."glab-cli/config-base.yml" = let
+    yaml = pkgs.formats.yaml {};
+  in {
+    source = yaml.generate "config.yml" {
+      git_protocol = "ssh";
+      check_update = false;
+      host = "gitlab.uvm.edu";
+      editor = "nvim";
+      glamour_style = "dark";
+      no_prompt = false;
+      hosts = {
+        "gitlab.uvm.edu" = {
+          api_host = "gitlab.uvm.edu";
+          api_protocol = "https";
+          git_protocol = "ssh";
+          user = "hvantass";
+          token = "@uvmtoken@";
+        };
+        "gitlab.com" = {
+          api_host = "gitlab.com";
+          api_protocol = "https";
+          git_protocol = "ssh";
+        };
+      };
+    };
+  };
+  home.activation = {
+    glab = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      rm -f ${config.xdg.configHome}/glab-cli/config.yml
+      cp ${config.xdg.configHome}/glab-cli/config-base.yml ${config.xdg.configHome}/glab-cli/config.yml
+      chmod 600 ${config.xdg.configHome}/glab-cli/config.yml
+      sed -i "s|@uvmtoken@|$(cat ${age.secrets.uvmGitlabToken.path})|g" ${config.xdg.configHome}/glab-cli/config.yml
+    '';
+  };
+}
