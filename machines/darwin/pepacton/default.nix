@@ -75,6 +75,7 @@
 
   networking = {
     hostName = "pepacton";
+    computerName = "pepactonMac";
     search = [
       "reindeer-porgy.ts.net"
       "ts.unicycl.ing"

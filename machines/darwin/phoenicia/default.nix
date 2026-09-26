@@ -72,6 +72,7 @@
 
   networking = {
     hostName = "phoenicia";
+    computerName = "phoeniciaMac";
     # search = [
     #   "reindeer-porgy.ts.net"
     #   "ts.unicycl.ing"
