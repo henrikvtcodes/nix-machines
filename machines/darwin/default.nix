@@ -8,7 +8,6 @@
     ../../home/henrikvt
   ];
 
-
   nixpkgs.config.allowUnfree = true;
 
   # TouchID Prompt for sudo
