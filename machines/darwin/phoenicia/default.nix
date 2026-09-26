@@ -109,7 +109,7 @@
   home.henrikvt = {
     # ghDash = true;
     ghostty = true;
-    # client = true;
+    client = true;
     extraModules = [
       ./home.nix
     ];
