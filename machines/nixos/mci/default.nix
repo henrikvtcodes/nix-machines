@@ -151,14 +151,13 @@
       "10-wan" = {
         matchConfig.Name = "wan0";
         gateway = ["23.143.82.1" "2602:fc26:12::1"];
-          address = ["23.143.82.39/25" "2602:fc26:12:1::39/48"];
+        address = ["23.143.82.39/25" "2602:fc26:12:1::39/48"];
         networkConfig = {
           Description = "Backend Management NIC";
           DHCP = "no";
           IPv6AcceptRA = "no";
           IPv6SendRA = "no";
           EmitLLDP = "no";
-          
         };
       };
     };
