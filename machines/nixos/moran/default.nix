@@ -166,6 +166,7 @@
     };
     dconf.enable = true;
     virt-manager.enable = true;
+    ssh.startAgent = false;
   };
   virtualisation.libvirtd.enable = true;
 
