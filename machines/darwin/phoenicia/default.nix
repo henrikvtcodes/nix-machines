@@ -51,7 +51,7 @@
 
   environment = {
     shellAliases = {
-      # rebuild = "${lib.getExe pkgs.nh} darwin switch && omz reload";
+      rebuild = "${lib.getExe pkgs.nh} darwin switch && omz reload";
       reload = "omz reload";
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
       ts = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
@@ -63,13 +63,13 @@
       EDITOR = "nvim";
       _ZO_DATA_DIR = "/Users/henrikvt/.zoxide";
       # _ZO_EXCLUDE_DIRS = "$HOME:$HOME/wpilib/**/*";
-      # JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
+      JETBRAINS_BIN_DIR = "$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts";
       CARGO_BIN_DIR = "$HOME/.cargo/bin";
       FNM_COREPACK_ENABLED = "true";
       FNM_RESOLVE_ENGINES = "true";
       # GITLAB_TOKEN = "$(cat ${config.age.secrets.uvmGitlabToken.path})";
       # GITLAB_HOST = "gitlab.uvm.edu";
-      # NH_FLAKE = "/Users/henrikvt/Desktop/Code/projects/nixmachines#darwinConfigurations.pepacton";
+      NH_FLAKE = "/Users/henrikvt/Desktop/Code/projects/nixmachines";
     };
   };
 
