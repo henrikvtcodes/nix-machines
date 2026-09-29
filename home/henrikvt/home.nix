@@ -203,7 +203,7 @@
       config.
         global = {
         disable_stdin = true;
-        # hide_env_diff = true;x
+        hide_env_diff = true;
         load_dotenv = true;
         strict_env = true;
       };
