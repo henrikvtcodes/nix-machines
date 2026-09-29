@@ -200,11 +200,12 @@
     direnv = {
       enable = homeCfg.client;
       nix-direnv.enable = true;
-      config = {
+      config.
         global = {
-          disable_stdin = true;
-          hide_env_diff = true;
-        };
+        disable_stdin = true;
+        # hide_env_diff = true;x
+        load_dotenv = true;
+        strict_env = true;
       };
     };
     eza = {
