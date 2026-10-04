@@ -236,35 +236,35 @@
 
     # Config for my servers
     nixosConfigurations = {
-      ashokan = lib.nixosSystem rec {
-        system = "aarch64-linux";
+      # ashokan = lib.nixosSystem rec {
+      #   system = "aarch64-linux";
 
-        specialArgs = {
-          inherit inputs;
-          unstable = importUnstable system;
-          inherit system;
-        };
+      #   specialArgs = {
+      #     inherit inputs;
+      #     unstable = importUnstable system;
+      #     inherit system;
+      #   };
 
-        modules = [
-          # Machine config
-          ./machines/nixos
-          ./machines/nixos/ashokan
+      #   modules = [
+      #     # Machine config
+      #     ./machines/nixos
+      #     ./machines/nixos/ashokan
 
-          # System was provisioned with nixos-infect, runs on Oracle Cloud
+      #     # System was provisioned with nixos-infect, runs on Oracle Cloud
 
-          # Secrets
-          ragenix.nixosModules.default
+      #     # Secrets
+      #     ragenix.nixosModules.default
 
-          # Services
-          # attic.nixosModules.atticd
-          authentik.nixosModules.default
+      #     # Services
+      #     # attic.nixosModules.atticd
+      #     authentik.nixosModules.default
 
-          # User config
-          ./users/henrikvt
-          home-manager.nixosModules.home-manager
-          ./home/henrikvt
-        ];
-      };
+      #     # User config
+      #     ./users/henrikvt
+      #     home-manager.nixosModules.home-manager
+      #     ./home/henrikvt
+      #   ];
+      # };
       barnegat = lib.nixosSystem rec {
         system = "x86_64-linux";
 
@@ -544,16 +544,16 @@
 
       # nodes config
       nodes = {
-        ashokan = {
-          hostname = "ashokan";
-          sshOpts = [
-            "-p"
-            "69"
-          ];
-          profiles.system.path =
-            deployPkgs."aarch64-linux".deploy-rs.lib.activate.nixos
-            self.nixosConfigurations.ashokan;
-        };
+        # ashokan = {
+        #   hostname = "ashokan";
+        #   sshOpts = [
+        #     "-p"
+        #     "69"
+        #   ];
+        #   profiles.system.path =
+        #     deployPkgs."aarch64-linux".deploy-rs.lib.activate.nixos
+        #     self.nixosConfigurations.ashokan;
+        # };
         barnegat = {
           hostname = "barnegat";
           sshOpts = [
