@@ -89,9 +89,6 @@
       "Mod+F".action.fullscreen-window = [];
       "Mod+M".action.maximize-window-to-edges = [];
 
-      "Mod+X".action.spawn = "wl-clip";
-      "Mod+C".action.spawn = "wl-copy";
-      "Mod+V".action.spawn = "wl-paste";
       "Mod+Shift+C".action.spawn-sh = "hyprpicker | wl-copy";
 
       "Mod+Left".action.focus-column-left = [];
