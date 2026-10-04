@@ -13,6 +13,13 @@
     #   # Bun install is self managed so I can update separately
     #   BUN_INSTALL = "$HOME/.bun";
     # };
+    shellAliases = {
+      ytdl = "yt-dlp";
+      nvm = "fnm";
+      pn = "pnpm";
+      bn = "bun";
+      coder = "zeditor -r .";
+    };
     packages =
       with pkgs; [
         prismlauncher

@@ -200,11 +200,12 @@
     direnv = {
       enable = homeCfg.client;
       nix-direnv.enable = true;
-      config = {
+      config.
         global = {
-          disable_stdin = true;
-          hide_env_diff = true;
-        };
+        disable_stdin = true;
+        hide_env_diff = true;
+        load_dotenv = true;
+        strict_env = true;
       };
     };
     eza = {
@@ -302,13 +303,13 @@
 
     yazi = {
       enable = true;
-      settings = {
+      settings.
         manager = {
-          show_hidden = false;
-          sort_by = "alphabetical";
-          sort_dir_first = true;
-        };
+        show_hidden = false;
+        sort_by = "alphabetical";
+        sort_dir_first = true;
       };
+
       shellWrapperName = "y";
     };
 

@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,11 +65,6 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tungsten = {
-      url = "github:henrikvtcodes/tungsten";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     attic = {
       url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -110,6 +106,7 @@
     niri,
     attic,
     authentik,
+    determinate,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -182,30 +179,59 @@
         pkgs.alejandra);
 
     # Config for my macbook (only used to set up my terminal)
-    darwinConfigurations.pepacton = darwin.lib.darwinSystem rec {
-      system = "aarch64-darwin";
-      specialArgs = {
-        inherit inputs;
-        inherit system;
-        inherit lib;
-        unstable = importUnstable system;
+    darwinConfigurations = {
+      pepacton = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          inherit lib;
+          unstable = importUnstable system;
+        };
+        modules = [
+          ragenix.darwinModules.default
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+
+          ./machines/darwin
+          ./machines/darwin/pepacton
+
+          {
+            environment.systemPackages = [
+              ragenix.packages.${system}.default
+              deploy-rs.packages.${system}.default
+              nil-lsp.packages.${system}.default
+            ];
+          }
+        ];
       };
-      modules = [
-        ragenix.darwinModules.default
-        home-manager.darwinModules.home-manager
-        nix-homebrew.darwinModules.nix-homebrew
 
-        ./machines/darwin
-        ./machines/darwin/pepacton
+      phoenicia = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          inherit lib;
+          unstable = importUnstable system;
+        };
+        modules = [
+          ragenix.darwinModules.default
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+          determinate.darwinModules.default
 
-        {
-          environment.systemPackages = [
-            ragenix.packages.${system}.default
-            deploy-rs.packages.${system}.default
-            nil-lsp.packages.${system}.default
-          ];
-        }
-      ];
+          ./machines/darwin
+          ./machines/darwin/phoenicia
+
+          {
+            environment.systemPackages = [
+              ragenix.packages.${system}.default
+              deploy-rs.packages.${system}.default
+              nil-lsp.packages.${system}.default
+            ];
+          }
+        ];
+      };
     };
 
     # Config for my servers
@@ -272,6 +298,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -297,6 +324,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -318,6 +346,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -342,6 +371,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -368,6 +398,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
@@ -490,18 +521,19 @@
       };
 
       # ISO Image Generators
-      iso-virt = lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          inherit system;
-        };
-
-        modules = [
-          # Image config
-          ./images
-        ];
-      };
+      #       iso-virt = lib.nixosSystem rec {
+      #         system = "x86_64-linux";
+      #         specialArgs = {
+      #           inherit inputs;
+      #           inherit system;
+      #           unstable = importUnstable system;
+      #         };
+      #
+      #         modules = [
+      #           # Image config
+      #           ./images
+      #         ];
+      #       };
     };
 
     deploy = {

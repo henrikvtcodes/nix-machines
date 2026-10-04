@@ -69,18 +69,21 @@ in {
       };
     };
 
-    programs.zsh = {
-      enable = true;
-      ohMyZsh = lib.mkIf (!config.home.henrikvt.enable) {
+    programs = {
+      zsh = {
         enable = true;
-        theme = "josh";
-        plugins = [
-          "git"
-          "common-aliases"
-          "sudo"
-          "command-not-found"
-        ];
+        ohMyZsh = lib.mkIf (!config.home.henrikvt.enable) {
+          enable = true;
+          theme = "josh";
+          plugins = [
+            "git"
+            "common-aliases"
+            "sudo"
+            "command-not-found"
+          ];
+        };
       };
+      ssh.startAgent = lib.mkDefault true;
     };
 
     # programs.ssh.startAgent = true;
