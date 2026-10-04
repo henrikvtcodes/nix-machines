@@ -521,19 +521,19 @@
       };
 
       # ISO Image Generators
-      iso-virt = lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          inherit system;
-          unstable = importUnstable system;
-        };
-
-        modules = [
-          # Image config
-          ./images
-        ];
-      };
+#       iso-virt = lib.nixosSystem rec {
+#         system = "x86_64-linux";
+#         specialArgs = {
+#           inherit inputs;
+#           inherit system;
+#           unstable = importUnstable system;
+#         };
+#
+#         modules = [
+#           # Image config
+#           ./images
+#         ];
+#       };
     };
 
     deploy = {
