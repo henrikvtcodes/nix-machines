@@ -248,17 +248,6 @@
   programs.swaylock = {
     enable = true;
     settings = {
-      #color = "1e1e2e";
-      #inside-color = "181825";
-      #ring-color = "89b4fa";
-      #key-hl-color = "a6e3a1";
-      #bs-hl-color = "f38ba8";
-      #inside-ver-color = "89b4fa";
-      #ring-ver-color = "89b4fa";
-      #text-ver-color = "1e1e2e";
-      #inside-wrong-color = "f38ba8";
-      #ring-wrong-color = "f38ba8";
-      #text-wrong-color = "1e1e2e";
       line-uses-inside = true;
       indicator-radius = 100;
       indicator-thickness = 10;
