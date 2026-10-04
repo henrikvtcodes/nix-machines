@@ -11,7 +11,7 @@
       nvm = "fnm";
       pn = "pnpm";
       bn = "bun";
-      coder = "code . -r";
+      coder = "zed -e .";
     };
     sessionPath = ["$GHOSTTY_BIN_DIR" "$CARGO_BIN_DIR" "$HOME/.local/bin" "$HOME/.bun/bin" "$JETBRAINS_BIN_DIR" "$DOCKER_BIN_DIR" "/usr/local/go/bin" "$HOME/go/bin"];
   };

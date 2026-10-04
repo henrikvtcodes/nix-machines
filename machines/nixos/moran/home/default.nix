@@ -13,6 +13,13 @@
     #   # Bun install is self managed so I can update separately
     #   BUN_INSTALL = "$HOME/.bun";
     # };
+    shellAliases = {
+      ytdl = "yt-dlp";
+      nvm = "fnm";
+      pn = "pnpm";
+      bn = "bun";
+      coder = "zeditor -r .";
+    };
     packages =
       with pkgs; [
         prismlauncher
@@ -31,6 +38,7 @@
       ]
       # ++ (with pkgs.jetbrains; [idea goland webstorm datagrip pycharm])
       ;
+
   };
 
   # TODO: Changes from new defaults and whatnot. integrate them later
