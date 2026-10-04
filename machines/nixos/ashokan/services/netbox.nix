@@ -13,7 +13,7 @@ in {
     secretKeyFile = config.age.secrets.netboxSecretKey.path;
     apiTokenPeppersFile = config.age.secrets.netboxSecretKey.path;
     plugins = python3Packages:
-      with python3Packages; [
+      with pkgs.netboxPlugins; [
         # netbox-bgp
         # netbox-routing
         # netbox-dns
