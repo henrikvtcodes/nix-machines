@@ -298,6 +298,7 @@
         specialArgs = {
           inherit inputs;
           inherit system;
+          unstable = importUnstable system;
         };
 
         modules = [
