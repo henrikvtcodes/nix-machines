@@ -29,8 +29,6 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
-    railwaycli.url = "github:railwayapp/cli/46731fc";
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
     };
@@ -109,7 +107,6 @@
     attic,
     authentik,
     determinate,
-    railwaycli,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -231,7 +228,6 @@
               ragenix.packages.${system}.default
               deploy-rs.packages.${system}.default
               nil-lsp.packages.${system}.default
-              railwaycli.packages.${system}.default
             ];
           }
         ];
@@ -452,10 +448,6 @@
 
           # Niri WM (stage 1: adds the niri-flake binary cache, niri not enabled yet)
           niri.nixosModules.niri
-
-          {
-            environment.systemPackages = [ railwaycli.packages.${system}.default ];
-          }
         ];
       };
 
