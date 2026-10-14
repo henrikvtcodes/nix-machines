@@ -17,6 +17,7 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     hardware.url = "github:NixOS/nixos-hardware";
 
@@ -26,12 +27,10 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-
     niri.url = "github:sodiboo/niri-flake";
 
-    nixvim = {
+    nixvim.
       url = "github:nix-community/nixvim/nixos-26.05";
-    };
 
     catppuccin = {
       url = "github:catppuccin/nix/release-26.05";
@@ -57,8 +56,6 @@
     nil-lsp = {
       url = "github:oxalica/nil/2024-08-06";
     };
-
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     coredns = {
       url = "github:henrikvtcodes/coredns";
@@ -217,7 +214,6 @@
         modules = [
           ragenix.darwinModules.default
           home-manager.darwinModules.home-manager
-          nix-homebrew.darwinModules.nix-homebrew
           determinate.darwinModules.default
 
           ./machines/darwin

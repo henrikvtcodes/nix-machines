@@ -79,13 +79,13 @@
   #     file = ../../../secrets/uvmGitlabToken.age;
   #   };
   # };
-
-  # nix-homebrew = {
-  #   enable = true;
-  #   enableRosetta = true;
-  #   user = "henrikvt";
-  #   autoMigrate = true;
-  # };
+  #
+  homebrew = {
+    enable = true;
+    brews = [
+      "railway"
+    ];
+  };
 
   networking = {
     hostName = "phoenicia";
