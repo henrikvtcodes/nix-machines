@@ -36,6 +36,14 @@
     networkmanager.enable = false;
   };
 
+  users = {
+    groups."share" = {};
+    users = {
+      copyparty.extraGroups = ["share"];
+      henrikvt.extraGroups = ["share"];
+    };
+  };
+
   # ZFS Settings
   environment.systemPackages = with pkgs; [zfs];
 
