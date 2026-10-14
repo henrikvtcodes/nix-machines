@@ -57,7 +57,6 @@
         cursor-cli
         unstable.stax
         talosctl
-        railway
       ];
 
     shellAliases = {
