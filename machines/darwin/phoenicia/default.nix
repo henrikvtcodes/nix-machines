@@ -80,6 +80,11 @@
   #   };
   # };
   #
+  #
+  nix-homebrew = {
+    enable = true;
+    user = "henrikvt";
+  };
   homebrew = {
     enable = true;
     brews = [

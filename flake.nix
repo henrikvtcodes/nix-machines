@@ -214,6 +214,7 @@
         modules = [
           ragenix.darwinModules.default
           home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
           determinate.darwinModules.default
 
           ./machines/darwin
