@@ -148,6 +148,14 @@
         }
     );
   in {
+    packages = forEachSupportedSystem ({pkgs, ...}: {
+      overlay = pkgs.writeShellApplication {
+        name = "overlay";
+        runtimeInputs = [pkgs.coreutils pkgs.findutils];
+        text = builtins.readFile ./scripts/overlay.sh;
+      };
+    });
+
     # Dev shell for this flake (mostly for reference)
     devShells = forEachSupportedSystem (
       {
@@ -165,6 +173,7 @@
             statix
             pkgs.ragenix
             just
+            self.packages.${system}.overlay
           ];
         };
       }

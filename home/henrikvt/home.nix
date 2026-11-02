@@ -33,6 +33,7 @@
         comma
         jless
         lazyjournal
+        inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.overlay
       ]
       ++ lib.optionals homeCfg.client [
         imagemagick
