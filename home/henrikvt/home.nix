@@ -54,7 +54,7 @@
         numbat
         glow
         github-copilot-cli
-        opencode
+        unstable.opencode
         cursor-cli
         unstable.stax
         talosctl
