@@ -118,8 +118,8 @@
           Description = "Backend Management NIC";
           DHCP = "no";
         };
-        gateway = ["134.195.76.68"];
-        address = ["134.195.76.69/31"];
+        gateway = ["134.195.76.68" "2602:FD9A:1000:202::1"];
+        address = ["134.195.76.69/31" "2602:FD9A:1000:202::/64"];
       };
       # "20-ix" = {
       #   matchConfig.Name = "ix0";
