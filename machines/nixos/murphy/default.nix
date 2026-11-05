@@ -17,6 +17,8 @@
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
+  my.services.tailscale.enable = false;
+
   #   my.services = {
   #     tailscale = {
   #       enable = true;
