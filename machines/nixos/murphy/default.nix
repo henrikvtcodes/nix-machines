@@ -56,6 +56,7 @@
             name = "rs_massix";
             role = "ixp-rs";
             asn = 26563;
+            irrFilter = false;
             neighborV4 = ["206.53.143.252" "206.53.143.253"];
             neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
           }
