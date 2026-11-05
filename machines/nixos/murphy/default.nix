@@ -19,63 +19,49 @@
 
   my.services.tailscale.enable = false;
 
-  #   my.services = {
-  #     tailscale = {
-  #       enable = true;
-  #       advertiseExitNode = true;
-  #       advertiseRoutes = {
-  #         enable = true;
-  #         routes = [
-  #           "10.200.20.0/24"
-  #           "10.200.30.0/24"
-  #         ];
-  #       };
-  #     };
-  #     caddy.enable = false;
-  #
-  #     routing = {
-  #       enable = true;
-  #       asn = 63477;
-  #
-  #       ipv4 = {
-  #         source = "10.0.0.1";
-  #         machine = "10.0.0.1";
-  #       };
-  #
-  #       ipv6 = {
-  #         source = "2602:f542:530::1";
-  #         machine = "2602:f542:530::1";
-  #         localPrefixes = ["2602:f542:530::/48"];
-  #         staticRoutes = [
-  #           {
-  #             prefix = "2602:f542:bee::/48";
-  #             via = "SOURCE6";
-  #           }
-  #         ];
-  #       };
-  #
-  #       rpki.enable = true; # default; set false to disable RTR
-  #
-  #       irr = {
-  #         enable = true;
-  #         host = "rr.ntt.net"; # default
-  #         refreshInterval = "daily";
-  #       };
-  #
-  #       excludeTailscale = true;
-  #
-  #       peers = [
-  #         {
-  #           name = "pe_vermontix";
-  #           role = "ixp-rs";
-  #           asn = 62848;
-  #           neighborV6 = ["2001:504:137::feed:1" "2001:504:137::feed:2"];
-  #           asSet = "AS-VERMONTIX";
-  #           maxPrefixV6 = 500;
-  #         }
-  #       ];
-  #     };
-  #   };
+    my.services = {
+      # tailscale = {
+      #   enable = true;
+      #   advertiseExitNode = true;
+      #   advertiseRoutes = {
+      #     enable = true;
+      #     routes = [
+      #       "10.200.20.0/24"
+      #       "10.200.30.0/24"
+      #     ];
+      #   };
+      # };
+      caddy.enable = false;
+
+      routing = {
+        enable = true;
+        asn = 63477;
+
+        ipv4 = {
+          source = "134.195.76.69";
+          machine = "134.195.76.69";
+        };
+
+        ipv6 = {
+          source = "2602:f542:70::1";
+          machine = "2602:f542:70::1";
+          localPrefixes = ["2602:f542:70::/48"];
+        };
+        irr = {
+          enable = true;
+          refreshInterval = "hourly";
+        };
+        peers = [
+          {
+            name = "rs_massix";
+            role = "ixp-rs";
+            asn = 26563;
+            neighborV4 = ["206.53.143.252" "206.53.143.253"];
+            neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
+          }
+        ];
+      };
+    };
 
   services = {
     qemuGuest.enable = true;
@@ -113,7 +99,7 @@
           DHCP = "no";
         };
         gateway = ["134.195.76.68" "2602:FD9A:1000:202::1"];
-        address = ["134.195.76.69/31" "2602:FD9A:1000:202::/64"];
+        address = ["134.195.76.69/31" "2602:FD9A:1000:202::/128"];
       };
       "20-ix" = {
         matchConfig.Name = "ix0";
