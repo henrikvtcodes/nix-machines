@@ -33,7 +33,7 @@ roles.<name> = {
 ```bird
 filter <peer>_v4_import {   # or <peer>_v4_<idx>_import when enforceNexthop = true
     if is_default_route() then accept;          # only when acceptDefault = true
-    if net !~ <peer>_v4 then reject;            # only when irrFilter = true and asSet set
+    if net !~ <peer>_v4 then reject;            # only when (effective) irrFilter = true and asSet set
     reject_bogon_prefixes();                    # role.filters, each called in order
     reject_bogon_asns();
     reject_long_as_path();
@@ -297,6 +297,7 @@ protocol bgp pe_vermontix_v6_2 from base6 { neighbor 2001:504:137::feed:2 as 628
 | Option                        | Default                | Effect                                                            |
 | ----------------------------- | ---------------------- | ----------------------------------------------------------------- |
 | `acceptDefault`               | `null` (inherits role) | `true`/`false` overrides the role's `acceptDefault` for this peer |
+| `irrFilter`                   | `null` (inherits role) | `false` disables the IRR prefix-set check for this peer even when the role has `irrFilter = true` (and `asSet` then becomes optional); `true` enables it even when the role has it off |
 | `maxPrefixV4` / `maxPrefixV6` | `null`                 | Adds `import limit N action restart`                              |
 | `localPref`                   | `null`                 | Overrides `default bgp_local_pref 50` for this session            |
 | `multihop`                    | `null`                 | Emits `multihop N;`                                               |

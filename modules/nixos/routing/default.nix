@@ -93,12 +93,17 @@
       asSet = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "AS-SET or ASN for bgpq4 IRR filtering. Required when the peer's role has irrFilter = true.";
+        description = "AS-SET or ASN for bgpq4 IRR filtering. Required when the peer's effective irrFilter (per-peer override or role) is true.";
       };
       acceptDefault = mkOption {
         type = types.nullOr types.bool;
         default = null;
         description = "Override the role's acceptDefault for this peer. Null inherits from the role.";
+      };
+      irrFilter = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = "Override the role's irrFilter for this peer. Null inherits from the role; set to false to disable IRR filtering for this peer even when the template/role has it enabled.";
       };
       maxPrefixV4 = mkOption {
         type = types.nullOr types.int;
@@ -159,6 +164,12 @@
     then "${peer.name}_${family}_${toString idx}_import"
     else "${peer.name}_${family}_import";
 
+  # Effective irrFilter for a peer: per-peer override wins over the role's setting.
+  effectiveIrrFilter = peer:
+    if peer.irrFilter != null
+    then peer.irrFilter
+    else cfg.roles.${peer.role}.irrFilter;
+
   # Ordered lines of the filter body for a peer, family, and optional neighbor IP.
   mkFilterLines = peer: family: neighborIp: let
     role = cfg.roles.${peer.role};
@@ -169,7 +180,7 @@
     irrSet = "${peer.name}_${family}";
   in
     lib.optional acceptDef "if is_default_route() then accept;"
-    ++ lib.optional (role.irrFilter && peer.asSet != null) "if net !~ ${irrSet} then reject;"
+    ++ lib.optional (effectiveIrrFilter peer && peer.asSet != null) "if net !~ ${irrSet} then reject;"
     ++ map (fn: "${fn}();") role.filters
     ++ ["enforce_first_as(${toString peer.asn});"]
     ++ lib.optional (role.enforceNexthop && neighborIp != null)
@@ -239,7 +250,8 @@
       ++ lib.optionals cfg.ipv6.enable (lib.imap1 (mkBgpProtocol peer "v6") peer.neighborV6)
     );
 
-  # IRR include lines for a peer (only when irr.enable and peer has asSet)
+  # IRR include lines for a peer (only when irr.enable, peer has asSet, and its
+  # effective irrFilter is on)
   mkIrrIncludes = peer:
     lib.concatStringsSep "\n" (
       lib.optional (cfg.ipv4.enable && peer.neighborV4 != [])
@@ -301,7 +313,7 @@
 
     irrIncludes = opt cfg.irr.enable (
       lib.concatStringsSep "\n"
-      (map mkIrrIncludes (lib.filter (p: p.asSet != null) cfg.peers))
+      (map mkIrrIncludes (lib.filter (p: p.asSet != null && effectiveIrrFilter p) cfg.peers))
     );
 
     namedFilters = lib.concatStrings (map mkPeerFilterBlocks cfg.peers);
@@ -323,7 +335,7 @@
 
   # ── bgpq4 refresh ─────────────────────────────────────────────────────────
 
-  irrPeers = lib.filter (p: p.asSet != null) cfg.peers;
+  irrPeers = lib.filter (p: p.asSet != null && effectiveIrrFilter p) cfg.peers;
   hasIrrPeers = cfg.irr.enable && irrPeers != [];
 
   irrTmpfiles =
@@ -493,7 +505,7 @@ in {
           assertion =
             !(
               cfg.roles ? ${peer.role}
-              && (cfg.roles.${peer.role}).irrFilter
+              && effectiveIrrFilter peer
               && cfg.irr.enable
               && peer.asSet == null
             );
