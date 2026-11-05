@@ -104,15 +104,7 @@
       };
     };
     networks = {
-      # "0-loopback" = {
-      #   matchConfig.Name = "lo";
-      #   addresses = [
-      #     {
-      #       Address = "2602:f542:530::1/48";
-      #     }
-      #   ];
-      # };
-      "10-mgmt" = {
+      "10-wan" = {
         matchConfig.Name = "wan0";
         networkConfig = {
           Description = "Backend Management NIC";
@@ -121,25 +113,28 @@
         gateway = ["134.195.76.68" "2602:FD9A:1000:202::1"];
         address = ["134.195.76.69/31" "2602:FD9A:1000:202::/64"];
       };
-      # "20-ix" = {
-      #   matchConfig.Name = "ix0";
-      #   networkConfig = {
-      #     Description = "MASS-IX Peering LAN";
-      #     DHCP = "no";
-      #     IPv6AcceptRA = "no";
-      #     IPv6SendRA = "no";
-      #     EmitLLDP = "no";
-      #   };
-      #   addresses = [
-      #     {
-      #       Address = "2001:504:137::63:477/64";
-      #     }
-      #   ];
-      # };
+      "20-ix" = {
+        matchConfig.Name = "ix0";
+        networkConfig = {
+          Description = "MASS-IX Peering LAN";
+          DHCP = "no";
+          IPv6AcceptRA = "no";
+          IPv6SendRA = "no";
+          EmitLLDP = "no";
+        };
+        addresses = [
+          {
+            Address = "206.53.143.97/24";
+          }
+          {
+            Address = "2001:504:47::F7F5:0:1/64";
+          }
+        ];
+      };
     };
   };
   networking = {
-    hostName = "reverence";
+    hostName = "murphy";
     firewall = {
       enable = true;
       allowedTCPPorts = [22 69];
