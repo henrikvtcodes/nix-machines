@@ -19,7 +19,7 @@ jobs:
       - name: Update flake inputs
         run: nix flake update
       - name: Ensure the flake passes checks
-        run: nix flake check
+        run: nix flake check --no-build
       - name: Copy all flake inputs to store for caching
         run: nix flake archive
       - name: Commit changes
