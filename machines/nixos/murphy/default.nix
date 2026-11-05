@@ -17,63 +17,63 @@
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
-#   my.services = {
-#     tailscale = {
-#       enable = true;
-#       advertiseExitNode = true;
-#       advertiseRoutes = {
-#         enable = true;
-#         routes = [
-#           "10.200.20.0/24"
-#           "10.200.30.0/24"
-#         ];
-#       };
-#     };
-#     caddy.enable = false;
-#
-#     routing = {
-#       enable = true;
-#       asn = 63477;
-#
-#       ipv4 = {
-#         source = "10.0.0.1";
-#         machine = "10.0.0.1";
-#       };
-#
-#       ipv6 = {
-#         source = "2602:f542:530::1";
-#         machine = "2602:f542:530::1";
-#         localPrefixes = ["2602:f542:530::/48"];
-#         staticRoutes = [
-#           {
-#             prefix = "2602:f542:bee::/48";
-#             via = "SOURCE6";
-#           }
-#         ];
-#       };
-#
-#       rpki.enable = true; # default; set false to disable RTR
-#
-#       irr = {
-#         enable = true;
-#         host = "rr.ntt.net"; # default
-#         refreshInterval = "daily";
-#       };
-#
-#       excludeTailscale = true;
-#
-#       peers = [
-#         {
-#           name = "pe_vermontix";
-#           role = "ixp-rs";
-#           asn = 62848;
-#           neighborV6 = ["2001:504:137::feed:1" "2001:504:137::feed:2"];
-#           asSet = "AS-VERMONTIX";
-#           maxPrefixV6 = 500;
-#         }
-#       ];
-#     };
-#   };
+  #   my.services = {
+  #     tailscale = {
+  #       enable = true;
+  #       advertiseExitNode = true;
+  #       advertiseRoutes = {
+  #         enable = true;
+  #         routes = [
+  #           "10.200.20.0/24"
+  #           "10.200.30.0/24"
+  #         ];
+  #       };
+  #     };
+  #     caddy.enable = false;
+  #
+  #     routing = {
+  #       enable = true;
+  #       asn = 63477;
+  #
+  #       ipv4 = {
+  #         source = "10.0.0.1";
+  #         machine = "10.0.0.1";
+  #       };
+  #
+  #       ipv6 = {
+  #         source = "2602:f542:530::1";
+  #         machine = "2602:f542:530::1";
+  #         localPrefixes = ["2602:f542:530::/48"];
+  #         staticRoutes = [
+  #           {
+  #             prefix = "2602:f542:bee::/48";
+  #             via = "SOURCE6";
+  #           }
+  #         ];
+  #       };
+  #
+  #       rpki.enable = true; # default; set false to disable RTR
+  #
+  #       irr = {
+  #         enable = true;
+  #         host = "rr.ntt.net"; # default
+  #         refreshInterval = "daily";
+  #       };
+  #
+  #       excludeTailscale = true;
+  #
+  #       peers = [
+  #         {
+  #           name = "pe_vermontix";
+  #           role = "ixp-rs";
+  #           asn = 62848;
+  #           neighborV6 = ["2001:504:137::feed:1" "2001:504:137::feed:2"];
+  #           asSet = "AS-VERMONTIX";
+  #           maxPrefixV6 = 500;
+  #         }
+  #       ];
+  #     };
+  #   };
 
   services = {
     qemuGuest.enable = true;
@@ -93,7 +93,7 @@
           MACAddress = "bc:24:11:1a:ef:32";
           Type = "ether";
         };
-        linkConfig.Name = "lan0";
+        linkConfig.Name = "wan0";
       };
       "20-ix" = {
         matchConfig = {
@@ -116,7 +116,7 @@
         matchConfig.Name = "wan0";
         networkConfig = {
           Description = "Backend Management NIC";
-              DHCP = "no";
+          DHCP = "no";
         };
         gateway = ["134.195.76.68"];
         address = ["134.195.76.69/31"];
