@@ -92,6 +92,10 @@
       };
     };
     networks = {
+      "0-lo" = {
+        matchConfig.Name = "lo";
+        address = ["2602:f542:70::1/128"];
+      };
       "10-wan" = {
         matchConfig.Name = "wan0";
         networkConfig = {
