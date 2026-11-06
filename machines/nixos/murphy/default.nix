@@ -46,6 +46,12 @@
           source = "2602:f542:70::1";
           machine = "2602:f542:70::1";
           localPrefixes = ["2602:f542:70::/48"];
+          staticRoutes = [
+            {
+              prefix = "2602:f542:70::/48";
+              via = "SOURCE6";
+            }
+          ];
         };
         irr = {
           enable = true;
@@ -104,7 +110,7 @@
           DHCP = "no";
         };
         gateway = ["134.195.76.68" "2602:FD9A:1000:202::1"];
-        address = ["134.195.76.69/31" "2602:FD9A:1000:202::/128"];
+        address = ["134.195.76.69/31" "2602:FD9A:1000:202::2/128"];
       };
       "20-ix" = {
         matchConfig.Name = "ix0";
