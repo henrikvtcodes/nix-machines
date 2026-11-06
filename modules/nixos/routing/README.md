@@ -24,6 +24,7 @@ roles.<name> = {
   irrFilter      = false;  # prepend IRR prefix-set check before filter chain
   acceptDefault  = false;  # pre-accept 0.0.0.0/0 / ::/0 before filter chain
   enforceNexthop = false;  # call enforce_peer_nexthop(ip) per neighbor; one filter per neighbor
+  enforceFirstAs = true;   # call enforce_first_as(<asn>); false for route servers
 };
 }
 ```
@@ -39,7 +40,7 @@ filter <peer>_v4_import {   # or <peer>_v4_<idx>_import when enforceNexthop = tr
     reject_long_as_path();
     reject_out_of_bounds_prefixes();
     reject_rpki_invalid();
-    enforce_first_as(<asn>);                    # always, using peer's asn
+    enforce_first_as(<asn>);                    # only when enforceFirstAs = true (off for ixp-rs)
     enforce_peer_nexthop(<neighbor_ip>);        # only when enforceNexthop = true
     honor_graceful_shutdown();                  # always
     accept;
@@ -48,17 +49,17 @@ filter <peer>_v4_import {   # or <peer>_v4_<idx>_import when enforceNexthop = tr
 
 ### Built-in roles
 
-| Role      | `filters`        | `irrFilter` | `acceptDefault` | `enforceNexthop` |
-| --------- | ---------------- | ----------- | --------------- | ---------------- |
-| `transit` | all 5 reject fns | `false`     | `true`          | `false`          |
-| `peer`    | all 5 reject fns | `true`      | `false`         | `true`           |
-| `ixp-rs`  | all 5 reject fns | `true`      | `false`         | `false`          |
+| Role      | `filters`        | `irrFilter` | `acceptDefault` | `enforceNexthop` | `enforceFirstAs` |
+| --------- | ---------------- | ----------- | --------------- | ---------------- | ---------------- |
+| `transit` | all 5 reject fns | `false`     | `true`          | `false`          | `true`           |
+| `peer`    | all 5 reject fns | `true`      | `false`         | `true`           | `true`           |
+| `ixp-rs`  | all 5 reject fns | `true`      | `false`         | `false`          | `false`          |
 
 **`transit`** accepts default routes & full table. No per-neighbor nexthop enforcement.
 
 **`peer`** is IRR-filtered. `enforceNexthop = true` generates one named filter per neighbor address so the nexthop IP can be hardcoded per session.
 
-**`ixp-rs`** is same as `peer` but without per-neighbor nexthop enforcement.
+**`ixp-rs`** is same as `peer` but without per-neighbor nexthop enforcement. `enforceFirstAs = false`: route servers announce paths on behalf of other ASes, so the first AS is not the peer's ASN.
 
 ### Customising roles
 
@@ -298,6 +299,7 @@ protocol bgp pe_vermontix_v6_2 from base6 { neighbor 2001:504:137::feed:2 as 628
 | ----------------------------- | ---------------------- | ----------------------------------------------------------------- |
 | `acceptDefault`               | `null` (inherits role) | `true`/`false` overrides the role's `acceptDefault` for this peer |
 | `irrFilter`                   | `null` (inherits role) | `false` disables the IRR prefix-set check for this peer even when the role has `irrFilter = true` (and `asSet` then becomes optional); `true` enables it even when the role has it off |
+| `enforceFirstAs`              | `null` (inherits role) | `true`/`false` overrides the role's `enforceFirstAs` for this peer |
 | `maxPrefixV4` / `maxPrefixV6` | `null`                 | Adds `import limit N action restart`                              |
 | `localPref`                   | `null`                 | Overrides `default bgp_local_pref 50` for this session            |
 | `multihop`                    | `null`                 | Emits `multihop N;`                                               |

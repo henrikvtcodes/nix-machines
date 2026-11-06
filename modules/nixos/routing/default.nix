@@ -63,6 +63,11 @@
         default = false;
         description = "Emit enforce_peer_nexthop(<ip>) per neighbor address. Generates one named filter per neighbor address rather than one per peer.";
       };
+      enforceFirstAs = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Emit enforce_first_as(<asn>) in the import filter. Route servers announce paths on behalf of other ASes, so this should be false for ixp-rs roles.";
+      };
     };
   });
 
@@ -130,6 +135,11 @@
         default = false;
         description = "Passive BGP session (do not initiate connections).";
       };
+      enforceFirstAs = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = "Override the role's enforceFirstAs for this peer. Null inherits from the role.";
+      };
       extraConfig = mkOption {
         type = types.lines;
         default = "";
@@ -170,6 +180,12 @@
     then peer.irrFilter
     else cfg.roles.${peer.role}.irrFilter;
 
+  # Effective enforceFirstAs for a peer: per-peer override wins over the role's setting.
+  effectiveEnforceFirstAs = peer:
+    if peer.enforceFirstAs != null
+    then peer.enforceFirstAs
+    else cfg.roles.${peer.role}.enforceFirstAs;
+
   # Ordered lines of the filter body for a peer, family, and optional neighbor IP.
   mkFilterLines = peer: family: neighborIp: let
     role = cfg.roles.${peer.role};
@@ -182,7 +198,7 @@
     lib.optional acceptDef "if is_default_route() then accept;"
     ++ lib.optional (effectiveIrrFilter peer && peer.asSet != null) "if net !~ ${irrSet} then reject;"
     ++ map (fn: "${fn}();") role.filters
-    ++ ["enforce_first_as(${toString peer.asn});"]
+    ++ lib.optional (effectiveEnforceFirstAs peer) "enforce_first_as(${toString peer.asn});"
     ++ lib.optional (role.enforceNexthop && neighborIp != null)
     "enforce_peer_nexthop(${neighborIp});"
     ++ ["honor_graceful_shutdown();"]
@@ -464,6 +480,7 @@ in {
         irrFilter = lib.mkDefault false;
         acceptDefault = lib.mkDefault true;
         enforceNexthop = lib.mkDefault false;
+        enforceFirstAs = lib.mkDefault true;
       };
       peer = {
         filters = lib.mkDefault [
@@ -476,6 +493,7 @@ in {
         irrFilter = lib.mkDefault true;
         acceptDefault = lib.mkDefault false;
         enforceNexthop = lib.mkDefault true;
+        enforceFirstAs = lib.mkDefault true;
       };
       "ixp-rs" = {
         filters = lib.mkDefault [
@@ -488,6 +506,7 @@ in {
         irrFilter = lib.mkDefault true;
         acceptDefault = lib.mkDefault false;
         enforceNexthop = lib.mkDefault false;
+        enforceFirstAs = lib.mkDefault false;
       };
     };
 
