@@ -66,6 +66,14 @@
             neighborV4 = ["206.53.143.252" "206.53.143.253"];
             neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
           }
+          {
+            name = "pe_cloudflare";
+            role = "peer";
+            asn = 13335;
+            asSet = "AS-CLOUDFLARE";
+            neighborV4 = ["206.53.143.9"];
+            neighborV6 = ["2001:504:47::3417:0:1"];
+          }
         ];
       };
     };
