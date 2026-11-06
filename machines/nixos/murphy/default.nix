@@ -119,6 +119,31 @@
         };
         gateway = ["134.195.76.68" "2602:FD9A:1000:202::1"];
         address = ["134.195.76.69/31" "2602:FD9A:1000:202::2/128"];
+        # Keep OOB-sourced traffic on wan0 regardless of BGP routes
+        # installed in the main table (which would send replies out ix0).
+        routingPolicyRules = [
+          {
+            From = "134.195.76.69/32";
+            Table = 100;
+            Priority = 100;
+          }
+          {
+            From = "2602:FD9A:1000:202::2/128";
+            Table = 100;
+            Priority = 100;
+          }
+        ];
+        routes = [
+          {
+            Gateway = "134.195.76.68";
+            Table = 100;
+          }
+          {
+            Gateway = "2602:FD9A:1000:202::1";
+            GatewayOnLink = true; # our address is a /128, so the gateway isn't in a connected prefix
+            Table = 100;
+          }
+        ];
       };
       "20-ix" = {
         matchConfig.Name = "ix0";
