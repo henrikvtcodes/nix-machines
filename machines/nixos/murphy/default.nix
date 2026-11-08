@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hwconfig.nix
+    ./containers.nix
   ];
 
   boot.loader.grub = {
