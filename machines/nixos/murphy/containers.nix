@@ -22,10 +22,10 @@
 in {
   containers.nettest1 = mk {
     iface = "nt1";
-    addr = "2602:f542:70:100::2";
+    addr = "2602:f542:70::100:1";
   };
   containers.nettest2 = mk {
     iface = "nt2";
-    addr = "2602:f542:70:200::2";
+    addr = "2602:f542:70::100:2";
   };
 }
