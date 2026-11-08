@@ -13,9 +13,23 @@
     config = {...}: {
       system.stateVersion = "25.11";
       networking.useHostResolvConf = lib.mkForce false;
-      networking.defaultGateway6 = {
-        address = hostAddr;
-        interface = iface;
+      # networking.defaultGateway6 did not install a route for the extra veth,
+      # so configure the interface with networkd instead.
+      networking.useNetworkd = true;
+      systemd.network.enable = true;
+      systemd.network.networks."40-${iface}" = {
+        matchConfig.Name = iface;
+        address = ["${addr}/128"];
+        routes = [
+          {
+            Gateway = hostAddr;
+            GatewayOnLink = true; # our address is a /128, so the gateway isn't in a connected prefix
+          }
+        ];
+        networkConfig = {
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "ipv6";
+        };
       };
     };
   };
