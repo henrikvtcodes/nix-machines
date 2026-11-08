@@ -18,6 +18,7 @@ let
   mci = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOfiuOWvd37Y7bzvQI6FSZi8bmtkYo32G1BziQ+bh8Vu root@mci";
   reverence = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvj+r4FrqrZUz6T1EwfgMYeqUbj+IailBVCti1H4cyT root@reverence";
   homer = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrSXDOll5oxiOJaaSdA1UVTeREUpaeFyjBlH7IYF2wO root@homer";
+  murphy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIyJgipZZwUtwgjxqOQe7qpp/fqUUvQFVkywpRBNSc/T root@murphy";
 
   henrik = [
     henrik_public_pubkey
@@ -39,6 +40,7 @@ let
     mci
     reverence
     homer
+    murphy
   ];
 
   cloud = [ashokan barnegat mci];
