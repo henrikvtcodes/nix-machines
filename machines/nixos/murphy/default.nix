@@ -25,50 +25,50 @@
       };
       caddy.enable = false;
 
-      routing = {
-        enable = true;
-        asn = 63477;
+    routing = {
+      enable = true;
+      asn = 63477;
 
-        ipv4 = {
-          source = "134.195.76.69";
-          machine = "134.195.76.69";
-        };
+      ipv4 = {
+        source = "134.195.76.69";
+        machine = "134.195.76.69";
+      };
 
-        ipv6 = {
-          source = "2602:f542:70::1";
-          machine = "2602:f542:70::1";
-          localPrefixes = ["2602:f542:70::/48"];
-          staticRoutes = [
-            {
-              prefix = "2602:f542:70::/48";
-              via = "SOURCE6";
-            }
-          ];
-        };
-        irr = {
-          enable = true;
-          refreshInterval = "hourly";
-        };
-        peers = [
+      ipv6 = {
+        source = "2602:f542:70::1";
+        machine = "2602:f542:70::1";
+        localPrefixes = ["2602:f542:70::/48"];
+        staticRoutes = [
           {
-            name = "rs_massix";
-            role = "ixp-rs";
-            asn = 26563;
-            irrFilter = false;
-            neighborV4 = ["206.53.143.252" "206.53.143.253"];
-            neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
-          }
-          {
-            name = "pe_cloudflare";
-            role = "peer";
-            asn = 13335;
-            asSet = "AS-CLOUDFLARE";
-            neighborV4 = ["206.53.143.9"];
-            neighborV6 = ["2001:504:47::3417:0:1"];
+            prefix = "2602:f542:70::/48";
+            via = "SOURCE6";
           }
         ];
       };
+      irr = {
+        enable = true;
+        refreshInterval = "hourly";
+      };
+      peers = [
+        {
+          name = "rs_massix";
+          role = "ixp-rs";
+          asn = 26563;
+          irrFilter = false;
+          neighborV4 = ["206.53.143.252" "206.53.143.253"];
+          neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
+        }
+        {
+          name = "pe_cloudflare";
+          role = "peer";
+          asn = 13335;
+          asSet = "AS-CLOUDFLARE";
+          neighborV4 = ["206.53.143.9"];
+          neighborV6 = ["2001:504:47::3417:0:1"];
+        }
+      ];
     };
+  };
 
   services = {
     qemuGuest.enable = true;
