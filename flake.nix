@@ -163,8 +163,16 @@
         system,
         ...
       }: {
-        default = pkgs.mkShell {
+        default = let
+          # ragenix can't use an SSH agent, so pull the key from 1Password on demand.
+          # Override the item reference with OP_SSH_KEY_REF if needed.
+          ragenix-op = pkgs.writeShellScriptBin "ragenix-op" ''
+            ref="''${OP_SSH_KEY_REF:-op://Private/SSH Key/private key}"
+            exec ${pkgs.ragenix}/bin/ragenix -i <(op read "$ref?ssh-format=openssh") "$@"
+          '';
+        in pkgs.mkShell {
           packages = with pkgs; [
+            ragenix-op
             nixd
             git
             nixos-generators

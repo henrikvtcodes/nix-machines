@@ -89,6 +89,9 @@
     brews = [
       "railway"
     ];
+    casks = [
+      "1password-cli"
+    ];
   };
 
   networking = {
