@@ -18,12 +18,12 @@
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
-    my.services = {
-      tailscale = {
-        enable = true;
-        advertiseExitNode = true;
-      };
-      caddy.enable = false;
+  my.services = {
+    tailscale = {
+      enable = true;
+      advertiseExitNode = true;
+    };
+    caddy.enable = false;
 
     routing = {
       enable = true;

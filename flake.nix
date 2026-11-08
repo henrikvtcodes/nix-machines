@@ -170,20 +170,21 @@
             ref="''${OP_SSH_KEY_REF:-op://Private/SSH Key/private key}"
             exec ${pkgs.ragenix}/bin/ragenix -i <(op read "$ref?ssh-format=openssh") "$@"
           '';
-        in pkgs.mkShell {
-          packages = with pkgs; [
-            ragenix-op
-            nixd
-            git
-            nixos-generators
-            #deploy-rs.packages.${system}.default
-            pkgs.deploy-rs
-            statix
-            pkgs.ragenix
-            just
-            self.packages.${system}.overlay
-          ];
-        };
+        in
+          pkgs.mkShell {
+            packages = with pkgs; [
+              ragenix-op
+              nixd
+              git
+              nixos-generators
+              #deploy-rs.packages.${system}.default
+              pkgs.deploy-rs
+              statix
+              pkgs.ragenix
+              just
+              self.packages.${system}.overlay
+            ];
+          };
       }
     );
 
