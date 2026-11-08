@@ -18,20 +18,11 @@
   home.henrikvt.enable = true;
   users.henrikvt.enablePasswordFile = false;
 
-  my.services.tailscale.enable = false;
-
     my.services = {
-      # tailscale = {
-      #   enable = true;
-      #   advertiseExitNode = true;
-      #   advertiseRoutes = {
-      #     enable = true;
-      #     routes = [
-      #       "10.200.20.0/24"
-      #       "10.200.30.0/24"
-      #     ];
-      #   };
-      # };
+      tailscale = {
+        enable = true;
+        advertiseExitNode = true;
+      };
       caddy.enable = false;
 
       routing = {
