@@ -51,20 +51,30 @@
       };
       peers = [
         {
-          name = "rs_massix";
+          name = "massix_rs";
           role = "ixp-rs";
           asn = 26563;
           irrFilter = false;
           neighborV4 = ["206.53.143.252" "206.53.143.253"];
           neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
+          exportCommunities = ["26563,6939"];
         }
         {
-          name = "pe_cloudflare";
+          name = "cloudflare";
           role = "peer";
           asn = 13335;
           asSet = "AS-CLOUDFLARE";
           neighborV4 = ["206.53.143.9"];
           neighborV6 = ["2001:504:47::3417:0:1"];
+        }
+        {
+          name = "hurricane";
+          role = "transit";
+          asn = 6939;
+          asSet = "AS-HURRICANE";
+          prepend = 1;
+          neighborV4 = [];
+          neighborV6 = ["2001:504:47::1b1b:0:1"];
         }
       ];
     };
