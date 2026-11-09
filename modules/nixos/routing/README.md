@@ -25,6 +25,7 @@ roles.<name> = {
   acceptDefault  = false;  # pre-accept 0.0.0.0/0 / ::/0 before filter chain
   enforceNexthop = false;  # call enforce_peer_nexthop(ip) per neighbor; one filter per neighbor
   enforceFirstAs = true;   # call enforce_first_as(<asn>); false for route servers
+  localPref      = null;   # default bgp_local_pref for the role (null = base template's 50)
 };
 }
 ```
@@ -49,11 +50,13 @@ filter <peer>_v4_import {   # or <peer>_v4_<idx>_import when enforceNexthop = tr
 
 ### Built-in roles
 
-| Role      | `filters`        | `irrFilter` | `acceptDefault` | `enforceNexthop` | `enforceFirstAs` |
-| --------- | ---------------- | ----------- | --------------- | ---------------- | ---------------- |
-| `transit` | all 5 reject fns | `false`     | `true`          | `false`          | `true`           |
-| `peer`    | all 5 reject fns | `true`      | `false`         | `true`           | `true`           |
-| `ixp-rs`  | all 5 reject fns | `true`      | `false`         | `false`          | `false`          |
+| Role      | `filters`        | `irrFilter` | `acceptDefault` | `enforceNexthop` | `enforceFirstAs` | `localPref` |
+| --------- | ---------------- | ----------- | --------------- | ---------------- | ---------------- | ----------- |
+| `transit` | all 5 reject fns | `false`     | `true`          | `false`          | `true`           | `100`       |
+| `peer`    | all 5 reject fns | `true`      | `false`         | `true`           | `true`           | `200`       |
+| `ixp-rs`  | all 5 reject fns | `true`      | `false`         | `false`          | `false`          | `150`       |
+
+Local pref ordering is peer > route server > transit, so bilateral peering routes win over IX route server routes, which win over transit. A graceful-shutdown community still drops a route to 0, since that is set in the import filter and overrides the session default.
 
 **`transit`** accepts default routes & full table. No per-neighbor nexthop enforcement.
 
@@ -301,7 +304,30 @@ protocol bgp pe_vermontix_v6_2 from base6 { neighbor 2001:504:137::feed:2 as 628
 | `irrFilter`                   | `null` (inherits role) | `false` disables the IRR prefix-set check for this peer even when the role has `irrFilter = true` (and `asSet` then becomes optional); `true` enables it even when the role has it off |
 | `enforceFirstAs`              | `null` (inherits role) | `true`/`false` overrides the role's `enforceFirstAs` for this peer |
 | `maxPrefixV4` / `maxPrefixV6` | `null`                 | Adds `import limit N action restart`                              |
-| `localPref`                   | `null`                 | Overrides `default bgp_local_pref 50` for this session            |
+| `localPref`                   | `null` (inherits role) | Overrides the role's `localPref` (`default bgp_local_pref N`) for this session |
 | `multihop`                    | `null`                 | Emits `multihop N;`                                               |
 | `passive`                     | `false`                | Emits `passive;`. BIRD waits for the peer to initiate             |
+| `importCommunities`           | `[]`                   | Communities added to routes received from this peer (in its import filter, after `honor_graceful_shutdown()`) |
+| `exportCommunities`           | `[]`                   | Communities added to routes announced to this peer. Emits a per-peer `export filter` replacing the template's (same `remove_private_asns(); accept_local();` plus the community adds) |
+| `prepend`                     | `0`                    | Prepends our ASN N extra times on routes announced to this peer (per-peer `export filter`, applied after `remove_private_asns()`) |
 | `extraConfig`                 | `""`                   | Appended verbatim inside each protocol block                      |
+
+### Communities
+
+`"asn,value"` becomes a standard community, `"asn,value1,value2"` a large community. Anything else fails an assertion at eval time.
+
+```nix
+{
+  name              = "up_as1003";
+  role              = "transit";
+  asn               = 1003;
+  neighborV4        = [ "23.143.82.1" ];
+  importCommunities = [ "63477,100" "63477,1,1003" ];  # tag what we learn from this peer
+  exportCommunities = [ "1003,3" ];                    # e.g. a prepend/action community
+}
+```
+
+```bird
+bgp_community.add((63477, 100));
+bgp_large_community.add((63477, 1, 1003));
+```

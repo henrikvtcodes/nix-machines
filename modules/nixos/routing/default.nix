@@ -68,6 +68,11 @@
         default = true;
         description = "Emit enforce_first_as(<asn>) in the import filter. Route servers announce paths on behalf of other ASes, so this should be false for ixp-rs roles.";
       };
+      localPref = mkOption {
+        type = types.nullOr types.int;
+        default = null;
+        description = "Default bgp_local_pref for peers with this role. Null falls back to the base template default (50). Overridable per peer.";
+      };
     };
   });
 
@@ -123,7 +128,7 @@
       localPref = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description = "Per-peer override of the default bgp_local_pref (50).";
+        description = "Per-peer override of the role's localPref (which itself falls back to the base template's 50).";
       };
       multihop = mkOption {
         type = types.nullOr types.int;
@@ -139,6 +144,25 @@
         type = types.nullOr types.bool;
         default = null;
         description = "Override the role's enforceFirstAs for this peer. Null inherits from the role.";
+      };
+      importCommunities = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          Communities to attach to routes received from this peer (in its import filter).
+          Standard communities are "asn,value" (e.g. "63477,100"); large communities are
+          "asn,value1,value2" (e.g. "63477,1,100").
+        '';
+      };
+      exportCommunities = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "Communities to attach to routes announced to this peer (in a per-peer export filter). Same syntax as importCommunities.";
+      };
+      prepend = mkOption {
+        type = types.ints.unsigned;
+        default = 0;
+        description = "Number of extra times to prepend our ASN to routes announced to this peer. Emits a per-peer export filter when > 0.";
       };
       extraConfig = mkOption {
         type = types.lines;
@@ -174,6 +198,22 @@
     then "${peer.name}_${family}_${toString idx}_import"
     else "${peer.name}_${family}_import";
 
+  # Communities: "a,b" -> standard, "a,b,c" -> large.
+  communityParts = c: map lib.strings.trim (lib.splitString "," c);
+  validCommunity = c: let
+    parts = communityParts c;
+  in
+    (lib.length parts == 2 || lib.length parts == 3)
+    && lib.all (p: builtins.match "[0-9]+" p != null) parts;
+
+  mkCommunityAdd = c: let
+    parts = communityParts c;
+    tuple = "(${lib.concatStringsSep ", " parts})";
+  in
+    if lib.length parts == 3
+    then "bgp_large_community.add(${tuple});"
+    else "bgp_community.add(${tuple});";
+
   # Effective irrFilter for a peer: per-peer override wins over the role's setting.
   effectiveIrrFilter = peer:
     if peer.irrFilter != null
@@ -202,6 +242,7 @@
     ++ lib.optional (role.enforceNexthop && neighborIp != null)
     "enforce_peer_nexthop(${neighborIp});"
     ++ ["honor_graceful_shutdown();"]
+    ++ map mkCommunityAdd peer.importCommunities
     ++ ["accept;"];
 
   # One named filter block.
@@ -241,6 +282,10 @@
       if family == "v4"
       then peer.maxPrefixV4
       else peer.maxPrefixV6;
+    localPref =
+      if peer.localPref != null
+      then peer.localPref
+      else role.localPref;
     protName = "${peer.name}_${family}_${toString idx}";
     importFilter = mkFilterName peer family (
       if role.enforceNexthop
@@ -252,10 +297,19 @@
     + "  neighbor ${neighborIp} as ${toString peer.asn};\n"
     + opt (peer.multihop != null) "  multihop ${toString peer.multihop};\n"
     + opt peer.passive "  passive;\n"
-    + opt (peer.localPref != null) "  default bgp_local_pref ${toString peer.localPref};\n"
+    + opt (localPref != null) "  default bgp_local_pref ${toString localPref};\n"
     + "  ${afFamily} {\n"
     + "    import filter ${importFilter};\n"
     + opt (maxPrefix != null) "    import limit ${toString maxPrefix} action restart;\n"
+    + opt (peer.exportCommunities != [] || peer.prepend > 0) (
+      "    export filter {\n"
+      + "      remove_private_asns();\n"
+      + lib.concatStrings (lib.genList (_: "      bgp_path.prepend(ASN);\n") peer.prepend)
+      + lib.concatMapStrings (c: "      ${mkCommunityAdd c}\n") peer.exportCommunities
+      + "      accept_local();\n"
+      + "      reject;\n"
+      + "    };\n"
+    )
     + "  };\n"
     + opt (peer.extraConfig != "") "${peer.extraConfig}\n"
     + "}\n\n";
@@ -481,6 +535,7 @@ in {
         acceptDefault = lib.mkDefault true;
         enforceNexthop = lib.mkDefault false;
         enforceFirstAs = lib.mkDefault true;
+        localPref = lib.mkDefault 100;
       };
       peer = {
         filters = lib.mkDefault [
@@ -494,6 +549,7 @@ in {
         acceptDefault = lib.mkDefault false;
         enforceNexthop = lib.mkDefault true;
         enforceFirstAs = lib.mkDefault true;
+        localPref = lib.mkDefault 200;
       };
       "ixp-rs" = {
         filters = lib.mkDefault [
@@ -507,11 +563,16 @@ in {
         acceptDefault = lib.mkDefault false;
         enforceNexthop = lib.mkDefault false;
         enforceFirstAs = lib.mkDefault false;
+        localPref = lib.mkDefault 150;
       };
     };
 
     assertions =
       lib.concatMap (peer: [
+        {
+          assertion = lib.all validCommunity (peer.importCommunities ++ peer.exportCommunities);
+          message = "routing: peer '${peer.name}' has an invalid community; use \"asn,value\" (standard) or \"asn,value1,value2\" (large), numeric only";
+        }
         {
           assertion = peer.neighborV4 != [] || peer.neighborV6 != [];
           message = "routing: peer '${peer.name}' must have at least one neighborV4 or neighborV6";
