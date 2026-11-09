@@ -30,7 +30,7 @@ in
         enableReload = true;
         package = pkgs.caddy.withPlugins {
           plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
-          hash = "sha256-jNV5COlQTKSJJk8gUZ3KEs8SGC8Z7Aiy5fk7/DvkXIo=";
+          hash = "sha256-Rk4bSro/zhJ39+Ai3umn1RKRv8CZpKSnzJub8MgBUjs=";
         };
         environmentFile = config.age.secrets.cfDnsApiToken.path;
         logFormat = mkIf cfg.verbose (lib.mkForce "level DEBUG\nformat console");
