@@ -58,6 +58,7 @@
           neighborV4 = ["206.53.143.252" "206.53.143.253"];
           neighborV6 = ["2001:504:47::ce35:8ffc:1" "2001:504:47::ce35:8ffd:1"];
           exportCommunities = ["26563,6939"];
+          rejectAsns = [6939];
         }
         {
           name = "cloudflare";

@@ -309,8 +309,35 @@ protocol bgp pe_vermontix_v6_2 from base6 { neighbor 2001:504:137::feed:2 as 628
 | `passive`                     | `false`                | Emits `passive;`. BIRD waits for the peer to initiate             |
 | `importCommunities`           | `[]`                   | Communities added to routes received from this peer (in its import filter, after `honor_graceful_shutdown()`) |
 | `exportCommunities`           | `[]`                   | Communities added to routes announced to this peer. Emits a per-peer `export filter` replacing the template's (same `remove_private_asns(); accept_local();` plus the community adds) |
+| `rejectAsns`                  | `[]`                   | Rejects routes whose AS path contains any listed ASN, anywhere in the path. Runs first in the import filter |
+| `rejectPrefixes`              | `[]`                   | Rejects routes matching these prefixes (BIRD prefix-set syntax, e.g. `"192.0.2.0/24+"`). v4/v6 entries are split by family automatically |
 | `prepend`                     | `0`                    | Prepends our ASN N extra times on routes announced to this peer (per-peer `export filter`, applied after `remove_private_asns()`) |
 | `extraConfig`                 | `""`                   | Appended verbatim inside each protocol block                      |
+
+### Rejecting ASNs / prefixes per peer
+
+Example: don't accept Hurricane Electric (AS6939) routes over the IX route servers:
+
+```nix
+{
+  name       = "pe_vermontix";
+  role       = "ixp-rs";
+  asn        = 62848;
+  asSet      = "AS-VERMONTIX";
+  neighborV6 = [ "2001:504:137::feed:1" "2001:504:137::feed:2" ];
+  rejectAsns = [ 6939 ];
+}
+```
+
+```bird
+filter pe_vermontix_v6_import {
+    if bgp_path ~ [= * 6939 * =] then reject_route("AS6939 in path");
+    if net !~ pe_vermontix_v6 then reject;
+    ...
+}
+```
+
+These checks run at the very top of the import filter. Rejected routes are still retained as filtered (the base templates use `import keep filtered`), so they show in `birdc show route filtered` but are never selected or exported and never reach the kernel.
 
 ### Communities
 

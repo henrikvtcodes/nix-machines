@@ -159,6 +159,16 @@
         default = [];
         description = "Communities to attach to routes announced to this peer (in a per-peer export filter). Same syntax as importCommunities.";
       };
+      rejectAsns = mkOption {
+        type = types.listOf types.int;
+        default = [];
+        description = "Reject any route received from this peer whose AS path contains one of these ASNs (anywhere in the path). E.g. [ 6939 ] to drop Hurricane Electric routes learned over an IX route server.";
+      };
+      rejectPrefixes = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "Prefixes to reject from this peer, in BIRD prefix-set syntax (e.g. \"192.0.2.0/24+\" for the prefix and all more-specifics). IPv4 and IPv6 entries are split automatically into the matching family's filter.";
+      };
       prepend = mkOption {
         type = types.ints.unsigned;
         default = 0;
@@ -234,8 +244,13 @@
       then peer.acceptDefault
       else role.acceptDefault;
     irrSet = "${peer.name}_${family}";
+    familyPrefixes =
+      lib.filter (p: lib.hasInfix ":" p == (family == "v6")) peer.rejectPrefixes;
   in
-    lib.optional acceptDef "if is_default_route() then accept;"
+    map (a: ''if bgp_path ~ [= * ${toString a} * =] then reject_route("AS${toString a} in path");'') peer.rejectAsns
+    ++ lib.optional (familyPrefixes != [])
+    ''if net ~ [${lib.concatStringsSep ", " familyPrefixes}] then reject_route("prefix explicitly rejected");''
+    ++ lib.optional acceptDef "if is_default_route() then accept;"
     ++ lib.optional (effectiveIrrFilter peer && peer.asSet != null) "if net !~ ${irrSet} then reject;"
     ++ map (fn: "${fn}();") role.filters
     ++ lib.optional (effectiveEnforceFirstAs peer) "enforce_first_as(${toString peer.asn});"
