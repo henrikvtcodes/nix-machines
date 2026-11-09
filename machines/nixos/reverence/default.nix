@@ -46,7 +46,7 @@
         localPrefixes = ["2602:f542:530::/48"];
         staticRoutes = [
           {
-            prefix = "2602:f542:bee::/48";
+            prefix = "2602:f542:530::/48";
             via = "SOURCE6";
           }
         ];
